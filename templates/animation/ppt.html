@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spinning Panda Animation</title>
+    <style>
+        /* Dark Screen Background */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #111111;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        svg {
+            width: 100%;
+            max-width: 500px;
+            overflow: visible;
+        }
+
+        /* 1. MAIN PANDA ANIMATION (Spin & Sit) */
+        #panda-wrapper {
+            transform-origin: 250px 250px; /* Center of the panda */
+            animation: spinAndSit 4.5s ease-in-out forwards;
+        }
+
+        /* 2. BALLOON FLOAT (Starts after panda sits) */
+        #balloons {
+            transform-origin: 170px 290px;
+            animation: floatBalloons 3s ease-in-out infinite;
+            animation-delay: 4.5s; /* Wait for spin to finish */
+        }
+
+        /* 3. BOARD POP-UP (Hidden until panda sits) */
+        #birthday-board {
+            opacity: 0;
+            transform-origin: 390px 250px; /* Center of the board */
+            transform: scale(0);
+            animation: popBoard 0.8s 4.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* --- KEYFRAMES --- */
+
+        /* The Spin and Sit Logic */
+        @keyframes spinAndSit {
+            0%   { transform: translateY(150px) scale(0.5); opacity: 0; } /* Appears from bottom */
+            15%  { transform: translateY(0px) scale(1); opacity: 1; } /* Stands ready */
+            20%  { transform: translateY(0px) rotate(0deg); }
+            70%  { transform: translateY(-50px) rotate(1080deg) scale(1); } /* 3 Spins (360x3) in air */
+            85%  { transform: translateY(20px) rotate(1080deg) scale(1.05, 0.9); } /* Lands & squishes (sits) */
+            100% { transform: translateY(0px) rotate(1080deg) scale(1); } /* Rests in sitting pose */
+        }
+
+        /* Board Pop-up with a bounce effect */
+        @keyframes popBoard {
+            0%   { opacity: 0; transform: scale(0) rotate(-20deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        /* Gentle floating for balloons */
+        @keyframes floatBalloons {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50%      { transform: translateY(-12px) rotate(3deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+        
+        <!-- Everything is wrapped inside #panda-wrapper to spin together -->
+        <g id="panda-wrapper">
+            
+            <!-- ================= BALLOONS (Left Hand) ================= -->
+            <g id="balloons">
+                <!-- Strings -->
+                <path d="M 120,150 Q 150,250 170,290" fill="none" stroke="#777" stroke-width="2"/>
+                <path d="M 170,120 Q 160,200 170,290" fill="none" stroke="#777" stroke-width="2"/>
+                <path d="M 220,140 Q 190,220 170,290" fill="none" stroke="#777" stroke-width="2"/>
+                
+                <!-- Balloons -->
+                <ellipse cx="120" cy="130" rx="35" ry="45" fill="#FF69B4" />
+                <polygon points="120,175 115,185 125,185" fill="#FF69B4" />
+                
+                <ellipse cx="170" cy="100" rx="40" ry="50" fill="#E63946" />
+                <polygon points="170,150 165,160 175,160" fill="#E63946" />
+                
+                <ellipse cx="220" cy="120" rx="30" ry="40" fill="#FCE4EC" stroke="#FF69B4" stroke-width="2"/>
+                <polygon points="220,160 215,170 225,170" fill="#FCE4EC" stroke="#FF69B4" stroke-width="2"/>
+            </g>
+
+            <!-- ================= BABY PANDA ================= -->
+            <!-- Back Legs -->
+            <ellipse cx="210" cy="380" rx="25" ry="35" fill="#222" />
+            <ellipse cx="290" cy="380" rx="25" ry="35" fill="#222" />
+            
+            <!-- Body -->
+            <ellipse cx="250" cy="320" rx="65" ry="75" fill="#fff" stroke="#ddd" stroke-width="4"/>
+            
+            <!-- Black Chest/Shoulder Patch -->
+            <path d="M 185,270 Q 250,330 315,270 L 320,300 Q 250,350 180,300 Z" fill="#222" />
+
+            <!-- Ears -->
+            <circle cx="190" cy="180" r="25" fill="#222" />
+            <circle cx="310" cy="180" r="25" fill="#222" />
+
+            <!-- Head -->
+            <ellipse cx="250" cy="220" rx="70" ry="60" fill="#fff" stroke="#ddd" stroke-width="4"/>
+
+            <!-- Eye Patches (Black) -->
+            <ellipse cx="215" cy="215" rx="18" ry="25" fill="#222" transform="rotate(-15 215 215)"/>
+            <ellipse cx="285" cy="215" rx="18" ry="25" fill="#222" transform="rotate(15 285 215)"/>
+
+            <!-- Eyes (White & Pupils) -->
+            <circle cx="215" cy="210" r="6" fill="#fff" />
+            <circle cx="217" cy="208" r="3" fill="#000" />
+            <circle cx="285" cy="210" r="6" fill="#fff" />
+            <circle cx="283" cy="208" r="3" fill="#000" />
+
+            <!-- Nose -->
+            <ellipse cx="250" cy="235" rx="8" ry="5" fill="#222" />
+            
+            <!-- Big Cute Smile -->
+            <path d="M 235,242 Q 250,258 265,242" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+            
+            <!-- Pink Blush for cuteness -->
+            <ellipse cx="190" cy="235" rx="12" ry="6" fill="#FF69B4" opacity="0.5" />
+            <ellipse cx="310" cy="235" rx="12" ry="6" fill="#FF69B4" opacity="0.5" />
+
+            <!-- Left Arm (Holding Balloons) -->
+            <ellipse cx="170" cy="290" rx="15" ry="35" fill="#222" transform="rotate(45 170 290)"/>
+            
+            <!-- Right Arm (Holding Board) -->
+            <ellipse cx="330" cy="290" rx="15" ry="35" fill="#222" transform="rotate(-45 330 290)"/>
+
+            <!-- ================= BIRTHDAY BOARD (Right Hand) ================= -->
+            <!-- Wrapped in #birthday-board to pop out later -->
+            <g id="birthday-board">
+                <!-- Wooden Stick -->
+                <rect x="345" y="280" width="10" height="90" fill="#8B4513" rx="3"/>
+                
+                <!-- Board Base -->
+                <rect x="310" y="210" width="160" height="80" rx="10" fill="#FFE4B5" stroke="#D2691E" stroke-width="4" />
+                
+                <!-- Board Text -->
+                <text x="390" y="240" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#880E4F" text-anchor="middle">HAPPY</text>
+                <text x="390" y="260" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#880E4F" text-anchor="middle">BIRTHDAY</text>
+                <text x="390" y="275" font-family="Arial, sans-serif" font-size="12" fill="#E63946" text-anchor="middle">to you! 🎉</text>
+            </g>
+
+        </g>
+    </svg>
+
+</body>
+</html>
