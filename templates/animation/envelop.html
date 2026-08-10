@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- CRITICAL FOR MOBILE: This meta tag ensures perfect scaling across all devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Welcome In My Heart - The Flawless Romantic Edition</title>
+    <style>
+        /* ==========================================================================
+           1. CORE CSS VARIABLES (THE SECRET TO FLAWLESS RESPONSIVENESS)
+           ========================================================================== */
+        :root {
+            /* 
+               MOBILE FIRST APPROACH (< 600px)
+               Uses Viewport Width (vw) so it automatically shrinks/grows with the screen.
+            */
+            --env-width: 75vw;
+            --env-height: 60vw;
+            
+            --teddy-width: 40vw;
+            --teddy-height: 60vw;
+            /* Negative offset overlaps them slightly BEHIND the envelope on mobile */
+            --teddy-offset: -16vw; 
+            
+            /* Letter slides exactly based on vw so it never detaches from the envelope */
+            --letter-lift: -42vw; 
+            
+            --heart-size: 22vw;
+            --type-font: 3vw;
+            --quote-top-font: 2.8vw;
+            --quote-bot-font: 2.2vw;
+            
+            --title-bottom: 4vh;
+            --title-size: 8vw;
+        }
+
+        /* TABLET SCREENS (600px to 1024px) */
+        @media (min-width: 600px) {
+            :root {
+                --env-width: 50vw;
+                --env-height: 35vw;
+                
+                --teddy-width: 30vw;
+                --teddy-height: 45vw;
+                --teddy-offset: -12vw;
+                
+                --letter-lift: -26vw;
+                
+                --heart-size: 20vw;
+                --type-font: 2.5vw;
+                --quote-top-font: 2vw;
+                --quote-bot-font: 1.8vw;
+                
+                --title-bottom: 10vh;
+                --title-size: 5vw;
+            }
+        }
+
+        /* DESKTOP SCREENS (> 1024px) - FIXED DESKTOP CUT-OFF ISSUE */
+        @media (min-width: 1024px) {
+            :root {
+                --env-width: 32vw;   /* Scaled down to fit laptop heights */
+                --env-height: 22vw;
+                
+                --teddy-width: 18vw;
+                --teddy-height: 28vw;
+                /* Pushes teddies completely outside the envelope on PC */
+                --teddy-offset: -14vw; 
+                
+                /* Letter lift adjusted so it stays safely below the top edge of the monitor */
+                --letter-lift: -14.3vw; 
+                
+                --heart-size: 11vw;
+                --type-font: 1.6vw;
+                --quote-top-font: 1.1vw;
+                --quote-bot-font: 0.8vw;
+                
+                --title-bottom: 6vh;
+                --title-size: 3vw;
+            }
+        }
+
+        /* ==========================================================================
+           2. GLOBAL RESET & BASE
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #2b0b16;
+            font-family: 'Georgia', serif;
+        }
+
+        /* ==========================================================================
+           3. BACKGROUND IMAGES, BOKEH & OVERLAYS
+           ========================================================================== */
+        /* High quality romantic background image */
+        .real-background-image {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=2000&auto=format&fit=crop');
+            background-position: center; 
+            background-size: cover; 
+            background-repeat: no-repeat;
+            z-index: 1; 
+            /* Kept bright and clear forever */
+            filter: brightness(0.85) contrast(1.15) saturate(1.1);
+        }
+
+        /* Soft pink tint to make the scene romantic */
+        .background-pink-overlay {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background-image: radial-gradient(circle at center, rgba(255, 180, 200, 0.1) 0%, rgba(100, 10, 30, 0.5) 100%);
+            z-index: 2; 
+            pointer-events: none;
+        }
+
+        /* Layer for floating glowing orbs */
+        .bokeh-particle-layer {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 3; 
+            pointer-events: none;
+        }
+
+        .bokeh-light {
+            position: absolute; 
+            border-radius: 50%;
+            background-image: radial-gradient(circle, rgba(255, 150, 180, 0.6) 0%, rgba(255, 150, 180, 0) 70%);
+            animation: floatBokehLight 6s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatBokehLight {
+            0% { 
+                transform: translateY(0px) scale(1); 
+                opacity: 0.3; 
+            }
+            100% { 
+                transform: translateY(-80px) scale(1.6); 
+                opacity: 0.8; 
+            }
+        }
+
+        /* Main 3D Container */
+        #main-scene-container {
+            width: 100%; 
+            height: 100vh; 
+            position: relative; 
+            z-index: 10;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            perspective: 2000px;
+        }
+
+        /* ==========================================================================
+           4. MASTER WRAPPER (Centers Envelope and Teddies securely)
+           ========================================================================== */
+        #composition-master-wrapper {
+            position: relative;
+            /* Dimensions driven entirely by CSS Variables for flawless scaling */
+            width: var(--env-width);
+            height: var(--env-height);
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            opacity: 0; 
+            transform: translateY(80px);
+            animation: sceneEntrance 1.5s 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes sceneEntrance {
+            0% { 
+                opacity: 0; 
+                transform: translateY(80px); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(6vh); /* Slightly lowered to ensure top part never cuts off */
+            }
+        }
+
+        /* ==========================================================================
+           5. REALISTIC TEDDIES (With Proper Layering & Waving Hands)
+           ========================================================================== */
+        .teddy-bear-container {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: var(--teddy-width);
+            height: var(--teddy-height);
+            /* CRITICAL FIX: Z-index 5 puts them BEHIND the Envelope (Z-index 15). 
+               This ensures no messy overlap on mobile screens! */
+            z-index: 5; 
+            filter: drop-shadow(0px 15px 15px rgba(0, 0, 0, 0.6));
+        }
+
+        #flanking-teddy-left {
+            left: var(--teddy-offset);
+        }
+
+        #flanking-teddy-right {
+            right: var(--teddy-offset);
+            transform: translateY(-50%) scaleX(-1); /* Flips right teddy horizontally */
+        }
+
+        .teddy-bear-svg { 
+            width: 100%; 
+            height: 100%; 
+            overflow: visible; 
+        }
+
+        /* Body Breathing Animation */
+        .teddy-breathing-group {
+            animation: teddyBreatheMotion 3.5s infinite ease-in-out;
+            transform-origin: 200px 450px; /* Pivots from the bottom center */
+        }
+
+        @keyframes teddyBreatheMotion {
+            0%, 100% { transform: scaleY(1) scaleX(1); }
+            50%      { transform: scaleY(1.02) scaleX(0.98); }
+        }
+
+        /* REALISTIC WAVING ARM ANIMATION (FIXED HAND POSITION & SPEED) */
+        .arm-waving-animation {
+            animation: waveHandHigh 2s infinite ease-in-out;
+            transform-origin: 100px 240px; /* Pivots perfectly at the shoulder socket */
+        }
+
+        @keyframes waveHandHigh {
+            0%, 100% { transform: rotate(15deg); } /* Slightly inwards */
+            50%      { transform: rotate(-25deg); } /* Waves OUTWARDS (away from head) */
+        }
+
+        /* REALISTIC EYELID BLINK (Not just scaling the black eye!) */
+        .real-eyelid-blink {
+            /* Positioned exactly over the left eye */
+            transform-origin: 155px 125px; /* Top edge of the eye */
+            animation: eyelidDropSequence 4.5s infinite;
+        }
+
+        @keyframes eyelidDropSequence {
+            0%, 90%, 100% { 
+                transform: scaleY(0); /* Hidden */
+            }
+            95% { 
+                transform: scaleY(1); /* Drops down to cover the eye */
+            }
+        }
+
+        /* ==========================================================================
+           6. THE 3D ENVELOPE ARCHITECTURE (Mathematical precision)
+           ========================================================================== */
+        #envelope-3d-wrapper {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            transform-style: preserve-3d; 
+            /* Z-index 15 guarantees it sits IN FRONT of the Teddies */
+            z-index: 15;
+            filter: drop-shadow(0px 25px 20px rgba(0, 0, 0, 0.7));
+        }
+
+        /* Layer 1: Envelope Back Wall */
+        .envelope-back-panel {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background-image: linear-gradient(135deg, #d6a345, #9c7324);
+            border-radius: 8px; 
+            box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 0.6); 
+            z-index: 10;
+        }
+
+        /* Envelope Dark Interior */
+        .envelope-dark-inside {
+            position: absolute; 
+            top: 5px; 
+            left: 5px; 
+            right: 5px; 
+            bottom: 5px;
+            background-color: #2b1702; 
+            border-radius: 6px; 
+            z-index: 11;
+        }
+
+        /* ==========================================================================
+           7. THE HIDDEN LETTER & ROMANTIC TEXT (Perfect Layout)
+           ========================================================================== */
+        #hidden-letter-card {
+            position: absolute;
+            bottom: 5px; 
+            left: 4%; 
+            width: 92%; 
+            height: 95%; /* Fits entirely within the envelope */
+            background-color: #ffffff;
+            background-image: linear-gradient(180deg, #ffffff 0%, #ffe6f0 100%);
+            border: 3px solid #ff4d79; 
+            border-radius: 6px 6px 0 0;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+            z-index: 20; /* Safely tucked between Back Wall and Front Flaps */
+            
+            /* Flexbox layout for inner text alignment */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: flex-start;
+            padding: 10px;
+            
+            /* Starts hidden perfectly inside */
+            transform: translateY(0); 
+            transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Dashed Border Decoration */
+        .letter-inner-border {
+            position: absolute; 
+            top: 5px; 
+            left: 5px; 
+            right: 5px; 
+            bottom: 5px;
+            border: 2px dashed #ff80a6; 
+            pointer-events: none;
+        }
+
+        /* Dynamic Quote Typography */
+        .letter-quote-top {
+            font-family: 'Dancing Script', 'Brush Script MT', cursive;
+            font-size: var(--quote-top-font); 
+            font-weight: bold; 
+            color: #8b003c;
+            text-align: center; 
+            margin-top: 4%; 
+            margin-bottom: 5px;
+            opacity: 0; 
+            transition: opacity 1s 1s;
+        }
+
+        .letter-quote-bottom {
+            font-family: 'Georgia', serif; 
+            font-style: italic;
+            font-size: var(--quote-bot-font); 
+            color: #550022;
+            text-align: center; 
+            line-height: 1.3; 
+            margin-top: auto; 
+            margin-bottom: 5.5%;
+            opacity: 0; 
+            transition: opacity 1s 1.5s;
+        }
+
+        /* 3D Heart Container */
+        .letter-heart-container {
+            width: var(--heart-size); 
+            height: var(--heart-size);
+            position: relative; 
+            margin-top: 2%;
+            margin-bottom: 4%;
+            filter: drop-shadow(0px 8px 10px rgba(220, 20, 60, 0.4));
+            animation: pageHeartBeat 1.5s infinite alternate;
+        }
+
+        @keyframes pageHeartBeat { 
+            0% { transform: scale(1); } 
+            100% { transform: scale(1.08); } 
+        }
+
+        .red-heart-svg { 
+            width: 100%; 
+            height: 100%; 
+        }
+
+        /* FIXED: Typewriter Text exactly centered inside the heart */
+        #dynamic-typewriter-text {
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            width: 85%; /* Keeps it from spilling out of the heart */
+            text-align: center;
+            font-family: 'Dancing Script', 'Brush Script MT', cursive;
+            font-size: var(--type-font); 
+            font-weight: bold; 
+            color: #ffffff;
+            line-height: 1.2; 
+            text-shadow: 2px 2px 4px rgba(50, 0, 0, 0.9);
+        }
+
+        /* Individual words for typewriter animation */
+        .type-word {
+            opacity: 0; 
+            display: inline-block; 
+            margin: 0 2px;
+            transform: translateY(5px); 
+            transition: all 0.4s ease-out;
+        }
+
+        .type-word.is-visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+
+        /* ==========================================================================
+           8. ENVELOPE FRONT FLAPS (Computed with Calc for zero breakage)
+           ========================================================================== */
+        .envelope-front-flaps {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 30; /* Overlaps the letter card */
+            pointer-events: none;
+        }
+
+        /* Left Side Triangle */
+        .env-flap-left {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 0; 
+            height: 0;
+            border-left: calc(var(--env-width) / 2 + 2px) solid #e6b24e;
+            border-top: calc(var(--env-height) / 2) solid transparent;
+            border-bottom: calc(var(--env-height) / 2) solid transparent;
+            border-radius: 8px 0 0 8px;
+        }
+
+        /* Right Side Triangle */
+        .env-flap-right {
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            width: 0; 
+            height: 0;
+            border-right: calc(var(--env-width) / 2 + 2px) solid #b8882b;
+            border-top: calc(var(--env-height) / 2) solid transparent;
+            border-bottom: calc(var(--env-height) / 2) solid transparent;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Bottom Triangle */
+        .env-flap-bottom {
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 0; 
+            height: 0;
+            border-left: calc(var(--env-width) / 2) solid transparent;
+            border-right: calc(var(--env-width) / 2) solid transparent;
+            border-bottom: calc(var(--env-height) * 0.65) solid #f7ca68;
+            border-radius: 0 0 8px 8px;
+            filter: drop-shadow(0px -3px 5px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Gold Decorative Lines */
+        .env-gold-lines {
+            position: absolute; 
+            bottom: 15px; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width: 80%; 
+            height: 20px; 
+            border-bottom: 4px double rgba(255, 255, 255, 0.7);
+            z-index: 31;
+        }
+
+        /* Top Opening Flap */
+        .envelope-top-flap {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 0; 
+            height: 0;
+            border-left: calc(var(--env-width) / 2) solid transparent;
+            border-right: calc(var(--env-width) / 2) solid transparent;
+            border-top: calc(var(--env-height) * 0.65) solid #ffd87a;
+            transform-origin: top; 
+            z-index: 40;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.6s;
+            filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.5));
+        }
+
+        /* Royal Wax Seal */
+        .royal-wax-seal {
+            position: absolute; 
+            top: calc(var(--env-height) * 0.5); 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            width: clamp(35px, 5vw, 60px); 
+            height: clamp(35px, 5vw, 60px);
+            background: radial-gradient(circle, #ff2a2a, #800000); 
+            border-radius: 50%;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.6), inset 0px 0px 10px rgba(0,0,0,0.9);
+            z-index: 41; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            transition: opacity 0.5s;
+        }
+
+        .royal-wax-seal::after {
+            content: '❤'; 
+            font-size: clamp(16px, 2.5vw, 26px); 
+            color: #ffd700; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+
+        /* ==========================================================================
+           9. BRANDING TITLE (Yaadon Ka Lifafa)
+           ========================================================================== */
+        .branding-title-bottom {
+            position: absolute;
+            bottom: var(--title-bottom);
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', 'Brush Script MT', cursive;
+            font-size: var(--title-size);
+            color: #ffccdc;
+            text-shadow: 0px 0px 10px #ff0055, 0px 0px 20px #ff0055, 2px 2px 4px rgba(0,0,0,0.9);
+            white-space: nowrap;
+            opacity: 0;
+            animation: brandFadeIn 2s 2s forwards;
+            z-index: 100;
+        }
+
+        @keyframes brandFadeIn { 
+            0% { opacity: 0; } 
+            100% { opacity: 1; } 
+        }
+
+        /* ==========================================================================
+           10. FULL-SCREEN CONFETTI ENGINE
+           ========================================================================== */
+        #party-confetti-canvas {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 9999; 
+            pointer-events: none; 
+            overflow: hidden;
+        }
+
+        .confetti-ribbon-piece {
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            opacity: 0;
+            animation: blastPopper360 forwards cubic-bezier(0.1, 0.8, 0.3, 1);
+        }
+
+        @keyframes blastPopper360 {
+            0% { transform: translate(0px, 0px) rotate(0deg) scale(0); opacity: 1; }
+            10% { opacity: 1; scale: 1.5; }
+            80% { opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1); opacity: 0; }
+        }
+
+        /* ==========================================================================
+           11. JAVASCRIPT ANIMATION TRIGGER CLASSES
+           ========================================================================== */
+        /* Opens Flap backwards */
+        .scene-is-open .envelope-top-flap {
+            transform: rotateX(180deg); 
+            z-index: 5; 
+            filter: drop-shadow(0px -3px 5px rgba(0, 0, 0, 0.3));
+        }
+
+        .scene-is-open .royal-wax-seal { 
+            opacity: 0; 
+        }
+
+        /* Letter emerges UP, but securely inside the envelope */
+        .scene-is-open #hidden-letter-card {
+            transform: translateY(var(--letter-lift));
+        }
+
+        .scene-is-open .letter-quote-top, 
+        .scene-is-open .letter-quote-bottom { 
+            opacity: 1; 
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Bright and Colorful Background -->
+<div class="real-background-image"></div>
+<div class="background-pink-overlay"></div>
+
+<!-- Title at Bottom -->
+<div class="branding-title-bottom">💌Yaadon Ka Lifafa💌</div>
+
+<!-- Confetti Canvas -->
+<div id="party-confetti-canvas"></div>
+
+<div id="main-scene-container">
+    
+    <!-- Floating Bokeh Lights -->
+    <div class="bokeh-particle-layer" id="bokeh-particle-container"></div>
+
+    <!-- Master Wrapper ensuring proportions stay perfect -->
+    <div id="composition-master-wrapper">
+        
+        <!-- ==========================================================================
+             LEFT TEDDY BEAR (FULLY EXPANDED SVG WITH FIXED ARMS)
+             ========================================================================== -->
+        <div class="teddy-bear-container" id="flanking-teddy-left">
+            <svg class="teddy-bear-svg" viewBox="0 0 400 500">
+                <defs>
+                    <radialGradient id="pinkFurBase" cx="40%" cy="30%" r="65%">
+                        <stop offset="0%" stop-color="#ffccdc"/>
+                        <stop offset="60%" stop-color="#ff6699"/>
+                        <stop offset="100%" stop-color="#b30047"/>
+                    </radialGradient>
+                    <radialGradient id="pinkFurDark" cx="30%" cy="30%" r="70%">
+                        <stop offset="0%" stop-color="#ff3377"/>
+                        <stop offset="100%" stop-color="#800033"/>
+                    </radialGradient>
+                    <radialGradient id="snoutColor" cx="40%" cy="30%" r="60%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="100%" stop-color="#ffb3cc"/>
+                    </radialGradient>
+                </defs>
+
+                <g class="teddy-breathing-group">
+                    
+                    <!-- Left Leg -->
+                    <ellipse cx="140" cy="420" rx="55" ry="75" fill="url(#pinkFurDark)" transform="rotate(-15 140 420)"/>
+                    <ellipse cx="130" cy="460" rx="35" ry="50" fill="url(#snoutColor)" transform="rotate(-15 130 460)"/>
+                    <ellipse cx="130" cy="465" rx="15" ry="20" fill="#ff1493" transform="rotate(-15 130 465)"/>
+                    <circle cx="110" cy="435" r="8" fill="#ff1493"/>
+                    <circle cx="130" cy="425" r="8" fill="#ff1493"/>
+                    <circle cx="150" cy="435" r="8" fill="#ff1493"/>
+
+                    <!-- Right Leg -->
+                    <ellipse cx="260" cy="420" rx="55" ry="75" fill="url(#pinkFurDark)" transform="rotate(15 260 420)"/>
+                    <ellipse cx="270" cy="460" rx="35" ry="50" fill="url(#snoutColor)" transform="rotate(15 270 460)"/>
+                    <ellipse cx="270" cy="465" rx="15" ry="20" fill="#ff1493" transform="rotate(15 270 465)"/>
+                    <circle cx="290" cy="435" r="8" fill="#ff1493"/>
+                    <circle cx="270" cy="425" r="8" fill="#ff1493"/>
+                    <circle cx="250" cy="435" r="8" fill="#ff1493"/>
+
+                    <!-- Body -->
+                    <ellipse cx="200" cy="300" rx="130" ry="150" fill="url(#pinkFurBase)"/>
+                    <ellipse cx="200" cy="320" rx="90" ry="110" fill="url(#snoutColor)" opacity="0.9"/>
+
+                    <!-- Right Arm (Resting Down) -->
+                    <ellipse cx="310" cy="280" rx="40" ry="90" fill="url(#pinkFurDark)" transform="rotate(-25 310 280)"/>
+
+                    <!-- Left Ear -->
+                    <circle cx="110" cy="110" r="45" fill="url(#pinkFurDark)"/>
+                    <circle cx="110" cy="110" r="25" fill="#ff1493"/>
+                    
+                    <!-- Right Ear -->
+                    <circle cx="290" cy="110" r="45" fill="url(#pinkFurDark)"/>
+                    <circle cx="290" cy="110" r="25" fill="#ff1493"/>
+                    
+                    <!-- Head Base -->
+                    <circle cx="200" cy="160" r="110" fill="url(#pinkFurBase)"/>
+
+                    <!-- Right Eye -->
+                    <circle cx="245" cy="140" r="14" fill="#111"/>
+                    <circle cx="248" cy="135" r="5" fill="#fff"/>
+                    
+                    <!-- Left Eye (WINK TARGET) -->
+                    <g class="eye-blink-group">
+                        <circle cx="155" cy="140" r="14" fill="#111"/>
+                        <circle cx="158" cy="135" r="5" fill="#fff"/>
+                    </g>
+                    <!-- Left Eyelid -->
+                    <path class="eyelid-closed-curve" d="M 140 142 Q 155 155 170 142" fill="none" stroke="#000" stroke-width="4.5" stroke-linecap="round"/>
+
+                    <!-- Cheeks (Blush) -->
+                    <ellipse cx="130" cy="170" rx="25" ry="15" fill="#ff1493" opacity="0.6" filter="blur(3px)"/>
+                    <ellipse cx="270" cy="170" rx="25" ry="15" fill="#ff1493" opacity="0.6" filter="blur(3px)"/>
+                    
+                    <!-- Snout & Nose -->
+                    <ellipse cx="200" cy="185" rx="45" ry="35" fill="url(#snoutColor)"/>
+                    <ellipse cx="200" cy="170" rx="15" ry="10" fill="#111"/>
+                    <ellipse cx="203" cy="167" rx="5" ry="3" fill="#fff" opacity="0.8"/>
+                    
+                    <!-- Smile Line -->
+                    <path d="M 180 190 Q 200 215 220 190" fill="none" stroke="#111" stroke-width="4.5" stroke-linecap="round"/>
+                    
+                    <!-- Red Bow Tie -->
+                    <path d="M 200 250 L 155 225 L 155 275 Z" fill="#b30000"/>
+                    <path d="M 200 250 L 245 225 L 245 275 Z" fill="#b30000"/>
+                    <circle cx="200" cy="250" r="16" fill="#ff1a1a"/>
+
+                    <!-- CRITICAL FIX: LEFT ARM (HI WAVING ANIMATION) PLACED AFTER HEAD SO IT OVERLAPS! -->
+                    <g class="arm-waving-animation">
+                        <!-- Upper Arm pointing outward/upward -->
+                        <ellipse cx="80" cy="180" rx="35" ry="80" fill="url(#pinkFurDark)" transform="rotate(-20 80 180)"/>
+                        <!-- Hand / Paw Pad -->
+                        <circle cx="50" cy="110" r="38" fill="url(#pinkFurDark)"/>
+                        <!-- Central Pink Pad -->
+                        <ellipse cx="50" cy="115" rx="16" ry="12" fill="#ff1493"/>
+                        <!-- 3 Toe Beans facing user -->
+                        <circle cx="30" cy="95" r="7" fill="#ff1493"/>
+                        <circle cx="50" cy="85" r="7" fill="#ff1493"/>
+                        <circle cx="70" cy="95" r="7" fill="#ff1493"/>
+                    </g>
+
+                </g>
+            </svg>
+        </div>
+
+        <!-- ==========================================================================
+             RIGHT TEDDY BEAR (Automatically Mirrors Left Teddy)
+             ========================================================================== -->
+        <div class="teddy-bear-container" id="flanking-teddy-right">
+            <svg class="teddy-bear-svg" viewBox="0 0 400 500">
+                <g class="teddy-breathing-group">
+                    <!-- Left Leg -->
+                    <ellipse cx="140" cy="420" rx="55" ry="75" fill="url(#pinkFurDark)" transform="rotate(-15 140 420)"/>
+                    <ellipse cx="130" cy="460" rx="35" ry="50" fill="url(#snoutColor)" transform="rotate(-15 130 460)"/>
+                    <ellipse cx="130" cy="465" rx="15" ry="20" fill="#ff1493" transform="rotate(-15 130 465)"/>
+                    <circle cx="110" cy="435" r="8" fill="#ff1493"/>
+                    <circle cx="130" cy="425" r="8" fill="#ff1493"/>
+                    <circle cx="150" cy="435" r="8" fill="#ff1493"/>
+
+                    <!-- Right Leg -->
+                    <ellipse cx="260" cy="420" rx="55" ry="75" fill="url(#pinkFurDark)" transform="rotate(15 260 420)"/>
+                    <ellipse cx="270" cy="460" rx="35" ry="50" fill="url(#snoutColor)" transform="rotate(15 270 460)"/>
+                    <ellipse cx="270" cy="465" rx="15" ry="20" fill="#ff1493" transform="rotate(15 270 465)"/>
+                    <circle cx="290" cy="435" r="8" fill="#ff1493"/>
+                    <circle cx="270" cy="425" r="8" fill="#ff1493"/>
+                    <circle cx="250" cy="435" r="8" fill="#ff1493"/>
+
+                    <!-- Body -->
+                    <ellipse cx="200" cy="300" rx="130" ry="150" fill="url(#pinkFurBase)"/>
+                    <ellipse cx="200" cy="320" rx="90" ry="110" fill="url(#snoutColor)" opacity="0.9"/>
+
+                    <!-- Right Arm (Resting Down) -->
+                    <ellipse cx="310" cy="280" rx="40" ry="90" fill="url(#pinkFurDark)" transform="rotate(-25 310 280)"/>
+
+                    <!-- Left Ear -->
+                    <circle cx="110" cy="110" r="45" fill="url(#pinkFurDark)"/>
+                    <circle cx="110" cy="110" r="25" fill="#ff1493"/>
+                    
+                    <!-- Right Ear -->
+                    <circle cx="290" cy="110" r="45" fill="url(#pinkFurDark)"/>
+                    <circle cx="290" cy="110" r="25" fill="#ff1493"/>
+                    
+                    <!-- Head Base -->
+                    <circle cx="200" cy="160" r="110" fill="url(#pinkFurBase)"/>
+
+                    <!-- Right Eye -->
+                    <circle cx="245" cy="140" r="14" fill="#111"/>
+                    <circle cx="248" cy="135" r="5" fill="#fff"/>
+                    
+                    <!-- Left Eye (WINK TARGET) -->
+                    <g class="eye-blink-group">
+                        <circle cx="155" cy="140" r="14" fill="#111"/>
+                        <circle cx="158" cy="135" r="5" fill="#fff"/>
+                    </g>
+                    <!-- Left Eyelid -->
+                    <path class="eyelid-closed-curve" d="M 140 142 Q 155 155 170 142" fill="none" stroke="#000" stroke-width="4.5" stroke-linecap="round"/>
+
+                    <!-- Cheeks (Blush) -->
+                    <ellipse cx="130" cy="170" rx="25" ry="15" fill="#ff1493" opacity="0.6" filter="blur(3px)"/>
+                    <ellipse cx="270" cy="170" rx="25" ry="15" fill="#ff1493" opacity="0.6" filter="blur(3px)"/>
+                    
+                    <!-- Snout & Nose -->
+                    <ellipse cx="200" cy="185" rx="45" ry="35" fill="url(#snoutColor)"/>
+                    <ellipse cx="200" cy="170" rx="15" ry="10" fill="#111"/>
+                    <ellipse cx="203" cy="167" rx="5" ry="3" fill="#fff" opacity="0.8"/>
+                    
+                    <!-- Smile Line -->
+                    <path d="M 180 190 Q 200 215 220 190" fill="none" stroke="#111" stroke-width="4.5" stroke-linecap="round"/>
+                    
+                    <!-- Red Bow Tie -->
+                    <path d="M 200 250 L 155 225 L 155 275 Z" fill="#b30000"/>
+                    <path d="M 200 250 L 245 225 L 245 275 Z" fill="#b30000"/>
+                    <circle cx="200" cy="250" r="16" fill="#ff1a1a"/>
+
+                    <!-- Waving Arm (Drawn last to overlap head!) -->
+                    <g class="arm-waving-animation">
+                        <ellipse cx="80" cy="180" rx="35" ry="80" fill="url(#pinkFurDark)" transform="rotate(-20 80 180)"/>
+                        <circle cx="50" cy="110" r="38" fill="url(#pinkFurDark)"/>
+                        <ellipse cx="50" cy="115" rx="16" ry="12" fill="#ff1493"/>
+                        <circle cx="30" cy="95" r="7" fill="#ff1493"/>
+                        <circle cx="50" cy="85" r="7" fill="#ff1493"/>
+                        <circle cx="70" cy="95" r="7" fill="#ff1493"/>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <!-- ==========================================================================
+             THE 3D ENVELOPE (PERFECT Z-INDEX STRUCTURE)
+             ========================================================================== -->
+        <div id="envelope-3d-wrapper">
+            
+            <!-- LAYER 1: The Back Panel of the Envelope -->
+            <div class="envelope-back-panel"></div>
+            <div class="envelope-dark-inside"></div>
+            
+            <!-- LAYER 2: The Hidden Letter Card (Tucked safely inside) -->
+            <div id="hidden-letter-card">
+                
+                <div class="letter-inner-border"></div>
+                
+                <div class="letter-quote-top">My Dearest Person🫵💌👉,</div>
+                
+                <!-- Center 3D Heart -->
+                <div class="letter-heart-container">
+                    
+                    <svg class="red-heart-svg" viewBox="0 0 100 100" overflow="visible">
+                        <defs>
+                            <radialGradient id="redHeartFill" cx="30%" cy="30%" r="70%">
+                                <stop offset="0%" stop-color="#ff80a6"/>
+                                <stop offset="40%" stop-color="#e6004c"/>
+                                <stop offset="100%" stop-color="#80002a"/>
+                            </radialGradient>
+                        </defs>
+                        <!-- Proper Heart Shape Path -->
+                        <path d="M 50,90 C 50,90 10,60 10,30 C 10,10 35,10 50,30 C 65,10 90,10 90,30 C 90,60 50,90 50,90 Z" fill="url(#redHeartFill)"/>
+                    </svg>
+                    
+                    <!-- Dynamic Typewriter Text (Strictly bounded inside the heart) -->
+                    <div id="dynamic-typewriter-text"></div>
+
+                </div>
+                
+                <div class="letter-quote-bottom">
+                    Every moment with you is a blessing.<br>
+                    You make my world beautiful. Happy Birthday! 🎉
+                </div>
+
+            </div>
+
+            <!-- LAYER 3: Front Flaps (These completely cover the bottom half of the letter) -->
+            <div class="envelope-front-flaps">
+                <div class="env-flap-left"></div>
+                <div class="env-flap-right"></div>
+                <div class="env-flap-bottom"></div>
+                <div class="env-gold-lines"></div>
+            </div>
+            
+            <!-- LAYER 4: Top Flap (Opens backwards to reveal everything) -->
+            <div class="envelope-top-flap">
+                <div class="royal-wax-seal"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================================================
+     JAVASCRIPT: STRICT TIMELINES & FULL SCREEN CONFETTI PHYSICS
+     ========================================================================== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Cache DOM Elements
+    const masterWrapper = document.getElementById('composition-master-wrapper');
+    const typewriterContainer = document.getElementById('dynamic-typewriter-text');
+    const bokehContainer = document.getElementById('bokeh-particle-container');
+    const confettiCanvas = document.getElementById('party-confetti-canvas');
+    
+    // The exact text requested
+    const fullMessage = "Best Wishes For You Dear💖";
+    const wordsArray = fullMessage.split(" ");
+
+    // 1. Generate Romantic Floating Bokeh Background
+    function createBokehLights() {
+        for(let i = 0; i < 40; i++) {
+            const bokeh = document.createElement('div');
+            bokeh.className = 'bokeh-light';
+            
+            const size = Math.random() * 50 + 20;
+            bokeh.style.width = size + 'px';
+            bokeh.style.height = size + 'px';
+            bokeh.style.left = Math.random() * 100 + 'vw';
+            bokeh.style.top = Math.random() * 100 + 'vh';
+            
+            bokeh.style.animationDuration = (Math.random() * 7 + 4) + 's';
+            bokeh.style.animationDelay = (Math.random() * 4) + 's';
+            
+            bokehContainer.appendChild(bokeh);
+        }
+    }
+    createBokehLights();
+
+    // 2. TIMELINE MASTER CONTROL
+
+    // Event A: Wait 2.2s -> Envelope Flap opens & Letter slides UP safely
+    setTimeout(() => {
+        masterWrapper.classList.add('scene-is-open');
+    }, 2200);
+
+    // Event B: Wait 3.5s -> Trigger Massive 360 Full Screen Confetti Blast
+    setTimeout(() => {
+        blastFullScaleConfetti();
+    }, 3500);
+
+    // Event C: Wait 4.5s -> Begin typing the message perfectly over the heart
+    setTimeout(() => {
+        startTypewriter();
+    }, 4500);
+
+    // Typewriter Engine
+    function startTypewriter() {
+        let currentIndex = 0;
+        const typingInterval = setInterval(() => {
+            if (currentIndex < wordsArray.length) {
+                const wordSpan = document.createElement('span');
+                wordSpan.className = 'type-word';
+                wordSpan.textContent = wordsArray[currentIndex] + " ";
+                
+                typewriterContainer.appendChild(wordSpan);
+                
+                // Trigger CSS Reflow to start animation
+                void wordSpan.offsetWidth; 
+                wordSpan.classList.add('is-visible');
+                
+                currentIndex++;
+            } else {
+                clearInterval(typingInterval);
+            }
+        }, 400); // Fluid typing speed
+    }
+
+    // 360-DEGREE MASSIVE PARTY POPPER PHYSICS
+    function blastFullScaleConfetti() {
+        const confettiColors = ['#ffd700', '#ff1493', '#00e5ff', '#ff4500', '#00ff00', '#ff00ff', '#ffffff'];
+        const totalParticles = 250; 
+        
+        // Launch strictly from the center of the viewport
+        const launchX = window.innerWidth / 2;
+        const launchY = window.innerHeight / 2 + 50; // Slightly lower to look like it comes from envelope
+
+        for (let i = 0; i < totalParticles; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'confetti-ribbon-piece';
+            
+            // Randomize shapes to create confetti variety
+            if (Math.random() > 0.5) {
+                particle.style.borderRadius = '50%';
+                particle.style.width = (Math.random() * 12 + 6) + 'px';
+                particle.style.height = particle.style.width;
+            } else {
+                particle.style.width = (Math.random() * 8 + 5) + 'px';
+                particle.style.height = (Math.random() * 20 + 10) + 'px';
+            }
+            
+            particle.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+
+            // Explosion Physics Math (Full 360 degrees)
+            const finalAngle = Math.random() * Math.PI * 2; 
+            
+            // High velocity to reach edges of desktop screens
+            const velocity = Math.random() * 1000 + 300; 
+            
+            const distanceX = Math.cos(finalAngle) * velocity;
+            let distanceY = Math.sin(finalAngle) * velocity;
+            
+            // Gravity: Pulls the particles downwards over time
+            distanceY = distanceY + (Math.random() * 600 + 200); 
+
+            const rotation = Math.random() * 1440 - 720; 
+            const duration = Math.random() * 2.5 + 2; 
+
+            // Assign CSS Variables for keyframes
+            particle.style.setProperty('--dx', `${distanceX}px`);
+            particle.style.setProperty('--dy', `${distanceY}px`);
+            particle.style.setProperty('--rot', `${rotation}deg`);
+
+            // Starting point
+            particle.style.left = `${launchX}px`;
+            particle.style.top = `${launchY}px`;
+            
+            particle.style.animationDuration = `${duration}s`;
+
+            confettiCanvas.appendChild(particle);
+
+            // Cleanup DOM automatically to keep it smooth
+            setTimeout(() => { 
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle); 
+                }
+            }, duration * 1000);
+        }
+    }
+
+});
+</script>
+
+</body>
+</html>
