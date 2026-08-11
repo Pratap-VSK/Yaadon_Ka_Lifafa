@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Responsive Meta Tag for Mobile Flawlessness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Yaadon Ka Lifafa - Happy Birthday My Love</title>
+
+    <!-- Google Fonts: Cursive & Elegant Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Georgia&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES ARCHITECTURE (DYNAMIC RESPONSIVE SCALING)
+           ========================================================================== */
+        :root {
+            /* Color Palette */
+            --color-bg-dark: #1a050d;
+            --color-bg-glow: #4d0a1f;
+            --color-primary-red: #ff1a66;
+            --color-secondary-pink: #ff80a6;
+            --color-gold: #ffd700;
+            --color-text-light: #fff0f5;
+            --color-text-dark: #550022;
+            --color-card-bg: rgba(255, 255, 255, 0.95);
+
+            /* Typography */
+            --font-cursive: 'Dancing Script', 'Brush Script MT', cursive;
+            --font-serif: 'Georgia', serif;
+
+            /* Base Sizing */
+            --spacing-xs: 5px;
+            --spacing-sm: 10px;
+            --spacing-md: 20px;
+            --spacing-lg: 40px;
+            --spacing-xl: 80px;
+            
+            /* Responsive Font Sizes (Using Clamp for Fluid Typography) */
+            --text-h1: clamp(3rem, 8vw, 6rem);
+            --text-h2: clamp(2rem, 5vw, 4rem);
+            --text-h3: clamp(1.5rem, 4vw, 3rem);
+            --text-p: clamp(1rem, 2vw, 1.2rem);
+            
+            /* UI Elements */
+            --border-radius-sm: 8px;
+            --border-radius-md: 15px;
+            --border-radius-lg: 30px;
+            --box-shadow-glow: 0px 0px 30px rgba(255, 26, 102, 0.6);
+            --box-shadow-card: 0px 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ==========================================================================
+           2. GLOBAL CSS RESET & NORMALIZE
+           ========================================================================== */
+        html {
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        *, *::before, *::after {
+            box-sizing: inherit;
+            margin-top: 0;
+            margin-right: 0;
+            margin-bottom: 0;
+            margin-left: 0;
+            padding-top: 0;
+            padding-right: 0;
+            padding-bottom: 0;
+            padding-left: 0;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-light);
+            font-family: var(--font-serif);
+            position: relative;
+        }
+
+        a {
+            background-color: transparent;
+            text-decoration-line: none;
+            text-decoration-style: solid;
+            text-decoration-color: transparent;
+            color: inherit;
+        }
+
+        img {
+            border-style: none;
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button {
+            appearance: none;
+            background-color: transparent;
+            border-top-width: 0;
+            border-right-width: 0;
+            border-bottom-width: 0;
+            border-left-width: 0;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* ==========================================================================
+           3. BACKGROUND & GLOW EFFECTS
+           ========================================================================== */
+        #dynamic-canvas-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .ambient-glow-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            background-image: radial-gradient(circle at 50% 50%, rgba(255, 26, 102, 0.15) 0%, rgba(26, 5, 13, 0.9) 100%);
+        }
+
+        .ambient-glow-layer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(26, 5, 13, 1) 100%);
+            opacity: 0.8;
+        }
+
+        /* Main Content Wrapper */
+        #main-app-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* ==========================================================================
+           4. NAVIGATION BAR
+           ========================================================================== */
+        header.romantic-navbar {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding-top: var(--spacing-md);
+            padding-bottom: var(--spacing-md);
+            background-color: rgba(26, 5, 13, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: rgba(255, 26, 102, 0.3);
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+            transition-property: all;
+            transition-duration: 0.4s;
+            transition-timing-function: ease;
+        }
+
+        .navbar-brand-title {
+            font-family: var(--font-cursive);
+            font-size: var(--text-h2);
+            font-weight: 700;
+            color: var(--color-text-light);
+            text-shadow: 0px 0px 10px var(--color-primary-red), 0px 0px 20px var(--color-primary-red);
+            letter-spacing: 2px;
+            animation-name: softPulseGlow;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        /* ==========================================================================
+           5. HERO SECTION (THE GRAND ENTRANCE)
+           ========================================================================== */
+        section.hero-section {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 100px; /* Offset for navbar */
+            padding-right: var(--spacing-md);
+            padding-bottom: var(--spacing-xl);
+            padding-left: var(--spacing-md);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: var(--text-p);
+            color: var(--color-secondary-pink);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-sm);
+            opacity: 0;
+            transform: translateY(30px);
+            animation-name: slideUpFadeIn;
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards;
+            animation-delay: 0.5s;
+        }
+
+        .hero-title-main {
+            font-family: var(--font-cursive);
+            font-size: var(--text-h1);
+            color: var(--color-gold);
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0px 0px 30px rgba(255, 215, 0, 0.6);
+            opacity: 0;
+            transform: translateY(30px);
+            animation-name: slideUpFadeIn;
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards;
+            animation-delay: 1s;
+        }
+
+        .hero-description {
+            font-family: var(--font-serif);
+            font-size: var(--text-p);
+            color: var(--color-text-light);
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: var(--spacing-lg);
+            opacity: 0;
+            transform: translateY(30px);
+            animation-name: slideUpFadeIn;
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards;
+            animation-delay: 1.5s;
+        }
+
+        .hero-cta-button {
+            display: inline-block;
+            background-image: linear-gradient(45deg, var(--color-primary-red), #cc0044);
+            color: var(--color-text-light);
+            font-family: var(--font-serif);
+            font-size: var(--text-p);
+            font-weight: bold;
+            padding-top: 15px;
+            padding-right: 40px;
+            padding-bottom: 15px;
+            padding-left: 40px;
+            border-radius: var(--border-radius-lg);
+            border-top-width: 2px;
+            border-right-width: 2px;
+            border-bottom-width: 2px;
+            border-left-width: 2px;
+            border-style: solid;
+            border-color: var(--color-secondary-pink);
+            box-shadow: var(--box-shadow-glow);
+            transition-property: transform, box-shadow, filter;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+            opacity: 0;
+            transform: scale(0.8);
+            animation-name: popInFade;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            animation-delay: 2.2s;
+        }
+
+        .hero-cta-button:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0px 15px 40px rgba(255, 26, 102, 0.8);
+            filter: brightness(1.2);
+        }
+
+        /* Big Glowing Heart in Hero */
+        .hero-center-heart {
+            width: clamp(100px, 20vw, 180px);
+            height: clamp(100px, 20vw, 180px);
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            filter: drop-shadow(0px 0px 25px rgba(255, 26, 102, 0.9));
+            animation-name: megaHeartBeat;
+            animation-duration: 1.2s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-timing-function: ease-in-out;
+            opacity: 0;
+            animation-delay: 2s; /* Will fade in then beat, handled via JS class addition */
+        }
+
+        .hero-center-heart svg {
+            width: 100%;
+            height: 100%;
+            fill: url(#heroHeartGradient);
+        }
+
+        /* ==========================================================================
+           6. MEMORIES GALLERY SECTION (POLAROID GRID)
+           ========================================================================== */
+        section.gallery-section {
+            width: 100%;
+            max-width: 1200px;
+            padding-top: var(--spacing-xl);
+            padding-right: var(--spacing-md);
+            padding-bottom: var(--spacing-xl);
+            padding-left: var(--spacing-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-header {
+            font-family: var(--font-cursive);
+            font-size: var(--text-h2);
+            color: var(--color-secondary-pink);
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+            text-shadow: 0px 0px 15px rgba(255, 128, 166, 0.5);
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--color-primary-red);
+            border-radius: 2px;
+            box-shadow: 0px 0px 10px var(--color-primary-red);
+        }
+
+        .gallery-grid-container {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-gap: var(--spacing-lg);
+            justify-items: center;
+            align-items: center;
+        }
+
+        /* Polaroid Card Design */
+        .polaroid-card {
+            background-color: var(--color-card-bg);
+            padding-top: 15px;
+            padding-right: 15px;
+            padding-bottom: 25px;
+            padding-left: 15px;
+            border-radius: var(--border-radius-sm);
+            box-shadow: var(--box-shadow-card);
+            width: 100%;
+            max-width: 320px;
+            transform: rotate(calc(var(--rotation, 0deg)));
+            transition-property: transform, box-shadow, z-index;
+            transition-duration: 0.4s;
+            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Dynamic rotations assigned via nth-child for organic look */
+        .polaroid-card:nth-child(1) { --rotation: -4deg; }
+        .polaroid-card:nth-child(2) { --rotation: 3deg; }
+        .polaroid-card:nth-child(3) { --rotation: -2deg; }
+        .polaroid-card:nth-child(4) { --rotation: 5deg; }
+        .polaroid-card:nth-child(5) { --rotation: -5deg; }
+        .polaroid-card:nth-child(6) { --rotation: 2deg; }
+
+        .polaroid-card:hover {
+            transform: scale(1.1) rotate(0deg);
+            box-shadow: 0px 25px 50px rgba(255, 26, 102, 0.4);
+            z-index: 50;
+        }
+
+        .polaroid-image-placeholder {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-image: linear-gradient(135deg, #ffccd9 0%, #ff99bb 100%);
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-style: solid;
+            border-color: rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .polaroid-image-placeholder svg {
+            width: 40%;
+            height: 40%;
+            fill: #ff3377;
+            opacity: 0.7;
+            transition-property: transform;
+            transition-duration: 0.3s;
+        }
+
+        .polaroid-card:hover .polaroid-image-placeholder svg {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .polaroid-caption {
+            font-family: var(--font-cursive);
+            font-size: 1.5rem;
+            color: var(--color-text-dark);
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           7. LOVE LETTER / MESSAGE SECTION
+           ========================================================================== */
+        section.message-section {
+            width: 100%;
+            padding-top: var(--spacing-xl);
+            padding-right: var(--spacing-md);
+            padding-bottom: var(--spacing-xl);
+            padding-left: var(--spacing-md);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: linear-gradient(180deg, transparent 0%, rgba(255, 26, 102, 0.05) 50%, transparent 100%);
+        }
+
+        .love-letter-container {
+            background-color: var(--color-card-bg);
+            max-width: 800px;
+            width: 100%;
+            padding-top: var(--spacing-lg);
+            padding-right: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            padding-left: var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            border-top-width: 3px;
+            border-right-width: 3px;
+            border-bottom-width: 3px;
+            border-left-width: 3px;
+            border-style: dashed;
+            border-color: var(--color-secondary-pink);
+            box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.6), inset 0px 0px 20px rgba(255, 128, 166, 0.2);
+            position: relative;
+            text-align: center;
+        }
+
+        .love-letter-container::before {
+            content: '♥';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            color: var(--color-primary-red);
+            background-color: var(--color-bg-dark);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 5px 15px rgba(255, 26, 102, 0.5);
+            padding-bottom: 5px; /* Visual center tweak */
+        }
+
+        .letter-greeting {
+            font-family: var(--font-cursive);
+            font-size: var(--text-h3);
+            color: var(--color-primary-red);
+            margin-bottom: var(--spacing-md);
+            font-weight: 700;
+        }
+
+        .letter-body {
+            font-family: var(--font-serif);
+            font-size: var(--text-p);
+            color: var(--color-text-dark);
+            line-height: 2;
+            margin-bottom: var(--spacing-md);
+            font-style: italic;
+        }
+
+        .letter-signature {
+            font-family: var(--font-cursive);
+            font-size: var(--text-h3);
+            color: var(--color-primary-red);
+            text-align: right;
+            margin-top: var(--spacing-lg);
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           8. FOOTER SECTION
+           ========================================================================== */
+        footer.romantic-footer {
+            width: 100%;
+            padding-top: var(--spacing-lg);
+            padding-right: var(--spacing-md);
+            padding-bottom: var(--spacing-lg);
+            padding-left: var(--spacing-md);
+            background-color: #110208;
+            border-top-width: 1px;
+            border-top-style: solid;
+            border-top-color: rgba(255, 26, 102, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-heart {
+            color: var(--color-primary-red);
+            font-size: 24px;
+            animation-name: heartbeatSimple;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            display: inline-block;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .footer-text {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: #ff99bb;
+            margin-top: var(--spacing-sm);
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================================
+           9. SCROLL ANIMATION CLASSES (Triggered by JS)
+           ========================================================================== */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition-property: opacity, transform;
+            transition-duration: 1s;
+            transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           10. KEYFRAME ANIMATIONS (Extensive and Detailed)
+           ========================================================================== */
+        @keyframes softPulseGlow {
+            0% {
+                text-shadow: 0px 0px 10px var(--color-primary-red), 0px 0px 20px var(--color-primary-red);
+            }
+            100% {
+                text-shadow: 0px 0px 20px var(--color-secondary-pink), 0px 0px 40px var(--color-primary-red), 0px 0px 60px #ff0044;
+            }
+        }
+
+        @keyframes slideUpFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popInFade {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            70% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes megaHeartBeat {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0px 0px 20px rgba(255, 26, 102, 0.6));
+            }
+            20% {
+                transform: scale(1.15);
+                filter: drop-shadow(0px 0px 40px rgba(255, 26, 102, 1));
+            }
+            40% {
+                transform: scale(1);
+                filter: drop-shadow(0px 0px 20px rgba(255, 26, 102, 0.6));
+            }
+            60% {
+                transform: scale(1.15);
+                filter: drop-shadow(0px 0px 40px rgba(255, 26, 102, 1));
+            }
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0px 0px 20px rgba(255, 26, 102, 0.6));
+            }
+        }
+
+        @keyframes heartbeatSimple {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+         CANVAS ENGINE: Handles Confetti, Bokeh, and Floating Hearts
+         ========================================================================== -->
+    <canvas id="dynamic-canvas-background"></canvas>
+    
+    <!-- Ambient Overlay for the Deep Romantic Red Glow -->
+    <div class="ambient-glow-layer"></div>
+
+    <!-- ==========================================================================
+         MAIN APPLICATION WRAPPER
+         ========================================================================== -->
+    <div id="main-app-wrapper">
+        
+        <!-- HEADER / NAVBAR -->
+        <header class="romantic-navbar">
+            <div class="navbar-brand-title">Yaadon Ka Lifafa</div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <div class="hero-subtitle">A Celebration of You</div>
+            <h1 class="hero-title-main">Happy Birthday,<br>My Everything.</h1>
+            <p class="hero-description">
+                Welcome to a space created entirely for you. A digital envelope holding the glowing memories, the unspoken words, and the endless love I have for you. Every pixel here beats for you.
+            </p>
+            
+            <!-- Giant Glowing Heart SVG -->
+            <div class="hero-center-heart" id="main-pulsing-heart" style="opacity: 1;">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <radialGradient id="heroHeartGradient" cx="30%" cy="30%" r="70%">
+                            <stop offset="0%" stop-color="#ff80a6"/>
+                            <stop offset="40%" stop-color="#ff1a66"/>
+                            <stop offset="100%" stop-color="#80002a"/>
+                        </radialGradient>
+                    </defs>
+                    <path d="M 50,90 C 50,90 10,60 10,30 C 10,10 35,10 50,30 C 65,10 90,10 90,30 C 90,60 50,90 50,90 Z" />
+                </svg>
+            </div>
+
+            <a href="#memories-gallery" class="hero-cta-button">Open The Memories ↓</a>
+        </section>
+
+        <!-- MEMORIES GALLERY SECTION -->
+        <section id="memories-gallery" class="gallery-section reveal-on-scroll">
+            <h2 class="section-header">Captured Moments</h2>
+            
+            <div class="gallery-grid-container">
+                
+                <!-- Polaroid 1 -->
+                <div class="polaroid-card">
+                    <div class="polaroid-image-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <div class="polaroid-caption">First Met</div>
+                </div>
+
+                <!-- Polaroid 2 -->
+                <div class="polaroid-card">
+                    <div class="polaroid-image-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <div class="polaroid-caption">That Smile</div>
+                </div>
+
+                <!-- Polaroid 3 -->
+                <div class="polaroid-card">
+                    <div class="polaroid-image-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <div class="polaroid-caption">Endless Talks</div>
+                </div>
+
+                <!-- Polaroid 4 -->
+                <div class="polaroid-card">
+                    <div class="polaroid-image-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <div class="polaroid-caption">Late Night Coffee</div>
+                </div>
+
+                <!-- Polaroid 5 -->
+                <div class="polaroid-card">
+                    <div class="polaroid-image-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <div class="polaroid-caption">The Perfect Day</div>
+                </div>
+
+                <!-- Polaroid 6 -->
+                <div class="polaroid-card">
+                    <div class="polaroid-image-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <div class="polaroid-caption">Forever Us</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- MESSAGE SECTION -->
+        <section class="message-section reveal-on-scroll">
+            <div class="love-letter-container">
+                <div class="letter-greeting">Dearest Love,</div>
+                <div class="letter-body">
+                    Today is the day the world became a better place because you were born. 
+                    Every moment spent with you feels like a beautiful dream I never want to wake up from. 
+                    You are my peace, my chaos, my home, and my greatest adventure. 
+                    May this year bring you as much happiness and magic as you bring into my life every single day. 
+                    Keep shining, keep smiling, and know that you are deeply, madly, and unconditionally loved.
+                </div>
+                <div class="letter-signature">Yours Forever, <br> Yaadon Ka Lifafa</div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="romantic-footer">
+            <div class="footer-text">
+                Made with <span class="footer-heart">♥</span> specifically for you
+            </div>
+            <div class="footer-text" style="font-size: 0.75rem; opacity: 0.6;">
+                © 2026 Yaadon Ka Lifafa. All endless love reserved.
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT: ADVANCED PARTICLE ENGINE & INTERACTIVITY
+         ========================================================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            /* --- 1. SCROLL REVEAL LOGIC --- */
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Optional: stop observing once revealed
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            /* --- 2. ADVANCED HTML5 CANVAS PARTICLE ENGINE --- */
+            const canvas = document.getElementById('dynamic-canvas-background');
+            const ctx = canvas.getContext('2d');
+            
+            let canvasWidth = window.innerWidth;
+            let canvasHeight = window.innerHeight;
+            
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+
+            // Handle Resize Flawlessly
+            window.addEventListener('resize', () => {
+                canvasWidth = window.innerWidth;
+                canvasHeight = window.innerHeight;
+                canvas.width = canvasWidth;
+                canvas.height = canvasHeight;
+            });
+
+            // Particle Arrays
+            const particles = [];
+            const confettiColors = ['#ff1a66', '#ff80a6', '#ffd700', '#ffffff', '#ff4d4d'];
+
+            /* --- Base Particle Class --- */
+            class Particle {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.markedForDeletion = false;
+                }
+            }
+
+            /* --- A. Confetti Particle (Falls downwards with sway) --- */
+            class Confetti extends Particle {
+                constructor() {
+                    // Start randomly above the screen
+                    super(Math.random() * canvasWidth, Math.random() * -canvasHeight);
+                    this.size = Math.random() * 8 + 4;
+                    this.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                    
+                    // Fall speed
+                    this.speedY = Math.random() * 2 + 1;
+                    // Sway settings
+                    this.speedX = Math.random() * 2 - 1;
+                    this.angle = Math.random() * 360;
+                    this.spinSpeed = Math.random() * 0.05 + 0.01;
+                    
+                    // Determine shape: 0 for rect, 1 for circle
+                    this.shapeType = Math.random() > 0.5 ? 0 : 1;
+                }
+
+                update() {
+                    this.y += this.speedY;
+                    this.x += Math.sin(this.angle) * 1.5; // Horizontal sway
+                    this.angle += this.spinSpeed;
+
+                    // If it falls below screen, reset to top to keep infinite loop
+                    if (this.y > canvasHeight + 20) {
+                        this.y = Math.random() * -100 - 20;
+                        this.x = Math.random() * canvasWidth;
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.angle);
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = 0.8;
+
+                    if (this.shapeType === 0) {
+                        // Draw Rectangle
+                        ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 2);
+                    } else {
+                        // Draw Circle
+                        ctx.beginPath();
+                        ctx.arc(0, 0, this.size / 1.5, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    ctx.restore();
+                }
+            }
+
+            /* --- B. Glowing Orb Particle (Floats upwards) --- */
+            class GlowingOrb extends Particle {
+                constructor() {
+                    // Start randomly at the bottom
+                    super(Math.random() * canvasWidth, canvasHeight + Math.random() * 200);
+                    this.radius = Math.random() * 3 + 1;
+                    this.speedY = -(Math.random() * 1.5 + 0.5);
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                }
+
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX;
+
+                    // Reset to bottom if it floats past top
+                    if (this.y < -20) {
+                        this.y = canvasHeight + 20;
+                        this.x = Math.random() * canvasWidth;
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 128, 166, ${this.opacity})`;
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#ff1a66';
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            /* --- C. Floating Heart Particle (Custom Shape Drawing) --- */
+            class FloatingHeart extends Particle {
+                constructor() {
+                    super(Math.random() * canvasWidth, canvasHeight + Math.random() * 500);
+                    this.size = Math.random() * 15 + 10;
+                    this.speedY = -(Math.random() * 2 + 1);
+                    this.speedX = Math.sin(Math.random() * Math.PI * 2) * 0.5;
+                    this.opacity = Math.random() * 0.4 + 0.2;
+                    this.wobble = Math.random() * 360;
+                    this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+                }
+
+                update() {
+                    this.y += this.speedY;
+                    this.wobble += this.wobbleSpeed;
+                    this.x += Math.sin(this.wobble) * 1.5;
+
+                    if (this.y < -50) {
+                        this.y = canvasHeight + 50;
+                        this.x = Math.random() * canvasWidth;
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    
+                    // Add slight rocking rotation
+                    ctx.rotate(Math.sin(this.wobble) * 0.2); 
+                    
+                    // Scale down for drawing
+                    const scale = this.size / 100;
+                    ctx.scale(scale, scale);
+                    
+                    ctx.globalAlpha = this.opacity;
+                    
+                    // Fill with gradient or solid
+                    ctx.fillStyle = '#ff1a66';
+                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = '#ff80a6';
+
+                    // Draw heart path centered at 0,0
+                    ctx.beginPath();
+                    // Offset by -50, -50 to center the 100x100 heart
+                    ctx.moveTo(0, 40);
+                    ctx.bezierCurveTo(0, 40, -40, 10, -40, -20);
+                    ctx.bezierCurveTo(-40, -40, -15, -40, 0, -20);
+                    ctx.bezierCurveTo(15, -40, 40, -40, 40, -20);
+                    ctx.bezierCurveTo(40, 10, 0, 40, 0, 40);
+                    ctx.fill();
+                    
+                    ctx.restore();
+                }
+            }
+
+            /* --- Initialize Particle System --- */
+            function initParticles() {
+                // Determine counts based on screen width to maintain performance
+                const isMobile = canvasWidth < 768;
+                
+                const confettiCount = isMobile ? 40 : 80;
+                const orbCount = isMobile ? 30 : 60;
+                const heartCount = isMobile ? 10 : 25;
+
+                for (let i = 0; i < confettiCount; i++) {
+                    particles.push(new Confetti());
+                }
+                for (let i = 0; i < orbCount; i++) {
+                    particles.push(new GlowingOrb());
+                }
+                for (let i = 0; i < heartCount; i++) {
+                    particles.push(new FloatingHeart());
+                }
+            }
+
+            /* --- Main Animation Loop --- */
+            function animate() {
+                // Clear canvas with a very slight trailing effect for motion blur
+                ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+                // Update and draw all particles
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+
+                // Request next frame
+                requestAnimationFrame(animate);
+            }
+
+            // Start Engine
+            initParticles();
+            animate();
+            
+            console.log("Yaadon Ka Lifafa - Engine Started Successfully.");
+        });
+    </script>
+</body>
+</html>

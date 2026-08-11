@@ -1,607 +1,2073 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Happy Birthday 🐼 - Perfect Desktop & Mobile View</title>
-<style>
-/* ==========================================================================
-   GLOBAL RESET & THEME
-   ========================================================================== */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html,body{width:100%;height:100%;overflow:hidden;background:#05101e;font-family:Georgia,serif;}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Extremely Critical for Flawless Mobile, Tablet, and Desktop Responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Yaadon Ka Lifafa | Safe, Secure & Romantic Digital Memories</title>
+    <meta name="description" content="A premium romantic platform to save, share, and cherish your most beautiful memories. Create your digital envelope today.">
+    <meta name="author" content="Pritam Vishwakarma">
 
-#scene{
-  width:100%;height:100vh;
-  position:relative;display:flex;justify-content:center;align-items:flex-end;
-  overflow:hidden;
-}
+    <!-- Premium Google Fonts Loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- 
+      Fonts Used:
+      1. Dancing Script: For cursive, romantic, flowing headers and signatures.
+      2. Playfair Display: For elegant, professional, serif sub-headers.
+      3. Montserrat: For ultra-clean, readable, user-friendly body text and UI elements.
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 
-/* ==========================================================================
-   BACKGROUND FX (Rays, Stars, Shadows)
-   ========================================================================== */
-.ray-layer{
-  position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-  background:repeating-conic-gradient(from 0deg,rgba(255,220,80,.04) 0deg 9deg,transparent 9deg 18deg);
-  animation:rayRot 100s linear infinite;pointer-events:none;z-index:1;
-}
-@keyframes rayRot{to{transform:rotate(360deg);}}
+    <style>
+        /* ==========================================================================
+           1. ROOT VARIABLES (THE HEART OF DYNAMIC THEMING - NO PURE WHITE)
+           ========================================================================== */
+        :root {
+            /* Core Color Palette (Deep Romantic Red & Glowing Pink) */
+            --color-background-deep: #140207;
+            --color-background-gradient-start: #2e0513;
+            --color-background-gradient-end: #140207;
+            
+            --color-primary-red: #e6004c;
+            --color-primary-red-glow: #ff1a66;
+            --color-primary-red-dark: #80002a;
+            
+            --color-secondary-pink: #ff80a6;
+            --color-secondary-pink-light: #ffccd9;
+            --color-secondary-pink-glow: #ff4d88;
+            
+            --color-accent-gold: #ffd700;
+            --color-accent-gold-light: #ffeb80;
+            --color-accent-gold-dark: #b39700;
+            
+            /* Text Colors for User Friendliness (NO PURE WHITE ALLOWED) */
+            --color-text-main: #ffebf0; /* Off-white / very light pink instead of white */
+            --color-text-muted: #ffccd9;
+            --color-text-dark: #330011;
+            --color-text-paragraph: #ffe6ee;
+            
+            /* UI Backgrounds */
+            --color-card-bg-glass: rgba(255, 235, 240, 0.05); /* Tinted glass instead of white */
+            --color-nav-bg-glass: rgba(20, 2, 7, 0.85);
+            --color-footer-bg: #0a0103;
+            --color-footer-border: #4d0a1f;
+            
+            /* Showcase Envelope Paper Colors (Warm Vintage Rose Gold) */
+            --color-paper-light: #fff0f5;
+            --color-paper-dark: #ffccd9;
 
-.bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;object-fit:cover;}
-#fx{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:30;}
+            /* Typography Stacks */
+            --font-cursive: 'Dancing Script', cursive;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
 
-/* Stars */
-.star{position:absolute;border-radius:50%;background:#fff;animation:twink linear infinite alternate;}
-@keyframes twink{0%{opacity:.07;transform:scale(.6);}100%{opacity:.95;transform:scale(1.35);}}
+            /* Base Spacing Engine */
+            --spacing-1: 4px;
+            --spacing-2: 8px;
+            --spacing-3: 12px;
+            --spacing-4: 16px;
+            --spacing-5: 24px;
+            --spacing-6: 32px;
+            --spacing-7: 48px;
+            --spacing-8: 64px;
+            --spacing-9: 96px;
+            --spacing-10: 128px;
+            
+            /* Fluid Typography Engine (Auto scales perfectly on all screens) */
+            --text-xs: clamp(0.75rem, 1vw, 0.875rem);
+            --text-sm: clamp(0.875rem, 1.2vw, 1rem);
+            --text-base: clamp(1rem, 1.5vw, 1.125rem);
+            --text-lg: clamp(1.125rem, 2vw, 1.25rem);
+            --text-xl: clamp(1.25rem, 2.5vw, 1.5rem);
+            --text-2xl: clamp(1.5rem, 3vw, 2rem);
+            --text-3xl: clamp(2rem, 4vw, 2.5rem);
+            --text-4xl: clamp(2.5rem, 5vw, 3.5rem);
+            --text-5xl: clamp(3rem, 7vw, 4.5rem);
+            --text-mega: clamp(4rem, 10vw, 7.5rem); /* Kept huge for "Love." title */
 
-/* Ground Shadow */
-#gsh{
-  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  width:clamp(150px, 35vw, 300px);height:2.5vh;
-  background:radial-gradient(ellipse,rgba(0,0,0,.65) 0%,transparent 75%);
-  border-radius:50%;z-index:8;opacity:0;transition:opacity .7s, transform .12s ease-out;
-}
+            /* Borders and Shadows */
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 16px;
+            --border-radius-xl: 24px;
+            --border-radius-round: 50%;
+            
+            --shadow-subtle: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-glow-pink: 0px 0px 25px rgba(255, 128, 166, 0.4);
+            --shadow-glow-red: 0px 0px 30px rgba(230, 0, 76, 0.6);
+            --shadow-glow-gold: 0px 0px 20px rgba(255, 215, 0, 0.5);
+            --shadow-card-heavy: 0px 20px 40px rgba(0, 0, 0, 0.8);
+            
+            /* Watermorphism Shadows */
+            --water-shadow-inset: inset 10px 10px 20px rgba(255, 128, 166, 0.1), inset -10px -10px 20px rgba(0, 0, 0, 0.8);
+            --water-shadow-drop: 10px 15px 25px rgba(0, 0, 0, 0.5);
 
-/* ==========================================================================
-   FULLY DYNAMIC & RESPONSIVE PANDA WRAPPER (MOBILE vs DESKTOP)
-   ========================================================================== */
-/* Default Mobile View: Panda is Big */
-#pw{
-  position:relative;
-  z-index:10;
-  width: 95vw; /* Almost full width on mobile for a big cute panda */
-  max-width: 450px; /* Restrict max width on tablets */
-  max-height: 65vh; /* Keep it away from the title */
-  margin-bottom: clamp(10px, 4vh, 30px);
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
+            /* Layout Limits */
+            --max-width-container: 1200px;
+            --header-height: 85px;
+        }
 
-/* Desktop/Laptop View: Panda is Smaller to avoid overlapping text */
-@media (min-width: 768px) {
-  #pw {
-    width: 45vw; /* Uses less screen width */
-    max-width: 550px; /* Absolute cap on size */
-    max-height: 52vh; /* STRICT height limit so it stays low on the screen */
-    margin-bottom: 2vh;
-  }
-}
+        /* ==========================================================================
+           2. CSS RESET & NORMALIZATION
+           ========================================================================== */
+        html {
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-#pw svg{
-  width:100%;
-  height:100%;
-  max-height:100%;
-  overflow:visible;
-}
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+            margin-top: 0;
+            margin-right: 0;
+            margin-bottom: 0;
+            margin-left: 0;
+            padding-top: 0;
+            padding-right: 0;
+            padding-bottom: 0;
+            padding-left: 0;
+            border-top-width: 0;
+            border-right-width: 0;
+            border-bottom-width: 0;
+            border-left-width: 0;
+            border-style: solid;
+            border-color: transparent;
+        }
 
-/* Walk-in */
-@keyframes walkIn{
-  0%  {transform:perspective(1200px) translateZ(-4000px) translateY(-380px) scale(.04);opacity:0;}
-  16% {opacity:1;}
-  100%{transform:perspective(1200px) translateZ(0) translateY(0) scale(1);opacity:1;}
-}
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background-color: var(--color-background-deep);
+            color: var(--color-text-main);
+            font-family: var(--font-sans);
+            font-size: var(--text-base);
+            font-weight: 400;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-/* Front flip */
-@keyframes flip{
-  0%  {transform:perspective(1200px) translateY(0)    rotateX(0deg)   scaleY(1);}
-  8%  {transform:perspective(1200px) translateY(-3%)  rotateX(20deg)  scaleY(1.07);}
-  26% {transform:perspective(1200px) translateY(-46%) rotateX(110deg) scaleY(.86);}
-  50% {transform:perspective(1200px) translateY(-58%) rotateX(228deg) scaleY(.80);}
-  70% {transform:perspective(1200px) translateY(-20%) rotateX(332deg) scaleY(.88);}
-  85% {transform:perspective(1200px) translateY(5%)   rotateX(358deg) scaleY(.76);}
-  93% {transform:perspective(1200px) translateY(-2%)  rotateX(360deg) scaleY(1.09);}
-  100%{transform:perspective(1200px) translateY(0)    rotateX(360deg) scaleY(1);}
-}
+        main {
+            display: block;
+        }
 
-/* Breathe */
-@keyframes breathe{0%,100%{transform:scaleX(1) scaleY(1);}50%{transform:scaleX(1.016) scaleY(.986);}}
-#bm{animation:breathe 3.3s ease-in-out infinite;transform-origin:500px 580px;}
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--color-text-main);
+        }
 
-/* Limb Swings for Walking */
-@keyframes wLL{0%{transform:rotate(-20deg);}100%{transform:rotate(20deg);}}
-@keyframes wRL{0%{transform:rotate(20deg);}100%{transform:rotate(-20deg);}}
-@keyframes wLA{0%{transform:rotate(16deg);}100%{transform:rotate(-16deg);}}
-@keyframes wRA{0%{transform:rotate(-16deg);}100%{transform:rotate(16deg);}}
+        p {
+            margin-bottom: var(--spacing-4);
+            color: var(--color-text-paragraph);
+        }
 
-.walking #LL{animation:wLL .56s ease-in-out infinite alternate;transform-origin:460px 700px;}
-.walking #RL{animation:wRL .56s ease-in-out infinite alternate;transform-origin:540px 700px;}
-.walking #LA_grp{animation:wLA .56s ease-in-out infinite alternate;transform-origin:390px 520px;}
-.walking #RA_grp{animation:wRA .56s ease-in-out infinite alternate;transform-origin:610px 520px;}
+        a {
+            background-color: transparent;
+            text-decoration-line: none;
+            text-decoration-style: solid;
+            text-decoration-color: transparent;
+            color: inherit;
+            transition-property: color, background-color, border-color, box-shadow, transform;
+            transition-duration: 0.3s;
+            transition-timing-function: ease-in-out;
+            transition-delay: 0s;
+        }
 
-/* Smooth Transitions for Arms */
-#LA_grp, #RA_grp { transition: transform 0.35s ease-out; transform-origin: 390px 520px; }
-#RA_grp { transform-origin: 610px 520px; }
+        ul, ol {
+            list-style-type: none;
+            list-style-position: outside;
+            list-style-image: none;
+        }
 
-/* ==========================================================================
-   PROPS ANIMATIONS (Floating Balloons & Board)
-   ========================================================================== */
-@keyframes bunchAirMotion{
-  0%  {transform:rotate(-4deg) translateY(0px);}
-  50% {transform:rotate(2deg) translateY(-18px);}
-  100%{transform:rotate(-4deg) translateY(0px);}
-}
-#balloon-bunch{transform-origin:272px 600px; opacity:0;}
-#balloon-bunch.sway{animation:bunchAirMotion 4.5s ease-in-out infinite;}
+        img, svg, picture, video, canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-style: none;
+        }
 
-/* Prop Pop-In Animation */
-@keyframes popIn{
-  0%  {opacity:0;transform:scale(.2) translateY(90px);}
-  58% {opacity:1;transform:scale(1.07) translateY(-7px);}
-  78% {transform:scale(.96) translateY(3px);}
-  100%{opacity:1;transform:scale(1) translateY(0);}
-}
-#bd-grp{opacity:0; transform-origin: 732px 605px;}
-#balloon-bunch.show, #bd-grp.show { animation: popIn .78s cubic-bezier(.34,1.56,.64,1) forwards; }
+        button, input, select, textarea {
+            font-family: inherit;
+            font-size: 100%;
+            line-height: 1.15;
+            margin-top: 0;
+            margin-right: 0;
+            margin-bottom: 0;
+            margin-left: 0;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            outline: none;
+            background-color: transparent;
+        }
 
-/* ==========================================================================
-   REALISTIC WINK ANIMATIONS
-   ========================================================================== */
-@keyframes closeInnerEye {
-  0% { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(0); opacity: 0; }
-}
-@keyframes showClosedLid { 0% { opacity: 0; } 100% { opacity: 1; } }
-#left-eye-inner { transform-origin: 428px 346px; }
-.wink-inner { animation: closeInnerEye 0.3s forwards ease-in-out; }
-.wink-line { animation: showClosedLid 0.3s forwards ease-in-out; }
+        button {
+            cursor: pointer;
+            text-transform: none;
+        }
 
-/* ==========================================================================
-   INFINITE FLYING EMOJIS (Hearts & Confetti)
-   ========================================================================== */
-.hrt{position:absolute;pointer-events:none;opacity:0;animation:fhrt linear forwards;user-select:none;}
-@keyframes fhrt{
-  0%  {transform:translateY(0) scale(.5) rotate(0deg);opacity:0;}
-  8%  {opacity:1;}
-  55% {transform:translateY(-45vh) translateX(25px) scale(1.4) rotate(15deg);opacity:.9;}
-  100%{transform:translateY(-110vh) translateX(-20px) scale(1.8) rotate(-10deg);opacity:0;}
-}
+        /* ==========================================================================
+           3. BACKGROUND ENGINE & CANVAS LAYER
+           ========================================================================== */
+        #heart-canvas-engine {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Background Layer */
+            pointer-events: none;
+            background-image: radial-gradient(
+                circle at 50% 50%, 
+                var(--color-background-gradient-start) 0%, 
+                var(--color-background-gradient-end) 100%
+            );
+        }
 
-.cft{position:absolute;pointer-events:none;opacity:0;animation:fcft linear forwards;}
-@keyframes fcft{
-  0%  {transform:translateY(-20px) rotate(0deg);opacity:1;}
-  100%{transform:translateY(105vh) rotate(760deg);opacity:0;}
-}
+        .ambient-glow-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            background-image: linear-gradient(
+                180deg, 
+                rgba(230, 0, 76, 0.05) 0%, 
+                rgba(20, 2, 7, 0.6) 50%, 
+                rgba(20, 2, 7, 0.95) 100%
+            );
+        }
 
-/* ==========================================================================
-   PREMIUM TITLE, CAKE & TYPOGRAPHY
-   ========================================================================== */
-#ttl {
-  position:absolute;
-  top:clamp(15px, 5vh, 40px);
-  left:50%;
-  transform:translateX(-50%);
-  z-index:35;
-  opacity:0;
-  pointer-events:none;
-  text-align:center;
-  white-space:nowrap;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-#ttl.show{animation:tDrop 1s cubic-bezier(.34,1.56,.64,1) forwards;}
-@keyframes tDrop{
-  0%  {opacity:0;transform:translateX(-50%) translateY(-65px) scale(.62);}
-  100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
-}
+        .master-content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
 
-.title-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(10px, 3vw, 25px);
-}
+        .container {
+            width: 100%;
+            max-width: var(--max-width-container);
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 0;
+            margin-left: auto;
+            padding-top: 0;
+            padding-right: var(--spacing-5);
+            padding-bottom: 0;
+            padding-left: var(--spacing-5);
+        }
 
-/* 3D Decorated Text */
-.t1 {
-  font-family: 'Brush Script MT', 'Dancing Script', 'Comic Sans MS', cursive;
-  font-size: clamp(2rem, 6vw, 4.2rem);
-  color: #FFD700;
-  letter-spacing: 2px;
-  transform: rotate(-3deg);
-  text-shadow: 
-    2px 2px 0px #ff1493, 
-    4px 4px 0px #8b0045, 
-    6px 6px 15px rgba(0,0,0,0.7),
-    0px 0px 25px rgba(255, 20, 147, 0.8);
-}
-.t2 {
-  display:block;
-  font-size:clamp(0.85rem, 2vw, 1.3rem);
-  color:rgba(255,255,255,.9);
-  letter-spacing: 3px;
-  margin-top: 10px;
-  text-shadow: 0px 2px 5px rgba(0,0,0,0.8);
-}
+        /* ==========================================================================
+           4. PROFESSIONAL NAVIGATION BAR (WITH CUSTOM LOGO)
+           ========================================================================== */
+        .site-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--color-nav-bg-glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: rgba(255, 128, 166, 0.15);
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            transition-property: all;
+            transition-duration: 0.4s;
+            transition-timing-function: ease;
+        }
 
-/* Realistic SVG Cake Styling */
-.real-cake {
-  width: clamp(40px, 7vw, 75px);
-  height: auto;
-  filter: drop-shadow(0px 8px 6px rgba(0,0,0,0.5));
-}
+        .site-header.scrolled {
+            height: 70px;
+            background-color: rgba(10, 1, 3, 0.98);
+            border-bottom-color: var(--color-primary-red);
+        }
 
-/* Animated Candles */
-.flame {
-  animation: flicker 0.4s infinite alternate ease-in-out;
-  transform-origin: center bottom;
-}
-@keyframes flicker {
-  0% { transform: scale(0.9) rotate(-3deg); opacity: 0.8; }
-  100% { transform: scale(1.1) rotate(3deg); opacity: 1; }
-}
+        .nav-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;}}
-</style>
+        .brand-logo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: var(--spacing-3);
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Customer Provided Logo Integration */
+        .brand-logo-img {
+            height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            border-top-width: 2px;
+            border-right-width: 2px;
+            border-bottom-width: 2px;
+            border-left-width: 2px;
+            border-style: solid;
+            border-color: var(--color-accent-gold);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            animation-name: heartbeatSimple;
+            animation-duration: 2.5s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            background-color: #fff; /* Ensures logo visibility if PNG has transparency issues */
+        }
+
+        .brand-logo-text {
+            font-family: var(--font-cursive);
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--color-text-main);
+            letter-spacing: 1px;
+            text-shadow: var(--shadow-glow-pink);
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-6);
+        }
+
+        .nav-link {
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-top: var(--spacing-2);
+            padding-bottom: var(--spacing-2);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--color-primary-red-glow);
+            transition-property: width;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+            border-radius: 2px;
+            box-shadow: var(--shadow-glow-red);
+        }
+
+        .nav-link:hover {
+            color: var(--color-text-main);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Dedicated Login / Register Links */
+        .nav-buttons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+            gap: var(--spacing-3);
+        }
+
+        .btn {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-top: var(--spacing-3);
+            padding-right: var(--spacing-5);
+            padding-bottom: var(--spacing-3);
+            padding-left: var(--spacing-5);
+            border-radius: var(--border-radius-xl);
+            cursor: pointer;
+            transition-property: all;
+            transition-duration: 0.3s;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-secondary-pink);
+            border-top-width: 2px;
+            border-right-width: 2px;
+            border-bottom-width: 2px;
+            border-left-width: 2px;
+            border-style: solid;
+            border-color: var(--color-secondary-pink);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-secondary-pink);
+            color: var(--color-background-deep);
+            box-shadow: var(--shadow-glow-pink);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-image: linear-gradient(135deg, var(--color-primary-red) 0%, var(--color-primary-red-dark) 100%);
+            color: var(--color-text-main); /* Light pinkish, not pure white */
+            border-top-width: 0;
+            border-right-width: 0;
+            border-bottom-width: 0;
+            border-left-width: 0;
+            box-shadow: var(--shadow-glow-red);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition-property: left;
+            transition-duration: 0.6s;
+            transition-timing-function: ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 10px 30px rgba(230, 0, 76, 0.8);
+            filter: brightness(1.1);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger-bar {
+            width: 100%;
+            height: 3px;
+            background-color: var(--color-secondary-pink);
+            border-radius: 3px;
+            transition-property: all;
+            transition-duration: 0.3s;
+        }
+
+        /* ==========================================================================
+           5. HERO LANDING SECTION (MATCHING SCREENSHOT WITH "LOVE.")
+           ========================================================================== */
+        .hero-section {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: calc(var(--header-height) + var(--spacing-8));
+            padding-right: 0;
+            padding-bottom: var(--spacing-8);
+            padding-left: 0;
+            position: relative;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 900px;
+            z-index: 10;
+        }
+
+        .hero-title-love {
+            font-family: var(--font-cursive);
+            font-size: var(--text-mega);
+            color: var(--color-accent-gold);
+            line-height: 1;
+            margin-bottom: var(--spacing-3);
+            text-shadow: 0px 10px 30px rgba(0,0,0,0.8), var(--shadow-glow-gold);
+            opacity: 0;
+            transform: translateY(30px);
+            animation-name: fadeUpIn;
+            animation-duration: 1.2s;
+            animation-fill-mode: forwards;
+            animation-delay: 0.3s;
+        }
+
+        .hero-subtitle-hindi {
+            font-family: var(--font-serif);
+            font-size: var(--text-2xl);
+            font-weight: 500;
+            color: var(--color-text-main);
+            margin-bottom: var(--spacing-5);
+            opacity: 0;
+            transform: translateY(30px);
+            animation-name: fadeUpIn;
+            animation-duration: 1.2s;
+            animation-fill-mode: forwards;
+            animation-delay: 0.6s;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.8);
+        }
+
+        .hero-description {
+            font-family: var(--font-sans);
+            font-size: var(--text-lg);
+            font-weight: 300;
+            color: var(--color-text-paragraph);
+            line-height: 1.8;
+            max-width: 750px;
+            margin-bottom: var(--spacing-7);
+            opacity: 0;
+            transform: translateY(30px);
+            animation-name: fadeUpIn;
+            animation-duration: 1.2s;
+            animation-fill-mode: forwards;
+            animation-delay: 0.9s;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-4);
+            opacity: 0;
+            transform: translateY(30px);
+            animation-name: fadeUpIn;
+            animation-duration: 1.2s;
+            animation-fill-mode: forwards;
+            animation-delay: 1.2s;
+        }
+
+        .btn-large {
+            padding-top: var(--spacing-4);
+            padding-right: var(--spacing-7);
+            padding-bottom: var(--spacing-4);
+            padding-left: var(--spacing-7);
+            font-size: var(--text-base);
+        }
+
+        /* ==========================================================================
+           6. HOW IT WORKS (3 STEPS)
+           ========================================================================== */
+        .steps-section {
+            width: 100%;
+            padding-top: var(--spacing-10);
+            padding-right: 0;
+            padding-bottom: var(--spacing-10);
+            padding-left: 0;
+            background-color: rgba(20, 2, 7, 0.6);
+            position: relative;
+        }
+
+        .section-heading-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: var(--spacing-9);
+        }
+
+        .section-subtitle {
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            font-weight: 700;
+            color: var(--color-primary-red-glow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: var(--spacing-3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-subtitle::before,
+        .section-subtitle::after {
+            content: '';
+            display: inline-block;
+            width: 40px;
+            height: 2px;
+            background-color: var(--color-primary-red-glow);
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: var(--text-4xl);
+            color: var(--color-text-main);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .section-title span.cursive-accent {
+            font-family: var(--font-cursive);
+            color: var(--color-secondary-pink);
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-gap: var(--spacing-6);
+            width: 100%;
+        }
+
+        .step-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: var(--spacing-5);
+            padding-right: var(--spacing-4);
+            padding-bottom: var(--spacing-5);
+            padding-left: var(--spacing-4);
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius-round);
+            background-color: var(--color-primary-red);
+            color: var(--color-text-main);
+            font-family: var(--font-serif);
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-5);
+            box-shadow: var(--shadow-glow-red);
+            z-index: 2;
+        }
+
+        .step-title {
+            font-family: var(--font-serif);
+            font-size: var(--text-xl);
+            color: var(--color-text-main);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .step-desc {
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            color: var(--color-text-paragraph);
+            line-height: 1.7;
+        }
+
+        @media (min-width: 768px) {
+            .step-card:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                top: 55px; 
+                right: -50%;
+                width: 100%;
+                height: 2px;
+                background-image: linear-gradient(90deg, var(--color-primary-red), transparent);
+                z-index: 1;
+            }
+        }
+
+        /* ==========================================================================
+           7. FEATURES SECTION (WATERMORPHISM CARDS)
+           ========================================================================== */
+        .features-section {
+            width: 100%;
+            padding-top: var(--spacing-10);
+            padding-right: 0;
+            padding-bottom: var(--spacing-10);
+            padding-left: 0;
+            background-color: rgba(10, 1, 3, 0.7);
+            border-top-width: 1px;
+            border-top-style: solid;
+            border-top-color: rgba(255, 128, 166, 0.1);
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: rgba(255, 128, 166, 0.1);
+            position: relative;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: var(--spacing-6);
+            width: 100%;
+        }
+
+        .feature-card {
+            background-color: var(--color-card-bg-glass);
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-style: solid;
+            border-color: rgba(255, 128, 166, 0.15);
+            border-radius: var(--border-radius-xl);
+            padding-top: var(--spacing-7);
+            padding-right: var(--spacing-5);
+            padding-bottom: var(--spacing-7);
+            padding-left: var(--spacing-5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition-property: transform, box-shadow, border-color, background-color;
+            transition-duration: 0.4s;
+            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-glow-pink);
+            border-color: var(--color-secondary-pink);
+            background-color: rgba(255, 128, 166, 0.1);
+        }
+
+        .feature-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--border-radius-round);
+            background-image: linear-gradient(135deg, rgba(230, 0, 76, 0.3), rgba(255, 128, 166, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-5);
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-style: solid;
+            border-color: rgba(255, 26, 102, 0.4);
+            transition-property: transform, box-shadow;
+            transition-duration: 0.3s;
+        }
+
+        .feature-card:hover .feature-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0px 0px 20px rgba(255, 26, 102, 0.5);
+        }
+
+        .feature-icon-wrapper svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--color-secondary-pink-light);
+            stroke-width: 1.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature-title {
+            font-family: var(--font-serif);
+            font-size: var(--text-xl);
+            color: var(--color-text-main);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .feature-desc {
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            color: var(--color-text-paragraph);
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        /* ==========================================================================
+           8. WATERMORPHISM ROMANTIC QUOTES SECTION (REPLACED REVIEWS)
+           ========================================================================== */
+        .watermorphism-section {
+            width: 100%;
+            padding-top: var(--spacing-10);
+            padding-right: 0;
+            padding-bottom: var(--spacing-10);
+            padding-left: 0;
+            background-color: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-gap: var(--spacing-8);
+            width: 100%;
+            padding-top: var(--spacing-5);
+            padding-bottom: var(--spacing-5);
+        }
+
+        /* The Water Blob Card */
+        .water-blob-card {
+            position: relative;
+            background-image: linear-gradient(135deg, rgba(255, 128, 166, 0.15) 0%, rgba(20, 2, 7, 0.4) 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-style: solid;
+            border-color: rgba(255, 128, 166, 0.2);
+            /* Initial Water Blob Shape */
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            padding-top: var(--spacing-7);
+            padding-right: var(--spacing-6);
+            padding-bottom: var(--spacing-7);
+            padding-left: var(--spacing-6);
+            box-shadow: var(--water-shadow-inset), var(--water-shadow-drop);
+            animation-name: waterMorph;
+            animation-duration: 8s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-timing-function: ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 300px;
+            transition: filter 0.3s;
+        }
+
+        .water-blob-card:hover {
+            filter: brightness(1.2);
+        }
+
+        /* Stagger animations for different blobs */
+        .water-blob-card:nth-child(2) {
+            animation-duration: 10s;
+            animation-direction: alternate-reverse;
+            border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%;
+        }
+
+        @keyframes waterMorph {
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            33% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+            66% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+            100% { border-radius: 50% 50% 60% 40% / 30% 70% 50% 60%; }
+        }
+
+        /* Text inside the water drop */
+        .water-quote-text {
+            font-family: var(--font-serif);
+            font-size: var(--text-lg);
+            color: var(--color-text-main);
+            line-height: 1.8;
+            font-style: italic;
+            position: relative;
+            z-index: 5;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Water Droplets (Realistic pure CSS drops overlaying the card) */
+        .water-droplet {
+            position: absolute;
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(20, 2, 7, 0.05) 100%);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.5), 2px 5px 8px rgba(0,0,0,0.3);
+            z-index: 6;
+        }
+
+        .drop-1 {
+            width: 35px;
+            height: 35px;
+            top: 15%;
+            left: 10%;
+            animation-name: floatDrop;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        .drop-2 {
+            width: 20px;
+            height: 20px;
+            bottom: 20%;
+            right: 15%;
+            animation-name: floatDrop;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate-reverse;
+        }
+
+        .drop-3 {
+            width: 15px;
+            height: 15px;
+            top: 40%;
+            right: 5%;
+            animation-name: floatDrop;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        @keyframes floatDrop {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        /* ==========================================================================
+           9. PUBLIC SHOWCASE / DEAREST PERSON LETTER
+           ========================================================================== */
+        .showcase-section {
+            width: 100%;
+            padding-top: var(--spacing-10);
+            padding-right: 0;
+            padding-bottom: var(--spacing-10);
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .envelope-showcase-wrapper {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: var(--spacing-6);
+            perspective: 2000px;
+        }
+
+        .showcase-card {
+            /* Changed from pure white to a warm vintage rose-gold gradient */
+            background-image: linear-gradient(135deg, var(--color-paper-light) 0%, var(--color-paper-dark) 100%);
+            width: 90%;
+            max-width: 700px;
+            border-radius: var(--border-radius-lg);
+            padding-top: var(--spacing-8);
+            padding-right: var(--spacing-6);
+            padding-bottom: var(--spacing-8);
+            padding-left: var(--spacing-6);
+            box-shadow: var(--shadow-card-heavy);
+            position: relative;
+            transform: rotateX(5deg) rotateY(-5deg);
+            transition-property: transform, box-shadow;
+            transition-duration: 0.6s;
+            transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .showcase-card:hover {
+            transform: rotateX(0deg) rotateY(0deg) translateY(-10px);
+            box-shadow: 0px 30px 60px rgba(255, 26, 102, 0.3);
+        }
+
+        .showcase-card::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            bottom: 15px;
+            left: 15px;
+            border-top-width: 2px;
+            border-right-width: 2px;
+            border-bottom-width: 2px;
+            border-left-width: 2px;
+            border-style: dashed;
+            border-color: var(--color-primary-red-glow);
+            opacity: 0.5;
+            pointer-events: none;
+            border-radius: var(--border-radius-md);
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: var(--spacing-6);
+        }
+
+        .letter-greeting-main {
+            font-family: var(--font-cursive);
+            font-size: var(--text-4xl);
+            color: var(--color-primary-red-dark);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .letter-divider {
+            width: 80px;
+            height: 3px;
+            background-color: var(--color-primary-red);
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 0;
+            margin-left: auto;
+            border-radius: 2px;
+        }
+
+        .letter-content {
+            font-family: var(--font-serif);
+            font-size: var(--text-lg);
+            color: var(--color-text-dark); /* Dark text for readability on light paper */
+            line-height: 2;
+            text-align: center;
+            margin-bottom: var(--spacing-6);
+            padding-top: 0;
+            padding-right: var(--spacing-4);
+            padding-bottom: 0;
+            padding-left: var(--spacing-4);
+            font-style: italic;
+        }
+
+        .hindi-quote {
+            display: block;
+            margin-top: var(--spacing-4);
+            font-weight: 600;
+            color: var(--color-primary-red);
+            font-size: 1.1em;
+        }
+
+        .letter-footer {
+            text-align: right;
+            padding-right: var(--spacing-5);
+        }
+
+        .letter-signoff {
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-1);
+        }
+
+        .letter-signature {
+            font-family: var(--font-cursive);
+            font-size: var(--text-3xl);
+            color: var(--color-primary-red);
+            font-weight: 700;
+        }
+
+        .showcase-floating-heart {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background-image: linear-gradient(135deg, var(--color-paper-light) 0%, var(--color-paper-dark) 100%);
+            border-radius: var(--border-radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .showcase-floating-heart svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--color-primary-red-glow);
+            animation-name: heartbeatSimple;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+        }
+
+        /* ==========================================================================
+           10. FAQ SECTION
+           ========================================================================== */
+        .faq-section {
+            width: 100%;
+            padding-top: var(--spacing-10);
+            padding-right: 0;
+            padding-bottom: var(--spacing-10);
+            padding-left: 0;
+            background-color: transparent;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 0;
+            margin-left: auto;
+        }
+
+        .faq-item {
+            margin-bottom: var(--spacing-4);
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: rgba(255, 128, 166, 0.2);
+            padding-bottom: var(--spacing-3);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-serif);
+            font-size: var(--text-lg);
+            color: var(--color-text-main);
+            background: none;
+            text-align: left;
+            padding-top: var(--spacing-3);
+            padding-right: 0;
+            padding-bottom: var(--spacing-3);
+            padding-left: 0;
+            cursor: pointer;
+        }
+
+        .faq-question:hover {
+            color: var(--color-secondary-pink);
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            color: var(--color-primary-red);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            font-family: var(--font-sans);
+            color: var(--color-text-paragraph);
+            line-height: 1.6;
+        }
+
+        .faq-answer-inner {
+            padding-top: var(--spacing-2);
+            padding-bottom: var(--spacing-4);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px; 
+        }
+
+        /* ==========================================================================
+           11. CALL TO ACTION (BOTTOM CTA)
+           ========================================================================== */
+        .bottom-cta-section {
+            width: 100%;
+            padding-top: var(--spacing-10);
+            padding-right: 0;
+            padding-bottom: var(--spacing-10);
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: radial-gradient(circle at center, rgba(230, 0, 76, 0.15) 0%, transparent 70%);
+        }
+
+        .cta-box {
+            max-width: 800px;
+            padding-top: var(--spacing-8);
+            padding-right: var(--spacing-4);
+            padding-bottom: var(--spacing-8);
+            padding-left: var(--spacing-4);
+        }
+
+        .cta-heading {
+            font-family: var(--font-cursive);
+            font-size: var(--text-5xl);
+            color: var(--color-text-main);
+            margin-bottom: var(--spacing-4);
+            text-shadow: var(--shadow-glow-pink);
+        }
+
+        .cta-text {
+            font-family: var(--font-sans);
+            font-size: var(--text-lg);
+            color: var(--color-text-paragraph);
+            margin-bottom: var(--spacing-6);
+        }
+
+        /* ==========================================================================
+           12. PROFESSIONAL MEGA FOOTER
+           ========================================================================== */
+        .site-footer {
+            width: 100%;
+            background-color: var(--color-footer-bg);
+            border-top-width: 2px;
+            border-top-style: solid;
+            border-top-color: var(--color-footer-border);
+            padding-top: var(--spacing-9);
+            padding-right: 0;
+            padding-bottom: 0;
+            padding-left: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: var(--spacing-6);
+            margin-bottom: var(--spacing-8);
+        }
+
+        .footer-col-brand { grid-column: span 4; }
+        .footer-col-links { grid-column: span 2; }
+        .footer-col-legal { grid-column: span 2; }
+        .footer-col-newsletter { grid-column: span 4; }
+
+        .footer-logo-text {
+            font-family: var(--font-cursive);
+            font-size: var(--text-3xl);
+            color: var(--color-text-main);
+            margin-bottom: var(--spacing-3);
+            display: inline-block;
+        }
+
+        .footer-desc {
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-5);
+            max-width: 90%;
+        }
+
+        .footer-socials {
+            display: flex;
+            flex-direction: row;
+            gap: var(--spacing-3);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--border-radius-round);
+            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--color-text-muted);
+            transition: fill 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: var(--color-primary-red);
+            border-color: var(--color-primary-red);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow-red);
+        }
+
+        .social-icon:hover svg { fill: var(--color-text-main); }
+
+        .footer-heading {
+            font-family: var(--font-sans);
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--color-text-main);
+            margin-bottom: var(--spacing-4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-menu {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-3);
+        }
+
+        .footer-link {
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-link::before {
+            content: '›';
+            color: var(--color-primary-red);
+            font-size: 1.2em;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--color-secondary-pink);
+            transform: translateX(5px);
+        }
+
+        .footer-link:hover::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-3);
+            width: 100%;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding-top: 15px;
+            padding-right: 15px;
+            padding-bottom: 15px;
+            padding-left: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-md);
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            color: var(--color-text-main);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--color-secondary-pink);
+            box-shadow: 0px 0px 10px rgba(255, 128, 166, 0.2);
+        }
+
+        .newsletter-input::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+        .btn-newsletter {
+            width: 100%;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-size: var(--text-sm);
+        }
+
+        /* Footer Bottom Bar - Pritam Vishwakarma Credit */
+        .footer-bottom {
+            width: 100%;
+            padding-top: var(--spacing-5);
+            padding-right: 0;
+            padding-bottom: var(--spacing-5);
+            padding-left: 0;
+            border-top-width: 1px;
+            border-top-style: solid;
+            border-top-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .copyright-text {
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .copyright-text span.author-highlight {
+            color: var(--color-secondary-pink);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           13. CSS ANIMATIONS & KEYFRAMES
+           ========================================================================== */
+        @keyframes heartbeatSimple {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeUpIn {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes floatUpDownReverse {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(20px) rotate(-5deg); }
+        }
+
+        /* JS Scroll Reveal Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition-property: opacity, transform;
+            transition-duration: 1s;
+            transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           14. RESPONSIVE MEDIA QUERIES
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: repeat(6, 1fr); }
+            .footer-col-brand { grid-column: span 6; margin-bottom: var(--spacing-4); }
+            .footer-col-links { grid-column: span 3; }
+            .footer-col-legal { grid-column: span 3; }
+            .footer-col-newsletter { grid-column: span 6; margin-top: var(--spacing-4); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu, .nav-buttons { display: none; } /* Handled by JS toggle ideally */
+            .mobile-menu-toggle { display: flex; }
+            .hero-section { padding-top: calc(var(--header-height) + var(--spacing-4)); }
+            .features-grid, .water-grid, .steps-grid { grid-template-columns: 1fr; }
+            .showcase-card { width: 95%; transform: none; padding: var(--spacing-5); }
+            .showcase-card:hover { transform: translateY(-5px); }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-col-brand, .footer-col-links, .footer-col-legal, .footer-col-newsletter { grid-column: span 1; }
+        }
+    </style>
 </head>
 <body>
-<div id="scene">
-  <div class="ray-layer"></div>
-  <div id="fx"></div>
-  
-  <!-- PREMIUM DECORATED TITLE WITH SVG CAKES -->
-  <div id="ttl">
-    <div class="title-flex">
-      <!-- Left Realistic Cake -->
-      <svg class="real-cake" viewBox="0 0 100 100">
-        <defs>
-          <linearGradient id="cakeSponge" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#ffb3ba"/><stop offset="100%" stop-color="#ffdfba"/>
-          </linearGradient>
-          <radialGradient id="cakeGlow" cx="50%" cy="20%" r="50%">
-            <stop offset="0%" stop-color="rgba(255,215,0,0.8)"/><stop offset="100%" stop-color="transparent"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="50" cy="85" rx="42" ry="10" fill="#d3d3d3" stroke="#999" stroke-width="2"/>
-        <ellipse cx="50" cy="82" rx="35" ry="7" fill="#fff"/>
-        <path d="M 18 80 L 18 50 Q 50 65 82 50 L 82 80 Q 50 95 18 80" fill="url(#cakeSponge)"/>
-        <path d="M 15 50 Q 50 35 85 50 Q 85 60 75 55 Q 65 65 50 55 Q 35 65 25 55 Q 15 60 15 50" fill="#ff1493" filter="drop-shadow(0px 2px 2px rgba(0,0,0,0.3))"/>
-        <rect x="30" y="52" width="4" height="2" fill="#fff" transform="rotate(25 30 52)"/>
-        <rect x="50" y="58" width="4" height="2" fill="#00ff00" transform="rotate(-40 50 58)"/>
-        <rect x="70" y="51" width="4" height="2" fill="#ffff00" transform="rotate(15 70 51)"/>
-        <rect x="30" y="25" width="4" height="25" fill="#fff" rx="1"/>
-        <path d="M30 30 L34 25 M30 40 L34 35" stroke="#ff0000" stroke-width="1.5"/>
-        <rect x="48" y="20" width="4" height="30" fill="#fff" rx="1"/>
-        <path d="M48 25 L52 20 M48 35 L52 30 M48 45 L52 40" stroke="#ff0000" stroke-width="1.5"/>
-        <rect x="66" y="25" width="4" height="25" fill="#fff" rx="1"/>
-        <path d="M66 30 L70 25 M66 40 L70 35" stroke="#ff0000" stroke-width="1.5"/>
-        <circle cx="50" cy="20" r="15" fill="url(#cakeGlow)"/>
-        <g class="flame" transform="translate(32, 20)"><path d="M0,0 Q3,5 0,10 Q-3,5 0,0" fill="#ffd700"/></g>
-        <g class="flame" transform="translate(50, 15)"><path d="M0,0 Q3,5 0,10 Q-3,5 0,0" fill="#ffd700"/></g>
-        <g class="flame" transform="translate(68, 20)"><path d="M0,0 Q3,5 0,10 Q-3,5 0,0" fill="#ffd700"/></g>
-      </svg>
 
-      <span class="t1">Happy Birthday!</span>
-
-      <!-- Right Realistic Cake -->
-      <svg class="real-cake" viewBox="0 0 100 100">
-        <defs>
-          <linearGradient id="cakeSponge2" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#ffb3ba"/><stop offset="100%" stop-color="#ffdfba"/>
-          </linearGradient>
-          <radialGradient id="cakeGlow2" cx="50%" cy="20%" r="50%">
-            <stop offset="0%" stop-color="rgba(255,215,0,0.8)"/><stop offset="100%" stop-color="transparent"/>
-          </radialGradient>
-        </defs>
-        <ellipse cx="50" cy="85" rx="42" ry="10" fill="#d3d3d3" stroke="#999" stroke-width="2"/>
-        <ellipse cx="50" cy="82" rx="35" ry="7" fill="#fff"/>
-        <path d="M 18 80 L 18 50 Q 50 65 82 50 L 82 80 Q 50 95 18 80" fill="url(#cakeSponge2)"/>
-        <path d="M 15 50 Q 50 35 85 50 Q 85 60 75 55 Q 65 65 50 55 Q 35 65 25 55 Q 15 60 15 50" fill="#ff1493" filter="drop-shadow(0px 2px 2px rgba(0,0,0,0.3))"/>
-        <rect x="30" y="52" width="4" height="2" fill="#fff" transform="rotate(25 30 52)"/>
-        <rect x="50" y="58" width="4" height="2" fill="#00ff00" transform="rotate(-40 50 58)"/>
-        <rect x="70" y="51" width="4" height="2" fill="#ffff00" transform="rotate(15 70 51)"/>
-        <rect x="30" y="25" width="4" height="25" fill="#fff" rx="1"/>
-        <path d="M30 30 L34 25 M30 40 L34 35" stroke="#ff0000" stroke-width="1.5"/>
-        <rect x="48" y="20" width="4" height="30" fill="#fff" rx="1"/>
-        <path d="M48 25 L52 20 M48 35 L52 30 M48 45 L52 40" stroke="#ff0000" stroke-width="1.5"/>
-        <rect x="66" y="25" width="4" height="25" fill="#fff" rx="1"/>
-        <path d="M66 30 L70 25 M66 40 L70 35" stroke="#ff0000" stroke-width="1.5"/>
-        <circle cx="50" cy="20" r="15" fill="url(#cakeGlow2)"/>
-        <g class="flame" transform="translate(32, 20)"><path d="M0,0 Q3,5 0,10 Q-3,5 0,0" fill="#ffd700"/></g>
-        <g class="flame" transform="translate(50, 15)"><path d="M0,0 Q3,5 0,10 Q-3,5 0,0" fill="#ffd700"/></g>
-        <g class="flame" transform="translate(68, 20)"><path d="M0,0 Q3,5 0,10 Q-3,5 0,0" fill="#ffd700"/></g>
-      </svg>
-    </div>
-    <span class="t2">✨ Wishing you all the joy ✨</span>
-  </div>
-
-  <div id="gsh"></div>
-
-  <!-- ==========================================================================
-       BACKGROUND SVG
-       ========================================================================== -->
-  <svg class="bg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs>
-      <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#030c1a"/><stop offset="40%" stop-color="#081e36"/><stop offset="100%" stop-color="#123858"/>
-      </linearGradient>
-      <radialGradient id="mnG" cx="42%" cy="38%" r="58%">
-        <stop offset="0%" stop-color="#fffff8"/><stop offset="52%" stop-color="#ffec90"/><stop offset="100%" stop-color="#c09010"/>
-      </radialGradient>
-      <radialGradient id="mnGl" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#ffe060" stop-opacity=".16"/><stop offset="100%" stop-color="#ffe060" stop-opacity="0"/>
-      </radialGradient>
-      <linearGradient id="rdG" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#0a0a0a"/><stop offset="100%" stop-color="#1e1e1e"/>
-      </linearGradient>
-    </defs>
+    <!-- ==========================================================================
+         CANVAS ENGINE: The Flying Hearts Background
+         ========================================================================== -->
+    <!-- Ensures dynamic romantic hearts flying across the screen at all times -->
+    <canvas id="heart-canvas-engine"></canvas>
     
-    <rect width="1920" height="1080" fill="url(#skyG)"/>
-    <circle cx="1500" cy="155" r="330" fill="url(#mnGl)"/>
-    <circle cx="1500" cy="155" r="90" fill="url(#mnG)"/>
-    <circle cx="1462" cy="177" r="18" fill="#b88a08" opacity=".3"/>
-    <circle cx="1522" cy="142" r="12" fill="#b88a08" opacity=".24"/>
-    <circle cx="1476" cy="208" r="8" fill="#b88a08" opacity=".18"/>
-    
-    <path d="M0,685 Q260,515 500,660 T1000,590 T1500,655 T1920,595 L1920,1080 L0,1080Z" fill="#050f05" opacity=".92"/>
-    <path d="M0,735 Q320,618 640,730 T1200,658 T1700,728 T1920,705 L1920,1080 L0,1080Z" fill="#091809" opacity=".96"/>
-    
-    <rect x="0" y="755" width="1920" height="325" fill="#091609"/>
-    <path d="M0,755 Q480,738 960,758 T1920,755" fill="none" stroke="#185818" stroke-width="2.5" opacity=".42"/>
-    
-    <path d="M890,755 L1030,755 L1580,1080 L340,1080Z" fill="url(#rdG)"/>
-    <path d="M960,755 L960,1080" stroke="#ffd700" stroke-width="8" stroke-dasharray="45,65" opacity=".5"/>
-    
-    <rect x="138" y="540" width="38" height="260" fill="#261008" rx="6"/>
-    <circle cx="157" cy="486" r="134" fill="#051505"/><circle cx="108" cy="556" r="102" fill="#071f07"/><circle cx="204" cy="516" r="112" fill="#061806" opacity=".9"/>
-    
-    <rect x="1744" y="530" width="42" height="270" fill="#261008" rx="6"/>
-    <circle cx="1765" cy="474" r="144" fill="#051505"/><circle cx="1822" cy="542" r="108" fill="#071f07"/><circle cx="1706" cy="502" r="120" fill="#061806" opacity=".9"/>
-    
-    <circle cx="310" cy="665" r="2.8" fill="#88ff44" opacity=".6"><animate attributeName="opacity" values=".1;.9;.1" dur="2.1s" repeatCount="indefinite"/></circle>
-    <circle cx="580" cy="715" r="2.3" fill="#aaffaa" opacity=".55"><animate attributeName="opacity" values=".08;.78;.08" dur="2.9s" repeatCount="indefinite"/></circle>
-    <circle cx="1400" cy="695" r="2.6" fill="#88ffcc" opacity=".55"><animate attributeName="opacity" values=".1;.85;.1" dur="2.5s" repeatCount="indefinite"/></circle>
-    <circle cx="1650" cy="740" r="2.1" fill="#ccff88" opacity=".5"><animate attributeName="opacity" values=".08;.7;.08" dur="3.4s" repeatCount="indefinite"/></circle>
-  </svg>
+    <!-- Ambient Gradient Overlay -->
+    <div class="ambient-glow-overlay"></div>
 
-  <!-- ==========================================================================
-       MAIN PANDA SVG
-       ========================================================================== -->
-  <div id="pw">
-    <svg viewBox="0 0 1000 850" preserveAspectRatio="xMidYBottom meet" overflow="visible" aria-label="Birthday panda">
-      <defs>
-        <radialGradient id="fw" cx="34%" cy="24%" r="76%"><stop offset="0%" stop-color="#fff"/><stop offset="54%" stop-color="#eee"/><stop offset="100%" stop-color="#c8c8c8"/></radialGradient>
-        <radialGradient id="fb" cx="30%" cy="26%" r="70%"><stop offset="0%" stop-color="#383838"/><stop offset="36%" stop-color="#101010"/><stop offset="100%" stop-color="#000"/></radialGradient>
-        <radialGradient id="fep" cx="36%" cy="30%" r="65%"><stop offset="0%" stop-color="#282828"/><stop offset="52%" stop-color="#0c0c0c"/><stop offset="100%" stop-color="#000"/></radialGradient>
-        <radialGradient id="pup" cx="30%" cy="26%" r="70%"><stop offset="0%" stop-color="#484848"/><stop offset="44%" stop-color="#161616"/><stop offset="100%" stop-color="#000"/></radialGradient>
-        <radialGradient id="pp" cx="36%" cy="26%" r="74%"><stop offset="0%" stop-color="#ffc4c4"/><stop offset="100%" stop-color="#d46868"/></radialGradient>
-        <radialGradient id="nos" cx="34%" cy="26%" r="72%"><stop offset="0%" stop-color="#383838"/><stop offset="100%" stop-color="#000"/></radialGradient>
-        <radialGradient id="blushG" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff5982" stop-opacity="0.8"/><stop offset="50%" stop-color="#ff5982" stop-opacity="0.3"/><stop offset="100%" stop-color="#ff5982" stop-opacity="0"/></radialGradient>
-
-        <radialGradient id="bPk" cx="26%" cy="20%" r="74%"><stop offset="0%" stop-color="#ffccec"/><stop offset="50%" stop-color="#ff1888"/><stop offset="100%" stop-color="#86003c"/></radialGradient>
-        <radialGradient id="bRd" cx="26%" cy="20%" r="74%"><stop offset="0%" stop-color="#ffaaaa"/><stop offset="50%" stop-color="#ff1010"/><stop offset="100%" stop-color="#880000"/></radialGradient>
-        <radialGradient id="bGo" cx="26%" cy="20%" r="74%"><stop offset="0%" stop-color="#fff4a8"/><stop offset="50%" stop-color="#ffc400"/><stop offset="100%" stop-color="#986c00"/></radialGradient>
-        <radialGradient id="bBl" cx="26%" cy="20%" r="74%"><stop offset="0%" stop-color="#aad2ff"/><stop offset="50%" stop-color="#1478ff"/><stop offset="100%" stop-color="#003680"/></radialGradient>
-        <radialGradient id="bGr" cx="26%" cy="20%" r="74%"><stop offset="0%" stop-color="#a8ffd8"/><stop offset="50%" stop-color="#14c858"/><stop offset="100%" stop-color="#005c28"/></radialGradient>
-        <radialGradient id="bPu" cx="26%" cy="20%" r="74%"><stop offset="0%" stop-color="#dbb8ff"/><stop offset="50%" stop-color="#8420ff"/><stop offset="100%" stop-color="#360074"/></radialGradient>
-
-        <linearGradient id="wd" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#3c1804"/><stop offset="34%" stop-color="#784010"/><stop offset="66%" stop-color="#b05c1e"/><stop offset="100%" stop-color="#461c06"/></linearGradient>
-        <linearGradient id="wdD" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#280c04"/><stop offset="50%" stop-color="#4c1c08"/><stop offset="100%" stop-color="#280c04"/></linearGradient>
-
-        <filter id="ds" x="-22%" y="-22%" width="160%" height="165%"><feDropShadow dx="0" dy="9" stdDeviation="10" flood-color="#000" flood-opacity=".54"/></filter>
-        <filter id="sm" x="-16%" y="-16%" width="142%" height="150%"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000" flood-opacity=".40"/></filter>
-        <filter id="bl" x="-16%" y="-16%" width="142%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#000" flood-opacity=".36"/></filter>
-      </defs>
-
-      <g id="bm">
-        <g id="LL" filter="url(#ds)"><ellipse cx="452" cy="718" rx="44" ry="60" fill="url(#fb)" transform="rotate(-8 452 718)"/><ellipse cx="437" cy="778" rx="35" ry="50" fill="url(#fb)" transform="rotate(-12 437 778)"/><ellipse cx="420" cy="816" rx="52" ry="20" fill="#050505" transform="rotate(-6 420 816)"/><ellipse cx="397" cy="810" rx="11" ry="8.5" fill="url(#pp)"/><ellipse cx="420" cy="818" rx="11" ry="8.5" fill="url(#pp)"/><ellipse cx="443" cy="812" rx="10" ry="8" fill="url(#pp)"/></g>
-        <g id="RL" filter="url(#ds)"><ellipse cx="548" cy="718" rx="44" ry="60" fill="url(#fb)" transform="rotate(8 548 718)"/><ellipse cx="563" cy="778" rx="35" ry="50" fill="url(#fb)" transform="rotate(12 563 778)"/><ellipse cx="580" cy="816" rx="52" ry="20" fill="#050505" transform="rotate(6 580 816)"/><ellipse cx="558" cy="810" rx="11" ry="8.5" fill="url(#pp)"/><ellipse cx="580" cy="818" rx="11" ry="8.5" fill="url(#pp)"/><ellipse cx="602" cy="812" rx="10" ry="8" fill="url(#pp)"/></g>
-        <g filter="url(#ds)"><ellipse cx="500" cy="588" rx="145" ry="158" fill="url(#fw)"/><ellipse cx="500" cy="626" rx="88" ry="82" fill="rgba(200,200,200,.2)"/><path d="M342,532 Q500,652 658,532 Q600,466 500,458 Q400,466 342,532Z" fill="url(#fb)"/></g>
-
-        <g filter="url(#ds)">
-          <ellipse cx="500" cy="370" rx="165" ry="148" fill="url(#fw)"/>
-          <ellipse cx="350" cy="268" rx="58" ry="54" fill="url(#fb)"/><ellipse cx="650" cy="268" rx="58" ry="54" fill="url(#fb)"/>
-          <ellipse cx="350" cy="272" rx="27" ry="25" fill="#161616"/><ellipse cx="650" cy="272" rx="27" ry="25" fill="#161616"/>
-          
-          <ellipse cx="420" cy="356" rx="52" ry="62" fill="url(#fep)" transform="rotate(-20 420 356)"/>
-          <ellipse cx="580" cy="356" rx="52" ry="62" fill="url(#fep)" transform="rotate(20 580 356)"/>
-          
-          <!-- LEFT EYE -->
-          <g id="left-eye-inner">
-            <circle cx="428" cy="346" r="22" fill="#fff"/>
-            <circle cx="433" cy="346" r="14" fill="url(#pup)"/>
-            <circle cx="439" cy="339" r="5.5" fill="#fff"/>
-            <circle cx="436" cy="351" r="2.8" fill="rgba(255,255,255,.48)"/>
-          </g>
-          <!-- WINK CLOSED LID -->
-          <path id="left-eye-closed" d="M 408,348 Q 428,364 448,345" fill="none" stroke="#000" stroke-width="4.5" stroke-linecap="round" opacity="0"/>
-
-          <!-- RIGHT EYE -->
-          <circle cx="572" cy="346" r="22" fill="#fff"/>
-          <circle cx="567" cy="346" r="14" fill="url(#pup)"/>
-          <circle cx="573" cy="339" r="5.5" fill="#fff"/>
-          <circle cx="570" cy="351" r="2.8" fill="rgba(255,255,255,.48)"/>
-          
-          <ellipse cx="500" cy="408" rx="21" ry="13" fill="url(#nos)"/>
-          <ellipse cx="493" cy="401" rx="8" ry="4.5" fill="rgba(255,255,255,.2)"/>
-          
-          <g id="mC"><path d="M477,428 Q500,452 523,428" fill="none" stroke="#181818" stroke-width="5" stroke-linecap="round"/><line x1="500" y1="408" x2="500" y2="427" stroke="#aaa" stroke-width="1.6" opacity=".45"/></g>
-          <g id="mG" opacity="0">
-            <path d="M472,428 Q500,482 528,428Z" fill="#540606"/>
-            <ellipse cx="500" cy="466" rx="20" ry="14" fill="#de4470"/>
-            <path d="M483,468 Q500,482 517,468" fill="none" stroke="#b02e54" stroke-width="2"/>
-            <path d="M476,428 L524,428" stroke="#ebebeb" stroke-width="3.5" stroke-linecap="round"/>
-            <path d="M472,428 Q466,413 474,406" fill="none" stroke="#cc7878" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M528,428 Q534,413 526,406" fill="none" stroke="#cc7878" stroke-width="2.5" stroke-linecap="round"/>
-          </g>
-          
-          <circle cx="372" cy="415" r="38" fill="url(#blushG)"/>
-          <circle cx="628" cy="415" r="38" fill="url(#blushG)"/>
-        </g>
+    <!-- ==========================================================================
+         MASTER CONTENT WRAPPER
+         ========================================================================== -->
+    <div class="master-content-wrapper">
 
         <!-- ==========================================================================
-             HIGH FLOATING BALLOONS
+             1. PROFESSIONAL NAVIGATION BAR
              ========================================================================== -->
-        <g id="balloon-bunch">
-          <path d="M 268 598 Q 230 400 130 250" stroke="#ddd" stroke-width="2" fill="none" opacity=".82"/>
-          <path d="M 268 598 Q 250 350 190 190" stroke="#ddd" stroke-width="2" fill="none" opacity=".82"/>
-          <path d="M 268 598 Q 280 300 270 140" stroke="#ddd" stroke-width="2" fill="none" opacity=".82"/>
-          <path d="M 268 598 Q 180 450 70 340" stroke="#ddd" stroke-width="2" fill="none" opacity=".82"/>
-          <path d="M 268 598 Q 300 400 360 230" stroke="#ddd" stroke-width="2" fill="none" opacity=".82"/>
-          <path d="M 268 598 Q 270 250 210 110" stroke="#ddd" stroke-width="2" fill="none" opacity=".82"/>
-          <circle cx="268" cy="600" r="8" fill="#ccc" opacity=".72"/> 
+        <header class="site-header" id="navbar">
+            <div class="container nav-container">
+                
+                <!-- Logo & Brand (Using customer provided logo '1000187917.png') -->
+                <a href="index.html" class="brand-logo">
+                    <!-- Added actual logo file with glowing styles -->
+                    <img src="1000187917.png" alt="Yaadon Ka Lifafa Logo" class="brand-logo-img">
+                </a>
 
-          <ellipse cx="130" cy="190" rx="54" ry="70" fill="url(#bRd)" filter="url(#bl)"/><ellipse cx="115" cy="152" rx="13" ry="30" fill="rgba(255,255,255,.34)" transform="rotate(-26 115 152)"/><path d="M130,260 Q134,272 130,278" fill="none" stroke="#aa0000" stroke-width="2.8" stroke-linecap="round"/>
-          <ellipse cx="190" cy="130" rx="50" ry="64" fill="url(#bPk)" filter="url(#bl)"/><ellipse cx="176" cy="95" rx="12" ry="27" fill="rgba(255,255,255,.34)" transform="rotate(-26 176 95)"/><path d="M190,194 Q194,206 190,212" fill="none" stroke="#bb0055" stroke-width="2.8" stroke-linecap="round"/>
-          <ellipse cx="270" cy="75" rx="56" ry="72" fill="url(#bGo)" filter="url(#bl)"/><ellipse cx="254" cy="33" rx="14" ry="32" fill="rgba(255,255,255,.34)" transform="rotate(-26 254 33)"/><path d="M270,147 Q274,159 270,165" fill="none" stroke="#a87800" stroke-width="2.8" stroke-linecap="round"/>
-          <ellipse cx="70" cy="285" rx="46" ry="59" fill="url(#bBl)" filter="url(#bl)"/><ellipse cx="57" cy="250" rx="11" ry="25" fill="rgba(255,255,255,.34)" transform="rotate(-26 57 250)"/><path d="M70,344 Q74,356 70,362" fill="none" stroke="#0044cc" stroke-width="2.8" stroke-linecap="round"/>
-          <ellipse cx="360" cy="170" rx="48" ry="62" fill="url(#bPu)" filter="url(#bl)"/><ellipse cx="346" cy="133" rx="12" ry="27" fill="rgba(255,255,255,.34)" transform="rotate(-26 346 133)"/><path d="M360,232 Q364,244 360,250" fill="none" stroke="#5500cc" stroke-width="2.8" stroke-linecap="round"/>
-          <ellipse cx="210" cy="50" rx="48" ry="62" fill="url(#bGr)" filter="url(#bl)"/><ellipse cx="196" cy="13" rx="11" ry="27" fill="rgba(255,255,255,.34)" transform="rotate(-26 196 13)"/><path d="M210,112 Q214,124 210,130" fill="none" stroke="#007830" stroke-width="2.8" stroke-linecap="round"/>
-        </g>
+                <!-- Desktop Menu -->
+                <nav class="nav-menu">
+                    <div class="nav-item"><a href="#home" class="nav-link">Home</a></div>
+                    <div class="nav-item"><a href="#how-it-works" class="nav-link">How it Works</a></div>
+                    <div class="nav-item"><a href="#features" class="nav-link">Features</a></div>
+                    <div class="nav-item"><a href="#quotes" class="nav-link">Love Notes</a></div>
+                </nav>
 
-        <!-- WOODEN BOARD GROUP -->
-        <g id="bd-grp">
-          <rect x="724" y="390" width="22" height="230" rx="8" fill="url(#wdD)" filter="url(#sm)"/>
-          <line x1="730" y1="398" x2="730" y2="612" stroke="rgba(255,185,70,.16)" stroke-width="1.2"/>
-          <line x1="740" y1="398" x2="740" y2="612" stroke="rgba(0,0,0,.18)" stroke-width="1.2"/>
+                <!-- Desktop Buttons (Redirecting to Separate Pages instead of modals) -->
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-outline">Log In</a>
+                    <a href="register.html" class="btn btn-primary">Register</a>
+                </div>
 
-          <rect x="748" y="282" width="240" height="196" rx="16" fill="url(#wd)" stroke="#2c0c02" stroke-width="7" filter="url(#sm)"/>
-          <rect x="762" y="296" width="212" height="168" rx="11" fill="#fef5dc" opacity=".98"/>
-          <rect x="768" y="302" width="200" height="156" rx="8" fill="none" stroke="#c08820" stroke-width="2.5" stroke-dasharray="7,5" opacity=".6"/>
+                <!-- Mobile Hamburger Toggle -->
+                <div class="mobile-menu-toggle">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </div>
 
-          <g transform="translate(756,290)"><ellipse cx="0" cy="0" rx="14" ry="7" fill="#186018" transform="rotate(-45)"/><ellipse cx="0" cy="0" rx="14" ry="7" fill="#104810" transform="rotate(45)"/><circle cx="0" cy="0" r="11" fill="#dd0e64"/><circle cx="0" cy="0" r="4.5" fill="#ffd700"/></g>
-          <g transform="translate(984,290)"><ellipse cx="0" cy="0" rx="14" ry="7" fill="#186018" transform="rotate(-45)"/><ellipse cx="0" cy="0" rx="14" ry="7" fill="#104810" transform="rotate(45)"/><circle cx="0" cy="0" r="11" fill="#cc2000"/><circle cx="0" cy="0" r="4.5" fill="#ffd700"/></g>
-          <g transform="translate(756,474)"><ellipse cx="0" cy="0" rx="14" ry="7" fill="#186018" transform="rotate(-45)"/><ellipse cx="0" cy="0" rx="14" ry="7" fill="#104810" transform="rotate(45)"/><circle cx="0" cy="0" r="11" fill="#0066cc"/><circle cx="0" cy="0" r="4.5" fill="#ffd700"/></g>
-          <g transform="translate(984,474)"><ellipse cx="0" cy="0" rx="14" ry="7" fill="#186018" transform="rotate(-45)"/><ellipse cx="0" cy="0" rx="14" ry="7" fill="#104810" transform="rotate(45)"/><circle cx="0" cy="0" r="11" fill="#9900cc"/><circle cx="0" cy="0" r="4.5" fill="#ffd700"/></g>
-
-          <text x="778" y="318" font-size="15" fill="#e0a000">★</text><text x="962" y="318" font-size="15" fill="#e0a000">★</text>
-          <text x="778" y="472" font-size="15" fill="#e0a000">★</text><text x="962" y="472" font-size="15" fill="#e0a000">★</text>
-          <text x="862" y="310" font-size="13" fill="#dd1166" text-anchor="middle">♥</text>
-
-          <text x="868" y="360" font-family="'Brush Script MT','Segoe Script','Comic Sans MS',cursive" font-size="54" font-weight="bold" fill="#8b0000" text-anchor="middle">Happy</text>
-          <text x="868" y="416" font-family="'Brush Script MT','Segoe Script','Comic Sans MS',cursive" font-size="54" font-weight="bold" fill="#8b0000" text-anchor="middle">Birthday</text>
-          <text x="868" y="453" font-family="Georgia,serif" font-size="26" fill="#444" text-anchor="middle">Dear! 🎉</text>
-        </g>
+            </div>
+        </header>
 
         <!-- ==========================================================================
-             ARMS LAYER (OVER PROPS)
+             2. HERO LANDING SECTION (MATCHING SCREENSHOT WITH "LOVE.")
              ========================================================================== -->
-        <g id="LA_grp">
-          <line x1="390" y1="510" x2="310" y2="572" stroke="none"/>
-          <ellipse cx="355" cy="530" rx="34" ry="72" fill="url(#fb)" transform="rotate(38 355 530)" filter="url(#ds)"/>
-          <ellipse cx="300" cy="578" rx="27" ry="58" fill="url(#fb)" transform="rotate(28 300 578)" filter="url(#ds)"/>
-          <ellipse cx="270" cy="596" rx="38" ry="32" fill="url(#fb)" transform="rotate(-12 270 596)" filter="url(#ds)"/>
-          <ellipse cx="270" cy="598" rx="14" ry="11" fill="url(#pp)" transform="rotate(-12 270 598)"/>
-          <ellipse cx="250" cy="583" rx="11" ry="8.5" fill="url(#pp)"/><ellipse cx="290" cy="583" rx="10" ry="8" fill="url(#pp)"/>
-        </g>
+        <section id="home" class="hero-section">
+            
+            <!-- Floating Decorative SVGs -->
+            <div class="floating-element-left">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#ff80a6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </div>
+            <div class="floating-element-right">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 6v6l4 2"></path>
+                </svg>
+            </div>
 
-        <g id="RA_grp">
-          <ellipse cx="645" cy="530" rx="34" ry="72" fill="url(#fb)" transform="rotate(-38 645 530)" filter="url(#ds)"/>
-          <ellipse cx="700" cy="578" rx="27" ry="58" fill="url(#fb)" transform="rotate(-28 700 578)" filter="url(#ds)"/>
-          <ellipse cx="730" cy="596" rx="38" ry="32" fill="url(#fb)" transform="rotate(12 730 596)" filter="url(#ds)"/>
-          <ellipse cx="730" cy="598" rx="14" ry="11" fill="url(#pp)" transform="rotate(12 730 598)"/>
-          <ellipse cx="712" cy="582" rx="11" ry="8.5" fill="url(#pp)"/><ellipse cx="750" cy="582" rx="10" ry="8" fill="url(#pp)"/>
-        </g>
-      </g>
-    </svg>
-  </div>
-</div>
+            <div class="container hero-content">
 
-<script>
-(function(){
-  const pw   = document.getElementById('pw');
-  const gs   = document.getElementById('gsh');
-  const svg  = pw.querySelector('svg');
-  const BL   = document.getElementById('balloon-bunch');
-  const BD   = document.getElementById('bd-grp');
-  const mC   = document.getElementById('mC');
-  const mG   = document.getElementById('mG');
-  
-  const eyeInner = document.getElementById('left-eye-inner');
-  const eyeClosedLine = document.getElementById('left-eye-closed');
-  
-  const ttl  = document.getElementById('ttl');
-  const fx   = document.getElementById('fx');
-  const scn  = document.getElementById('scene');
-  const L_Arm = document.getElementById('LA_grp');
-  const R_Arm = document.getElementById('RA_grp');
+                <!-- Title matched perfectly with the screenshot provided -->
+                <h1 class="hero-title-love">
+                    Love.
+                </h1>
 
-  /* Background Stars */
-  for(let i=0;i<68;i++){
-    const s=document.createElement('div'); s.className='star';
-    const z=Math.random()*2.5+0.8;
-    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*56}%;width:${z}px;height:${z}px;animation-duration:${Math.random()*2+1.3}s;animation-delay:${Math.random()*3.8}s;`;
-    scn.appendChild(s);
-  }
+                <!-- Heart-touching Hindi Subtitle -->
+                <div class="hero-subtitle-hindi">
+                    "कुछ यादें लफ़्ज़ों में नहीं, लिफाफों में महफूज़ होती हैं।"
+                </div>
 
-  /* ─── PHASE 1: Walk in ─── */
-  svg.classList.add('walking');
-  pw.style.animation='walkIn 3.8s cubic-bezier(.2,.6,.34,1) forwards';
-  setTimeout(()=>{ gs.style.opacity='0.62'; }, 2100);
+                <p class="hero-description">
+                    Welcome to Yaadon Ka Lifafa. A premium digital sanctuary designed for all. Whether you want to preserve a secret love letter, store a timeline of unforgettable memories, or gift a customized envelope to your dearest person, your emotions belong here.
+                </p>
 
-  /* ─── PHASE 2: Stop walk, arms rise ─── */
-  setTimeout(()=>{
-    svg.classList.remove('walking'); 
-    L_Arm.style.transform = 'rotate(130deg)';
-    R_Arm.style.transform = 'rotate(-130deg)';
-  }, 3700);
+                <div class="hero-cta-group">
+                    <!-- Standard anchor tags for separate pages -->
+                    <a href="register.html" class="btn btn-primary btn-large">Create Your Lifafa</a>
+                    <a href="#showcase" class="btn btn-outline btn-large">Explore Letters</a>
+                </div>
 
-  /* ─── PHASE 3: FLIP ─── */
-  setTimeout(()=>{
-    L_Arm.style.transform = 'rotate(35deg)';
-    R_Arm.style.transform = 'rotate(-35deg)';
-    pw.style.animation='none';
-    void pw.offsetWidth; 
-    pw.style.animation='flip 1.35s cubic-bezier(.36,.07,.19,.97) forwards';
-    
-    setTimeout(()=>{ gs.style.transform='translateX(-50%) scaleX(1.55) scaleY(0.3)'; }, 1120);
-    setTimeout(()=>{ gs.style.transform='translateX(-50%) scaleX(1) scaleY(1)'; }, 1295);
-  }, 4020);
+            </div>
+        </section>
 
-  /* ─── PHASE 4: Drop Arms ─── */
-  setTimeout(()=>{
-    L_Arm.style.transform = 'rotate(0deg)';
-    R_Arm.style.transform = 'rotate(0deg)';
-  }, 5200);
+        <!-- ==========================================================================
+             3. HOW IT WORKS (3 STEPS)
+             ========================================================================== -->
+        <section id="how-it-works" class="steps-section reveal">
+            <div class="container">
+                <div class="section-heading-wrapper">
+                    <div class="section-subtitle">Simple Steps</div>
+                    <h2 class="section-title">How To Create <span class="cursive-accent">Your Lifafa</span></h2>
+                </div>
 
-  /* ─── PHASE 5: Reveal props ─── */
-  setTimeout(()=>{ BL.classList.add('show'); }, 5320);
-  setTimeout(()=>{ BD.classList.add('show'); }, 5580);
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Register & Connect</h3>
+                        <p class="step-desc">Create your free account. You can keep it private or link it with your dearest person to share a joint memory vault.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Write & Upload</h3>
+                        <p class="step-desc">Pour your heart into digital letters. Upload photos that automatically turn into beautiful polaroid galleries.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Seal & Surprise</h3>
+                        <p class="step-desc">Seal your envelope with a digital wax stamp. Send the secret link to your partner and watch their heart melt.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  /* ─── PHASE 6: Air Sway ─── */
-  setTimeout(()=>{ BL.classList.add('sway'); }, 6200);
+        <!-- ==========================================================================
+             4. FEATURES SECTION
+             ========================================================================== -->
+        <section id="features" class="features-section reveal">
+            <div class="container">
+                
+                <div class="section-heading-wrapper">
+                    <div class="section-subtitle">Why Choose Us</div>
+                    <h2 class="section-title">A Digital Envelope <span class="cursive-accent">Crafted With Emotions</span></h2>
+                    <p style="max-width: 600px; margin: 0 auto;">We bring the vintage charm of handwritten letters and photo albums into the secure, beautifully animated digital world.</p>
+                </div>
 
-  /* ─── PHASE 7: Expression + REAL WINK + FX ─── */
-  setTimeout(()=>{
-    mC.style.display='none';
-    mG.style.opacity='1';
-    ttl.classList.add('show');
-    
-    eyeInner.classList.add('wink-inner');
-    eyeClosedLine.classList.add('wink-line');
+                <div class="features-grid">
+                    
+                    <!-- Feature 1 -->
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Digital Love Letters</h3>
+                        <p class="feature-desc">Write deeply personal letters with beautiful typography. Custom typewriter effects make reading magical.</p>
+                    </div>
 
-    startHearts();
-    startConfetti();
-  }, 6400);
+                    <!-- Feature 2 -->
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Memory Galleries</h3>
+                        <p class="feature-desc">Upload your favorite photographs. Our system automatically turns them into beautiful interactive polaroids.</p>
+                    </div>
 
-  /* ─── INFINITE HEARTS ENGINE ─── */
-  const em=['❤️','💖','💗','💝','🎂','🎉','✨','🎈','🌟','🎊'];
-  function startHearts(){
-    setInterval(()=>{
-      const h=document.createElement('div'); h.className='hrt';
-      h.textContent=em[Math.floor(Math.random()*em.length)];
-      const d=Math.random()*3+3.6, dl=Math.random()*.4;
-      h.style.cssText=`left:${Math.random()*84+6}%;bottom:${Math.random()*13+4}%;font-size:clamp(16px, 3vw, 30px);animation-duration:${d}s;animation-delay:${dl}s;`;
-      fx.appendChild(h);
-      setTimeout(()=>h.remove(),(d+dl)*1000+300);
-    }, 200);
-  }
+                    <!-- Feature 3 -->
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Forever Secure</h3>
+                        <p class="feature-desc">Your memories are safe with us. We use top-tier encryption so your private moments remain strictly between you two.</p>
+                    </div>
 
-  /* ─── INFINITE CONFETTI ENGINE ─── */
-  const cc=['#ffd700','#ff2d87','#00aaff','#44dd55','#ff6600','#cc44ff','#ff4444','#44ffcc','#ff88cc','#88ff44'];
-  function startConfetti(){
-    setInterval(()=>{
-      const c=document.createElement('div'); c.className='cft';
-      const d=Math.random()*3+2.3;
-      const w=Math.random()*7+4, h=Math.random()*12+5;
-      c.style.cssText=`left:${Math.random()*100}%;top:-25px;background:${cc[Math.floor(Math.random()*cc.length)]};width:${w}px;height:${h}px;border-radius:${Math.random()>.5?'50%':'3px'};animation-duration:${d}s;transform:rotate(${Math.random()*360}deg);`;
-      fx.appendChild(c);
-      setTimeout(()=>c.remove(),d*1000+400);
-    }, 120);
-  }
-})();
-</script>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             5. NEW: WATERMORPHISM ANIMATED QUOTES (Replacing the old Reviews block)
+             ========================================================================== -->
+        <section id="quotes" class="watermorphism-section reveal">
+            <div class="container">
+                
+                <div class="section-heading-wrapper">
+                    <div class="section-subtitle">Romantic Notes</div>
+                    <h2 class="section-title">Emotions That Flow <span class="cursive-accent">Like Water</span></h2>
+                </div>
+
+                <div class="water-grid">
+                    
+                    <!-- Water Blob 1 -->
+                    <div class="water-blob-card">
+                        <!-- Water droplets floating inside -->
+                        <div class="water-droplet drop-1"></div>
+                        <div class="water-droplet drop-2"></div>
+                        <p class="water-quote-text">
+                            "Some memories are not just saved in files; they flow in our hearts like water, taking the shape of the container of our souls."
+                        </p>
+                    </div>
+
+                    <!-- Water Blob 2 (Hindi) -->
+                    <div class="water-blob-card">
+                        <div class="water-droplet drop-3"></div>
+                        <div class="water-droplet drop-1"></div>
+                        <p class="water-quote-text" style="color: var(--color-primary-red-glow);">
+                            "वो खूबसूरत पल जो हमने साथ बिताए हैं, वो इस लिफाफे में हमेशा ज़िंदा रहेंगे। मेरी हर धड़कन सिर्फ तुम्हारा नाम लेती है।"
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             6. PUBLIC SHOWCASE / DEAREST PERSON LETTER
+             ========================================================================== -->
+        <section id="showcase" class="showcase-section reveal">
+            <div class="container">
+                
+                <div class="section-heading-wrapper" style="margin-bottom: var(--spacing-5);">
+                    <div class="section-subtitle">Lifafa Showcase</div>
+                    <h2 class="section-title">See How <span class="cursive-accent">Love Unfolds</span></h2>
+                    <p>Take a look at how a public letter is beautifully presented to a recipient.</p>
+                </div>
+
+                <div class="envelope-showcase-wrapper">
+                    <!-- The Showcase Card (No White - Using Rose Gold Gradient) -->
+                    <div class="showcase-card">
+                        
+                        <div class="showcase-floating-heart">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </div>
+
+                        <div class="letter-header">
+                            <h3 class="letter-greeting-main">My Dearest Person,</h3>
+                            <div class="letter-divider"></div>
+                        </div>
+
+                        <div class="letter-content">
+                            From the very first moment our paths crossed, my world has been a brighter, warmer place. 
+                            You are the calm in my chaos and the spark in my everyday life. 
+                            This digital envelope holds just a fraction of the memories we've created, but my heart holds every single one of them perfectly intact.
+                            <br>
+                            <!-- Beautiful Hindi Injection -->
+                            <span class="hindi-quote">"तुम्हारी हर मुस्कुराहट मेरे दिन का सबसे खूबसूरत हिस्सा है।"</span>
+                            <br>
+                            Thank you for being you. Every moment spent with you is a blessing.
+                        </div>
+
+                        <div class="letter-footer">
+                            <div class="letter-signoff">Forever Yours,</div>
+                            <div class="letter-signature">Your Secret Admirer</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             7. FAQ SECTION
+             ========================================================================== -->
+        <section class="faq-section reveal">
+            <div class="container">
+                <div class="section-heading-wrapper">
+                    <div class="section-subtitle">Got Questions?</div>
+                    <h2 class="section-title">Frequently Asked <span class="cursive-accent">Questions</span></h2>
+                </div>
+
+                <div class="faq-container">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Is Yaadon Ka Lifafa free to use?
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Yes! You can register and create your basic digital envelopes completely free of charge. We also offer premium features for advanced animations and video uploads.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FAQ 2 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            क्या मेरी यादें और तस्वीरें यहाँ सुरक्षित हैं?
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                जी हाँ, बिल्कुल। आपकी निजता (Privacy) हमारी पहली प्राथमिकता है। आपका सारा डेटा एन्क्रिप्टेड (Encrypted) फॉर्म में सुरक्षित रहता है और उसे केवल आप ही देख सकते हैं।
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FAQ 3 -->
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            How do I send a Lifafa to my partner?
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Once you finish crafting your letter and adding photos, the system will generate a unique, secure link. You can send this link via WhatsApp, Email, or SMS to your dearest person.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             8. CALL TO ACTION (BOTTOM CTA)
+             ========================================================================== -->
+        <section class="bottom-cta-section reveal">
+            <div class="container cta-box">
+                <h2 class="cta-heading">Ready to pack your memories?</h2>
+                <p class="cta-text">Join thousands of users who have already started preserving their beautiful moments in a digital envelope.</p>
+                <a href="register.html" class="btn btn-primary btn-large" style="padding-left: 60px; padding-right: 60px;">Start Creating Now</a>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             9. PROFESSIONAL MEGA FOOTER
+             ========================================================================== -->
+        <footer class="site-footer">
+            <div class="container">
+                
+                <!-- Footer Top Grid -->
+                <div class="footer-grid">
+                    
+                    <!-- Column 1: Brand Info -->
+                    <div class="footer-col-brand">
+                        <a href="index.html" class="footer-logo-text">Yaadon Ka Lifafa</a>
+                        <p class="footer-desc">
+                            A premium platform dedicated to preserving your most precious memories, love letters, and photographs in beautifully animated digital envelopes. Love, digitized.
+                        </p>
+                        <div class="footer-socials">
+                            <!-- Facebook SVG -->
+                            <a href="#" class="social-icon" aria-label="Facebook">
+                                <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                            </a>
+                            <!-- Twitter/X SVG -->
+                            <a href="#" class="social-icon" aria-label="Twitter">
+                                <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                            </a>
+                            <!-- Instagram SVG -->
+                            <a href="#" class="social-icon" aria-label="Instagram">
+                                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Quick Links -->
+                    <div class="footer-col-links">
+                        <h4 class="footer-heading">Quick Links</h4>
+                        <ul class="footer-menu">
+                            <li><a href="#" class="footer-link">Home</a></li>
+                            <li><a href="#" class="footer-link">About Us</a></li>
+                            <li><a href="#" class="footer-link">How it Works</a></li>
+                            <li><a href="#" class="footer-link">Pricing Plans</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Legal & Support -->
+                    <div class="footer-col-legal">
+                        <h4 class="footer-heading">Support</h4>
+                        <ul class="footer-menu">
+                            <li><a href="#" class="footer-link">Contact Us</a></li>
+                            <li><a href="#" class="footer-link">FAQ & Help</a></li>
+                            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                            <li><a href="#" class="footer-link">Terms of Service</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Newsletter -->
+                    <div class="footer-col-newsletter">
+                        <h4 class="footer-heading">Stay Connected</h4>
+                        <p class="footer-desc" style="max-width: 100%;">Subscribe to our newsletter for romantic ideas, updates, and special anniversary offers.</p>
+                        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed Successfully!');">
+                            <div class="input-group">
+                                <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-newsletter">Subscribe to Love</button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- Footer Bottom Bar - Pritam Vishwakarma Credit EXACTLY AS REQUIRED -->
+                <div class="footer-bottom">
+                    <p class="copyright-text">
+                        &copy; 2026 Yaadon Ka Lifafa. Created by <span class="author-highlight">Pritam Vishwakarma</span> with all rights reserved.
+                    </p>
+                </div>
+
+            </div>
+        </footer>
+
+    </div> <!-- End of Master Content Wrapper -->
+
+    <!-- ==========================================================================
+         10. JAVASCRIPT: ENGINE & UI LOGIC
+         ========================================================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // ---------------------------------------------------------
+            // 1. STICKY NAVBAR LOGIC
+            // ---------------------------------------------------------
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // ---------------------------------------------------------
+            // 2. SCROLL REVEAL ANIMATIONS
+            // ---------------------------------------------------------
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                root: null,
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.1
+            };
+
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => revealOnScroll.observe(el));
+
+            // ---------------------------------------------------------
+            // 3. FAQ ACCORDION LOGIC
+            // ---------------------------------------------------------
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const btn = item.querySelector('.faq-question');
+                btn.addEventListener('click', () => {
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    item.classList.toggle('active');
+                });
+            });
+
+            // ---------------------------------------------------------
+            // 4. ADVANCED HTML5 CANVAS FLYING HEARTS ENGINE
+            // ---------------------------------------------------------
+            const canvas = document.getElementById('heart-canvas-engine');
+            const ctx = canvas.getContext('2d');
+            
+            let width, height;
+            let heartsArray = [];
+            
+            // Color palette for the hearts to give depth
+            const heartColors = [
+                'rgba(255, 26, 102, 0.6)',  // Neon Pink
+                'rgba(230, 0, 76, 0.4)',    // Deep Red
+                'rgba(255, 128, 166, 0.5)', // Light Pink
+                'rgba(255, 215, 0, 0.2)'    // Subtle Gold
+            ];
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class FlyingHeart {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = height + Math.random() * 500;
+                    this.size = Math.random() * 15 + 5; 
+                    this.speedY = Math.random() * 1.5 + 0.5;
+                    this.wobbleAngle = Math.random() * Math.PI * 2;
+                    this.wobbleSpeed = Math.random() * 0.02 + 0.01;
+                    this.wobbleDistance = Math.random() * 1 + 0.5;
+                    this.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.pulseAngle = Math.random() * Math.PI * 2;
+                    this.pulseSpeed = Math.random() * 0.03 + 0.01;
+                }
+
+                update() {
+                    this.y -= this.speedY;
+                    this.wobbleAngle += this.wobbleSpeed;
+                    this.x += Math.sin(this.wobbleAngle) * this.wobbleDistance;
+                    this.pulseAngle += this.pulseSpeed;
+                    this.currentOpacity = this.opacity + Math.sin(this.pulseAngle) * 0.2;
+
+                    if (this.y < -50) {
+                        this.y = height + 50;
+                        this.x = Math.random() * width;
+                        this.size = Math.random() * 15 + 5;
+                        this.speedY = Math.random() * 1.5 + 0.5;
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    const scale = this.size / 50; 
+                    ctx.scale(scale, scale);
+                    ctx.globalAlpha = Math.max(0, Math.min(1, this.currentOpacity));
+                    ctx.fillStyle = this.color;
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = this.color;
+
+                    // Mathematical Bezier Curve Heart
+                    ctx.beginPath();
+                    ctx.moveTo(0, 15);
+                    ctx.bezierCurveTo(0, 15, -20, -5, -20, -15);
+                    ctx.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
+                    ctx.bezierCurveTo(7.5, -30, 20, -25, 20, -15);
+                    ctx.bezierCurveTo(20, -5, 0, 15, 0, 15);
+                    ctx.fill();
+                    
+                    ctx.restore();
+                }
+            }
+
+            function initEngine() {
+                heartsArray = [];
+                const isMobile = width < 768;
+                const totalHearts = isMobile ? 40 : 100; 
+
+                for (let i = 0; i < totalHearts; i++) {
+                    heartsArray.push(new FlyingHeart());
+                }
+            }
+
+            function animateEngine() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < heartsArray.length; i++) {
+                    heartsArray[i].update();
+                    heartsArray[i].draw();
+                }
+                requestAnimationFrame(animateEngine);
+            }
+
+            initEngine();
+            animateEngine();
+
+            console.log("Yaadon Ka Lifafa - Premium Engine Initialized by Pritam Vishwakarma.");
+        });
+    </script>
 </body>
 </html>
