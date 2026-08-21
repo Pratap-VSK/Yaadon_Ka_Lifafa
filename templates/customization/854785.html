@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yaadon Ka Lifafa - Happy Birthday</title>
+    <style>
+        :root {
+            --bg-color: #f7e6e1;
+            --frame-color: #fdfbf7;
+            --accent-red: #a43a49;
+            --text-dark: #2c2b2b;
+            --paper-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main Scrapbook Container */
+        .scrapbook-container {
+            background-color: var(--bg-color);
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            width: 100%;
+            max-width: 600px;
+            height: 900px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 4px;
+        }
+
+        /* Title Styling (Ransom Note Style) */
+        .title {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            z-index: 10;
+            width: 90%;
+        }
+
+        .title span {
+            background: #e8e3d9;
+            padding: 5px 10px;
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+        }
+        
+        .title span:nth-child(even) { transform: rotate(3deg); background: #dcd7cc; }
+        .title span:nth-child(odd) { transform: rotate(-3deg); }
+        .title span.dark { background: var(--text-dark); color: #fff; }
+
+        /* Photo Frames */
+        .photo-frame {
+            position: absolute;
+            background: var(--frame-color);
+            padding: 12px 12px 40px 12px;
+            box-shadow: var(--paper-shadow);
+            border: 1px solid #e0dcd2;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.02) rotate(0deg) !important;
+            box-shadow: 4px 8px 15px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+        }
+
+        .photo-inner {
+            background: linear-gradient(135deg, #a43a49, #702631);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-family: sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-align: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .photo-frame input[type="file"] {
+            display: none;
+        }
+
+        /* Frame 1 Placement */
+        .frame-1 {
+            width: 260px;
+            height: 280px;
+            top: 200px;
+            left: 20px;
+            transform: rotate(-4deg);
+        }
+
+        /* Frame 2 Placement */
+        .frame-2 {
+            width: 280px;
+            height: 260px;
+            bottom: 80px;
+            right: 20px;
+            transform: rotate(2deg);
+        }
+
+        /* Washi Tape Decorations */
+        .tape {
+            position: absolute;
+            background: rgba(220, 100, 120, 0.7);
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px);
+            height: 25px;
+            width: 100px;
+            z-index: 5;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        .tape-1 { top: 190px; left: 10px; transform: rotate(-15deg); }
+        .tape-2 { bottom: 330px; right: 50px; transform: rotate(5deg); background: rgba(150, 40, 60, 0.8); }
+
+        /* Notes & Quotes */
+        .note {
+            position: absolute;
+            background: #f4cdd2;
+            padding: 15px;
+            box-shadow: var(--paper-shadow);
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            color: var(--accent-red);
+            transform: rotate(3deg);
+        }
+
+        .note-1 {
+            top: 240px;
+            right: 20px;
+            width: 220px;
+            border-radius: 2px 15px 2px 15px;
+        }
+
+        .note-2 {
+            bottom: 120px;
+            left: 30px;
+            width: 140px;
+            background: #e8dbcd;
+            transform: rotate(-6deg);
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .special-quote {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            text-align: center;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #4a4a4a;
+            background: rgba(255,255,255,0.6);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .stamp {
+            position: absolute;
+            bottom: 30px;
+            left: 10px;
+            width: 200px;
+            transform: rotate(-10deg);
+            border: 2px dashed #666;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            color: #444;
+            background: #dfd8c8;
+        }
+
+        /* Drag over effect */
+        .drag-over .photo-inner {
+            opacity: 0.7;
+            border: 2px dashed #fff;
+        }
+
+        /* Responsive scaling */
+        @media (max-width: 650px) {
+            .scrapbook-container {
+                height: 800px;
+                transform: scale(0.9);
+            }
+        }
+        @media (max-width: 480px) {
+            .scrapbook-container {
+                transform: scale(0.75);
+                transform-origin: top center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scrapbook-container">
+        <!-- Title -->
+        <div class="title">
+            <span>H</span><span>a</span><span>p</span><span>p</span><span>y</span>
+            <br>
+            <span class="dark">B</span><span>i</span><span>r</span><span>t</span><span class="dark">h</span><span>d</span><span>a</span><span>y</span>
+        </div>
+
+        <!-- Tapes -->
+        <div class="tape tape-1"></div>
+        <div class="tape tape-2"></div>
+
+        <!-- Interactive Photo Frame 1 -->
+        <div class="photo-frame frame-1" onclick="document.getElementById('file-upload-1').click()">
+            <div class="photo-inner" id="drop-zone-1">
+                <span id="text-1">Add photo<br><small>(Click or Drop)</small></span>
+            </div>
+            <input type="file" id="file-upload-1" accept="image/*">
+        </div>
+
+        <!-- Quote Note -->
+        <div class="note note-1">
+            <p>A little reminder:</p>
+            <h3 style="margin: 10px 0;">the world is brighter because you're in it ♥</h3>
+            <div style="background: var(--accent-red); color: white; padding: 5px; margin-top: 10px;">Keep shining always! ♥</div>
+            <div style="margin-top: 10px; font-size: 1.2rem;">🥺🫶🧿🪬💖</div>
+        </div>
+
+        <!-- Small Side Note -->
+        <div class="note note-2">
+            <p>thankful for you every day ♡</p>
+        </div>
+
+        <!-- Interactive Photo Frame 2 -->
+        <div class="photo-frame frame-2" onclick="document.getElementById('file-upload-2').click()">
+            <div class="photo-inner" id="drop-zone-2">
+                <span id="text-2">Add photo<br><small>(Click or Drop)</small></span>
+            </div>
+            <input type="file" id="file-upload-2" accept="image/*">
+        </div>
+
+        <!-- Memory Stamp -->
+        <div class="stamp">
+            THESE MEMORIES<br>MAKE ME SMILE
+        </div>
+
+        <!-- Special Hidden Quote -->
+        <div class="special-quote">
+            "Every memory we create is a letter stored in the envelope of my heart—a true Yaadon Ka Lifafa for us to open whenever we need a smile."
+        </div>
+    </div>
+
+    <script>
+        // Setup Drag, Drop, and Upload for frames
+        function setupPhotoFrame(inputId, dropZoneId, textId) {
+            const fileInput = document.getElementById(inputId);
+            const dropZone = document.getElementById(dropZoneId);
+            const textElement = document.getElementById(textId);
+
+            // Handle file selection via click
+            fileInput.addEventListener('change', function(e) {
+                handleFiles(this.files);
+            });
+
+            // Handle Drag and Drop events
+            dropZone.parentElement.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.parentElement.classList.add('drag-over');
+            });
+
+            dropZone.parentElement.addEventListener('dragleave', () => {
+                dropZone.parentElement.classList.remove('drag-over');
+            });
+
+            dropZone.parentElement.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.parentElement.classList.remove('drag-over');
+                handleFiles(e.dataTransfer.files);
+            });
+
+            // Process the uploaded file
+            function handleFiles(files) {
+                if (files && files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Set the uploaded image as the background of the frame
+                        dropZone.style.backgroundImage = `url(${e.target.result})`;
+                        // Hide the "Add photo" text
+                        textElement.style.display = 'none';
+                    }
+                    reader.readAsDataURL(files[0]);
+                }
+            }
+        }
+
+        // Initialize both frames
+        setupPhotoFrame('file-upload-1', 'drop-zone-1', 'text-1');
+        setupPhotoFrame('file-upload-2', 'drop-zone-2', 'text-2');
+    </script>
+</body>
+</html>
