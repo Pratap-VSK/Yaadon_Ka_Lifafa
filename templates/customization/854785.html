@@ -26,7 +26,7 @@
             --color-frame-inner-gradient: linear-gradient(135deg, #d32645 0%, #9e1428 100%);
             
             /* Notes Colors */
-            --color-note-pink: #ffc4ce;
+            --color-note-pink: #fcd5ce;
             --color-note-blue: #dff0f6;
             --color-note-beige: #fdf5e6;
             
@@ -74,9 +74,9 @@
             width: 100%;
             min-height: 100vh;
             
-            /* EXTREMELY PLAIN COOL PINK BACKGROUND AS REQUESTED */
+            /* EXTREMELY PLAIN COOL PINK BACKGROUND */
             background-color: var(--color-bg-base);
-            background-image: none; /* Removed all grids and boxes */
+            background-image: none; 
             
             color: var(--color-text-ink);
             font-family: var(--font-sans);
@@ -121,7 +121,7 @@
         }
 
         /* ==========================================================================
-           3. BACKGROUND DECORATIONS: FLOWERS ONLY (GIANT BLACK STAR REMOVED)
+           3. BACKGROUND DECORATIONS: FLOWERS ONLY (NO COUPLES, NO BLACK STARS)
            ========================================================================== */
         .bg-decorations-container {
             position: fixed;
@@ -154,20 +154,62 @@
         }
 
         /* Positioning the beautiful pink flowers */
-        .f-rose-1 { top: 5%; left: 3%; width: 160px; transform: rotate(15deg); -webkit-transform: rotate(15deg); }
-        .f-rose-2 { bottom: 8%; right: 4%; width: 200px; transform: rotate(-25deg); -webkit-transform: rotate(-25deg); animation-delay: 2s; -webkit-animation-delay: 2s; }
-        .f-sakura-1 { top: 40%; right: 6%; width: 130px; transform: rotate(45deg); -webkit-transform: rotate(45deg); animation-delay: 1s; -webkit-animation-delay: 1s; }
-        .f-sakura-2 { bottom: 25%; left: 5%; width: 150px; transform: rotate(-15deg); -webkit-transform: rotate(-15deg); animation-delay: 3s; -webkit-animation-delay: 3s; }
-        .f-petal-1 { top: 50%; left: 50%; width: 60px; transform: rotate(80deg); -webkit-transform: rotate(80deg); animation-delay: 4s; -webkit-animation-delay: 4s; opacity: 0.6; }
-        .f-petal-2 { top: 70%; right: 40%; width: 45px; transform: rotate(120deg); -webkit-transform: rotate(120deg); animation-delay: 5s; -webkit-animation-delay: 5s; opacity: 0.5; }
+        .f-rose-1 { 
+            top: 5%; 
+            left: 3%; 
+            width: 160px; 
+            transform: rotate(15deg); 
+            -webkit-transform: rotate(15deg); 
+        }
+        
+        .f-rose-2 { 
+            bottom: 8%; 
+            right: 4%; 
+            width: 200px; 
+            transform: rotate(-25deg); 
+            -webkit-transform: rotate(-25deg); 
+            animation-delay: 2s; 
+            -webkit-animation-delay: 2s; 
+        }
+        
+        .f-sakura-1 { 
+            top: 40%; 
+            right: 6%; 
+            width: 130px; 
+            transform: rotate(45deg); 
+            -webkit-transform: rotate(45deg); 
+            animation-delay: 1s; 
+            -webkit-animation-delay: 1s; 
+        }
+        
+        .f-sakura-2 { 
+            bottom: 25%; 
+            left: 5%; 
+            width: 150px; 
+            transform: rotate(-15deg); 
+            -webkit-transform: rotate(-15deg); 
+            animation-delay: 3s; 
+            -webkit-animation-delay: 3s; 
+        }
+        
+        .f-petal-1 { 
+            top: 50%; 
+            left: 50%; 
+            width: 60px; 
+            transform: rotate(80deg); 
+            -webkit-transform: rotate(80deg); 
+            animation-delay: 4s; 
+            -webkit-animation-delay: 4s; 
+            opacity: 0.6; 
+        }
 
         @keyframes floatFlower {
             0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-25px) rotate(10deg); }
+            100% { transform: translateY(-30px) rotate(10deg); }
         }
         @-webkit-keyframes floatFlower {
             0% { -webkit-transform: translateY(0px) rotate(0deg); }
-            100% { -webkit-transform: translateY(-25px) rotate(10deg); }
+            100% { -webkit-transform: translateY(-30px) rotate(10deg); }
         }
 
         /* ==========================================================================
@@ -182,7 +224,7 @@
             
             padding-top: 0px; 
             padding-right: 20px;
-            padding-bottom: 100px;
+            padding-bottom: 80px;
             padding-left: 20px;
             
             position: relative;
@@ -199,10 +241,10 @@
             -webkit-transform: translateX(-50%);
             
             width: 90%;
-            max-width: 700px;
+            max-width: 600px;
             height: 250px;
             
-            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 70%);
             
             z-index: -1;
             pointer-events: none;
@@ -247,7 +289,7 @@
             position: relative;
         }
 
-        /* The container for each hanging letter */
+        /* The container for each hanging letter that swings continuously */
         .hanging-letter-container {
             display: flex;
             flex-direction: column;
@@ -255,29 +297,40 @@
             position: relative;
             
             margin-top: 0px;
-            margin-right: 6px;
+            margin-right: 4px;
             margin-bottom: 0px;
-            margin-left: 6px;
+            margin-left: 4px;
             
-            transform: translateY(-200%);
-            -webkit-transform: translateY(-200%);
-            opacity: 0;
+            transform-origin: top center;
+            -webkit-transform-origin: top center;
             
-            animation-name: dropDownSwing;
-            animation-duration: 1.8s;
-            animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-            animation-fill-mode: forwards;
+            /* Continuous Swing Animation */
+            animation-name: continuousSwing;
+            animation-duration: 3s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
             
-            -webkit-animation-name: dropDownSwing;
-            -webkit-animation-duration: 1.8s;
-            -webkit-animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-            -webkit-animation-fill-mode: forwards;
+            -webkit-animation-name: continuousSwing;
+            -webkit-animation-duration: 3s;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+        }
+
+        @keyframes continuousSwing {
+            0% { transform: rotate(6deg); }
+            100% { transform: rotate(-6deg); }
+        }
+        @-webkit-keyframes continuousSwing {
+            0% { -webkit-transform: rotate(6deg); }
+            100% { -webkit-transform: rotate(-6deg); }
         }
 
         /* The string holding the letter */
         .letter-string {
             width: 3px;
-            height: clamp(35px, 6vw, 70px);
+            height: clamp(25px, 5vw, 45px); /* Chhota (smaller) string as requested */
             background-color: var(--color-thread);
             position: relative;
             box-shadow: 1px 0px 3px rgba(0,0,0,0.5);
@@ -285,13 +338,19 @@
 
         /* The knot at the top of the tile */
         .letter-knot {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             background-color: #1a0f11;
-            border-radius: 50%;
+            
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            border-bottom-right-radius: 50%;
+            border-bottom-left-radius: 50%;
+            
             position: absolute;
-            bottom: -7px;
+            bottom: -6px;
             left: 50%;
+            
             transform: translateX(-50%);
             -webkit-transform: translateX(-50%);
             z-index: 5;
@@ -303,24 +362,24 @@
             align-items: center;
             justify-content: center;
             
-            width: clamp(50px, 9vw, 85px);
-            height: clamp(55px, 10vw, 95px);
+            /* Reduced size as requested */
+            width: clamp(35px, 6vw, 60px);
+            height: clamp(40px, 7vw, 70px);
             
             background-color: var(--color-frame-bg);
             color: var(--color-text-teal);
             
             font-family: var(--font-sans);
-            font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
             font-weight: 800;
             text-transform: uppercase;
             
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
-            border-bottom-right-radius: 6px;
-            border-bottom-left-radius: 6px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
             
-            /* Extremely attractive colorful glow */
-            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2), 0px 0px 25px var(--glow-pink);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25), 0px 0px 25px var(--glow-pink);
             
             position: relative;
             z-index: 2;
@@ -356,17 +415,17 @@
         }
 
         @keyframes colorShiftGlow {
-            0% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 20px var(--glow-pink); }
-            50% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 30px var(--glow-blue); }
-            100% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 20px var(--glow-yellow); }
+            0% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-pink); }
+            50% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 30px var(--glow-blue); }
+            100% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-yellow); }
         }
         @-webkit-keyframes colorShiftGlow {
-            0% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 20px var(--glow-pink); }
-            50% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 30px var(--glow-blue); }
-            100% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 20px var(--glow-yellow); }
+            0% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-pink); }
+            50% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 30px var(--glow-blue); }
+            100% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-yellow); }
         }
 
-        /* Staggered drop animations for each letter */
+        /* Staggered swing animations for each letter */
         .w1 .hanging-letter-container:nth-child(1) { animation-delay: 0.1s; -webkit-animation-delay: 0.1s; }
         .w1 .hanging-letter-container:nth-child(2) { animation-delay: 0.2s; -webkit-animation-delay: 0.2s; }
         .w1 .hanging-letter-container:nth-child(3) { animation-delay: 0.3s; -webkit-animation-delay: 0.3s; }
@@ -382,25 +441,12 @@
         .w2 .hanging-letter-container:nth-child(7) { animation-delay: 1.2s; -webkit-animation-delay: 1.2s; }
         .w2 .hanging-letter-container:nth-child(8) { animation-delay: 1.3s; -webkit-animation-delay: 1.3s; }
 
-        @keyframes dropDownSwing {
-            0% { transform: translateY(-200px) rotate(20deg); opacity: 0; }
-            60% { transform: translateY(15px) rotate(-15deg); opacity: 1; }
-            80% { transform: translateY(-8px) rotate(8deg); opacity: 1; }
-            100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
-        }
-        @-webkit-keyframes dropDownSwing {
-            0% { -webkit-transform: translateY(-200px) rotate(20deg); opacity: 0; }
-            60% { -webkit-transform: translateY(15px) rotate(-15deg); opacity: 1; }
-            80% { -webkit-transform: translateY(-8px) rotate(8deg); opacity: 1; }
-            100% { -webkit-transform: translateY(0px) rotate(0deg); opacity: 1; }
-        }
-
         /* ==========================================================================
            5. MAIN SCRAPBOOK CONTAINER
            ========================================================================== */
         .main-container {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1200px;
             
             margin-top: 0px;
             margin-right: auto;
@@ -436,8 +482,8 @@
         .main-thread {
             fill: none;
             stroke: var(--color-thread);
-            stroke-width: 6px; /* Extremely thick and visible string */
-            stroke-dasharray: 15, 6; /* Thick rope texture */
+            stroke-width: 5px; /* Extremely visible */
+            stroke-dasharray: 10, 5; /* Rope-like texture */
             filter: drop-shadow(4px 6px 5px var(--color-thread-shadow));
             -webkit-filter: drop-shadow(4px 6px 5px var(--color-thread-shadow));
             stroke-linecap: round;
@@ -448,7 +494,7 @@
         }
 
         /* ==========================================================================
-           7. SCRAPBOOK BLOCKS & LARGER PHOTO FRAMES
+           7. SCRAPBOOK BLOCKS & MEDIUM PHOTO FRAMES (AS REQUESTED)
            ========================================================================== */
         .scrap-block {
             width: 100%;
@@ -458,11 +504,11 @@
             
             margin-top: 0px;
             margin-right: 0px;
-            margin-bottom: 180px; /* Big gap for string visibility */
+            margin-bottom: 140px; /* Big gap for string visibility */
             margin-left: 0px;
             
             position: relative;
-            min-height: 500px;
+            min-height: 450px;
             z-index: 10;
         }
 
@@ -494,19 +540,19 @@
         }
 
         .polaroid-body {
-            /* LARGER Photo Box as requested */
-            width: clamp(320px, 45vw, 600px); 
+            /* REVERTED TO MEDIUM Size Photo Box as requested */
+            width: clamp(300px, 35vw, 450px); 
             background-color: var(--color-frame-bg);
             
-            padding-top: 20px;
-            padding-right: 20px;
-            padding-bottom: 60px;
-            padding-left: 20px;
+            padding-top: 15px;
+            padding-right: 15px;
+            padding-bottom: 40px;
+            padding-left: 15px;
             
-            border-top-left-radius: 6px;
-            border-top-right-radius: 6px;
-            border-bottom-right-radius: 6px;
-            border-bottom-left-radius: 6px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
             
             box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.25);
             position: relative;
@@ -524,12 +570,12 @@
             align-items: center;
             justify-content: center;
             
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border-bottom-left-radius: 4px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
             
-            box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.7);
+            box-shadow: inset 0px 0px 25px rgba(0, 0, 0, 0.6);
             overflow: hidden;
             
             /* PERFECT AUTO-ADJUST PARAMETERS */
@@ -551,7 +597,7 @@
 
         .add-photo-txt {
             font-family: var(--font-sans);
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-size: clamp(1.2rem, 2.2vw, 1.6rem);
             font-weight: 800;
             color: var(--color-text-white);
             text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.8);
@@ -574,21 +620,21 @@
             -webkit-transition-property: opacity;
             -webkit-transition-duration: 0.3s;
         }
-        .fs-1 { top: 15%; left: 15%; width: 30px; }
-        .fs-2 { bottom: 25%; right: 15%; width: 40px; }
+        .fs-1 { top: 15%; left: 15%; width: 25px; }
+        .fs-2 { bottom: 25%; right: 15%; width: 35px; }
 
         /* ==========================================================================
-           8. OPPOSING TAPES AND DECORATIVE KNOTS 
+           8. TAPES AND DECORATIVE KNOTS (OPPOSITE TAPE LOGIC)
            ========================================================================== */
-        
-        /* Tapes added in OPPOSITION for both frames and notes */
+        /* Tapes added in OPPOSITE directions as requested */
         .tape {
             position: absolute;
-            height: 40px;
-            width: 140px;
-            z-index: 60; /* Above everything */
+            height: 30px;
+            width: 110px;
+            z-index: 60; 
             box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
             opacity: 0.95;
+            
             clip-path: polygon(2% 0, 98% 0, 100% 10%, 96% 20%, 100% 30%, 97% 40%, 100% 50%, 96% 60%, 100% 70%, 97% 80%, 100% 90%, 98% 100%, 2% 100%, 0 90%, 4% 80%, 0 70%, 3% 60%, 0 50%, 4% 40%, 0 30%, 3% 20%, 0 10%);
             -webkit-clip-path: polygon(2% 0, 98% 0, 100% 10%, 96% 20%, 100% 30%, 97% 40%, 100% 50%, 96% 60%, 100% 70%, 97% 80%, 100% 90%, 98% 100%, 2% 100%, 0 90%, 4% 80%, 0 70%, 3% 60%, 0 50%, 4% 40%, 0 30%, 3% 20%, 0 10%);
         }
@@ -596,19 +642,18 @@
         .tape-red-stripe { background: var(--color-tape-striped); }
         .tape-pink-dots { background-color: var(--color-tape-pink); background-image: var(--color-tape-dots); background-size: 15px 15px; }
         
-        /* 4 Corners for opposing tapes */
-        .tape-tl { top: -20px; left: -30px; transform: rotate(-30deg); -webkit-transform: rotate(-30deg); }
-        .tape-br { bottom: -20px; right: -30px; transform: rotate(-30deg); -webkit-transform: rotate(-30deg); }
+        /* Opposing Tape Placements */
+        .tape-tl { top: -15px; left: -25px; transform: rotate(-25deg); -webkit-transform: rotate(-25deg); }
+        .tape-br { bottom: -15px; right: -25px; transform: rotate(-25deg); -webkit-transform: rotate(-25deg); }
         
-        .tape-tr { top: -20px; right: -30px; transform: rotate(30deg); -webkit-transform: rotate(30deg); }
-        .tape-bl { bottom: -20px; left: -30px; transform: rotate(30deg); -webkit-transform: rotate(30deg); }
+        .tape-tr { top: -15px; right: -25px; transform: rotate(25deg); -webkit-transform: rotate(25deg); }
+        .tape-bl { bottom: -15px; left: -25px; transform: rotate(25deg); -webkit-transform: rotate(25deg); }
 
-        /* The Knots attaching the frame to the main string */
         .decor-knot {
             position: absolute;
             z-index: 25;
-            width: 65px; /* Huge knots to match thick string */
-            height: 65px;
+            width: 45px; 
+            height: 45px;
             pointer-events: none;
             filter: drop-shadow(4px 6px 6px rgba(0,0,0,0.7));
             -webkit-filter: drop-shadow(4px 6px 6px rgba(0,0,0,0.7));
@@ -617,25 +662,25 @@
         .knot-path { fill: #1a0f11; }
 
         /* Precise knot positioning on frames */
-        .pos-top-center { top: -30px; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%); }
-        .pos-top-left { top: -25px; left: 15%; transform: rotate(-10deg); -webkit-transform: rotate(-10deg); }
-        .pos-top-right { top: -25px; right: 15%; transform: rotate(10deg); -webkit-transform: rotate(10deg); }
-        .pos-bottom-left { bottom: 20px; left: -30px; transform: rotate(-30deg); -webkit-transform: rotate(-30deg); }
+        .pos-top-center { top: -20px; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%); }
+        .pos-top-left { top: -15px; left: 15%; transform: rotate(-10deg); -webkit-transform: rotate(-10deg); }
+        .pos-top-right { top: -15px; right: 15%; transform: rotate(10deg); -webkit-transform: rotate(10deg); }
+        .pos-bottom-left { bottom: 15px; left: -25px; transform: rotate(-30deg); -webkit-transform: rotate(-30deg); }
 
         /* ==========================================================================
-           9. RIPPED PAPER QUOTES (LARGER SIZES)
+           9. RIPPED PAPER QUOTES (MEDIUM SIZES REVERTED)
            ========================================================================== */
         .note-wrapper {
             position: relative;
             z-index: 10;
             
-            /* LARGER Text Box */
-            width: clamp(280px, 40vw, 550px);
+            /* REVERTED TO MEDIUM Text Box */
+            width: clamp(280px, 32vw, 420px);
             
             margin-top: 0px;
-            margin-right: 60px;
+            margin-right: 50px;
             margin-bottom: 0px;
-            margin-left: 60px;
+            margin-left: 50px;
             
             transition-property: transform;
             transition-duration: 0.4s;
@@ -655,10 +700,10 @@
         .paper-note {
             background-color: var(--color-note-pink);
             
-            padding-top: 45px;
-            padding-right: 40px;
-            padding-bottom: 45px;
-            padding-left: 40px;
+            padding-top: 30px;
+            padding-right: 25px;
+            padding-bottom: 30px;
+            padding-left: 25px;
             
             box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
             position: relative;
@@ -684,7 +729,7 @@
 
         .note-text {
             font-family: var(--font-handwriting);
-            font-size: clamp(2rem, 3vw, 3rem);
+            font-size: clamp(1.5rem, 2.2vw, 2rem);
             color: var(--color-text-ink);
             line-height: 1.6;
             text-align: center;
@@ -696,34 +741,34 @@
             background-color: var(--color-maroon-dark);
             color: var(--color-text-white);
             
-            padding-top: 8px;
-            padding-right: 22px;
-            padding-bottom: 8px;
-            padding-left: 22px;
+            padding-top: 6px;
+            padding-right: 18px;
+            padding-bottom: 6px;
+            padding-left: 18px;
             
             font-family: var(--font-sans);
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 700;
             
             display: inline-block;
-            margin-top: 30px;
+            margin-top: 25px;
             
             transform: rotate(-3deg);
             -webkit-transform: rotate(-3deg);
             
             box-shadow: 3px 5px 10px rgba(0,0,0,0.5);
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-            border-bottom-left-radius: 5px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
         }
 
         .note-doodle {
             position: absolute;
-            bottom: 20px;
-            right: 35px;
+            bottom: 15px;
+            right: 25px;
             font-family: var(--font-marker);
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: var(--color-text-ink);
         }
 
@@ -775,7 +820,7 @@
 
         .footer-logo {
             font-family: var(--font-handwriting);
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: #d15c7a;
             
             margin-top: 0px;
@@ -788,7 +833,7 @@
 
         .footer-credit {
             font-family: var(--font-sans);
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #8c5b65;
             
             margin-top: 0px;
@@ -853,17 +898,13 @@
     <canvas id="flying-hearts-canvas"></canvas>
 
     <!-- ==========================================================================
-         BACKGROUND DECORATIONS (DETAILED SVG FLOWERS) - NO BLACK STARS
+         BACKGROUND DECORATIONS (DETAILED SVG FLOWERS & STARS) - NO COUPLES
          ========================================================================== -->
     <div class="bg-decorations-container">
         
         <!-- Highly Detailed Pink Rose 1 -->
-        <svg class="flower-decor f-rose-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path d="M100,30 C80,0 20,40 40,80 C0,90 20,150 60,140 C70,190 130,190 140,140 C180,150 200,90 160,80 C180,40 120,0 100,30 Z" fill="#ffb3c6" stroke="#e6738c" stroke-width="3"/>
-            <path d="M100,60 C90,40 60,60 70,80 C50,80 60,110 80,100 C90,130 110,130 120,100 C140,110 150,80 130,80 C140,60 110,40 100,60 Z" fill="#ffccd5"/>
-            <path d="M100,80 C95,70 80,80 85,90 C75,90 80,105 90,100 C95,115 105,115 110,100 C120,105 125,90 115,90 C120,80 105,70 100,80 Z" fill="#ff99aa"/>
-        </svg>
-
+            <!-- Apka Naya Perfect Circular & Zoomed Logo -->
+        <div class="flower-decor f-rose-1" style="width: 120px; height: 120px; border-radius: 50%; background-image: url('logo.jpeg'); background-size: 210%; background-position: center; box-shadow: 0px 5px 15px rgba(0,0,0,0.3); animation: none; transform: none; opacity: 1;"></div>
         <!-- Detailed Sakura Flower 1 -->
         <svg class="flower-decor f-sakura-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <path d="M100,20 C90,60 20,80 40,80 C40,80 80,100 100,140 C120,100 160,80 160,80 C160,80 110,60 100,20 Z" fill="#ff99aa" stroke="#d96677" stroke-width="4"/>
@@ -886,10 +927,6 @@
         
         <!-- Random petal -->
         <svg class="flower-decor f-petal-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50,10 C20,50 30,90 50,90 C70,90 80,50 50,10 Z" fill="#ffb3c6"/>
-        </svg>
-
-        <svg class="flower-decor f-petal-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path d="M50,10 C20,50 30,90 50,90 C70,90 80,50 50,10 Z" fill="#ffb3c6"/>
         </svg>
 
@@ -984,9 +1021,9 @@
 
         <!-- THE HIGHLY VISIBLE CONNECTING STRING (DHAAGA) SVG -->
         <div class="connecting-string-container">
-            <!-- Using absolute viewBox for perfect scaling without percentages in path causing black boxes -->
+            <!-- Using absolute viewBox for perfect scaling without percentages in path -->
             <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path class="main-thread" fill="none" d="
+                <path class="main-thread" d="
                     M 50,0 
                     C 50,5 25,10 25,12.5 
                     C 25,15 75,20 75,25 
@@ -1006,7 +1043,7 @@
                 <!-- Tiny Sparkle for Photo Frame -->
                 <path id="sparkle-svg" d="M12 0 L14 9 L23 12 L14 15 L12 24 L10 15 L1 12 L10 9 Z" />
                 
-                <!-- The Black Bow/Knot SVG from the screenshot tying photo to string -->
+                <!-- The Black Bow/Knot SVG tying photo to string -->
                 <g id="knot-svg">
                     <path class="knot-path" d="M25,25 C5,10 0,30 15,30 C0,30 5,50 25,35 C15,55 35,60 35,40 C35,60 55,55 45,35 C65,45 60,30 40,30 C60,30 55,10 25,25 Z" />
                     <circle cx="28" cy="32" r="6" fill="#000" />
@@ -1017,10 +1054,8 @@
         <!-- BLOCK 1 -->
         <div class="scrap-block blk-1">
             <div class="frame-wrapper">
-                <!-- Large Knot pinning the frame -->
                 <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                
-                <!-- OPPOSING TAPES FOR FRAME -->
+                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
@@ -1030,16 +1065,15 @@
                         <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
                         <span class="add-photo-txt" id="txt-1">Add photo</span>
                     </div>
-                    <!-- Auto-adjusting local upload input -->
                     <input type="file" id="file-1" class="upload-input" accept="image/*" onchange="previewImage(event, '1')">
                 </div>
             </div>
             
             <div class="note-wrapper">
-                <!-- OPPOSING TAPES FOR NOTE -->
+                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
-
+                
                 <div class="paper-note">
                     <p class="note-text" contenteditable="true" spellcheck="false">
                         A little reminder:<br>the world is brighter because you're in it ♥
@@ -1056,10 +1090,10 @@
         <div class="scrap-block blk-2">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                <!-- TAPES IN OPPOSITION ON FRAME -->
+                <div class="tape tape-pink-dots tape-tr"></div>
+                <div class="tape tape-red-stripe tape-bl"></div>
                 
-                <div class="tape tape-pink-dots tape-tl"></div>
-                <div class="tape tape-red-stripe tape-br"></div>
-
                 <div class="polaroid-body">
                     <div class="photo-area" onclick="document.getElementById('file-2').click()">
                         <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
@@ -1070,9 +1104,10 @@
             </div>
             
             <div class="note-wrapper">
-                <div class="tape tape-red-stripe tape-tr"></div>
-                <div class="tape tape-pink-dots tape-bl"></div>
-
+                <!-- TAPES IN OPPOSITION ON NOTE -->
+                <div class="tape tape-red-stripe tape-tl"></div>
+                <div class="tape tape-pink-dots tape-br"></div>
+                
                 <div class="paper-note color-beige">
                     <p class="note-text" contenteditable="true" spellcheck="false">
                         Thankful for you<br>every single day.
@@ -1086,10 +1121,10 @@
         <div class="scrap-block blk-3">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                <!-- TAPES IN OPPOSITION ON FRAME -->
+                <div class="tape tape-red-stripe tape-tl"></div>
+                <div class="tape tape-pink-dots tape-br"></div>
                 
-                <div class="tape tape-red-stripe tape-tr"></div>
-                <div class="tape tape-pink-dots tape-bl"></div>
-
                 <div class="polaroid-body">
                     <div class="photo-area" onclick="document.getElementById('file-3').click()">
                         <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
@@ -1100,9 +1135,10 @@
             </div>
             
             <div class="note-wrapper">
-                <div class="tape tape-pink-dots tape-tl"></div>
-                <div class="tape tape-red-stripe tape-br"></div>
-
+                <!-- TAPES IN OPPOSITION ON NOTE -->
+                <div class="tape tape-pink-dots tape-tr"></div>
+                <div class="tape tape-red-stripe tape-bl"></div>
+                
                 <div class="paper-note color-blue">
                     <p class="note-text" contenteditable="true" spellcheck="false">
                         Good vibes only.<br>Making memories with you is my favorite thing to do!
@@ -1115,10 +1151,10 @@
         <div class="scrap-block blk-4">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                <!-- TAPES IN OPPOSITION ON FRAME -->
+                <div class="tape tape-pink-dots tape-tr"></div>
+                <div class="tape tape-red-stripe tape-bl"></div>
                 
-                <div class="tape tape-pink-dots tape-tl"></div>
-                <div class="tape tape-red-stripe tape-br"></div>
-
                 <div class="polaroid-body">
                     <div class="photo-area" onclick="document.getElementById('file-4').click()">
                         <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
@@ -1130,9 +1166,10 @@
             </div>
             
             <div class="note-wrapper">
-                <div class="tape tape-red-stripe tape-tr"></div>
-                <div class="tape tape-pink-dots tape-bl"></div>
-
+                <!-- TAPES IN OPPOSITION ON NOTE -->
+                <div class="tape tape-red-stripe tape-tl"></div>
+                <div class="tape tape-pink-dots tape-br"></div>
+                
                 <div class="paper-note">
                     <p class="note-text" contenteditable="true" spellcheck="false">
                         To the one who makes<br>my heart smile.
@@ -1148,10 +1185,10 @@
         <div class="scrap-block blk-5">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                
+                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
-
+                
                 <div class="polaroid-body">
                     <div class="photo-area" onclick="document.getElementById('file-5').click()">
                         <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
@@ -1162,9 +1199,10 @@
             </div>
             
             <div class="note-wrapper">
+                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
-
+                
                 <div class="paper-note color-beige">
                     <p class="note-text" contenteditable="true" spellcheck="false">
                         Here's to another year of us being absolutely awesome together!
@@ -1178,10 +1216,10 @@
         <div class="scrap-block blk-6">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                
+                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
-
+                
                 <div class="polaroid-body">
                     <div class="photo-area" onclick="document.getElementById('file-6').click()">
                         <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
@@ -1192,9 +1230,10 @@
             </div>
             
             <div class="note-wrapper">
+                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
-
+                
                 <div class="paper-note color-blue">
                     <p class="note-text" contenteditable="true" spellcheck="false">
                         We don't remember days,<br>we remember moments.
@@ -1207,10 +1246,10 @@
         <div class="scrap-block blk-7">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                
+                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
-
+                
                 <div class="polaroid-body">
                     <div class="photo-area" onclick="document.getElementById('file-7').click()">
                         <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
@@ -1222,9 +1261,10 @@
             </div>
             
             <div class="note-wrapper">
+                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
-
+                
                 <div class="paper-note">
                     <p class="note-text" contenteditable="true" spellcheck="false">
                         You are my today<br>and all of my tomorrows.
@@ -1240,10 +1280,10 @@
         <div class="scrap-block blk-8">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                
+                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
-
+                
                 <div class="polaroid-body">
                     <div class="photo-area" onclick="document.getElementById('file-8').click()">
                         <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
@@ -1254,9 +1294,10 @@
             </div>
             
             <div class="note-wrapper">
+                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
-
+                
                 <div class="paper-note color-beige">
                     <p class="note-text" contenteditable="true" spellcheck="false">
                         Wishing you the happiest of birthdays. May all your dreams come true! 🎉
@@ -1269,7 +1310,7 @@
     </main>
 
     <!-- ==========================================================================
-         PREMIUM FOOTER (MINIMAL 2 LINES ONLY)
+         PREMIUM FOOTER (MINIMAL 2 LINES)
          ========================================================================== -->
     <footer class="minimal-footer">
         <h2 class="footer-logo">Yaadon Ka Lifafa</h2>
@@ -1417,7 +1458,7 @@
         initHearts();
         animateHearts();
         
-        console.log("Yaadon Ka Lifafa - Complete Engine Initialized Flawlessly.");
+        console.log("Yaadon Ka Lifafa - Scrapbook Engine & Flying Hearts initialized.");
     </script>
 
 </body>
