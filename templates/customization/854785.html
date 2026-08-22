@@ -1,327 +1,1424 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yaadon Ka Lifafa - Happy Birthday</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Only For You | Happy Birthday Scrapbook</title>
+    <meta name="description" content="A cute, star-bright vintage scrapbook for your precious memories.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+
     <style>
+        /* ==========================================================================
+           1. ROOT VARIABLES (PLAIN COOL PINK THEME)
+           ========================================================================== */
         :root {
-            --bg-color: #f7e6e1;
-            --frame-color: #fdfbf7;
-            --accent-red: #a43a49;
-            --text-dark: #2c2b2b;
-            --paper-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+            /* Solid Plain Cool Pink Background - No Grid */
+            --color-bg-base: #ffe4e9; 
+            
+            /* Frame & Accent Colors */
+            --color-frame-bg: #ffffff;
+            --color-frame-inner: #c21f3a; 
+            --color-frame-inner-gradient: linear-gradient(135deg, #d32645 0%, #9e1428 100%);
+            
+            /* Notes Colors */
+            --color-note-pink: #ffc4ce;
+            --color-note-blue: #dff0f6;
+            --color-note-beige: #fdf5e6;
+            
+            /* Text Colors */
+            --color-text-ink: #2c2c2c;
+            --color-text-teal: #10423e; 
+            --color-text-white: #ffffff;
+            
+            /* Tape Colors */
+            --color-tape-red: rgba(190, 40, 60, 0.85);
+            --color-tape-pink: rgba(240, 150, 170, 0.85);
+            --color-tape-striped: repeating-linear-gradient(45deg, rgba(180,40,60,0.8), rgba(180,40,60,0.8) 6px, rgba(210,70,90,0.8) 6px, rgba(210,70,90,0.8) 12px);
+            --color-tape-dots: radial-gradient(circle, rgba(180,40,60,0.6) 20%, transparent 20%);
+            
+            /* String / Thread Color - HIGHLY VISIBLE */
+            --color-thread: #2a1610; 
+            --color-thread-shadow: rgba(0, 0, 0, 0.5);
+            
+            /* Glowing Effect Colors for Title */
+            --glow-pink: rgba(255, 105, 180, 0.9);
+            --glow-blue: rgba(0, 229, 255, 0.9);
+            --glow-yellow: rgba(255, 234, 0, 0.9);
+            
+            /* Typography */
+            --font-handwriting: 'Caveat', cursive;
+            --font-marker: 'Patrick Hand', cursive;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        /* ==========================================================================
+           2. GLOBAL RESET & BASE STYLES
+           ========================================================================== */
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
         }
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
-            background-color: #1a1a1a;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        /* Main Scrapbook Container */
-        .scrapbook-container {
-            background-color: var(--bg-color);
-            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
             width: 100%;
-            max-width: 600px;
-            height: 900px;
+            min-height: 100vh;
+            
+            /* EXTREMELY PLAIN COOL PINK BACKGROUND AS REQUESTED */
+            background-color: var(--color-bg-base);
+            background-image: none; /* Removed all grids and boxes */
+            
+            color: var(--color-text-ink);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
             position: relative;
+            
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            
+            padding-top: 0px;
+            padding-right: 0px;
+            padding-bottom: 0px;
+            padding-left: 0px;
+        }
+
+        p, h1, h2, h3, h4, h5, h6 {
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            
+            padding-top: 0px;
+            padding-right: 0px;
+            padding-bottom: 0px;
+            padding-left: 0px;
+        }
+
+        /* Noise filter for very slight premium paper texture */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* ==========================================================================
+           3. BACKGROUND DECORATIONS: FLOWERS ONLY (GIANT BLACK STAR REMOVED)
+           ========================================================================== */
+        .bg-decorations-container {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-radius: 4px;
         }
 
-        /* Title Styling (Ransom Note Style) */
-        .title {
+        .flower-decor {
             position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
-            z-index: 10;
-            width: 90%;
+            opacity: 0.85;
+            filter: drop-shadow(2px 5px 8px rgba(0,0,0,0.15));
+            -webkit-filter: drop-shadow(2px 5px 8px rgba(0,0,0,0.15));
+            
+            animation-name: floatFlower;
+            animation-duration: 9s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            
+            -webkit-animation-name: floatFlower;
+            -webkit-animation-duration: 9s;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
         }
 
-        .title span {
-            background: #e8e3d9;
-            padding: 5px 10px;
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: var(--text-dark);
-            box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
-            text-transform: uppercase;
-        }
-        
-        .title span:nth-child(even) { transform: rotate(3deg); background: #dcd7cc; }
-        .title span:nth-child(odd) { transform: rotate(-3deg); }
-        .title span.dark { background: var(--text-dark); color: #fff; }
+        /* Positioning the beautiful pink flowers */
+        .f-rose-1 { top: 5%; left: 3%; width: 160px; transform: rotate(15deg); -webkit-transform: rotate(15deg); }
+        .f-rose-2 { bottom: 8%; right: 4%; width: 200px; transform: rotate(-25deg); -webkit-transform: rotate(-25deg); animation-delay: 2s; -webkit-animation-delay: 2s; }
+        .f-sakura-1 { top: 40%; right: 6%; width: 130px; transform: rotate(45deg); -webkit-transform: rotate(45deg); animation-delay: 1s; -webkit-animation-delay: 1s; }
+        .f-sakura-2 { bottom: 25%; left: 5%; width: 150px; transform: rotate(-15deg); -webkit-transform: rotate(-15deg); animation-delay: 3s; -webkit-animation-delay: 3s; }
+        .f-petal-1 { top: 50%; left: 50%; width: 60px; transform: rotate(80deg); -webkit-transform: rotate(80deg); animation-delay: 4s; -webkit-animation-delay: 4s; opacity: 0.6; }
+        .f-petal-2 { top: 70%; right: 40%; width: 45px; transform: rotate(120deg); -webkit-transform: rotate(120deg); animation-delay: 5s; -webkit-animation-delay: 5s; opacity: 0.5; }
 
-        /* Photo Frames */
-        .photo-frame {
-            position: absolute;
-            background: var(--frame-color);
-            padding: 12px 12px 40px 12px;
-            box-shadow: var(--paper-shadow);
-            border: 1px solid #e0dcd2;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        @keyframes floatFlower {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-25px) rotate(10deg); }
+        }
+        @-webkit-keyframes floatFlower {
+            0% { -webkit-transform: translateY(0px) rotate(0deg); }
+            100% { -webkit-transform: translateY(-25px) rotate(10deg); }
+        }
+
+        /* ==========================================================================
+           4. HEADER: GLOWING BACKGROUND & DROP-DOWN TILES
+           ========================================================================== */
+        .header-container {
+            width: 100%;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            overflow: hidden;
-        }
-
-        .photo-frame:hover {
-            transform: scale(1.02) rotate(0deg) !important;
-            box-shadow: 4px 8px 15px rgba(0, 0, 0, 0.2);
+            justify-content: flex-start;
+            
+            padding-top: 0px; 
+            padding-right: 20px;
+            padding-bottom: 100px;
+            padding-left: 20px;
+            
+            position: relative;
             z-index: 20;
         }
 
-        .photo-inner {
-            background: linear-gradient(135deg, #a43a49, #702631);
-            width: 100%;
-            height: 100%;
+        /* The Soft Glowing Backing Plate for the Title */
+        .header-bg-glow {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+            
+            width: 90%;
+            max-width: 700px;
+            height: 250px;
+            
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+            
+            z-index: -1;
+            pointer-events: none;
+            
+            filter: blur(25px);
+            -webkit-filter: blur(25px);
+            
+            animation-name: pulseBg;
+            animation-duration: 4s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            
+            -webkit-animation-name: pulseBg;
+            -webkit-animation-duration: 4s;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+        }
+
+        @keyframes pulseBg {
+            0% { opacity: 0.6; transform: translateX(-50%) scale(0.9); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+        @-webkit-keyframes pulseBg {
+            0% { opacity: 0.6; -webkit-transform: translateX(-50%) scale(0.9); }
+            100% { opacity: 1; -webkit-transform: translateX(-50%) scale(1.1); }
+        }
+
+        .word-row {
             display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start;
             justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-family: sans-serif;
-            font-weight: 600;
-            font-size: 1.2rem;
-            text-align: center;
+            
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 25px;
+            margin-left: 0px;
+            
             position: relative;
-            background-size: cover;
-            background-position: center;
         }
 
-        .photo-frame input[type="file"] {
-            display: none;
+        /* The container for each hanging letter */
+        .hanging-letter-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            
+            margin-top: 0px;
+            margin-right: 6px;
+            margin-bottom: 0px;
+            margin-left: 6px;
+            
+            transform: translateY(-200%);
+            -webkit-transform: translateY(-200%);
+            opacity: 0;
+            
+            animation-name: dropDownSwing;
+            animation-duration: 1.8s;
+            animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation-fill-mode: forwards;
+            
+            -webkit-animation-name: dropDownSwing;
+            -webkit-animation-duration: 1.8s;
+            -webkit-animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+            -webkit-animation-fill-mode: forwards;
         }
 
-        /* Frame 1 Placement */
-        .frame-1 {
-            width: 260px;
-            height: 280px;
-            top: 200px;
-            left: 20px;
-            transform: rotate(-4deg);
+        /* The string holding the letter */
+        .letter-string {
+            width: 3px;
+            height: clamp(35px, 6vw, 70px);
+            background-color: var(--color-thread);
+            position: relative;
+            box-shadow: 1px 0px 3px rgba(0,0,0,0.5);
         }
 
-        /* Frame 2 Placement */
-        .frame-2 {
-            width: 280px;
-            height: 260px;
-            bottom: 80px;
-            right: 20px;
-            transform: rotate(2deg);
-        }
-
-        /* Washi Tape Decorations */
-        .tape {
+        /* The knot at the top of the tile */
+        .letter-knot {
+            width: 14px;
+            height: 14px;
+            background-color: #1a0f11;
+            border-radius: 50%;
             position: absolute;
-            background: rgba(220, 100, 120, 0.7);
-            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px);
-            height: 25px;
-            width: 100px;
-            z-index: 5;
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-        }
-        .tape-1 { top: 190px; left: 10px; transform: rotate(-15deg); }
-        .tape-2 { bottom: 330px; right: 50px; transform: rotate(5deg); background: rgba(150, 40, 60, 0.8); }
-
-        /* Notes & Quotes */
-        .note {
-            position: absolute;
-            background: #f4cdd2;
-            padding: 15px;
-            box-shadow: var(--paper-shadow);
-            text-align: center;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            color: var(--accent-red);
-            transform: rotate(3deg);
-        }
-
-        .note-1 {
-            top: 240px;
-            right: 20px;
-            width: 220px;
-            border-radius: 2px 15px 2px 15px;
-        }
-
-        .note-2 {
-            bottom: 120px;
-            left: 30px;
-            width: 140px;
-            background: #e8dbcd;
-            transform: rotate(-6deg);
-            color: #555;
-            font-size: 0.9rem;
-        }
-
-        .special-quote {
-            position: absolute;
-            bottom: 20px;
+            bottom: -7px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            text-align: center;
-            font-style: italic;
-            font-size: 0.95rem;
-            color: #4a4a4a;
-            background: rgba(255,255,255,0.6);
-            padding: 10px;
-            border-radius: 10px;
+            -webkit-transform: translateX(-50%);
+            z-index: 5;
+            box-shadow: 1px 2px 4px rgba(0,0,0,0.6);
         }
 
-        .stamp {
+        .tile-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            
+            width: clamp(50px, 9vw, 85px);
+            height: clamp(55px, 10vw, 95px);
+            
+            background-color: var(--color-frame-bg);
+            color: var(--color-text-teal);
+            
+            font-family: var(--font-sans);
+            font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
+            
+            /* Extremely attractive colorful glow */
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2), 0px 0px 25px var(--glow-pink);
+            
+            position: relative;
+            z-index: 2;
+            margin-top: 0px; 
+            
+            transition-property: transform, filter, box-shadow;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+            
+            -webkit-transition-property: -webkit-transform, -webkit-filter, box-shadow;
+            -webkit-transition-duration: 0.3s;
+            -webkit-transition-timing-function: ease;
+            
+            cursor: pointer;
+            
+            animation-name: colorShiftGlow;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            
+            -webkit-animation-name: colorShiftGlow;
+            -webkit-animation-duration: 4s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+        }
+
+        .tile-letter:hover {
+            transform: scale(1.15) rotate(5deg);
+            -webkit-transform: scale(1.15) rotate(5deg);
+            filter: brightness(1.2);
+            -webkit-filter: brightness(1.2);
+            z-index: 10;
+        }
+
+        @keyframes colorShiftGlow {
+            0% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 20px var(--glow-pink); }
+            50% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 30px var(--glow-blue); }
+            100% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 20px var(--glow-yellow); }
+        }
+        @-webkit-keyframes colorShiftGlow {
+            0% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 20px var(--glow-pink); }
+            50% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 30px var(--glow-blue); }
+            100% { box-shadow: 0px 8px 15px rgba(0,0,0,0.2), 0px 0px 20px var(--glow-yellow); }
+        }
+
+        /* Staggered drop animations for each letter */
+        .w1 .hanging-letter-container:nth-child(1) { animation-delay: 0.1s; -webkit-animation-delay: 0.1s; }
+        .w1 .hanging-letter-container:nth-child(2) { animation-delay: 0.2s; -webkit-animation-delay: 0.2s; }
+        .w1 .hanging-letter-container:nth-child(3) { animation-delay: 0.3s; -webkit-animation-delay: 0.3s; }
+        .w1 .hanging-letter-container:nth-child(4) { animation-delay: 0.4s; -webkit-animation-delay: 0.4s; }
+        .w1 .hanging-letter-container:nth-child(5) { animation-delay: 0.5s; -webkit-animation-delay: 0.5s; }
+        
+        .w2 .hanging-letter-container:nth-child(1) { animation-delay: 0.6s; -webkit-animation-delay: 0.6s; }
+        .w2 .hanging-letter-container:nth-child(2) { animation-delay: 0.7s; -webkit-animation-delay: 0.7s; }
+        .w2 .hanging-letter-container:nth-child(3) { animation-delay: 0.8s; -webkit-animation-delay: 0.8s; }
+        .w2 .hanging-letter-container:nth-child(4) { animation-delay: 0.9s; -webkit-animation-delay: 0.9s; }
+        .w2 .hanging-letter-container:nth-child(5) { animation-delay: 1.0s; -webkit-animation-delay: 1.0s; }
+        .w2 .hanging-letter-container:nth-child(6) { animation-delay: 1.1s; -webkit-animation-delay: 1.1s; }
+        .w2 .hanging-letter-container:nth-child(7) { animation-delay: 1.2s; -webkit-animation-delay: 1.2s; }
+        .w2 .hanging-letter-container:nth-child(8) { animation-delay: 1.3s; -webkit-animation-delay: 1.3s; }
+
+        @keyframes dropDownSwing {
+            0% { transform: translateY(-200px) rotate(20deg); opacity: 0; }
+            60% { transform: translateY(15px) rotate(-15deg); opacity: 1; }
+            80% { transform: translateY(-8px) rotate(8deg); opacity: 1; }
+            100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+        }
+        @-webkit-keyframes dropDownSwing {
+            0% { -webkit-transform: translateY(-200px) rotate(20deg); opacity: 0; }
+            60% { -webkit-transform: translateY(15px) rotate(-15deg); opacity: 1; }
+            80% { -webkit-transform: translateY(-8px) rotate(8deg); opacity: 1; }
+            100% { -webkit-transform: translateY(0px) rotate(0deg); opacity: 1; }
+        }
+
+        /* ==========================================================================
+           5. MAIN SCRAPBOOK CONTAINER
+           ========================================================================== */
+        .main-container {
+            width: 100%;
+            max-width: 1400px;
+            
+            margin-top: 0px;
+            margin-right: auto;
+            margin-bottom: 0px;
+            margin-left: auto;
+            
+            padding-top: 50px;
+            padding-right: 20px;
+            padding-bottom: 150px;
+            padding-left: 20px;
+            
+            display: flex;
+            flex-direction: column;
+            
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ==========================================================================
+           6. HIGHLY VISIBLE CONNECTING STRING (DHAAGA)
+           ========================================================================== */
+        .connecting-string-container {
             position: absolute;
-            bottom: 30px;
-            left: 10px;
-            width: 200px;
-            transform: rotate(-10deg);
-            border: 2px dashed #666;
-            padding: 10px;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* The SVG Path that creates the rope. Using viewBox ensures it scales perfectly across browsers */
+        .main-thread {
+            fill: none;
+            stroke: var(--color-thread);
+            stroke-width: 6px; /* Extremely thick and visible string */
+            stroke-dasharray: 15, 6; /* Thick rope texture */
+            filter: drop-shadow(4px 6px 5px var(--color-thread-shadow));
+            -webkit-filter: drop-shadow(4px 6px 5px var(--color-thread-shadow));
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            
+            /* Crucial for responsive SVGs */
+            vector-effect: non-scaling-stroke;
+        }
+
+        /* ==========================================================================
+           7. SCRAPBOOK BLOCKS & LARGER PHOTO FRAMES
+           ========================================================================== */
+        .scrap-block {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 180px; /* Big gap for string visibility */
+            margin-left: 0px;
+            
+            position: relative;
+            min-height: 500px;
+            z-index: 10;
+        }
+
+        .scrap-block:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .scrap-block:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .frame-wrapper {
+            position: relative;
+            z-index: 15;
+            
+            transition-property: transform, z-index;
+            transition-duration: 0.4s;
+            transition-timing-function: ease;
+            
+            -webkit-transition-property: -webkit-transform, z-index;
+            -webkit-transition-duration: 0.4s;
+            -webkit-transition-timing-function: ease;
+        }
+
+        .frame-wrapper:hover {
+            transform: scale(1.06);
+            -webkit-transform: scale(1.06);
+            z-index: 50;
+        }
+
+        .polaroid-body {
+            /* LARGER Photo Box as requested */
+            width: clamp(320px, 45vw, 600px); 
+            background-color: var(--color-frame-bg);
+            
+            padding-top: 20px;
+            padding-right: 20px;
+            padding-bottom: 60px;
+            padding-left: 20px;
+            
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
+            
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.25);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .photo-area {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: var(--color-frame-inner-gradient);
+            position: relative;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
+            
+            box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            
+            /* PERFECT AUTO-ADJUST PARAMETERS */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .upload-input {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .add-photo-txt {
+            font-family: var(--font-sans);
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 800;
+            color: var(--color-text-white);
+            text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.8);
+            z-index: 5;
+            
+            transition-property: opacity;
+            transition-duration: 0.3s;
+            -webkit-transition-property: opacity;
+            -webkit-transition-duration: 0.3s;
+        }
+
+        .frame-sparkle {
+            position: absolute;
+            fill: #ffccd9;
+            opacity: 0.9;
+            z-index: 4;
+            
+            transition-property: opacity;
+            transition-duration: 0.3s;
+            -webkit-transition-property: opacity;
+            -webkit-transition-duration: 0.3s;
+        }
+        .fs-1 { top: 15%; left: 15%; width: 30px; }
+        .fs-2 { bottom: 25%; right: 15%; width: 40px; }
+
+        /* ==========================================================================
+           8. OPPOSING TAPES AND DECORATIVE KNOTS 
+           ========================================================================== */
+        
+        /* Tapes added in OPPOSITION for both frames and notes */
+        .tape {
+            position: absolute;
+            height: 40px;
+            width: 140px;
+            z-index: 60; /* Above everything */
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+            opacity: 0.95;
+            clip-path: polygon(2% 0, 98% 0, 100% 10%, 96% 20%, 100% 30%, 97% 40%, 100% 50%, 96% 60%, 100% 70%, 97% 80%, 100% 90%, 98% 100%, 2% 100%, 0 90%, 4% 80%, 0 70%, 3% 60%, 0 50%, 4% 40%, 0 30%, 3% 20%, 0 10%);
+            -webkit-clip-path: polygon(2% 0, 98% 0, 100% 10%, 96% 20%, 100% 30%, 97% 40%, 100% 50%, 96% 60%, 100% 70%, 97% 80%, 100% 90%, 98% 100%, 2% 100%, 0 90%, 4% 80%, 0 70%, 3% 60%, 0 50%, 4% 40%, 0 30%, 3% 20%, 0 10%);
+        }
+        
+        .tape-red-stripe { background: var(--color-tape-striped); }
+        .tape-pink-dots { background-color: var(--color-tape-pink); background-image: var(--color-tape-dots); background-size: 15px 15px; }
+        
+        /* 4 Corners for opposing tapes */
+        .tape-tl { top: -20px; left: -30px; transform: rotate(-30deg); -webkit-transform: rotate(-30deg); }
+        .tape-br { bottom: -20px; right: -30px; transform: rotate(-30deg); -webkit-transform: rotate(-30deg); }
+        
+        .tape-tr { top: -20px; right: -30px; transform: rotate(30deg); -webkit-transform: rotate(30deg); }
+        .tape-bl { bottom: -20px; left: -30px; transform: rotate(30deg); -webkit-transform: rotate(30deg); }
+
+        /* The Knots attaching the frame to the main string */
+        .decor-knot {
+            position: absolute;
+            z-index: 25;
+            width: 65px; /* Huge knots to match thick string */
+            height: 65px;
+            pointer-events: none;
+            filter: drop-shadow(4px 6px 6px rgba(0,0,0,0.7));
+            -webkit-filter: drop-shadow(4px 6px 6px rgba(0,0,0,0.7));
+        }
+
+        .knot-path { fill: #1a0f11; }
+
+        /* Precise knot positioning on frames */
+        .pos-top-center { top: -30px; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%); }
+        .pos-top-left { top: -25px; left: 15%; transform: rotate(-10deg); -webkit-transform: rotate(-10deg); }
+        .pos-top-right { top: -25px; right: 15%; transform: rotate(10deg); -webkit-transform: rotate(10deg); }
+        .pos-bottom-left { bottom: 20px; left: -30px; transform: rotate(-30deg); -webkit-transform: rotate(-30deg); }
+
+        /* ==========================================================================
+           9. RIPPED PAPER QUOTES (LARGER SIZES)
+           ========================================================================== */
+        .note-wrapper {
+            position: relative;
+            z-index: 10;
+            
+            /* LARGER Text Box */
+            width: clamp(280px, 40vw, 550px);
+            
+            margin-top: 0px;
+            margin-right: 60px;
+            margin-bottom: 0px;
+            margin-left: 60px;
+            
+            transition-property: transform;
+            transition-duration: 0.4s;
+            transition-timing-function: ease;
+            
+            -webkit-transition-property: -webkit-transform;
+            -webkit-transition-duration: 0.4s;
+            -webkit-transition-timing-function: ease;
+        }
+
+        .note-wrapper:hover {
+            transform: scale(1.06) translateY(-8px);
+            -webkit-transform: scale(1.06) translateY(-8px);
+            z-index: 40;
+        }
+
+        .paper-note {
+            background-color: var(--color-note-pink);
+            
+            padding-top: 45px;
+            padding-right: 40px;
+            padding-bottom: 45px;
+            padding-left: 40px;
+            
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+            position: relative;
+            
+            clip-path: polygon(
+                2% 2%, 6% 0%, 10% 2%, 14% 0%, 18% 3%, 22% 0%, 26% 2%, 30% 0%, 34% 3%, 38% 0%, 42% 2%, 46% 0%, 50% 3%, 
+                54% 0%, 58% 2%, 62% 0%, 66% 3%, 70% 0%, 74% 2%, 78% 0%, 82% 3%, 86% 0%, 90% 2%, 94% 0%, 98% 2%, 
+                100% 98%, 96% 100%, 92% 98%, 88% 100%, 84% 97%, 80% 100%, 76% 98%, 72% 100%, 68% 97%, 64% 100%, 
+                60% 98%, 56% 100%, 52% 97%, 48% 100%, 44% 98%, 40% 100%, 36% 97%, 32% 100%, 28% 98%, 24% 100%, 
+                20% 97%, 16% 100%, 12% 98%, 8% 100%, 4% 98%, 0% 100%
+            );
+            -webkit-clip-path: polygon(
+                2% 2%, 6% 0%, 10% 2%, 14% 0%, 18% 3%, 22% 0%, 26% 2%, 30% 0%, 34% 3%, 38% 0%, 42% 2%, 46% 0%, 50% 3%, 
+                54% 0%, 58% 2%, 62% 0%, 66% 3%, 70% 0%, 74% 2%, 78% 0%, 82% 3%, 86% 0%, 90% 2%, 94% 0%, 98% 2%, 
+                100% 98%, 96% 100%, 92% 98%, 88% 100%, 84% 97%, 80% 100%, 76% 98%, 72% 100%, 68% 97%, 64% 100%, 
+                60% 98%, 56% 100%, 52% 97%, 48% 100%, 44% 98%, 40% 100%, 36% 97%, 32% 100%, 28% 98%, 24% 100%, 
+                20% 97%, 16% 100%, 12% 98%, 8% 100%, 4% 98%, 0% 100%
+            );
+        }
+        
+        .color-blue { background-color: var(--color-note-blue); }
+        .color-beige { background-color: var(--color-note-beige); }
+
+        .note-text {
+            font-family: var(--font-handwriting);
+            font-size: clamp(2rem, 3vw, 3rem);
+            color: var(--color-text-ink);
+            line-height: 1.6;
             text-align: center;
-            font-weight: bold;
-            color: #444;
-            background: #dfd8c8;
+            outline: none;
+            cursor: text;
         }
 
-        /* Drag over effect */
-        .drag-over .photo-inner {
-            opacity: 0.7;
-            border: 2px dashed #fff;
+        .highlight-text {
+            background-color: var(--color-maroon-dark);
+            color: var(--color-text-white);
+            
+            padding-top: 8px;
+            padding-right: 22px;
+            padding-bottom: 8px;
+            padding-left: 22px;
+            
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 700;
+            
+            display: inline-block;
+            margin-top: 30px;
+            
+            transform: rotate(-3deg);
+            -webkit-transform: rotate(-3deg);
+            
+            box-shadow: 3px 5px 10px rgba(0,0,0,0.5);
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
         }
 
-        /* Responsive scaling */
-        @media (max-width: 650px) {
-            .scrapbook-container {
-                height: 800px;
-                transform: scale(0.9);
+        .note-doodle {
+            position: absolute;
+            bottom: 20px;
+            right: 35px;
+            font-family: var(--font-marker);
+            font-size: 2.2rem;
+            color: var(--color-text-ink);
+        }
+
+        /* ==========================================================================
+           10. BLOCK SPECIFIC TRANSFORMATIONS
+           ========================================================================== */
+        .blk-1 .frame-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); }
+        .blk-1 .note-wrapper { transform: rotate(4deg); -webkit-transform: rotate(4deg); margin-top: 50px; }
+        
+        .blk-2 .frame-wrapper { transform: rotate(4deg); -webkit-transform: rotate(4deg); }
+        .blk-2 .note-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); margin-top: -40px; }
+
+        .blk-3 .frame-wrapper { transform: rotate(-2deg); -webkit-transform: rotate(-2deg); }
+        .blk-3 .note-wrapper { transform: rotate(5deg); -webkit-transform: rotate(5deg); margin-top: 30px; }
+
+        .blk-4 .frame-wrapper { transform: rotate(3deg); -webkit-transform: rotate(3deg); }
+        .blk-4 .note-wrapper { transform: rotate(-4deg); -webkit-transform: rotate(-4deg); margin-top: -30px; }
+
+        .blk-5 .frame-wrapper { transform: rotate(-4deg); -webkit-transform: rotate(-4deg); }
+        .blk-5 .note-wrapper { transform: rotate(3deg); -webkit-transform: rotate(3deg); margin-top: 40px; }
+
+        .blk-6 .frame-wrapper { transform: rotate(2deg); -webkit-transform: rotate(2deg); }
+        .blk-6 .note-wrapper { transform: rotate(-5deg); -webkit-transform: rotate(-5deg); margin-top: -20px; }
+
+        .blk-7 .frame-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); }
+        .blk-7 .note-wrapper { transform: rotate(2deg); -webkit-transform: rotate(2deg); margin-top: 50px; }
+
+        .blk-8 .frame-wrapper { transform: rotate(4deg); -webkit-transform: rotate(4deg); }
+        .blk-8 .note-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); margin-top: -40px; }
+
+
+        /* ==========================================================================
+           11. FOOTER (MINIMAL, ELEGANT 2 LINES ONLY)
+           ========================================================================== */
+        .minimal-footer {
+            width: 100%;
+            background-color: transparent;
+            color: #8c5b65;
+            
+            padding-top: 20px;
+            padding-right: 20px;
+            padding-bottom: 40px;
+            padding-left: 20px;
+            
+            position: relative;
+            z-index: 20;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-handwriting);
+            font-size: 3.5rem;
+            color: #d15c7a;
+            
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 5px;
+            margin-left: 0px;
+            
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .footer-credit {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: #8c5b65;
+            
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           12. RESPONSIVE MEDIA QUERIES
+           ========================================================================== */
+        @media (max-width: 950px) {
+            .main-container {
+                padding-top: 20px;
+                padding-bottom: 80px;
+            }
+            .scrap-block, .scrap-block:nth-child(even) {
+                flex-direction: column;
+                margin-bottom: 120px;
+            }
+            .note-wrapper {
+                margin-top: -30px !important;
+                margin-right: 0px;
+                margin-left: 0px;
+                transform: rotate(0deg) !important;
+                -webkit-transform: rotate(0deg) !important;
+            }
+            /* Hide the complex string on small screens for cleaner vertical layout */
+            .connecting-string-container {
+                display: none;
             }
         }
-        @media (max-width: 480px) {
-            .scrapbook-container {
-                transform: scale(0.75);
-                transform-origin: top center;
-            }
+
+        @media (max-width: 500px) {
+            .header-container { padding-top: 10px; padding-bottom: 40px; }
+            .tile-letter { width: 45px; height: 50px; font-size: 1.8rem; margin: 2px; }
+            .polaroid-body { width: 95vw; }
+            .note-wrapper { width: 92vw; }
+            .letter-string { height: 25px; }
         }
+
+        /* Canvas for Interactive Flying Hearts */
+        #flying-hearts-canvas {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="scrapbook-container">
-        <!-- Title -->
-        <div class="title">
-            <span>H</span><span>a</span><span>p</span><span>p</span><span>y</span>
-            <br>
-            <span class="dark">B</span><span>i</span><span>r</span><span>t</span><span class="dark">h</span><span>d</span><span>a</span><span>y</span>
-        </div>
+    <!-- ==========================================================================
+         CANVAS ENGINE: ATTRACTIVE FLYING HEARTS
+         ========================================================================== -->
+    <canvas id="flying-hearts-canvas"></canvas>
 
-        <!-- Tapes -->
-        <div class="tape tape-1"></div>
-        <div class="tape tape-2"></div>
+    <!-- ==========================================================================
+         BACKGROUND DECORATIONS (DETAILED SVG FLOWERS) - NO BLACK STARS
+         ========================================================================== -->
+    <div class="bg-decorations-container">
+        
+        <!-- Highly Detailed Pink Rose 1 -->
+        <svg class="flower-decor f-rose-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100,30 C80,0 20,40 40,80 C0,90 20,150 60,140 C70,190 130,190 140,140 C180,150 200,90 160,80 C180,40 120,0 100,30 Z" fill="#ffb3c6" stroke="#e6738c" stroke-width="3"/>
+            <path d="M100,60 C90,40 60,60 70,80 C50,80 60,110 80,100 C90,130 110,130 120,100 C140,110 150,80 130,80 C140,60 110,40 100,60 Z" fill="#ffccd5"/>
+            <path d="M100,80 C95,70 80,80 85,90 C75,90 80,105 90,100 C95,115 105,115 110,100 C120,105 125,90 115,90 C120,80 105,70 100,80 Z" fill="#ff99aa"/>
+        </svg>
 
-        <!-- Interactive Photo Frame 1 -->
-        <div class="photo-frame frame-1" onclick="document.getElementById('file-upload-1').click()">
-            <div class="photo-inner" id="drop-zone-1">
-                <span id="text-1">Add photo<br><small>(Click or Drop)</small></span>
-            </div>
-            <input type="file" id="file-upload-1" accept="image/*">
-        </div>
+        <!-- Detailed Sakura Flower 1 -->
+        <svg class="flower-decor f-sakura-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100,20 C90,60 20,80 40,80 C40,80 80,100 100,140 C120,100 160,80 160,80 C160,80 110,60 100,20 Z" fill="#ff99aa" stroke="#d96677" stroke-width="4"/>
+            <path d="M100,20 C80,80 20,120 20,120 C20,120 70,130 100,160 C130,130 180,120 180,120 C180,120 120,80 100,20 Z" fill="#ffb3c6" opacity="0.8"/>
+            <circle cx="100" cy="130" r="10" fill="#ffea00"/>
+        </svg>
 
-        <!-- Quote Note -->
-        <div class="note note-1">
-            <p>A little reminder:</p>
-            <h3 style="margin: 10px 0;">the world is brighter because you're in it ♥</h3>
-            <div style="background: var(--accent-red); color: white; padding: 5px; margin-top: 10px;">Keep shining always! ♥</div>
-            <div style="margin-top: 10px; font-size: 1.2rem;">🥺🫶🧿🪬💖</div>
-        </div>
+        <!-- Highly Detailed Pink Rose 2 -->
+        <svg class="flower-decor f-rose-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100,30 C80,0 20,40 40,80 C0,90 20,150 60,140 C70,190 130,190 140,140 C180,150 200,90 160,80 C180,40 120,0 100,30 Z" fill="#ffa6b9" stroke="#cc5266" stroke-width="3"/>
+            <circle cx="100" cy="100" r="25" fill="#4a2e1b"/>
+            <circle cx="100" cy="100" r="10" fill="#ffea00"/>
+        </svg>
 
-        <!-- Small Side Note -->
-        <div class="note note-2">
-            <p>thankful for you every day ♡</p>
-        </div>
+        <!-- Detailed Sakura Flower 2 -->
+        <svg class="flower-decor f-sakura-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100,20 C90,60 20,80 40,80 C40,80 80,100 100,140 C120,100 160,80 160,80 C160,80 110,60 100,20 Z" fill="#ffb3c6" stroke="#d96677" stroke-width="4"/>
+            <path d="M100,20 C80,80 20,120 20,120 C20,120 70,130 100,160 C130,130 180,120 180,120 C180,120 120,80 100,20 Z" fill="#ffccd5" opacity="0.9"/>
+        </svg>
+        
+        <!-- Random petal -->
+        <svg class="flower-decor f-petal-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50,10 C20,50 30,90 50,90 C70,90 80,50 50,10 Z" fill="#ffb3c6"/>
+        </svg>
 
-        <!-- Interactive Photo Frame 2 -->
-        <div class="photo-frame frame-2" onclick="document.getElementById('file-upload-2').click()">
-            <div class="photo-inner" id="drop-zone-2">
-                <span id="text-2">Add photo<br><small>(Click or Drop)</small></span>
-            </div>
-            <input type="file" id="file-upload-2" accept="image/*">
-        </div>
+        <svg class="flower-decor f-petal-2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50,10 C20,50 30,90 50,90 C70,90 80,50 50,10 Z" fill="#ffb3c6"/>
+        </svg>
 
-        <!-- Memory Stamp -->
-        <div class="stamp">
-            THESE MEMORIES<br>MAKE ME SMILE
-        </div>
-
-        <!-- Special Hidden Quote -->
-        <div class="special-quote">
-            "Every memory we create is a letter stored in the envelope of my heart—a true Yaadon Ka Lifafa for us to open whenever we need a smile."
-        </div>
     </div>
 
+    <!-- ==========================================================================
+         HEADER: DROP-DOWN HANGING TILES WITH STAR BRIGHT GLOW
+         ========================================================================== -->
+    <header class="header-container">
+        
+        <!-- Soft glowing background for the title to make it pop beautifully -->
+        <div class="header-bg-glow"></div>
+
+        <!-- Word: HAPPY -->
+        <div class="word-row w1">
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">H</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">A</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">P</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">P</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">Y</span>
+            </div>
+        </div>
+        
+        <!-- Word: BIRTHDAY -->
+        <div class="word-row w2">
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">B</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">I</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">R</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">T</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">H</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">D</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">A</span>
+            </div>
+            <div class="hanging-letter-container">
+                <div class="letter-string"></div>
+                <div class="letter-knot"></div>
+                <span class="tile-letter">Y</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         MAIN SCRAPBOOK BLOCKS
+         ========================================================================== -->
+    <main class="main-container">
+
+        <!-- THE HIGHLY VISIBLE CONNECTING STRING (DHAAGA) SVG -->
+        <div class="connecting-string-container">
+            <!-- Using absolute viewBox for perfect scaling without percentages in path causing black boxes -->
+            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path class="main-thread" fill="none" d="
+                    M 50,0 
+                    C 50,5 25,10 25,12.5 
+                    C 25,15 75,20 75,25 
+                    C 75,30 25,35 25,37.5 
+                    C 25,42 75,47 75,50
+                    C 75,55 25,60 25,62.5
+                    C 25,67 75,72 75,75
+                    C 75,80 25,85 25,87.5
+                    C 25,92 75,97 75,100
+                " vector-effect="non-scaling-stroke"/>
+            </svg>
+        </div>
+
+        <!-- SVG DEFS for Sparkles & Black Knots -->
+        <svg style="display:none;">
+            <defs>
+                <!-- Tiny Sparkle for Photo Frame -->
+                <path id="sparkle-svg" d="M12 0 L14 9 L23 12 L14 15 L12 24 L10 15 L1 12 L10 9 Z" />
+                
+                <!-- The Black Bow/Knot SVG from the screenshot tying photo to string -->
+                <g id="knot-svg">
+                    <path class="knot-path" d="M25,25 C5,10 0,30 15,30 C0,30 5,50 25,35 C15,55 35,60 35,40 C35,60 55,55 45,35 C65,45 60,30 40,30 C60,30 55,10 25,25 Z" />
+                    <circle cx="28" cy="32" r="6" fill="#000" />
+                </g>
+            </defs>
+        </svg>
+
+        <!-- BLOCK 1 -->
+        <div class="scrap-block blk-1">
+            <div class="frame-wrapper">
+                <!-- Large Knot pinning the frame -->
+                <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                
+                <!-- OPPOSING TAPES FOR FRAME -->
+                <div class="tape tape-red-stripe tape-tl"></div>
+                <div class="tape tape-pink-dots tape-br"></div>
+                
+                <div class="polaroid-body">
+                    <div class="photo-area" onclick="document.getElementById('file-1').click()">
+                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
+                        <span class="add-photo-txt" id="txt-1">Add photo</span>
+                    </div>
+                    <!-- Auto-adjusting local upload input -->
+                    <input type="file" id="file-1" class="upload-input" accept="image/*" onchange="previewImage(event, '1')">
+                </div>
+            </div>
+            
+            <div class="note-wrapper">
+                <!-- OPPOSING TAPES FOR NOTE -->
+                <div class="tape tape-pink-dots tape-tr"></div>
+                <div class="tape tape-red-stripe tape-bl"></div>
+
+                <div class="paper-note">
+                    <p class="note-text" contenteditable="true" spellcheck="false">
+                        A little reminder:<br>the world is brighter because you're in it ♥
+                    </p>
+                    <div style="text-align: center;">
+                        <span class="highlight-text" contenteditable="true">Keep shining always!</span>
+                    </div>
+                    <span class="note-doodle">♡</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCK 2 -->
+        <div class="scrap-block blk-2">
+            <div class="frame-wrapper">
+                <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                
+                <div class="tape tape-pink-dots tape-tl"></div>
+                <div class="tape tape-red-stripe tape-br"></div>
+
+                <div class="polaroid-body">
+                    <div class="photo-area" onclick="document.getElementById('file-2').click()">
+                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                        <span class="add-photo-txt" id="txt-2">Add photo</span>
+                    </div>
+                    <input type="file" id="file-2" class="upload-input" accept="image/*" onchange="previewImage(event, '2')">
+                </div>
+            </div>
+            
+            <div class="note-wrapper">
+                <div class="tape tape-red-stripe tape-tr"></div>
+                <div class="tape tape-pink-dots tape-bl"></div>
+
+                <div class="paper-note color-beige">
+                    <p class="note-text" contenteditable="true" spellcheck="false">
+                        Thankful for you<br>every single day.
+                    </p>
+                    <span class="note-doodle">♥</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCK 3 -->
+        <div class="scrap-block blk-3">
+            <div class="frame-wrapper">
+                <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                
+                <div class="tape tape-red-stripe tape-tr"></div>
+                <div class="tape tape-pink-dots tape-bl"></div>
+
+                <div class="polaroid-body">
+                    <div class="photo-area" onclick="document.getElementById('file-3').click()">
+                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                        <span class="add-photo-txt" id="txt-3">Add photo</span>
+                    </div>
+                    <input type="file" id="file-3" class="upload-input" accept="image/*" onchange="previewImage(event, '3')">
+                </div>
+            </div>
+            
+            <div class="note-wrapper">
+                <div class="tape tape-pink-dots tape-tl"></div>
+                <div class="tape tape-red-stripe tape-br"></div>
+
+                <div class="paper-note color-blue">
+                    <p class="note-text" contenteditable="true" spellcheck="false">
+                        Good vibes only.<br>Making memories with you is my favorite thing to do!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCK 4 -->
+        <div class="scrap-block blk-4">
+            <div class="frame-wrapper">
+                <svg class="decor-knot pos-top-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                
+                <div class="tape tape-pink-dots tape-tl"></div>
+                <div class="tape tape-red-stripe tape-br"></div>
+
+                <div class="polaroid-body">
+                    <div class="photo-area" onclick="document.getElementById('file-4').click()">
+                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
+                        <span class="add-photo-txt" id="txt-4">Add photo</span>
+                    </div>
+                    <input type="file" id="file-4" class="upload-input" accept="image/*" onchange="previewImage(event, '4')">
+                </div>
+            </div>
+            
+            <div class="note-wrapper">
+                <div class="tape tape-red-stripe tape-tr"></div>
+                <div class="tape tape-pink-dots tape-bl"></div>
+
+                <div class="paper-note">
+                    <p class="note-text" contenteditable="true" spellcheck="false">
+                        To the one who makes<br>my heart smile.
+                    </p>
+                    <div style="text-align: center;">
+                        <span class="highlight-text" contenteditable="true">So much love!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCK 5 -->
+        <div class="scrap-block blk-5">
+            <div class="frame-wrapper">
+                <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                
+                <div class="tape tape-red-stripe tape-tl"></div>
+                <div class="tape tape-pink-dots tape-br"></div>
+
+                <div class="polaroid-body">
+                    <div class="photo-area" onclick="document.getElementById('file-5').click()">
+                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
+                        <span class="add-photo-txt" id="txt-5">Add photo</span>
+                    </div>
+                    <input type="file" id="file-5" class="upload-input" accept="image/*" onchange="previewImage(event, '5')">
+                </div>
+            </div>
+            
+            <div class="note-wrapper">
+                <div class="tape tape-pink-dots tape-tr"></div>
+                <div class="tape tape-red-stripe tape-bl"></div>
+
+                <div class="paper-note color-beige">
+                    <p class="note-text" contenteditable="true" spellcheck="false">
+                        Here's to another year of us being absolutely awesome together!
+                    </p>
+                    <span class="note-doodle">♡</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCK 6 -->
+        <div class="scrap-block blk-6">
+            <div class="frame-wrapper">
+                <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                
+                <div class="tape tape-pink-dots tape-tr"></div>
+                <div class="tape tape-red-stripe tape-bl"></div>
+
+                <div class="polaroid-body">
+                    <div class="photo-area" onclick="document.getElementById('file-6').click()">
+                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                        <span class="add-photo-txt" id="txt-6">Add photo</span>
+                    </div>
+                    <input type="file" id="file-6" class="upload-input" accept="image/*" onchange="previewImage(event, '6')">
+                </div>
+            </div>
+            
+            <div class="note-wrapper">
+                <div class="tape tape-red-stripe tape-tl"></div>
+                <div class="tape tape-pink-dots tape-br"></div>
+
+                <div class="paper-note color-blue">
+                    <p class="note-text" contenteditable="true" spellcheck="false">
+                        We don't remember days,<br>we remember moments.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCK 7 -->
+        <div class="scrap-block blk-7">
+            <div class="frame-wrapper">
+                <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                
+                <div class="tape tape-red-stripe tape-tl"></div>
+                <div class="tape tape-pink-dots tape-br"></div>
+
+                <div class="polaroid-body">
+                    <div class="photo-area" onclick="document.getElementById('file-7').click()">
+                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
+                        <span class="add-photo-txt" id="txt-7">Add photo</span>
+                    </div>
+                    <input type="file" id="file-7" class="upload-input" accept="image/*" onchange="previewImage(event, '7')">
+                </div>
+            </div>
+            
+            <div class="note-wrapper">
+                <div class="tape tape-pink-dots tape-tr"></div>
+                <div class="tape tape-red-stripe tape-bl"></div>
+
+                <div class="paper-note">
+                    <p class="note-text" contenteditable="true" spellcheck="false">
+                        You are my today<br>and all of my tomorrows.
+                    </p>
+                    <div style="text-align: center;">
+                        <span class="highlight-text" contenteditable="true">Forever & Always</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCK 8 -->
+        <div class="scrap-block blk-8">
+            <div class="frame-wrapper">
+                <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                
+                <div class="tape tape-pink-dots tape-tr"></div>
+                <div class="tape tape-red-stripe tape-bl"></div>
+
+                <div class="polaroid-body">
+                    <div class="photo-area" onclick="document.getElementById('file-8').click()">
+                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
+                        <span class="add-photo-txt" id="txt-8">Add photo</span>
+                    </div>
+                    <input type="file" id="file-8" class="upload-input" accept="image/*" onchange="previewImage(event, '8')">
+                </div>
+            </div>
+            
+            <div class="note-wrapper">
+                <div class="tape tape-red-stripe tape-tl"></div>
+                <div class="tape tape-pink-dots tape-br"></div>
+
+                <div class="paper-note color-beige">
+                    <p class="note-text" contenteditable="true" spellcheck="false">
+                        Wishing you the happiest of birthdays. May all your dreams come true! 🎉
+                    </p>
+                    <span class="note-doodle">♥</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ==========================================================================
+         PREMIUM FOOTER (MINIMAL 2 LINES ONLY)
+         ========================================================================== -->
+    <footer class="minimal-footer">
+        <h2 class="footer-logo">Yaadon Ka Lifafa</h2>
+        <div class="footer-credit">
+            &copy; 2026 Yaadon Ka Lifafa. Created by Pritam Vishwakarma.
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         JAVASCRIPT: IMAGE PREVIEW LOGIC & FLYING HEARTS ENGINE
+         ========================================================================== -->
     <script>
-        // Setup Drag, Drop, and Upload for frames
-        function setupPhotoFrame(inputId, dropZoneId, textId) {
-            const fileInput = document.getElementById(inputId);
-            const dropZone = document.getElementById(dropZoneId);
-            const textElement = document.getElementById(textId);
-
-            // Handle file selection via click
-            fileInput.addEventListener('change', function(e) {
-                handleFiles(this.files);
-            });
-
-            // Handle Drag and Drop events
-            dropZone.parentElement.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                dropZone.parentElement.classList.add('drag-over');
-            });
-
-            dropZone.parentElement.addEventListener('dragleave', () => {
-                dropZone.parentElement.classList.remove('drag-over');
-            });
-
-            dropZone.parentElement.addEventListener('drop', (e) => {
-                e.preventDefault();
-                dropZone.parentElement.classList.remove('drag-over');
-                handleFiles(e.dataTransfer.files);
-            });
-
-            // Process the uploaded file
-            function handleFiles(files) {
-                if (files && files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        // Set the uploaded image as the background of the frame
-                        dropZone.style.backgroundImage = `url(${e.target.result})`;
-                        // Hide the "Add photo" text
-                        textElement.style.display = 'none';
-                    }
-                    reader.readAsDataURL(files[0]);
-                }
+        /**
+         * 1. IMAGE UPLOAD PREVIEW LOGIC
+         * Reads the uploaded file and sets it as the background 
+         * of the corresponding photo frame instantly. Auto-adjusts size perfectly.
+         */
+        function previewImage(event, id) {
+            const input = event.target;
+            const file = input.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const placeholder = input.parentElement.querySelector('.photo-area');
+                    
+                    // Setting background image and ensuring it covers the box perfectly without distortion
+                    placeholder.style.backgroundImage = `url(${e.target.result})`;
+                    placeholder.style.backgroundSize = 'cover';
+                    placeholder.style.backgroundPosition = 'center';
+                    placeholder.style.backgroundRepeat = 'no-repeat';
+                    
+                    // Hide placeholder text and sparkles
+                    const textElement = document.getElementById('txt-' + id);
+                    if(textElement) textElement.style.opacity = '0';
+                    
+                    const sparkles = placeholder.querySelectorAll('.frame-sparkle');
+                    sparkles.forEach(sparkle => sparkle.style.opacity = '0');
+                };
+                
+                reader.readAsDataURL(file);
             }
         }
 
-        // Initialize both frames
-        setupPhotoFrame('file-upload-1', 'drop-zone-1', 'text-1');
-        setupPhotoFrame('file-upload-2', 'drop-zone-2', 'text-2');
+        /**
+         * 2. CANVAS ENGINE: ATTRACTIVE FLYING HEARTS
+         * Generates beautiful hearts flying from bottom to top
+         */
+        const canvas = document.getElementById('flying-hearts-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let flyingHearts = [];
+        
+        // Pink and Red variations for attractive hearts
+        const heartColors = [
+            'rgba(255, 105, 180, 0.7)', // Hot Pink
+            'rgba(255, 182, 193, 0.8)', // Light Pink
+            'rgba(220, 20, 60, 0.6)',   // Crimson
+            'rgba(255, 192, 203, 0.7)'  // Pink
+        ];
+
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class BeautifulHeart {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = height + Math.random() * 500; // Start below screen
+                this.size = Math.random() * 20 + 10; // Slightly larger hearts
+                this.speedY = Math.random() * 2.5 + 1; // Speed moving up
+                this.wobbleAngle = Math.random() * Math.PI * 2;
+                this.wobbleSpeed = Math.random() * 0.03 + 0.01;
+                this.wobbleDistance = Math.random() * 3 + 1;
+                this.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+                this.opacity = Math.random() * 0.6 + 0.2;
+                this.pulseAngle = Math.random() * Math.PI * 2;
+                this.pulseSpeed = Math.random() * 0.05 + 0.01;
+            }
+
+            update() {
+                this.y -= this.speedY; // Move up
+                this.wobbleAngle += this.wobbleSpeed;
+                this.x += Math.sin(this.wobbleAngle) * this.wobbleDistance; // Sway left/right
+                this.pulseAngle += this.pulseSpeed;
+                this.currentOpacity = this.opacity + Math.sin(this.pulseAngle) * 0.3;
+
+                // Reset heart if it goes above the screen
+                if (this.y < -50) {
+                    this.y = height + 50;
+                    this.x = Math.random() * width;
+                    this.size = Math.random() * 20 + 10;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                const scale = this.size / 50; 
+                ctx.scale(scale, scale);
+                ctx.globalAlpha = Math.max(0, Math.min(1, this.currentOpacity));
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = this.color;
+
+                // Mathematical Bezier Curve Heart
+                ctx.beginPath();
+                ctx.moveTo(0, 15);
+                ctx.bezierCurveTo(0, 15, -20, -5, -20, -15);
+                ctx.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
+                ctx.bezierCurveTo(7.5, -30, 20, -25, 20, -15);
+                ctx.bezierCurveTo(20, -5, 0, 15, 0, 15);
+                ctx.fill();
+                
+                ctx.restore();
+            }
+        }
+
+        function initHearts() {
+            flyingHearts = [];
+            const isMobile = width < 768;
+            const totalHearts = isMobile ? 35 : 70; // Keep performance smooth
+
+            for (let i = 0; i < totalHearts; i++) {
+                flyingHearts.push(new BeautifulHeart());
+            }
+        }
+
+        function animateHearts() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < flyingHearts.length; i++) {
+                flyingHearts[i].update();
+                flyingHearts[i].draw();
+            }
+            requestAnimationFrame(animateHearts);
+        }
+
+        initHearts();
+        animateHearts();
+        
+        console.log("Yaadon Ka Lifafa - Complete Engine Initialized Flawlessly.");
     </script>
+
 </body>
 </html>
