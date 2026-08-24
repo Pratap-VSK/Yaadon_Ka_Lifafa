@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>Only For You | Happy Birthday Scrapbook</title>
-    <meta name="description" content="A cute, star-bright vintage scrapbook for your precious memories.">
+    <title>Only For You | Premium Happy Birthday</title>
+    <meta name="description" content="A fully integrated, star-bright vintage scrapbook with seamless borders.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,43 +14,44 @@
 
     <style>
         /* ==========================================================================
-           1. ROOT VARIABLES (PLAIN COOL PINK THEME)
+           1. ROOT VARIABLES & COLOR PALETTE
            ========================================================================== */
         :root {
-            /* Solid Plain Cool Pink Background - No Grid */
-            --color-bg-base: #ffe4e9; 
+            /* Smooth Backgrounds */
+            --color-bg-base: #ffe8ee; 
+            --color-bg-glow: #ffffff;
             
-            /* Frame & Accent Colors */
+            /* Photo Frames */
             --color-frame-bg: #ffffff;
             --color-frame-inner: #c21f3a; 
-            --color-frame-inner-gradient: linear-gradient(135deg, #d32645 0%, #9e1428 100%);
+            --color-frame-inner-gradient: linear-gradient(135deg, #d32645 0%, #a2172b 100%);
             
-            /* Notes Colors */
+            /* Ripped Notes */
             --color-note-pink: #fcd5ce;
-            --color-note-blue: #dff0f6;
+            --color-note-blue: #e8f4f8;
             --color-note-beige: #fdf5e6;
             
-            /* Text Colors */
-            --color-text-ink: #2c2c2c;
-            --color-text-teal: #10423e; 
-            --color-text-white: #082504;
+            /* Typography */
+            --color-text-ink: #332121;
+            --color-text-teal: #0d3835; 
+            --color-text-white: #ffffff;
             
-            /* Tape Colors */
+            /* Washi Tapes */
             --color-tape-red: rgba(190, 40, 60, 0.85);
             --color-tape-pink: rgba(240, 150, 170, 0.85);
             --color-tape-striped: repeating-linear-gradient(45deg, rgba(180,40,60,0.8), rgba(180,40,60,0.8) 6px, rgba(210,70,90,0.8) 6px, rgba(210,70,90,0.8) 12px);
             --color-tape-dots: radial-gradient(circle, rgba(180,40,60,0.6) 20%, transparent 20%);
             
-            /* String / Thread Color - HIGHLY VISIBLE */
+            /* Realistic String */
             --color-thread: #2a1610; 
-            --color-thread-shadow: rgba(0, 0, 0, 0.5);
+            --color-thread-highlight: #4a2b22;
             
-            /* Glowing Effect Colors for Title */
-            --glow-pink: rgba(255, 105, 180, 0.9);
-            --glow-blue: rgba(0, 229, 255, 0.9);
-            --glow-yellow: rgba(255, 234, 0, 0.9);
+            /* Ambient Glows */
+            --glow-pink: rgba(255, 105, 180, 0.85);
+            --glow-cyan: rgba(0, 229, 255, 0.85);
+            --glow-gold: rgba(255, 234, 0, 0.85);
             
-            /* Typography */
+            /* Fonts */
             --font-handwriting: 'Caveat', cursive;
             --font-marker: 'Patrick Hand', cursive;
             --font-sans: 'Montserrat', sans-serif;
@@ -74,7 +75,6 @@
             width: 100%;
             min-height: 100vh;
             
-            /* EXTREMELY PLAIN COOL PINK BACKGROUND */
             background-color: var(--color-bg-base);
             background-image: none; 
             
@@ -94,19 +94,18 @@
             padding-left: 0px;
         }
 
-        p, h1, h2, h3, h4, h5, h6 {
+        h1, h2, h3, h4, h5, h6, p {
             margin-top: 0px;
             margin-right: 0px;
             margin-bottom: 0px;
             margin-left: 0px;
-            
             padding-top: 0px;
             padding-right: 0px;
             padding-bottom: 0px;
             padding-left: 0px;
         }
 
-        /* Noise filter for very slight premium paper texture */
+        /* Subtle paper texture overlay */
         body::after {
             content: '';
             position: fixed;
@@ -114,14 +113,64 @@
             left: 0px;
             width: 100%;
             height: 100%;
-            opacity: 0.03;
+            opacity: 0.035;
             pointer-events: none;
             z-index: 9999;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         /* ==========================================================================
-           3. BACKGROUND DECORATIONS: FLOWERS ONLY (NO COUPLES, NO BLACK STARS)
+           3. SEAMLESS "COLLAPSED" LOGO INTEGRATION (The Fix for the "Slap" Effect)
+           ========================================================================== */
+        .integrated-logo-wrapper {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 50;
+        }
+
+        .seamless-logo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            
+            background-image: url('../../logo.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            /* Soft Frosted Glass Border */
+            border-top-width: 4px;
+            border-right-width: 4px;
+            border-bottom-width: 4px;
+            border-left-width: 4px;
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.6);
+            
+            /* THE MAGIC: Blending outer glow + Inner vignette to collapse the edge */
+            box-shadow: 
+                0px 0px 30px 15px var(--color-bg-base), /* Melts into background */
+                0px 8px 20px rgba(0,0,0,0.15),          /* Soft depth */
+                inset 0px 0px 25px rgba(0,0,0,0.4);     /* Inner shadow vignette */
+                
+            position: relative;
+            
+            transition-property: transform;
+            transition-duration: 0.5s;
+            transition-timing-function: ease;
+            
+            -webkit-transition-property: -webkit-transform;
+            -webkit-transition-duration: 0.5s;
+            -webkit-transition-timing-function: ease;
+        }
+
+        .seamless-logo:hover {
+            transform: scale(1.05) rotate(-5deg);
+            -webkit-transform: scale(1.05) rotate(-5deg);
+        }
+
+        /* ==========================================================================
+           4. BACKGROUND FLOWERS
            ========================================================================== */
         .bg-decorations-container {
             position: fixed;
@@ -137,83 +186,39 @@
         .flower-decor {
             position: absolute;
             opacity: 0.85;
-            filter: drop-shadow(2px 5px 8px rgba(0,0,0,0.15));
-            -webkit-filter: drop-shadow(2px 5px 8px rgba(0,0,0,0.15));
+            filter: drop-shadow(3px 6px 10px rgba(0,0,0,0.1));
+            -webkit-filter: drop-shadow(3px 6px 10px rgba(0,0,0,0.1));
             
-            animation-name: floatFlower;
-            animation-duration: 9s;
+            animation-name: floatSoftly;
+            animation-duration: 10s;
             animation-timing-function: ease-in-out;
             animation-iteration-count: infinite;
             animation-direction: alternate;
             
-            -webkit-animation-name: floatFlower;
-            -webkit-animation-duration: 9s;
+            -webkit-animation-name: floatSoftly;
+            -webkit-animation-duration: 10s;
             -webkit-animation-timing-function: ease-in-out;
             -webkit-animation-iteration-count: infinite;
             -webkit-animation-direction: alternate;
         }
 
-        /* Positioning the beautiful pink flowers */
-        .f-rose-1 { 
-            top: 5%; 
-            left: 3%; 
-            width: 160px; 
-            transform: rotate(15deg); 
-            -webkit-transform: rotate(15deg); 
-        }
-        
-        .f-rose-2 { 
-            bottom: 8%; 
-            right: 4%; 
-            width: 200px; 
-            transform: rotate(-25deg); 
-            -webkit-transform: rotate(-25deg); 
-            animation-delay: 2s; 
-            -webkit-animation-delay: 2s; 
-        }
-        
-        .f-sakura-1 { 
-            top: 40%; 
-            right: 6%; 
-            width: 130px; 
-            transform: rotate(45deg); 
-            -webkit-transform: rotate(45deg); 
-            animation-delay: 1s; 
-            -webkit-animation-delay: 1s; 
-        }
-        
-        .f-sakura-2 { 
-            bottom: 25%; 
-            left: 5%; 
-            width: 150px; 
-            transform: rotate(-15deg); 
-            -webkit-transform: rotate(-15deg); 
-            animation-delay: 3s; 
-            -webkit-animation-delay: 3s; 
-        }
-        
-        .f-petal-1 { 
-            top: 50%; 
-            left: 50%; 
-            width: 60px; 
-            transform: rotate(80deg); 
-            -webkit-transform: rotate(80deg); 
-            animation-delay: 4s; 
-            -webkit-animation-delay: 4s; 
-            opacity: 0.6; 
-        }
+        .f-rose-1 { top: 8%; right: 5%; width: 180px; transform: rotate(25deg); -webkit-transform: rotate(25deg); }
+        .f-rose-2 { bottom: 12%; left: 4%; width: 220px; transform: rotate(-15deg); -webkit-transform: rotate(-15deg); animation-delay: 2s; -webkit-animation-delay: 2s; }
+        .f-sakura-1 { top: 45%; left: 6%; width: 140px; transform: rotate(60deg); -webkit-transform: rotate(60deg); animation-delay: 1s; -webkit-animation-delay: 1s; }
+        .f-sakura-2 { bottom: 30%; right: 5%; width: 160px; transform: rotate(-35deg); -webkit-transform: rotate(-35deg); animation-delay: 3s; -webkit-animation-delay: 3s; }
+        .f-petal-1 { top: 60%; right: 40%; width: 70px; transform: rotate(110deg); -webkit-transform: rotate(110deg); animation-delay: 4s; -webkit-animation-delay: 4s; opacity: 0.7; }
 
-        @keyframes floatFlower {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-30px) rotate(10deg); }
+        @keyframes floatSoftly {
+            0% { transform: translateY(0px) rotate(0deg) scale(1); }
+            100% { transform: translateY(-35px) rotate(12deg) scale(1.02); }
         }
-        @-webkit-keyframes floatFlower {
-            0% { -webkit-transform: translateY(0px) rotate(0deg); }
-            100% { -webkit-transform: translateY(-30px) rotate(10deg); }
+        @-webkit-keyframes floatSoftly {
+            0% { -webkit-transform: translateY(0px) rotate(0deg) scale(1); }
+            100% { -webkit-transform: translateY(-35px) rotate(12deg) scale(1.02); }
         }
 
         /* ==========================================================================
-           4. HEADER: GLOWING BACKGROUND & DROP-DOWN TILES
+           5. HEADER: HANGING TILES WITH ANIMATED GLOW
            ========================================================================== */
         .header-container {
             width: 100%;
@@ -224,54 +229,53 @@
             
             padding-top: 0px; 
             padding-right: 20px;
-            padding-bottom: 80px;
+            padding-bottom: 100px;
             padding-left: 20px;
             
             position: relative;
             z-index: 20;
         }
 
-        /* The Soft Glowing Backing Plate for the Title */
         .header-bg-glow {
             position: absolute;
-            top: 20px;
+            top: 25px;
             left: 50%;
             
             transform: translateX(-50%);
             -webkit-transform: translateX(-50%);
             
-            width: 90%;
-            max-width: 600px;
-            height: 250px;
+            width: 95%;
+            max-width: 650px;
+            height: 260px;
             
-            background: radial-gradient(ellipse at center, rgba(135, 14, 14, 0.95) 0%, rgba(255, 255, 255, 0) 70%);
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 75%);
             
             z-index: -1;
             pointer-events: none;
             
-            filter: blur(25px);
-            -webkit-filter: blur(25px);
+            filter: blur(30px);
+            -webkit-filter: blur(30px);
             
             animation-name: pulseBg;
-            animation-duration: 4s;
+            animation-duration: 5s;
             animation-timing-function: ease-in-out;
             animation-iteration-count: infinite;
             animation-direction: alternate;
             
             -webkit-animation-name: pulseBg;
-            -webkit-animation-duration: 4s;
+            -webkit-animation-duration: 5s;
             -webkit-animation-timing-function: ease-in-out;
             -webkit-animation-iteration-count: infinite;
             -webkit-animation-direction: alternate;
         }
 
         @keyframes pulseBg {
-            0% { opacity: 0.6; transform: translateX(-50%) scale(0.9); }
-            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+            0% { opacity: 0.7; transform: translateX(-50%) scale(0.85); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.15); }
         }
         @-webkit-keyframes pulseBg {
-            0% { opacity: 0.6; -webkit-transform: translateX(-50%) scale(0.9); }
-            100% { opacity: 1; -webkit-transform: translateX(-50%) scale(1.1); }
+            0% { opacity: 0.7; -webkit-transform: translateX(-50%) scale(0.85); }
+            100% { opacity: 1; -webkit-transform: translateX(-50%) scale(1.15); }
         }
 
         .word-row {
@@ -283,13 +287,12 @@
             
             margin-top: 0px;
             margin-right: 0px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             margin-left: 0px;
             
             position: relative;
         }
 
-        /* The container for each hanging letter that swings continuously */
         .hanging-letter-container {
             display: flex;
             flex-direction: column;
@@ -297,49 +300,46 @@
             position: relative;
             
             margin-top: 0px;
-            margin-right: 4px;
+            margin-right: 6px;
             margin-bottom: 0px;
-            margin-left: 4px;
+            margin-left: 6px;
             
             transform-origin: top center;
             -webkit-transform-origin: top center;
             
-            /* Continuous Swing Animation */
             animation-name: continuousSwing;
-            animation-duration: 3s;
+            animation-duration: 3.5s;
             animation-timing-function: ease-in-out;
             animation-iteration-count: infinite;
             animation-direction: alternate;
             
             -webkit-animation-name: continuousSwing;
-            -webkit-animation-duration: 3s;
+            -webkit-animation-duration: 3.5s;
             -webkit-animation-timing-function: ease-in-out;
             -webkit-animation-iteration-count: infinite;
             -webkit-animation-direction: alternate;
         }
 
         @keyframes continuousSwing {
-            0% { transform: rotate(6deg); }
-            100% { transform: rotate(-6deg); }
+            0% { transform: rotate(7deg); }
+            100% { transform: rotate(-7deg); }
         }
         @-webkit-keyframes continuousSwing {
-            0% { -webkit-transform: rotate(6deg); }
-            100% { -webkit-transform: rotate(-6deg); }
+            0% { -webkit-transform: rotate(7deg); }
+            100% { -webkit-transform: rotate(-7deg); }
         }
 
-        /* The string holding the letter */
         .letter-string {
-            width: 3px;
-            height: clamp(25px, 5vw, 45px);
+            width: 4px;
+            height: clamp(30px, 6vw, 60px);
             background-color: var(--color-thread);
             position: relative;
-            box-shadow: 1px 0px 3px rgba(11, 4, 4, 0.5);
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.6);
         }
 
-        /* The knot at the top of the tile */
         .letter-knot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             background-color: #1a0f11;
             
             border-top-left-radius: 50%;
@@ -348,13 +348,13 @@
             border-bottom-left-radius: 50%;
             
             position: absolute;
-            bottom: -6px;
+            bottom: -7px;
             left: 50%;
             
             transform: translateX(-50%);
             -webkit-transform: translateX(-50%);
             z-index: 5;
-            box-shadow: 1px 2px 4px rgba(0,0,0,0.6);
+            box-shadow: 2px 3px 5px rgba(0,0,0,0.7);
         }
 
         .tile-letter {
@@ -362,24 +362,23 @@
             align-items: center;
             justify-content: center;
             
-            /* Reduced size as requested */
-            width: clamp(35px, 6vw, 60px);
-            height: clamp(40px, 7vw, 70px);
+            width: clamp(40px, 7vw, 70px);
+            height: clamp(45px, 8vw, 80px);
             
             background-color: var(--color-frame-bg);
             color: var(--color-text-teal);
             
             font-family: var(--font-sans);
-            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            font-size: clamp(1.8rem, 4vw, 3rem);
             font-weight: 800;
             text-transform: uppercase;
             
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border-bottom-left-radius: 4px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
             
-            box-shadow: 0px 8px 15px rgba(32, 154, 56, 0.25), 0px 0px 25px var(--glow-pink);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 25px var(--glow-pink);
             
             position: relative;
             z-index: 2;
@@ -396,12 +395,12 @@
             cursor: pointer;
             
             animation-name: colorShiftGlow;
-            animation-duration: 4s;
+            animation-duration: 5s;
             animation-iteration-count: infinite;
             animation-direction: alternate;
             
             -webkit-animation-name: colorShiftGlow;
-            -webkit-animation-duration: 4s;
+            -webkit-animation-duration: 5s;
             -webkit-animation-iteration-count: infinite;
             -webkit-animation-direction: alternate;
         }
@@ -415,47 +414,47 @@
         }
 
         @keyframes colorShiftGlow {
-            0% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-pink); }
-            50% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 30px var(--glow-blue); }
-            100% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-yellow); }
+            0% { box-shadow: 0px 10px 20px rgba(0,0,0,0.2), 0px 0px 25px var(--glow-pink); }
+            50% { box-shadow: 0px 10px 20px rgba(0,0,0,0.2), 0px 0px 35px var(--glow-cyan); }
+            100% { box-shadow: 0px 10px 20px rgba(0,0,0,0.2), 0px 0px 25px var(--glow-gold); }
         }
         @-webkit-keyframes colorShiftGlow {
-            0% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-pink); }
-            50% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 30px var(--glow-blue); }
-            100% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-yellow); }
+            0% { box-shadow: 0px 10px 20px rgba(0,0,0,0.2), 0px 0px 25px var(--glow-pink); }
+            50% { box-shadow: 0px 10px 20px rgba(0,0,0,0.2), 0px 0px 35px var(--glow-cyan); }
+            100% { box-shadow: 0px 10px 20px rgba(0,0,0,0.2), 0px 0px 25px var(--glow-gold); }
         }
 
-        /* Staggered swing animations for each letter */
-        .w1 .hanging-letter-container:nth-child(1) { animation-delay: 0.1s; -webkit-animation-delay: 0.1s; }
+        /* Stagger the swings */
+        .w1 .hanging-letter-container:nth-child(1) { animation-delay: 0.0s; -webkit-animation-delay: 0.0s; }
         .w1 .hanging-letter-container:nth-child(2) { animation-delay: 0.2s; -webkit-animation-delay: 0.2s; }
-        .w1 .hanging-letter-container:nth-child(3) { animation-delay: 0.3s; -webkit-animation-delay: 0.3s; }
-        .w1 .hanging-letter-container:nth-child(4) { animation-delay: 0.4s; -webkit-animation-delay: 0.4s; }
-        .w1 .hanging-letter-container:nth-child(5) { animation-delay: 0.5s; -webkit-animation-delay: 0.5s; }
+        .w1 .hanging-letter-container:nth-child(3) { animation-delay: 0.4s; -webkit-animation-delay: 0.4s; }
+        .w1 .hanging-letter-container:nth-child(4) { animation-delay: 0.6s; -webkit-animation-delay: 0.6s; }
+        .w1 .hanging-letter-container:nth-child(5) { animation-delay: 0.8s; -webkit-animation-delay: 0.8s; }
         
-        .w2 .hanging-letter-container:nth-child(1) { animation-delay: 0.6s; -webkit-animation-delay: 0.6s; }
-        .w2 .hanging-letter-container:nth-child(2) { animation-delay: 0.7s; -webkit-animation-delay: 0.7s; }
-        .w2 .hanging-letter-container:nth-child(3) { animation-delay: 0.8s; -webkit-animation-delay: 0.8s; }
-        .w2 .hanging-letter-container:nth-child(4) { animation-delay: 0.9s; -webkit-animation-delay: 0.9s; }
-        .w2 .hanging-letter-container:nth-child(5) { animation-delay: 1.0s; -webkit-animation-delay: 1.0s; }
-        .w2 .hanging-letter-container:nth-child(6) { animation-delay: 1.1s; -webkit-animation-delay: 1.1s; }
-        .w2 .hanging-letter-container:nth-child(7) { animation-delay: 1.2s; -webkit-animation-delay: 1.2s; }
-        .w2 .hanging-letter-container:nth-child(8) { animation-delay: 1.3s; -webkit-animation-delay: 1.3s; }
+        .w2 .hanging-letter-container:nth-child(1) { animation-delay: 1.0s; -webkit-animation-delay: 1.0s; }
+        .w2 .hanging-letter-container:nth-child(2) { animation-delay: 1.2s; -webkit-animation-delay: 1.2s; }
+        .w2 .hanging-letter-container:nth-child(3) { animation-delay: 1.4s; -webkit-animation-delay: 1.4s; }
+        .w2 .hanging-letter-container:nth-child(4) { animation-delay: 1.6s; -webkit-animation-delay: 1.6s; }
+        .w2 .hanging-letter-container:nth-child(5) { animation-delay: 1.8s; -webkit-animation-delay: 1.8s; }
+        .w2 .hanging-letter-container:nth-child(6) { animation-delay: 2.0s; -webkit-animation-delay: 2.0s; }
+        .w2 .hanging-letter-container:nth-child(7) { animation-delay: 2.2s; -webkit-animation-delay: 2.2s; }
+        .w2 .hanging-letter-container:nth-child(8) { animation-delay: 2.4s; -webkit-animation-delay: 2.4s; }
 
         /* ==========================================================================
-           5. MAIN SCRAPBOOK CONTAINER
+           6. MAIN SCRAPBOOK CONTAINER
            ========================================================================== */
         .main-container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1300px;
             
             margin-top: 0px;
             margin-right: auto;
             margin-bottom: 0px;
             margin-left: auto;
             
-            padding-top: 50px;
+            padding-top: 60px;
             padding-right: 20px;
-            padding-bottom: 150px;
+            padding-bottom: 180px;
             padding-left: 20px;
             
             display: flex;
@@ -466,7 +465,7 @@
         }
 
         /* ==========================================================================
-           6. HIGHLY VISIBLE CONNECTING STRING (DHAAGA)
+           7. VISIBLE CONNECTING STRING (DHAAGA)
            ========================================================================== */
         .connecting-string-container {
             position: absolute;
@@ -478,23 +477,20 @@
             pointer-events: none;
         }
 
-        /* The SVG Path that creates the rope. Using viewBox ensures it scales perfectly across browsers */
         .main-thread {
             fill: none;
             stroke: var(--color-thread);
-            stroke-width: 5px; /* Extremely visible */
-            stroke-dasharray: 10, 5; /* Rope-like texture */
-            filter: drop-shadow(4px 6px 5px var(--color-thread-shadow));
-            -webkit-filter: drop-shadow(4px 6px 5px var(--color-thread-shadow));
+            stroke-width: 6px; 
+            stroke-dasharray: 12, 6; 
+            filter: drop-shadow(4px 8px 6px var(--color-thread-shadow));
+            -webkit-filter: drop-shadow(4px 8px 6px var(--color-thread-shadow));
             stroke-linecap: round;
             stroke-linejoin: round;
-            
-            /* Crucial for responsive SVGs */
             vector-effect: non-scaling-stroke;
         }
 
         /* ==========================================================================
-           7. SCRAPBOOK BLOCKS & MEDIUM PHOTO FRAMES (AS REQUESTED)
+           8. SCRAPBOOK BLOCKS & PHOTO FRAMES (RESPONSIVE)
            ========================================================================== */
         .scrap-block {
             width: 100%;
@@ -504,11 +500,11 @@
             
             margin-top: 0px;
             margin-right: 0px;
-            margin-bottom: 140px; /* Big gap for string visibility */
+            margin-bottom: 180px; 
             margin-left: 0px;
             
             position: relative;
-            min-height: 450px;
+            min-height: 500px;
             z-index: 10;
         }
 
@@ -534,27 +530,26 @@
         }
 
         .frame-wrapper:hover {
-            transform: scale(1.06);
-            -webkit-transform: scale(1.06);
+            transform: scale(1.05);
+            -webkit-transform: scale(1.05);
             z-index: 50;
         }
 
         .polaroid-body {
-            /* REVERTED TO MEDIUM Size Photo Box as requested */
-            width: clamp(300px, 35vw, 450px); 
+            width: clamp(300px, 40vw, 450px); 
             background-color: var(--color-frame-bg);
             
-            padding-top: 15px;
-            padding-right: 15px;
-            padding-bottom: 40px;
-            padding-left: 15px;
+            padding-top: 18px;
+            padding-right: 18px;
+            padding-bottom: 55px;
+            padding-left: 18px;
             
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border-bottom-left-radius: 4px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
             
-            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.25);
+            box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.25);
             position: relative;
             cursor: pointer;
         }
@@ -570,15 +565,14 @@
             align-items: center;
             justify-content: center;
             
-            border-top-left-radius: 3px;
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-            border-bottom-left-radius: 3px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
             
-            box-shadow: inset 0px 0px 25px rgba(0, 0, 0, 0.6);
+            box-shadow: inset 0px 0px 30px rgba(0, 0, 0, 0.6);
             overflow: hidden;
             
-            /* PERFECT AUTO-ADJUST PARAMETERS */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -597,7 +591,7 @@
 
         .add-photo-txt {
             font-family: var(--font-sans);
-            font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
             font-weight: 800;
             color: var(--color-text-white);
             text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.8);
@@ -620,19 +614,18 @@
             -webkit-transition-property: opacity;
             -webkit-transition-duration: 0.3s;
         }
-        .fs-1 { top: 15%; left: 15%; width: 25px; }
-        .fs-2 { bottom: 25%; right: 15%; width: 35px; }
+        .fs-1 { top: 18%; left: 18%; width: 28px; }
+        .fs-2 { bottom: 28%; right: 18%; width: 38px; }
 
         /* ==========================================================================
-           8. TAPES AND DECORATIVE KNOTS (OPPOSITE TAPE LOGIC)
+           9. TAPES AND DECORATIVE KNOTS (OPPOSING)
            ========================================================================== */
-        /* Tapes added in OPPOSITE directions as requested */
         .tape {
             position: absolute;
-            height: 30px;
-            width: 110px;
+            height: 35px;
+            width: 130px;
             z-index: 60; 
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
             opacity: 0.95;
             
             clip-path: polygon(2% 0, 98% 0, 100% 10%, 96% 20%, 100% 30%, 97% 40%, 100% 50%, 96% 60%, 100% 70%, 97% 80%, 100% 90%, 98% 100%, 2% 100%, 0 90%, 4% 80%, 0 70%, 3% 60%, 0 50%, 4% 40%, 0 30%, 3% 20%, 0 10%);
@@ -642,45 +635,42 @@
         .tape-red-stripe { background: var(--color-tape-striped); }
         .tape-pink-dots { background-color: var(--color-tape-pink); background-image: var(--color-tape-dots); background-size: 15px 15px; }
         
-        /* Opposing Tape Placements */
-        .tape-tl { top: -15px; left: -25px; transform: rotate(-25deg); -webkit-transform: rotate(-25deg); }
-        .tape-br { bottom: -15px; right: -25px; transform: rotate(-25deg); -webkit-transform: rotate(-25deg); }
+        .tape-tl { top: -18px; left: -30px; transform: rotate(-25deg); -webkit-transform: rotate(-25deg); }
+        .tape-br { bottom: -18px; right: -30px; transform: rotate(-25deg); -webkit-transform: rotate(-25deg); }
         
-        .tape-tr { top: -15px; right: -25px; transform: rotate(25deg); -webkit-transform: rotate(25deg); }
-        .tape-bl { bottom: -15px; left: -25px; transform: rotate(25deg); -webkit-transform: rotate(25deg); }
+        .tape-tr { top: -18px; right: -30px; transform: rotate(25deg); -webkit-transform: rotate(25deg); }
+        .tape-bl { bottom: -18px; left: -30px; transform: rotate(25deg); -webkit-transform: rotate(25deg); }
 
         .decor-knot {
             position: absolute;
             z-index: 25;
-            width: 45px; 
-            height: 45px;
+            width: 55px; 
+            height: 55px;
             pointer-events: none;
-            filter: drop-shadow(4px 6px 6px rgba(0,0,0,0.7));
-            -webkit-filter: drop-shadow(4px 6px 6px rgba(0,0,0,0.7));
+            filter: drop-shadow(4px 6px 8px rgba(0,0,0,0.8));
+            -webkit-filter: drop-shadow(4px 6px 8px rgba(0,0,0,0.8));
         }
 
         .knot-path { fill: #1a0f11; }
 
-        /* Precise knot positioning on frames */
-        .pos-top-center { top: -20px; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%); }
-        .pos-top-left { top: -15px; left: 15%; transform: rotate(-10deg); -webkit-transform: rotate(-10deg); }
-        .pos-top-right { top: -15px; right: 15%; transform: rotate(10deg); -webkit-transform: rotate(10deg); }
-        .pos-bottom-left { bottom: 15px; left: -25px; transform: rotate(-30deg); -webkit-transform: rotate(-30deg); }
+        .pos-top-center { top: -25px; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%); }
+        .pos-top-left { top: -20px; left: 15%; transform: rotate(-10deg); -webkit-transform: rotate(-10deg); }
+        .pos-top-right { top: -20px; right: 15%; transform: rotate(10deg); -webkit-transform: rotate(10deg); }
+        .pos-bottom-left { bottom: 20px; left: -30px; transform: rotate(-30deg); -webkit-transform: rotate(-30deg); }
 
         /* ==========================================================================
-           9. RIPPED PAPER QUOTES (MEDIUM SIZES REVERTED)
+           10. RIPPED PAPER QUOTES
            ========================================================================== */
         .note-wrapper {
             position: relative;
             z-index: 10;
             
-            /* REVERTED TO MEDIUM Text Box */
-            width: clamp(280px, 32vw, 420px);
+            width: clamp(280px, 38vw, 420px);
             
             margin-top: 0px;
-            margin-right: 50px;
+            margin-right: 60px;
             margin-bottom: 0px;
-            margin-left: 50px;
+            margin-left: 60px;
             
             transition-property: transform;
             transition-duration: 0.4s;
@@ -692,20 +682,20 @@
         }
 
         .note-wrapper:hover {
-            transform: scale(1.06) translateY(-8px);
-            -webkit-transform: scale(1.06) translateY(-8px);
+            transform: scale(1.05) translateY(-8px);
+            -webkit-transform: scale(1.05) translateY(-8px);
             z-index: 40;
         }
 
         .paper-note {
             background-color: var(--color-note-pink);
             
-            padding-top: 30px;
-            padding-right: 25px;
-            padding-bottom: 30px;
-            padding-left: 25px;
+            padding-top: 40px;
+            padding-right: 35px;
+            padding-bottom: 40px;
+            padding-left: 35px;
             
-            box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
             position: relative;
             
             clip-path: polygon(
@@ -729,7 +719,7 @@
 
         .note-text {
             font-family: var(--font-handwriting);
-            font-size: clamp(1.5rem, 2.2vw, 2rem);
+            font-size: clamp(1.8rem, 2.5vw, 2.4rem);
             color: var(--color-text-ink);
             line-height: 1.6;
             text-align: center;
@@ -741,13 +731,13 @@
             background-color: var(--color-maroon-dark);
             color: var(--color-text-white);
             
-            padding-top: 6px;
-            padding-right: 18px;
-            padding-bottom: 6px;
-            padding-left: 18px;
+            padding-top: 8px;
+            padding-right: 20px;
+            padding-bottom: 8px;
+            padding-left: 20px;
             
             font-family: var(--font-sans);
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 700;
             
             display: inline-block;
@@ -756,61 +746,61 @@
             transform: rotate(-3deg);
             -webkit-transform: rotate(-3deg);
             
-            box-shadow: 3px 5px 10px rgba(0,0,0,0.5);
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border-bottom-left-radius: 4px;
+            box-shadow: 3px 5px 12px rgba(0,0,0,0.5);
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
         }
 
         .note-doodle {
             position: absolute;
-            bottom: 15px;
-            right: 25px;
+            bottom: 18px;
+            right: 28px;
             font-family: var(--font-marker);
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--color-text-ink);
         }
 
         /* ==========================================================================
-           10. BLOCK SPECIFIC TRANSFORMATIONS
+           11. BLOCK SPECIFIC TRANSFORMATIONS
            ========================================================================== */
         .blk-1 .frame-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); }
-        .blk-1 .note-wrapper { transform: rotate(4deg); -webkit-transform: rotate(4deg); margin-top: 50px; }
+        .blk-1 .note-wrapper { transform: rotate(4deg); -webkit-transform: rotate(4deg); margin-top: 60px; }
         
         .blk-2 .frame-wrapper { transform: rotate(4deg); -webkit-transform: rotate(4deg); }
-        .blk-2 .note-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); margin-top: -40px; }
+        .blk-2 .note-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); margin-top: -50px; }
 
         .blk-3 .frame-wrapper { transform: rotate(-2deg); -webkit-transform: rotate(-2deg); }
-        .blk-3 .note-wrapper { transform: rotate(5deg); -webkit-transform: rotate(5deg); margin-top: 30px; }
+        .blk-3 .note-wrapper { transform: rotate(5deg); -webkit-transform: rotate(5deg); margin-top: 40px; }
 
         .blk-4 .frame-wrapper { transform: rotate(3deg); -webkit-transform: rotate(3deg); }
-        .blk-4 .note-wrapper { transform: rotate(-4deg); -webkit-transform: rotate(-4deg); margin-top: -30px; }
+        .blk-4 .note-wrapper { transform: rotate(-4deg); -webkit-transform: rotate(-4deg); margin-top: -40px; }
 
         .blk-5 .frame-wrapper { transform: rotate(-4deg); -webkit-transform: rotate(-4deg); }
-        .blk-5 .note-wrapper { transform: rotate(3deg); -webkit-transform: rotate(3deg); margin-top: 40px; }
+        .blk-5 .note-wrapper { transform: rotate(3deg); -webkit-transform: rotate(3deg); margin-top: 50px; }
 
         .blk-6 .frame-wrapper { transform: rotate(2deg); -webkit-transform: rotate(2deg); }
-        .blk-6 .note-wrapper { transform: rotate(-5deg); -webkit-transform: rotate(-5deg); margin-top: -20px; }
+        .blk-6 .note-wrapper { transform: rotate(-5deg); -webkit-transform: rotate(-5deg); margin-top: -30px; }
 
         .blk-7 .frame-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); }
-        .blk-7 .note-wrapper { transform: rotate(2deg); -webkit-transform: rotate(2deg); margin-top: 50px; }
+        .blk-7 .note-wrapper { transform: rotate(2deg); -webkit-transform: rotate(2deg); margin-top: 60px; }
 
         .blk-8 .frame-wrapper { transform: rotate(4deg); -webkit-transform: rotate(4deg); }
-        .blk-8 .note-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); margin-top: -40px; }
+        .blk-8 .note-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); margin-top: -50px; }
 
 
         /* ==========================================================================
-           11. FOOTER (MINIMAL, ELEGANT 2 LINES ONLY)
+           12. FOOTER (MINIMAL, ELEGANT 2 LINES ONLY)
            ========================================================================== */
         .minimal-footer {
             width: 100%;
             background-color: transparent;
             color: #8c5b65;
             
-            padding-top: 20px;
+            padding-top: 30px;
             padding-right: 20px;
-            padding-bottom: 40px;
+            padding-bottom: 50px;
             padding-left: 20px;
             
             position: relative;
@@ -820,20 +810,20 @@
 
         .footer-logo {
             font-family: var(--font-handwriting);
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #d15c7a;
             
             margin-top: 0px;
             margin-right: 0px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             margin-left: 0px;
             
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 2px 3px rgba(0,0,0,0.15);
         }
 
         .footer-credit {
             font-family: var(--font-sans);
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #8c5b65;
             
             margin-top: 0px;
@@ -845,36 +835,44 @@
         }
 
         /* ==========================================================================
-           12. RESPONSIVE MEDIA QUERIES
+           13. RESPONSIVE MEDIA QUERIES
            ========================================================================== */
         @media (max-width: 950px) {
             .main-container {
-                padding-top: 20px;
-                padding-bottom: 80px;
+                padding-top: 30px;
+                padding-bottom: 100px;
             }
             .scrap-block, .scrap-block:nth-child(even) {
                 flex-direction: column;
-                margin-bottom: 120px;
+                margin-bottom: 150px;
             }
             .note-wrapper {
-                margin-top: -30px !important;
+                margin-top: -40px !important;
                 margin-right: 0px;
                 margin-left: 0px;
                 transform: rotate(0deg) !important;
                 -webkit-transform: rotate(0deg) !important;
             }
-            /* Hide the complex string on small screens for cleaner vertical layout */
             .connecting-string-container {
                 display: none;
+            }
+            .integrated-logo-wrapper {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 30px;
+                display: flex;
+                justify-content: center;
+                width: 100%;
             }
         }
 
         @media (max-width: 500px) {
-            .header-container { padding-top: 10px; padding-bottom: 40px; }
-            .tile-letter { width: 45px; height: 50px; font-size: 1.8rem; margin: 2px; }
+            .header-container { padding-top: 20px; padding-bottom: 50px; }
+            .tile-letter { width: 45px; height: 50px; font-size: 1.8rem; margin: 3px; }
             .polaroid-body { width: 95vw; }
             .note-wrapper { width: 92vw; }
-            .letter-string { height: 25px; }
+            .letter-string { height: 30px; }
         }
 
         /* Canvas for Interactive Flying Hearts */
@@ -898,34 +896,33 @@
     <canvas id="flying-hearts-canvas"></canvas>
 
     <!-- ==========================================================================
-         BACKGROUND DECORATIONS (DETAILED SVG FLOWERS & STARS) - NO COUPLES
+         BACKGROUND DECORATIONS (DETAILED SVG FLOWERS ONLY - NO COUPLES/STARS)
          ========================================================================== -->
     <div class="bg-decorations-container">
         
-        <!-- Highly Detailed Pink Rose 1 -->
-            <!-- Apka Naya Perfect Circular & Zoomed Logo -->
-        <div class="flower-decor f-rose-1" style="width: 120px; height: 120px; border-radius: 50%; background-image: url('cute_addy.jpg'); background-size: 90%; background-position: center; box-shadow: 0px 8px 58px rgba(222, 60, 201, 0.3); opacity: 1;"></div>
-        <!-- Detailed Sakura Flower 1 -->
+        <svg class="flower-decor f-rose-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100,30 C80,0 20,40 40,80 C0,90 20,150 60,140 C70,190 130,190 140,140 C180,150 200,90 160,80 C180,40 120,0 100,30 Z" fill="#ffb3c6" stroke="#e6738c" stroke-width="3"/>
+            <path d="M100,60 C90,40 60,60 70,80 C50,80 60,110 80,100 C90,130 110,130 120,100 C140,110 150,80 130,80 C140,60 110,40 100,60 Z" fill="#ffccd5"/>
+            <path d="M100,80 C95,70 80,80 85,90 C75,90 80,105 90,100 C95,115 105,115 110,100 C120,105 125,90 115,90 C120,80 105,70 100,80 Z" fill="#ff99aa"/>
+        </svg>
+
         <svg class="flower-decor f-sakura-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <path d="M100,20 C90,60 20,80 40,80 C40,80 80,100 100,140 C120,100 160,80 160,80 C160,80 110,60 100,20 Z" fill="#ff99aa" stroke="#d96677" stroke-width="4"/>
             <path d="M100,20 C80,80 20,120 20,120 C20,120 70,130 100,160 C130,130 180,120 180,120 C180,120 120,80 100,20 Z" fill="#ffb3c6" opacity="0.8"/>
             <circle cx="100" cy="130" r="10" fill="#ffea00"/>
         </svg>
 
-        <!-- Highly Detailed Pink Rose 2 -->
         <svg class="flower-decor f-rose-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <path d="M100,30 C80,0 20,40 40,80 C0,90 20,150 60,140 C70,190 130,190 140,140 C180,150 200,90 160,80 C180,40 120,0 100,30 Z" fill="#ffa6b9" stroke="#cc5266" stroke-width="3"/>
             <circle cx="100" cy="100" r="25" fill="#4a2e1b"/>
             <circle cx="100" cy="100" r="10" fill="#ffea00"/>
         </svg>
 
-        <!-- Detailed Sakura Flower 2 -->
         <svg class="flower-decor f-sakura-2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <path d="M100,20 C90,60 20,80 40,80 C40,80 80,100 100,140 C120,100 160,80 160,80 C160,80 110,60 100,20 Z" fill="#ffb3c6" stroke="#d96677" stroke-width="4"/>
             <path d="M100,20 C80,80 20,120 20,120 C20,120 70,130 100,160 C130,130 180,120 180,120 C180,120 120,80 100,20 Z" fill="#ffccd5" opacity="0.9"/>
         </svg>
         
-        <!-- Random petal -->
         <svg class="flower-decor f-petal-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path d="M50,10 C20,50 30,90 50,90 C70,90 80,50 50,10 Z" fill="#ffb3c6"/>
         </svg>
@@ -933,19 +930,20 @@
     </div>
 
     <!-- ==========================================================================
-         HEADER: DROP-DOWN HANGING TILES WITH STAR BRIGHT GLOW
+         HEADER: SEAMLESS LOGO & HANGING TILES
          ========================================================================== -->
     <header class="header-container">
-        <div class="flower-decor f-rose-1" style="width: 120px; height: 120px; border-radius: 50%; background-image: url('yaad.jpeg'); background-size: 210%; background-position: center; box-shadow: 0px 5px 15px rgba(16, 159, 30, 0.3); animation: none; transform: none; opacity: 10;"></div>
         
-        <!-- Soft glowing background for the title to make it pop beautifully -->
+        <!-- The "Collapsed" Custom Logo that perfectly melts into the pink background -->
+        <div class="integrated-logo-wrapper">
+            <div class="seamless-logo"></div>
+        </div>
+
         <div class="header-bg-glow"></div>
 
         <!-- Word: HAPPY -->
-        <div class="word-row w1" style="width: 400px; height: 400px; border-radius: 100%; background-image: url('kittyy.jpg'); background-size: 75%; background-position: align-self; box-shadow: 0px 8px 58px rgba(16, 159, 30, 0.3); opacity: 1;"></div>
-
         <div class="word-row w1">
-            <div class="hanging-letter-container", aria-grabbed="false">
+            <div class="hanging-letter-container">
                 <div class="letter-string"></div>
                 <div class="letter-knot"></div>
                 <span class="tile-letter">H</span>
@@ -971,6 +969,7 @@
                 <span class="tile-letter">Y</span>
             </div>
         </div>
+        
         <!-- Word: BIRTHDAY -->
         <div class="word-row w2">
             <div class="hanging-letter-container">
@@ -1021,9 +1020,8 @@
          ========================================================================== -->
     <main class="main-container">
 
-        <!-- THE HIGHLY VISIBLE CONNECTING STRING (DHAAGA) SVG -->
+        <!-- THE HIGHLY VISIBLE CONNECTING STRING (DHAAGA) -->
         <div class="connecting-string-container">
-            <!-- Using absolute viewBox for perfect scaling without percentages in path -->
             <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path class="main-thread" d="
                     M 50,0 
@@ -1042,10 +1040,7 @@
         <!-- SVG DEFS for Sparkles & Black Knots -->
         <svg style="display:none;">
             <defs>
-                <!-- Tiny Sparkle for Photo Frame -->
                 <path id="sparkle-svg" d="M12 0 L14 9 L23 12 L14 15 L12 24 L10 15 L1 12 L10 9 Z" />
-                
-                <!-- The Black Bow/Knot SVG tying photo to string -->
                 <g id="knot-svg">
                     <path class="knot-path" d="M25,25 C5,10 0,30 15,30 C0,30 5,50 25,35 C15,55 35,60 35,40 C35,60 55,55 45,35 C65,45 60,30 40,30 C60,30 55,10 25,25 Z" />
                     <circle cx="28" cy="32" r="6" fill="#000" />
@@ -1057,7 +1052,6 @@
         <div class="scrap-block blk-1">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
@@ -1072,7 +1066,6 @@
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
@@ -1092,7 +1085,6 @@
         <div class="scrap-block blk-2">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
@@ -1106,7 +1098,6 @@
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
@@ -1123,7 +1114,6 @@
         <div class="scrap-block blk-3">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
@@ -1137,7 +1127,6 @@
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
@@ -1153,7 +1142,6 @@
         <div class="scrap-block blk-4">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
@@ -1168,7 +1156,6 @@
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
@@ -1187,7 +1174,6 @@
         <div class="scrap-block blk-5">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
@@ -1201,7 +1187,6 @@
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
@@ -1218,7 +1203,6 @@
         <div class="scrap-block blk-6">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
@@ -1232,7 +1216,6 @@
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
@@ -1248,7 +1231,6 @@
         <div class="scrap-block blk-7">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
@@ -1263,7 +1245,6 @@
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
@@ -1282,7 +1263,6 @@
         <div class="scrap-block blk-8">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
@@ -1296,7 +1276,6 @@
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
@@ -1317,7 +1296,7 @@
     <footer class="minimal-footer">
         <h2 class="footer-logo">Yaadon Ka Lifafa</h2>
         <div class="footer-credit">
-            &copy; 2026 Yaadon Ka Lifafa. Created by Pritam Vishwakarma.
+            &copy; 2026 Yaadon Ka Lifafa. Handcrafted with ♥.
         </div>
     </footer>
 
@@ -1325,11 +1304,6 @@
          JAVASCRIPT: IMAGE PREVIEW LOGIC & FLYING HEARTS ENGINE
          ========================================================================== -->
     <script>
-        /**
-         * 1. IMAGE UPLOAD PREVIEW LOGIC
-         * Reads the uploaded file and sets it as the background 
-         * of the corresponding photo frame instantly. Auto-adjusts size perfectly.
-         */
         function previewImage(event, id) {
             const input = event.target;
             const file = input.files[0];
@@ -1340,13 +1314,11 @@
                 reader.onload = function(e) {
                     const placeholder = input.parentElement.querySelector('.photo-area');
                     
-                    // Setting background image and ensuring it covers the box perfectly without distortion
                     placeholder.style.backgroundImage = `url(${e.target.result})`;
                     placeholder.style.backgroundSize = 'cover';
                     placeholder.style.backgroundPosition = 'center';
                     placeholder.style.backgroundRepeat = 'no-repeat';
                     
-                    // Hide placeholder text and sparkles
                     const textElement = document.getElementById('txt-' + id);
                     if(textElement) textElement.style.opacity = '0';
                     
@@ -1358,21 +1330,16 @@
             }
         }
 
-        /**
-         * 2. CANVAS ENGINE: ATTRACTIVE FLYING HEARTS
-         * Generates beautiful hearts flying from bottom to top
-         */
         const canvas = document.getElementById('flying-hearts-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
         let flyingHearts = [];
         
-        // Pink and Red variations for attractive hearts
         const heartColors = [
-            'rgba(255, 105, 180, 0.7)', // Hot Pink
-            'rgba(255, 182, 193, 0.8)', // Light Pink
-            'rgba(220, 20, 60, 0.6)',   // Crimson
-            'rgba(255, 192, 203, 0.7)'  // Pink
+            'rgba(255, 105, 180, 0.7)',
+            'rgba(255, 182, 193, 0.8)',
+            'rgba(220, 20, 60, 0.6)',
+            'rgba(255, 192, 203, 0.7)'
         ];
 
         function resizeCanvas() {
@@ -1388,9 +1355,9 @@
         class BeautifulHeart {
             constructor() {
                 this.x = Math.random() * width;
-                this.y = height + Math.random() * 500; // Start below screen
-                this.size = Math.random() * 20 + 10; // Slightly larger hearts
-                this.speedY = Math.random() * 2.5 + 1; // Speed moving up
+                this.y = height + Math.random() * 500;
+                this.size = Math.random() * 20 + 10;
+                this.speedY = Math.random() * 2.5 + 1;
                 this.wobbleAngle = Math.random() * Math.PI * 2;
                 this.wobbleSpeed = Math.random() * 0.03 + 0.01;
                 this.wobbleDistance = Math.random() * 3 + 1;
@@ -1401,13 +1368,12 @@
             }
 
             update() {
-                this.y -= this.speedY; // Move up
+                this.y -= this.speedY;
                 this.wobbleAngle += this.wobbleSpeed;
-                this.x += Math.sin(this.wobbleAngle) * this.wobbleDistance; // Sway left/right
+                this.x += Math.sin(this.wobbleAngle) * this.wobbleDistance;
                 this.pulseAngle += this.pulseSpeed;
                 this.currentOpacity = this.opacity + Math.sin(this.pulseAngle) * 0.3;
 
-                // Reset heart if it goes above the screen
                 if (this.y < -50) {
                     this.y = height + 50;
                     this.x = Math.random() * width;
@@ -1425,7 +1391,6 @@
                 ctx.shadowBlur = 20;
                 ctx.shadowColor = this.color;
 
-                // Mathematical Bezier Curve Heart
                 ctx.beginPath();
                 ctx.moveTo(0, 15);
                 ctx.bezierCurveTo(0, 15, -20, -5, -20, -15);
@@ -1441,7 +1406,7 @@
         function initHearts() {
             flyingHearts = [];
             const isMobile = width < 768;
-            const totalHearts = isMobile ? 35 : 70; // Keep performance smooth
+            const totalHearts = isMobile ? 35 : 70;
 
             for (let i = 0; i < totalHearts; i++) {
                 flyingHearts.push(new BeautifulHeart());
@@ -1460,7 +1425,7 @@
         initHearts();
         animateHearts();
         
-        console.log("Yaadon Ka Lifafa - Scrapbook Engine & Flying Hearts initialized.");
+        console.log("Yaadon Ka Lifafa - Complete Ultimate Scrapbook loaded successfully!");
     </script>
 
 </body>
