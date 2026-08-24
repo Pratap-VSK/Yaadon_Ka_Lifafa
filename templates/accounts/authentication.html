@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Yaadon Ka Lifafa | Welcome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ROOT VARIABLES
+   ============================================================ */
+:root {
+  --bg-deep:        #140207;
+  --bg-grad-start:  #2e0513;
+  --bg-grad-end:    #140207;
+
+  --red:            #e6004c;
+  --red-glow:       #ff1a66;
+  --red-dark:       #80002a;
+  --pink:           #ff80a6;
+  --pink-light:     #ffccd9;
+  --gold:           #ffd700;
+  --gold-dark:      #b39700;
+
+  --text:           #ffebf0;
+  --text-muted:     #ffccd9;
+  --text-dark:      #330011;
+
+  --glass-bg:       rgba(26, 5, 13, 0.72);
+  --glass-border:   rgba(255, 128, 166, 0.22);
+  --input-bg:       rgba(255, 235, 240, 0.05);
+
+  --glow-pink:      0 0 30px rgba(255,128,166,0.35);
+  --glow-red:       0 0 30px rgba(230,0,76,0.7);
+  --glow-gold:      0 0 28px rgba(255,215,0,0.55);
+
+  --font-cursive:   'Dancing Script', cursive;
+  --font-serif:     'Playfair Display', serif;
+  --font-sans:      'Montserrat', sans-serif;
+}
+
+/* ============================================================
+   RESET & BASE (SCROLLBAR & JITTER FIX)
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden; /* STRICTLY PREVENTS DESKTOP SCROLLBAR FLASHING */
+  margin: 0; 
+  padding: 0;
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-sans);
+  animation: pageFadeIn 0.8s ease-out forwards;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; filter: blur(5px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+a { text-decoration: none; color: var(--pink); transition: color .3s, text-shadow .3s; }
+a:hover { color: var(--red-glow); text-shadow: 0 0 10px rgba(255,26,102,.5); }
+
+/* ============================================================
+   3D BACKGROUND LAYERS
+   ============================================================ */
+#bg-canvas {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%);
+}
+
+.grid-3d {
+  position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden;
+  will-change: transform;
+}
+.grid-3d::before {
+  content: '';
+  position: absolute; bottom: -20%; left: -50vw; 
+  width: 200vw; height: 80%;
+  background:
+    linear-gradient(rgba(230,0,76,.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(230,0,76,.12) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(600px) rotateX(65deg);
+  transform-origin: bottom center;
+  animation: gridScroll 15s linear infinite;
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%);
+}
+@keyframes gridScroll {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 0 -60px, 0 0; }
+}
+
+.vignette {
+  position: fixed; inset: 0; z-index: 3; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(14,2,7,.85) 100%);
+}
+
+.orb {
+  position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 2;
+  animation: orbDrift 18s ease-in-out infinite;
+  will-change: transform;
+}
+.orb-1 { width: 500px; height: 500px; background: rgba(230,0,76,.13); top:-10%; left:-10%; animation-delay:0s; }
+.orb-2 { width: 400px; height: 400px; background: rgba(255,128,166,.09); bottom:0; right:-5%; animation-delay:-7s; }
+.orb-3 { width: 300px; height: 300px; background: rgba(255,215,0,.06); top:40%; left:40%; animation-delay:-13s; }
+@keyframes orbDrift {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(40px,-30px) scale(1.08); }
+  66%      { transform: translate(-25px,20px) scale(0.95); }
+}
+
+/* ============================================================
+   LAYOUT CONTAINER
+   ============================================================ */
+.split-layout {
+  display: flex; flex-direction: row;
+  width: 100%; height: 100%;
+  position: relative; z-index: 10;
+  overflow-y: auto; /* ALLOWS INTERNAL SCROLLING ONLY */
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   CUSTOM LOGO
+   ============================================================ */
+.custom-brand-logo {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(255, 26, 102, 0.4);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+.custom-brand-logo:hover {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+}
+
+/* ============================================================
+   LEFT PANEL & 4D TESSERACT ANIMATION
+   ============================================================ */
+.left-panel {
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 40px 50px; text-align: center;
+  background: radial-gradient(circle at 40% 50%, rgba(255,26,102,.06) 0%, transparent 65%);
+  border-right: 1px solid rgba(255,128,166,.1);
+  position: relative;
+  min-height: 100%;
+}
+
+/* 4D Hypercube / Tesseract Background Effect */
+.tesseract-wrapper {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 300px; height: 300px;
+  perspective: 1200px;
+  z-index: 0; pointer-events: none;
+  opacity: 0.6;
+}
+.tesseract {
+  width: 100%; height: 100%; position: absolute; transform-style: preserve-3d;
+  animation: rotate4D 25s infinite linear;
+}
+.tesseract-cube { position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; }
+.tesseract-cube.outer { animation: breathe4D 10s infinite alternate ease-in-out; }
+.tesseract-cube.inner {
+  width: 50%; height: 50%; top: 25%; left: 25%;
+  animation: breathe4DInner 10s infinite alternate ease-in-out;
+}
+.tesseract-face {
+  position: absolute; width: 100%; height: 100%;
+  border: 1px solid rgba(255, 128, 166, 0.4);
+  background: rgba(230, 0, 76, 0.04);
+  box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.1);
+}
+.face-f { transform: translateZ(150px); }
+.face-b { transform: translateZ(-150px); }
+.face-r { transform: rotateY(90deg) translateZ(150px); }
+.face-l { transform: rotateY(-90deg) translateZ(150px); }
+.face-t { transform: rotateX(90deg) translateZ(150px); }
+.face-bo { transform: rotateX(-90deg) translateZ(150px); }
+
+.inner .face-f { transform: translateZ(75px); }
+.inner .face-b { transform: translateZ(-75px); }
+.inner .face-r { transform: rotateY(90deg) translateZ(75px); }
+.inner .face-l { transform: rotateY(-90deg) translateZ(75px); }
+.inner .face-t { transform: rotateX(90deg) translateZ(75px); }
+.inner .face-bo { transform: rotateX(-90deg) translateZ(75px); }
+
+@keyframes rotate4D {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  100% { transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg); }
+}
+@keyframes breathe4D {
+  0% { transform: scale3d(0.8, 0.8, 0.8); }
+  100% { transform: scale3d(1.3, 1.3, 1.3); }
+}
+@keyframes breathe4DInner {
+  0% { transform: scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg); }
+  100% { transform: scale3d(0.4, 0.4, 0.4) rotateX(180deg) rotateY(180deg); }
+}
+
+/* 3D Envelope Decoration */
+.envelope-3d {
+  position: relative; width: 180px; height: 130px; margin: 0 auto 30px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  animation: envelopeSpin 8s ease-in-out infinite;
+  cursor: pointer;
+  filter: drop-shadow(0 0 30px rgba(230,0,76,.5));
+  z-index: 10;
+}
+.envelope-3d:hover { animation-play-state: paused; }
+.envelope-3d:hover .env-flap { transform: rotateX(-160deg); }
+
+@keyframes envelopeSpin {
+  0%,100% { transform: rotateY(-12deg) rotateX(6deg); }
+  50%      { transform: rotateY(12deg) rotateX(-4deg); }
+}
+
+.env-body {
+  position: absolute; inset: 0;
+  background: linear-gradient(145deg, #5a0820 0%, #3a0415 50%, #220210 100%);
+  border-radius: 6px 6px 8px 8px;
+  border: 1px solid rgba(255,128,166,.35);
+  box-shadow: 0 20px 60px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,128,166,.2), 0 0 40px rgba(230,0,76,.3);
+}
+
+.env-seal {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-size: 36px; z-index: 3;
+  filter: drop-shadow(0 0 10px rgba(255,215,0,.8));
+  animation: sealPulse 2s ease-in-out infinite;
+}
+@keyframes sealPulse {
+  0%,100% { transform: translate(-50%,-50%) scale(1); }
+  50%      { transform: translate(-50%,-50%) scale(1.18); }
+}
+
+.env-flap {
+  position: absolute; top: 0; left: 0; width: 100%; height: 55%;
+  background: linear-gradient(165deg, #7a0a28 0%, #4a0518 100%);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  border-radius: 6px 6px 0 0;
+  border: 1px solid rgba(255,128,166,.25);
+  transform-origin: top center;
+  transition: transform 0.7s cubic-bezier(.4,2,.55,.8);
+  z-index: 5;
+}
+
+.env-left-flap {
+  position: absolute; bottom: 0; left: 0; width: 52%; height: 55%;
+  background: linear-gradient(120deg, #3a0415, #2a0310);
+  clip-path: polygon(0 100%, 100% 0, 0 0);
+  border-radius: 0 0 0 8px;
+}
+.env-right-flap {
+  position: absolute; bottom: 0; right: 0; width: 52%; height: 55%;
+  background: linear-gradient(240deg, #3a0415, #2a0310);
+  clip-path: polygon(100% 100%, 0 0, 100% 0);
+  border-radius: 0 0 8px 0;
+}
+
+.env-letter {
+  position: absolute; bottom: 5px; left: 12px; right: 12px; height: 60%;
+  background: linear-gradient(180deg, rgba(255,235,240,.92), rgba(255,210,220,.85));
+  border-radius: 4px;
+  border: 1px solid rgba(255,128,166,.4);
+  z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: rgba(180,0,60,.7);
+  box-shadow: 0 -5px 20px rgba(230,0,76,.2);
+  animation: letterPeek 4s ease-in-out infinite;
+}
+@keyframes letterPeek {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* TEXT FIXES: Static sizes, GPU Locks, Animation Disabled */
+.left-title {
+  font-family: var(--font-cursive);
+  font-size: 4.5rem; 
+  line-height: 1.15; margin-bottom: 18px;
+  background: linear-gradient(135deg, #ffebf0 0%, #ff80a6 50%, #ffd700 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 15px rgba(255,128,166,.6)); /* STATIC GLOW TO PREVENT TEXT WOBBLE */
+  z-index: 10;
+  transform: translateZ(0); 
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+}
+
+.left-description {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 1.15rem; 
+  color: var(--text-muted); max-width: 82%; line-height: 1.85; margin-bottom: 28px;
+  z-index: 10;
+  transform: translateZ(0);
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hindi-quote {
+  font-family: var(--font-sans); 
+  font-size: 1.15rem; 
+  font-weight: 500;
+  color: var(--red-glow);
+  padding: 16px 28px;
+  border-top: 1px dashed var(--pink); border-bottom: 1px dashed var(--pink);
+  background: rgba(255,26,102,.06); border-radius: 12px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
+  position: relative;
+  z-index: 10;
+  transform: translateZ(0);
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+}
+.hindi-quote::before, .hindi-quote::after {
+  content: '❝';
+  color: rgba(255,128,166,.3);
+  font-size: 2rem;
+  position: absolute; line-height: 1;
+}
+.hindi-quote::before { top: 5px; left: 10px; }
+.hindi-quote::after { content: '❞'; bottom: 5px; right: 10px; }
+
+.feature-pills {
+  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 28px;
+  z-index: 10;
+  transform: translateZ(0);
+}
+.pill {
+  padding: 8px 18px; border-radius: 999px; font-size: .82rem; font-weight: 600;
+  letter-spacing: .6px; border: 1px solid; backdrop-filter: blur(8px);
+  transition: transform .2s, box-shadow .2s;
+}
+.pill:hover { transform: translateY(-3px); box-shadow: var(--glow-pink); }
+.pill-red   { background: rgba(230,0,76,.12);  border-color: rgba(230,0,76,.35);  color: var(--pink-light); }
+.pill-gold  { background: rgba(255,215,0,.08); border-color: rgba(255,215,0,.3);  color: var(--gold); }
+.pill-pink  { background: rgba(255,128,166,.1);border-color: rgba(255,128,166,.3);color: var(--pink-light); }
+
+/* ============================================================
+   RIGHT PANEL & GLASS BOX
+   ============================================================ */
+.right-panel {
+  flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px;
+  min-height: 100%;
+}
+
+.auth-glass-box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 50px 42px;
+  width: 100%; max-width: 460px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.75), inset 0 0 40px rgba(255,128,166,.04), var(--glow-pink);
+  position: relative; overflow: hidden;
+}
+
+.auth-glass-box::before {
+  content: '';
+  position: absolute; top: 0; left: -100%; width: 100%; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--red-glow), var(--gold), var(--red-glow), transparent);
+  animation: borderScan 3s linear infinite;
+}
+@keyframes borderScan { to { left: 100%; } }
+
+.auth-glass-box::after {
+  content: '';
+  position: absolute; inset: 0; border-radius: 24px; pointer-events: none;
+  background: radial-gradient(circle at 15% 15%, rgba(255,215,0,.05) 0%, transparent 40%),
+              radial-gradient(circle at 85% 85%, rgba(230,0,76,.05) 0%, transparent 40%);
+}
+
+.auth-section { 
+  display: none; opacity: 0; transition: opacity 0.35s ease-out; 
+}
+.auth-section.active {
+  display: block; opacity: 1;
+  animation: sectionIn .5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes sectionIn {
+  0%   { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* STATIC FORM TEXT FIXES */
+.auth-title {
+  font-family: var(--font-serif);
+  font-size: 2.3rem; 
+  color: var(--pink-light); margin-bottom: 6px; text-align: center;
+  text-shadow: 0 0 20px rgba(255,128,166,.3);
+  transform: translateZ(0);
+}
+
+.auth-subtitle {
+  font-size: 0.95rem; 
+  color: var(--text-muted); text-align: center; margin-bottom: 28px; line-height: 1.6;
+  transform: translateZ(0);
+}
+
+.section-icon {
+  text-align: center; font-size: 52px; margin-bottom: 12px;
+  filter: drop-shadow(0 0 18px rgba(255,215,0,.6));
+  animation: iconBounce 2.5s ease-in-out infinite;
+}
+@keyframes iconBounce { 0%,100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.15) rotate(-5deg); } }
+
+/* ============================================================
+   INPUT GROUPS
+   ============================================================ */
+.input-group { margin-bottom: 22px; position: relative; }
+
+.input-label {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: .9rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 500;
+}
+.input-label a { font-size: .82em; font-weight: 400; color: var(--pink); }
+
+.input-wrapper {
+  position: relative; display: flex; align-items: center;
+}
+
+.auth-input {
+  width: 100%; padding: 15px 45px 15px 16px;
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text); border-radius: 12px;
+  font-family: var(--font-sans); font-size: .98rem;
+  outline: none; transition: all .3s ease;
+}
+.auth-input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255,128,166,.15), 0 0 20px rgba(255,128,166,.25);
+  background: rgba(255,235,240,.08);
+}
+.auth-input::placeholder { color: rgba(255,235,240,.35); }
+.auth-input.valid   { border-color: #4caf82; box-shadow: 0 0 0 2px rgba(76,175,130,.15); }
+.auth-input.invalid { border-color: var(--red-glow); box-shadow: 0 0 0 2px rgba(255,26,102,.2); }
+
+.input-icon-left {
+  position: absolute; left: 14px; font-size: 16px; pointer-events: none;
+  color: rgba(255,128,166,.5); z-index: 2;
+}
+.auth-input.has-icon-left { padding-left: 44px; }
+
+.input-icon-right {
+  position: absolute; right: 14px; font-size: 16px;
+  cursor: pointer; color: rgba(255,128,166,.5); z-index: 2; transition: color .2s;
+  background: none; border: none; padding: 4px;
+}
+.input-icon-right:hover { color: var(--pink); }
+.auth-input.has-icon-both { padding-left: 44px; padding-right: 44px; }
+
+.validation-msg {
+  font-size: .78rem; margin-top: 6px; padding-left: 4px;
+  min-height: 18px; transition: color .3s;
+}
+.validation-msg.ok  { color: #4caf82; }
+.validation-msg.err { color: var(--red-glow); }
+
+/* ============================================================
+   PASSWORD STRENGTH BAR
+   ============================================================ */
+.strength-bar-wrap {
+  margin-top: 8px;
+  background: rgba(255,235,240,.07);
+  border-radius: 99px; height: 5px; overflow: hidden;
+}
+.strength-bar {
+  height: 100%; border-radius: 99px;
+  transition: width .4s ease, background .4s ease;
+  width: 0;
+}
+.strength-label { font-size: .75rem; margin-top: 5px; color: var(--text-muted); }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-submit {
+  width: 100%; padding: 16px;
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+  color: var(--bg-deep) !important;
+  border: 1px solid rgba(255,26,102,.5);
+  border-radius: 12px; font-family: var(--font-sans);
+  font-size: 1.05rem; font-weight: 900 !important;
+  text-transform: uppercase; letter-spacing: 2px;
+  cursor: pointer; position: relative; overflow: hidden;
+  box-shadow: 0 0 25px rgba(230,0,76,0.9), inset 0 0 10px rgba(255,255,255,0.4) !important;
+  transition: transform .3s cubic-bezier(.175,.885,.32,1.275), box-shadow .3s;
+  margin-top: 8px;
+}
+.btn-submit::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.08), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.btn-submit:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 15px 40px rgba(230,0,76,1), inset 0 0 15px rgba(255,255,255,0.6) !important; }
+.btn-submit:hover::after { opacity: 1; }
+.btn-submit:active { transform: translateY(1px) scale(.99); }
+
+.btn-submit::before {
+  content: '';
+  position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+  transform: skewX(-20deg);
+  transition: left .5s ease;
+}
+.btn-submit:hover::before { left: 160%; }
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: var(--bg-deep) !important;
+  border-color: rgba(255,215,0,.5);
+  box-shadow: 0 0 25px rgba(255,215,0,0.9), inset 0 0 10px rgba(255,255,255,0.4) !important;
+}
+.btn-gold:hover { box-shadow: 0 15px 40px rgba(255,215,0,1), inset 0 0 15px rgba(255,255,255,0.6) !important; }
+
+/* ============================================================
+   DIVIDER & LINKS
+   ============================================================ */
+.divider {
+  display: flex; align-items: center; text-align: center;
+  margin: 26px 0; color: rgba(255,235,240,.4); font-size: .85rem; font-weight: 600; letter-spacing: 2px;
+}
+.divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--glass-border); }
+.divider::before { margin-right: .8em; }
+.divider::after  { margin-left: .8em; }
+
+.auth-footer { text-align: center; margin-top: 22px; font-size: .9rem; color: var(--text-muted); }
+
+.switch-link {
+  color: var(--gold); font-weight: 700; font-size: 1em;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 22px; border: 1px solid rgba(255,215,0,.25);
+  border-radius: 10px; transition: all .3s; background: rgba(255,215,0,.04);
+}
+.switch-link:hover {
+  background: rgba(255,215,0,.1); border-color: rgba(255,215,0,.5);
+  box-shadow: 0 0 20px rgba(255,215,0,.25); text-shadow: 0 0 10px rgba(255,215,0,.5);
+  transform: translateY(-2px);
+}
+
+.security-badge {
+  display: flex; align-items: center; gap: 8px; justify-content: center;
+  margin-top: 20px; padding: 8px 16px; border-radius: 8px;
+  background: rgba(76,175,130,.08); border: 1px solid rgba(76,175,130,.2);
+  font-size: .78rem; color: #7bcba8; letter-spacing: .5px;
+}
+
+.rate-limit-warn {
+  display: none;
+  background: rgba(255,26,102,.12); border: 1px solid rgba(255,26,102,.3);
+  border-radius: 8px; padding: 10px 14px; font-size: .82rem;
+  color: var(--pink-light); margin-top: 10px; text-align: center;
+}
+
+.checkbox-row {
+  display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px;
+}
+.checkbox-row input[type="checkbox"] { margin-top: 3px; accent-color: var(--red-glow); }
+.checkbox-row label { font-size: .82rem; color: var(--text-muted); line-height: 1.5; }
+.checkbox-row label a { color: var(--pink); }
+
+.key-input {
+  text-align: center; letter-spacing: 5px; font-weight: 700;
+  font-size: 1.3rem; text-transform: uppercase; font-family: var(--font-sans);
+}
+
+.key-segments {
+  display: flex; gap: 8px; justify-content: center; margin-top: 14px;
+}
+.key-seg {
+  width: 44px; height: 6px; border-radius: 99px;
+  background: rgba(255,215,0,.15); transition: background .3s, box-shadow .3s;
+}
+.key-seg.filled { background: var(--gold); box-shadow: 0 0 10px rgba(255,215,0,.6); }
+
+/* ============================================================
+   RESPONSIVE (MOBILE ADJUSTMENTS)
+   ============================================================ */
+@media (max-width: 900px) {
+  .split-layout { flex-direction: column; }
+  .left-panel { padding: 95px 22px 38px; border-right: none; border-bottom: 1px solid rgba(255,128,166,.1); min-height: auto; }
+  .right-panel { padding: 36px 18px 70px; min-height: auto; }
+  .auth-glass-box { padding: 38px 26px; }
+  .envelope-3d { width: 140px; height: 100px; }
+  .custom-brand-logo { top: 15px; left: 15px; width: 45px; height: 45px; } 
+  .tesseract-wrapper { transform: translate(-50%, -50%) scale(0.7); } 
+  
+  .left-title { font-size: 3rem; }
+  .left-description { font-size: 0.95rem; }
+  .hindi-quote { font-size: 1rem; }
+  .auth-title { font-size: 1.9rem; }
+}
+
+/* ============================================================
+   PARTICLE DEPTH HINT (STARS)
+   ============================================================ */
+.star-field {
+  position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden;
+}
+.star {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,235,240,.7);
+  animation: starTwinkle ease-in-out infinite;
+}
+@keyframes starTwinkle {
+  0%,100% { opacity: .1; transform: scale(1); }
+  50%      { opacity: .9; transform: scale(1.4); }
+}
+
+/* ============================================================
+   TOAST NOTIFICATION
+   ============================================================ */
+.toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+  padding: 14px 22px; border-radius: 12px;
+  font-family: var(--font-sans); font-size: .9rem; font-weight: 600;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  transform: translateX(120%); transition: transform .4s cubic-bezier(.2,.8,.4,1);
+  box-shadow: 0 8px 30px rgba(0,0,0,.5);
+  max-width: 320px;
+}
+.toast.show { transform: translateX(0); }
+.toast-success { background: rgba(76,175,130,.25); border: 1px solid rgba(76,175,130,.4); color: #b6f0d4; }
+.toast-error   { background: rgba(230,0,76,.2);  border: 1px solid rgba(255,26,102,.4); color: var(--pink-light); }
+.toast-info    { background: rgba(255,215,0,.12);  border: 1px solid rgba(255,215,0,.35); color: var(--gold); }
+
+.btn-loading { pointer-events: none; opacity: .75; }
+.btn-loading::after {
+  content: '';
+  display: inline-block; width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.4); border-top-color: white;
+  border-radius: 50%; margin-left: 10px; vertical-align: middle;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- Background Layers -->
+<canvas id="bg-canvas"></canvas>
+<div class="grid-3d"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="vignette"></div>
+<div class="star-field" id="starField"></div>
+
+<!-- Custom Logo Ad Placement (Perfect Circle) -->
+<img src="https://via.placeholder.com/100x100/e6004c/ffd700?text=LOGO" alt="Brand Logo" class="custom-brand-logo">
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================================================
+     LAYOUT
+     ============================================================ -->
+<div class="split-layout">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    
+    <!-- 4D Tesseract Animation Container -->
+    <div class="tesseract-wrapper">
+      <div class="tesseract">
+        <div class="tesseract-cube outer">
+          <div class="tesseract-face face-f"></div>
+          <div class="tesseract-face face-b"></div>
+          <div class="tesseract-face face-r"></div>
+          <div class="tesseract-face face-l"></div>
+          <div class="tesseract-face face-t"></div>
+          <div class="tesseract-face face-bo"></div>
+        </div>
+        <div class="tesseract-cube inner">
+          <div class="tesseract-face face-f"></div>
+          <div class="tesseract-face face-b"></div>
+          <div class="tesseract-face face-r"></div>
+          <div class="tesseract-face face-l"></div>
+          <div class="tesseract-face face-t"></div>
+          <div class="tesseract-face face-bo"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D Envelope -->
+    <div class="envelope-3d" id="envelope3d" title="Hover to open!">
+      <div class="env-body">
+        <div class="env-left-flap"></div>
+        <div class="env-right-flap"></div>
+        <div class="env-letter">💌</div>
+      </div>
+      <div class="env-flap"></div>
+      <div class="env-seal">💛</div>
+    </div>
+
+    <h1 class="left-title">Yaadon Ka Lifafa</h1>
+
+    <p class="left-description">
+      A sanctuary for your most precious moments. We believe that love isn't just felt — it is preserved.
+      Hide a secret letter for someone dear, or store a lifetime of memories, safely sealed away.
+    </p>
+
+    <div class="hindi-quote">
+      "Some memories are not preserved in words, but safely kept in envelopes."
+    </div>
+
+    <div class="feature-pills">
+      <span class="pill pill-red">🔒 End-to-End Encrypted</span>
+      <span class="pill pill-gold">✉️ Secret Key Letters</span>
+      <span class="pill pill-pink">🌹 Private Memories</span>
+      <span class="pill pill-red">💡 Time-Locked Envelopes</span>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="auth-glass-box" id="authBox">
+
+      <!-- ── 1. LOGIN ── -->
+      <div id="login-section" class="auth-section active">
+        <div class="section-icon">💌</div>
+        <h2 class="auth-title">Welcome Back</h2>
+        <p class="auth-subtitle">Sign in to unlock your memories.</p>
+
+        <form id="loginForm" onsubmit="handleLogin(event)" novalidate autocomplete="on">
+
+          <div class="input-group">
+            <label class="input-label">Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">✉️</span>
+              <input type="email" id="loginEmail" class="auth-input has-icon-left" placeholder="you@example.com" autocomplete="email" required>
+            </div>
+            <div class="validation-msg" id="loginEmailMsg"></div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">
+              Password
+              <a href="#" onclick="switchSection('forgot-section'); return false;">Forgot?</a>
+            </label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">🔑</span>
+              <input type="password" id="loginPassword" class="auth-input has-icon-both" placeholder="••••••••" autocomplete="current-password" required>
+              <button type="button" class="input-icon-right" onclick="togglePwdVisibility('loginPassword', this)" aria-label="Show password">👁️</button>
+            </div>
+            <div class="validation-msg" id="loginPwdMsg"></div>
+          </div>
+
+          <div class="rate-limit-warn" id="loginRateWarn">⚠️ Too many attempts. Please wait <span id="cooldownTimer">30</span>s before trying again.</div>
+
+          <button type="submit" class="btn-submit" id="loginBtn">Sign In</button>
+        </form>
+
+        <div class="security-badge">🛡️ &nbsp;256-bit AES · TLS 1.3 · CSRF Protected</div>
+
+        <div class="divider">OR</div>
+
+        <div style="text-align:center;">
+          <a href="#" class="switch-link" onclick="switchSection('secret-key-section'); return false;">
+            🗝️ Have a Secret Key?
+          </a>
+        </div>
+
+        <div class="auth-footer">
+          Don't have an account?
+          <a href="#" onclick="switchSection('register-section'); return false;" style="color:var(--gold); font-weight:700;">Create Lifafa →</a>
+        </div>
+      </div>
+
+      <!-- ── 2. REGISTER ── -->
+      <div id="register-section" class="auth-section">
+        <div class="section-icon">🌹</div>
+        <h2 class="auth-title">Create Your Lifafa</h2>
+        <p class="auth-subtitle" style="color:var(--red-glow); font-style:italic; margin-bottom:8px;">"The beginning of beautiful memories starts here."</p>
+        <p class="auth-subtitle">Start preserving your most precious moments.</p>
+
+        <form id="registerForm" onsubmit="handleRegister(event)" novalidate autocomplete="on">
+
+          <div class="input-group">
+            <label class="input-label">Full Name</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">👤</span>
+              <input type="text" id="regName" class="auth-input has-icon-left" placeholder="Your Name" autocomplete="name" required minlength="2">
+            </div>
+            <div class="validation-msg" id="regNameMsg"></div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">✉️</span>
+              <input type="email" id="regEmail" class="auth-input has-icon-left" placeholder="you@example.com" autocomplete="email" required>
+            </div>
+            <div class="validation-msg" id="regEmailMsg"></div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Create Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">🔒</span>
+              <input type="password" id="regPassword" class="auth-input has-icon-both" placeholder="Min. 8 characters" autocomplete="new-password" required oninput="updateStrength(this.value)">
+              <button type="button" class="input-icon-right" onclick="togglePwdVisibility('regPassword', this)" aria-label="Show password">👁️</button>
+            </div>
+            <div class="strength-bar-wrap"><div class="strength-bar" id="strengthBar"></div></div>
+            <div class="strength-label" id="strengthLabel">Password strength</div>
+            <div class="validation-msg" id="regPwdMsg"></div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Confirm Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">🔒</span>
+              <input type="password" id="regConfirm" class="auth-input has-icon-both" placeholder="Repeat password" autocomplete="new-password" required>
+              <button type="button" class="input-icon-right" onclick="togglePwdVisibility('regConfirm', this)" aria-label="Show password">👁️</button>
+            </div>
+            <div class="validation-msg" id="regConfirmMsg"></div>
+          </div>
+
+          <div class="checkbox-row">
+            <input type="checkbox" id="agreeTerms" required>
+            <label for="agreeTerms">I agree to the <a href="#" onclick="return false;">Privacy Policy</a> & <a href="#" onclick="return false;">Terms of Service</a>. My memories will be encrypted and private.</label>
+          </div>
+
+          <button type="submit" class="btn-submit" id="registerBtn">Create My Lifafa ✨</button>
+        </form>
+
+        <div class="security-badge">🛡️ &nbsp;Zero-knowledge encryption — even we can't read your memories.</div>
+
+        <div class="auth-footer" style="margin-top:16px;">
+          Already have an account?
+          <a href="#" onclick="switchSection('login-section'); return false;" style="color:var(--gold); font-weight:700;">← Sign In</a>
+        </div>
+      </div>
+
+      <!-- ── 3. SECRET KEY ── -->
+      <div id="secret-key-section" class="auth-section">
+        <div class="section-icon" style="animation-delay:.3s;">🔐</div>
+        <h2 class="auth-title">Unlock Lifafa</h2>
+        <p class="auth-subtitle" style="color:var(--red-glow); font-style:italic; margin-bottom:8px;">"Someone has sent something special for you."</p>
+        <p class="auth-subtitle">Enter the secret key to reveal your hidden letter.</p>
+
+        <form id="secretForm" onsubmit="handleSecretKey(event)" novalidate>
+          <div class="input-group">
+            <label class="input-label" style="justify-content:center;">Secret Key / Code</label>
+            <div class="input-wrapper">
+              <input type="text" id="secretKey" class="auth-input key-input" placeholder="XXXX-XXXX" maxlength="9" required oninput="onKeyInput(this)">
+            </div>
+            <div class="key-segments" id="keySegs">
+              <div class="key-seg" id="ks0"></div>
+              <div class="key-seg" id="ks1"></div>
+              <div class="key-seg" id="ks2"></div>
+              <div class="key-seg" id="ks3"></div>
+              <span style="color:rgba(255,215,0,.4); font-size:1.2rem; line-height:1; margin-top:-1px;">—</span>
+              <div class="key-seg" id="ks4"></div>
+              <div class="key-seg" id="ks5"></div>
+              <div class="key-seg" id="ks6"></div>
+              <div class="key-seg" id="ks7"></div>
+            </div>
+            <div class="validation-msg" id="secretKeyMsg"></div>
+          </div>
+
+          <button type="submit" class="btn-submit btn-gold" id="unlockBtn">🗝️ &nbsp;Unlock Envelope</button>
+        </form>
+
+        <div class="security-badge" style="border-color:rgba(255,215,0,.2); background:rgba(255,215,0,.06); color:#c8a800;">
+          🔑 &nbsp;Keys expire after 30 days · 5 attempts max
+        </div>
+
+        <div class="auth-footer" style="margin-top:28px;">
+          <a href="#" onclick="switchSection('login-section'); return false;" style="color:var(--text-muted);">← Back to Login</a>
+        </div>
+      </div>
+
+      <!-- ── 4. FORGOT PASSWORD ── -->
+      <div id="forgot-section" class="auth-section">
+        <div class="section-icon">📬</div>
+        <h2 class="auth-title">Reset Password</h2>
+        <p class="auth-subtitle">We'll send a secure reset link to your email.</p>
+
+        <form id="forgotForm" onsubmit="handleForgot(event)" novalidate>
+          <div class="input-group">
+            <label class="input-label">Your Email Address</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">✉️</span>
+              <input type="email" id="forgotEmail" class="auth-input has-icon-left" placeholder="you@example.com" required autocomplete="email">
+            </div>
+            <div class="validation-msg" id="forgotEmailMsg"></div>
+          </div>
+
+          <button type="submit" class="btn-submit" id="forgotBtn">Send Reset Link 📧</button>
+        </form>
+
+        <div class="auth-footer" style="margin-top:28px;">
+          <a href="#" onclick="switchSection('login-section'); return false;" style="color:var(--text-muted);">← Back to Login</a>
+        </div>
+      </div>
+
+    </div><!-- /auth-glass-box -->
+  </div><!-- /right-panel -->
+</div><!-- /split-layout -->
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ── STARS ── */
+(function createStars() {
+  const sf = document.getElementById('starField');
+  const count = window.innerWidth < 768 ? 40 : 80;
+  for (let i = 0; i < count; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + .5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      top:${Math.random()*100}%; left:${Math.random()*100}%;
+      animation-duration:${Math.random()*4+2}s;
+      animation-delay:${Math.random()*5}s;
+    `;
+    sf.appendChild(s);
+  }
+})();
+
+/* ── CANVAS HEARTS (OPTIMIZED FOR ZERO LAG) ── */
+const canvas = document.getElementById('bg-canvas');
+const ctx    = canvas.getContext('2d');
+let W, H;
+
+function resizeCanvas() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+function drawHeart(x, y, size, opacity, color) {
+  ctx.save();
+  ctx.translate(x, y);
+  const s = size / 50;
+  ctx.scale(s, s);
+  ctx.globalAlpha = Math.max(0, Math.min(1, opacity));
+  ctx.fillStyle   = color;
+  ctx.beginPath();
+  ctx.moveTo(0, 15);
+  ctx.bezierCurveTo(0, 15, -20, -5, -20, -15);
+  ctx.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
+  ctx.bezierCurveTo(7.5, -30, 20, -25, 20, -15);
+  ctx.bezierCurveTo(20, -5, 0, 15, 0, 15);
+  ctx.fill();
+  ctx.restore();
+}
+
+/* Floating hearts — 3 depth layers */
+class FloatHeart {
+  constructor(layer) {
+    this.layer = layer;
+    this.reset(true);
+  }
+  reset(init) {
+    this.x     = Math.random() * W;
+    this.y     = init ? Math.random() * H : H + 50;
+    const szBase  = [5, 9, 14][this.layer];
+    this.size  = Math.random() * szBase + szBase * .5;
+    this.spdY  = [.3,.7,1.3][this.layer] + Math.random() * .5;
+    this.wobA  = Math.random() * Math.PI * 2;
+    this.wobS  = Math.random() * .02 + .01;
+    this.wobD  = [.5, 1.2, 2][this.layer];
+    this.pA    = Math.random() * Math.PI * 2;
+    this.pS    = Math.random() * .025 + .01;
+    const alpha = [.2, .3, .45][this.layer]; 
+    this.baseOpacity = Math.random() * alpha + alpha * .3;
+    const hue = Math.random() > .7 ? 'rgba(255,215,0,' : 'rgba(255,26,102,';
+    this.color = hue + (this.baseOpacity + .1) + ')';
+  }
+  update() {
+    this.y   -= this.spdY;
+    this.wobA += this.wobS;
+    this.x   += Math.sin(this.wobA) * this.wobD;
+    this.pA  += this.pS;
+    this.op   = this.baseOpacity + Math.sin(this.pA) * .08;
+    if (this.y < -60) this.reset(false);
+  }
+  draw() { drawHeart(this.x, this.y, this.size, this.op, this.color); }
+}
+
+const floatHearts = [];
+const layers = window.innerWidth < 768 ? [5, 6, 4] : [10, 12, 8];
+for (let l = 0; l < 3; l++) {
+  for (let i = 0; i < layers[l]; i++) floatHearts.push(new FloatHeart(l));
+}
+
+/* Explosion hearts */
+const burstColors = ['rgba(255,26,102,', 'rgba(230,0,76,', 'rgba(255,128,166,', 'rgba(255,215,0,'];
+class BurstHeart {
+  constructor(x, y) {
+    this.x = x; this.y = y;
+    this.size = Math.random() * 20 + 8;
+    const ang = Math.random() * Math.PI * 2;
+    const spd = Math.random() * 11 + 5;
+    this.vx   = Math.cos(ang) * spd;
+    this.vy   = Math.sin(ang) * spd;
+    this.grav = .38;
+    const c   = burstColors[Math.floor(Math.random() * burstColors.length)];
+    this.color = c + '1)';
+    this.op    = 1;
+    this.fade  = Math.random() * .025 + .012;
+  }
+  update() { this.x += this.vx; this.vy += this.grav; this.y += this.vy; this.op -= this.fade; }
+  draw()   { if (this.op > 0) drawHeart(this.x, this.y, this.size, this.op, this.color); }
+}
+
+const bursts = [];
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  floatHearts.forEach(h => { h.update(); h.draw(); });
+  for (let i = bursts.length - 1; i >= 0; i--) {
+    bursts[i].update(); bursts[i].draw();
+    if (bursts[i].op <= 0) bursts.splice(i, 1);
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* Click → burst */
+document.addEventListener('click', e => {
+  const el = e.target.closest('button, a, .switch-link, .pill');
+  if (!el) return;
+  let x = e.clientX, y = e.clientY;
+  if (!x && !y) { const r = el.getBoundingClientRect(); x = r.left + r.width/2; y = r.top + r.height/2; }
+  const n = window.innerWidth < 768 ? 20 : 40; 
+  for (let i = 0; i < n; i++) bursts.push(new BurstHeart(x, y));
+});
+
+/* ── BULLETPROOF SECTION SWITCHING ── */
+let isSwitching = false; 
+function switchSection(targetId) {
+  if (isSwitching) return;
+  isSwitching = true;
+
+  const sections = document.querySelectorAll('.auth-section');
+  
+  sections.forEach(sec => {
+    sec.style.opacity = '0';
+    sec.classList.remove('active');
+  });
+
+  setTimeout(() => {
+    sections.forEach(sec => { sec.style.display = 'none'; });
+    
+    const target = document.getElementById(targetId);
+    if(target) {
+      target.style.display = 'block';
+      
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          target.style.opacity = '1';
+          target.classList.add('active');
+          setTimeout(() => { isSwitching = false; }, 400);
+        });
+      });
+    } else {
+      isSwitching = false; 
+    }
+  }, 350);
+}
+
+/* ── TOAST ── */
+function showToast(msg, type = 'success', dur = 3500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast toast-${type} show`;
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+/* ── PASSWORD VISIBILITY ── */
+function togglePwdVisibility(id, btn) {
+  const inp = document.getElementById(id);
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+  else                         { inp.type = 'password'; btn.textContent = '👁️'; }
+}
+
+/* ── PASSWORD STRENGTH ── */
+function updateStrength(val) {
+  const bar   = document.getElementById('strengthBar');
+  const label = document.getElementById('strengthLabel');
+  let score = 0;
+  if (val.length >= 8)  score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  if (val.length >= 12) score++;
+
+  const configs = [
+    { w:'0%',   bg:'transparent', txt:'' },
+    { w:'20%',  bg:'#e6004c', txt:'Very Weak' },
+    { w:'40%',  bg:'#ff6b00', txt:'Weak' },
+    { w:'60%',  bg:'#ffd700', txt:'Fair' },
+    { w:'80%',  bg:'#8bc34a', txt:'Strong' },
+    { w:'100%', bg:'#4caf82', txt:'Very Strong 💪' },
+  ];
+  const cfg = configs[score] || configs[0];
+  bar.style.width      = cfg.w;
+  bar.style.background = cfg.bg;
+  label.textContent    = cfg.txt;
+  label.style.color    = cfg.bg || 'var(--text-muted)';
+}
+
+/* ── INPUT VALIDATION HELPERS ── */
+function setValid(input, msgEl, msg) {
+  input.classList.remove('invalid'); input.classList.add('valid');
+  msgEl.className = 'validation-msg ok'; msgEl.textContent = msg;
+}
+function setInvalid(input, msgEl, msg) {
+  input.classList.remove('valid'); input.classList.add('invalid');
+  msgEl.className = 'validation-msg err'; msgEl.textContent = msg;
+  return false;
+}
+function clearState(input, msgEl) {
+  input.classList.remove('valid','invalid');
+  msgEl.className = 'validation-msg'; msgEl.textContent = '';
+}
+
+/* ── RATE LIMIT SIMULATION ── */
+let loginAttempts = 0;
+let rateLimited   = false;
+function startCooldown() {
+  rateLimited = true;
+  const warn  = document.getElementById('loginRateWarn');
+  const timerEl = document.getElementById('cooldownTimer');
+  warn.style.display = 'block';
+  let t = 30;
+  timerEl.textContent = t;
+  const iv = setInterval(() => {
+    t--;
+    timerEl.textContent = t;
+    if (t <= 0) {
+      clearInterval(iv);
+      warn.style.display = 'none';
+      rateLimited = false;
+      loginAttempts = 0;
+    }
+  }, 1000);
+}
+
+/* ── LOGIN HANDLER ── */
+function handleLogin(e) {
+  e.preventDefault();
+  if (rateLimited) { showToast('⏳ Please wait before trying again.', 'error'); return; }
+
+  const email    = document.getElementById('loginEmail');
+  const pwd      = document.getElementById('loginPassword');
+  const emailMsg = document.getElementById('loginEmailMsg');
+  const pwdMsg   = document.getElementById('loginPwdMsg');
+  const btn      = document.getElementById('loginBtn');
+
+  let ok = true;
+  clearState(email, emailMsg); clearState(pwd, pwdMsg);
+
+  if (!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    ok = setInvalid(email, emailMsg, '⚠ Enter a valid email address.');
+  } else setValid(email, emailMsg, '✓ Looks good!');
+
+  if (!pwd.value || pwd.value.length < 6) {
+    ok = setInvalid(pwd, pwdMsg, '⚠ Password must be at least 6 characters.');
+  } else setValid(pwd, pwdMsg, '✓');
+
+  if (!ok) { loginAttempts++; if (loginAttempts >= 4) startCooldown(); return; }
+
+  btn.textContent = 'Signing In…'; btn.classList.add('btn-loading'); btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'Sign In'; btn.classList.remove('btn-loading'); btn.disabled = false;
+    showToast('✅ Welcome back! Memories unlocked.', 'success');
+    loginAttempts = 0;
+    document.getElementById('loginForm').reset();
+  }, 1800);
+}
+
+/* ── REGISTER HANDLER ── */
+function handleRegister(e) {
+  e.preventDefault();
+  const name     = document.getElementById('regName');
+  const email    = document.getElementById('regEmail');
+  const pwd      = document.getElementById('regPassword');
+  const confirm  = document.getElementById('regConfirm');
+  const terms    = document.getElementById('agreeTerms');
+  const nameMsg  = document.getElementById('regNameMsg');
+  const emailMsg = document.getElementById('regEmailMsg');
+  const pwdMsg   = document.getElementById('regPwdMsg');
+  const confMsg  = document.getElementById('regConfirmMsg');
+  const btn      = document.getElementById('registerBtn');
+
+  let ok = true;
+  [name,email,pwd,confirm].forEach((el, i) =>
+    clearState(el, [nameMsg,emailMsg,pwdMsg,confMsg][i]));
+
+  if (!name.value || name.value.trim().length < 2)
+    ok = setInvalid(name, nameMsg, '⚠ Name must be at least 2 characters.');
+  else setValid(name, nameMsg, '✓ Hello, ' + name.value.split(' ')[0] + '!');
+
+  if (!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value))
+    ok = setInvalid(email, emailMsg, '⚠ Enter a valid email address.');
+  else setValid(email, emailMsg, '✓ Looks good!');
+
+  if (pwd.value.length < 8)
+    ok = setInvalid(pwd, pwdMsg, '⚠ Password must be at least 8 characters.');
+  else if (!/[A-Z]/.test(pwd.value) || !/[0-9]/.test(pwd.value))
+    ok = setInvalid(pwd, pwdMsg, '⚠ Include an uppercase letter and a number.');
+  else setValid(pwd, pwdMsg, '✓ Strong password!');
+
+  if (!confirm.value || confirm.value !== pwd.value)
+    ok = setInvalid(confirm, confMsg, '⚠ Passwords do not match.');
+  else if (confirm.value) setValid(confirm, confMsg, '✓ Passwords match!');
+
+  if (!terms.checked) {
+    ok = false;
+    showToast('⚠ Please agree to the Terms & Privacy Policy.', 'error');
+  }
+
+  if (!ok) return;
+
+  btn.textContent = 'Creating Lifafa…'; btn.classList.add('btn-loading'); btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'Create My Lifafa ✨';
+    btn.classList.remove('btn-loading'); btn.disabled = false;
+    showToast('🌹 Your Lifafa has been created! Welcome.', 'success');
+    
+    document.getElementById('registerForm').reset();
+    
+    setTimeout(() => switchSection('login-section'), 2000);
+  }, 2000);
+}
+
+/* ── SECRET KEY HANDLER & VISUAL ── */
+function onKeyInput(inp) {
+  let v = inp.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 8);
+  if (v.length > 4) v = v.slice(0, 4) + '-' + v.slice(4);
+  inp.value = v;
+
+  const clean = v.replace('-', '');
+  for (let i = 0; i < 8; i++) {
+    const seg = document.getElementById('ks' + i);
+    if (seg) seg.className = 'key-seg' + (i < clean.length ? ' filled' : '');
+  }
+}
+
+function handleSecretKey(e) {
+  e.preventDefault();
+  const key    = document.getElementById('secretKey');
+  const keyMsg = document.getElementById('secretKeyMsg');
+  const btn    = document.getElementById('unlockBtn');
+
+  clearState(key, keyMsg);
+  const clean = key.value.replace('-', '');
+  if (clean.length !== 8) {
+    setInvalid(key, keyMsg, '⚠ Enter a complete 8-character key (e.g. LOVE-2026).');
+    return;
+  }
+
+  btn.textContent = 'Unlocking…'; btn.classList.add('btn-loading'); btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '🗝️  Unlock Envelope';
+    btn.classList.remove('btn-loading'); btn.disabled = false;
+    showToast('💌 Envelope unlocked! A special message awaits you.', 'info', 4000);
+    setValid(key, keyMsg, '✓ Key accepted!');
+  }, 2000);
+}
+
+/* ── FORGOT PASSWORD ── */
+function handleForgot(e) {
+  e.preventDefault();
+  const email    = document.getElementById('forgotEmail');
+  const emailMsg = document.getElementById('forgotEmailMsg');
+  const btn      = document.getElementById('forgotBtn');
+
+  clearState(email, emailMsg);
+  if (!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    setInvalid(email, emailMsg, '⚠ Enter a valid email address.');
+    return;
+  }
+
+  btn.textContent = 'Sending…'; btn.classList.add('btn-loading'); btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = 'Send Reset Link 📧';
+    btn.classList.remove('btn-loading'); btn.disabled = false;
+    setValid(email, emailMsg, '✓ Reset link sent to your email!');
+    showToast('📬 Check your inbox for the reset link.', 'success');
+  }, 1700);
+}
+
+/* ── LIVE INPUT VALIDATION ── */
+document.getElementById('loginEmail').addEventListener('blur', function() {
+  const msg = document.getElementById('loginEmailMsg');
+  if (this.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)) setInvalid(this, msg, '⚠ Invalid email format.');
+  else if (this.value) setValid(this, msg, '✓ Looks good!');
+});
+document.getElementById('loginPassword').addEventListener('blur', function() {
+  const msg = document.getElementById('loginPwdMsg');
+  if (this.value && this.value.length < 6) setInvalid(this, msg, '⚠ Too short.');
+  else if (this.value) setValid(this, msg, '✓');
+});
+document.getElementById('regConfirm').addEventListener('input', function() {
+  const pwd    = document.getElementById('regPassword').value;
+  const msg    = document.getElementById('regConfirmMsg');
+  if (!this.value) { clearState(this, msg); return; }
+  if (this.value === pwd) setValid(this, msg, '✓ Passwords match!');
+  else setInvalid(this, msg, '⚠ Passwords do not match.');
+});
+</script>
+</body>
+</html>
