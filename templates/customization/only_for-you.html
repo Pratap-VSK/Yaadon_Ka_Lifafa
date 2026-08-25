@@ -17,6 +17,30 @@
            1. ROOT VARIABLES (PLAIN COOL PINK THEME)
            ========================================================================== */
         :root {
+            --bg: #ffe4e9;
+            --white: #ffffff;
+            --red: #c21f3a;
+            --red2: #d32645;
+            --red3: #9e1428;
+            --pink: #fcd5ce;
+            --blue: #dff0f6;
+            --beige: #fdf5e6;
+            --ink: #2c2c2c;
+            --teal: #10423e;
+            
+            /* Enhanced Tape Colors */
+            /* --tape-r: rgba(210, 50, 75, 0.65);
+            --tape-p: rgba(245, 170, 185, 0.75);
+            
+            --thread: #2a1610;
+            --glow-pk: rgba(255, 105, 180, 0.8);
+            --glow-bl: rgba(0, 229, 255, 0.8);
+            --glow-yl: rgba(255, 234, 0, 0.8);
+            
+            --fc: 'Caveat', cursive;
+            --fm: 'Patrick Hand', cursive;
+            --fn: 'Montserrat', sans-serif; */
+
             /* Solid Plain Cool Pink Background - No Grid */
             --color-bg-base: #ffe4e9; 
             
@@ -474,7 +498,7 @@
             left: 0px;
             width: 100%;
             height: 100%;
-            z-index: 5;
+            z-index: 2;
             pointer-events: none;
         }
 
@@ -800,6 +824,99 @@
         .blk-8 .note-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); margin-top: -40px; }
 
 
+                /* ══════════════════════════════════════════ 
+            DONE BUTTON
+        ══════════════════════════════════════════ */
+        .done-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px 100px;
+            position: relative;
+            z-index: 20;
+            gap: 20px;
+        }
+
+        .done-label {
+            font-family: var(--fc);
+            font-size: 1.8rem;
+            color: var(--red2);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .done-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--red2) 0%, var(--red3) 100%);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 22px 60px;
+            border-radius: 60px;
+            font-family: var(--fn);
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(194,31,58,0.4);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .done-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 60px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .done-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(194,31,58,0.6);
+        }
+
+        .done-btn:hover::before { transform: translateX(100%); }
+        .done-btn:active { transform: translateY(0); }
+
+        .done-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: rgba(255,255,255,0.95);
+            flex-shrink: 0;
+        }
+
+        /* Pulse Ring */
+        .done-btn::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 65px;
+            border: 2px solid rgba(211, 38, 69, 0.5);
+            animation: btnRing 2s ease-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes btnRing {
+            0% { transform: scale(1); opacity: 0.8; }
+            80% { transform: scale(1.15); opacity: 0; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
+
+        /* Success State */
+        .done-btn.done-ok {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            box-shadow: 0 10px 30px rgba(46,125,50,0.5);
+        }
+        .done-btn.done-ok::after { border-color: rgba(46,125,50,0.5); }
+
         /* ==========================================================================
            11. FOOTER (MINIMAL, ELEGANT 2 LINES ONLY)
            ========================================================================== */
@@ -844,48 +961,147 @@
             font-weight: 500;
         }
 
-        /* ==========================================================================
-           12. RESPONSIVE MEDIA QUERIES
-           ========================================================================== */
-        @media (max-width: 950px) {
-            .main-container {
-                padding-top: 20px;
-                padding-bottom: 80px;
-            }
-            .scrap-block, .scrap-block:nth-child(even) {
+        /* ══════════════════════════════════════════ 
+           OLD RESPONSIVE REFINEMENTS (Kept Intact)
+        ══════════════════════════════════════════ */
+        @media (max-width: 900px) {
+            .blk, .blk:nth-child(even) {
                 flex-direction: column;
-                margin-bottom: 120px;
+                gap: 2.5rem;
+                margin-bottom: 100px;
             }
-            .note-wrapper {
-                margin-top: -30px !important;
-                margin-right: 0px;
-                margin-left: 0px;
+            .note-wrap {
                 transform: rotate(0deg) !important;
-                -webkit-transform: rotate(0deg) !important;
+                width: 85vw;
             }
-            /* Hide the complex string on small screens for cleaner vertical layout */
-            .connecting-string-container {
-                display: none;
+            .frm-wrap {
+                transform: rotate(0deg) !important;
+            }
+            .str-wrap { display: none; }
+            
+            .brand-logo {
+                width: 50px;
+                height: 50px;
+                top: 15px;
+                left: 15px;
             }
         }
 
-        @media (max-width: 500px) {
-            .header-container { padding-top: 10px; padding-bottom: 40px; }
-            .tile-letter { width: 45px; height: 50px; font-size: 1.8rem; margin: 2px; }
-            .polaroid-body { width: 95vw; }
-            .note-wrapper { width: 92vw; }
-            .letter-string { height: 25px; }
+        @media (max-width: 480px) {
+            .header { padding-bottom: 40px; }
+            .tile {
+                width: 38px; height: 45px;
+                font-size: 1.6rem; margin: 3px;
+            }
+            .polaroid { width: 90vw; padding: 12px 12px 40px; }
+            .done-btn {
+                padding: 18px 30px;
+                font-size: 0.9rem;
+            }
         }
 
-        /* Canvas for Interactive Flying Hearts */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
         #flying-hearts-canvas {
             position: fixed;
-            top: 0px;
-            left: 0px;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            z-index: 1; 
+            pointer-events: none; 
+        }
+
+        /* ══════════════════════════════════════════ 
+           ADDED REAL RESPONSIVE FIXES (MOBILE VIEW)
+        ══════════════════════════════════════════ */
+        @media (max-width: 900px) {
+            /* 1. Stack blocks vertically with proper gaps */
+            .scrap-block, .scrap-block:nth-child(even), .scrap-block:nth-child(odd) {
+                flex-direction: column !important;
+                gap: 50px !important; 
+                margin-bottom: 90px !important;
+            }
+            
+            /* 2. Center photo frames and notes */
+            .note-wrapper, .frame-wrapper {
+                transform: rotate(0deg) !important;
+                -webkit-transform: rotate(0deg) !important;
+                margin: 0 auto !important;
+            }
+            .note-wrapper { width: 90vw !important; }
+            .polaroid-body { width: 85vw !important; }
+            
+            /* 3. STRING FIX: Show string but send it BEHIND the boxes */
+            .connecting-string-container {
+                display: block !important;
+                z-index: 5 !important; /* <--- This keeps the string behind the frames */
+                pointer-events: none;
+            }
+
+            /* 4. Center all black knots so the string passes through them */
+            .decor-knot {
+                top: -20px !important;
+                bottom: auto !important;
+                left: 50% !important;
+                right: auto !important;
+                transform: translateX(-50%) !important;
+                -webkit-transform: translateX(-50%) !important;
+            }
+
+            /* 5. OVERLAP FIX: Separate the kitten image and the top logo */
+            .header-container .word-row[style*="width: 400px"] {
+                width: 180px !important;
+                height: 180px !important;
+                margin-top: 60px !important; 
+            }
+            .header-container .f-rose-1 {
+                width: 80px !important;
+                height: 80px !important;
+                top: 15px !important;
+                left: 7% !important;
+                transform: none !important;
+                -webkit-transform: none !important;
+                position: absolute;
+            }
+            .bg-decorations-container .f-rose-1 {
+                display: none !important; /* Hide duplicate background logo to save space */
+            }
+        }
+            
+            /* Mobile par saare black knots ko box ke theek upar center me rakha */
+            .decor-knot {
+                top: -10px !important;
+                bottom: auto !important;
+                left: 50% !important;
+                right: auto !important;
+                transform: translateX(-50%) !important;
+                -webkit-transform: translateX(-50%) !important;
+            }
+        
+        @media (max-width: 480px) {
+            /* Fix hanging letters overflowing on very small screens */
+            .tile-letter {
+                width: clamp(25px, 8vw, 40px) !important;
+                height: clamp(30px, 9vw, 45px) !important;
+                font-size: clamp(1.2rem, 4vw, 1.8rem) !important;
+                margin: 1px !important;
+            }
+            .letter-string {
+                height: 15px !important;
+            }
+            /* Adjust fonts */
+            .note-text {
+                font-size: 1.3rem !important;
+            }
+            .tape {
+                width: 80px !important;
+                height: 25px !important;
+            }
         }
 
     </style>
@@ -1310,6 +1526,15 @@
         </div>
 
     </main>
+    <!-- Done Button Section -->
+    <div class="done-section">
+           <p class="done-label">All memories added? Seal it with love! 💌</p>
+           <button class="done-btn" id="doneBtn">
+           <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+           Done — Seal My Lifafa
+           </button>
+    </div>
+
 
     <!-- ==========================================================================
          PREMIUM FOOTER (MINIMAL 2 LINES)
@@ -1357,6 +1582,45 @@
                 reader.readAsDataURL(file);
             }
         }
+    /* ── Done Button Logic ── */
+    const doneBtn = document.getElementById('doneBtn');
+    doneBtn.addEventListener('click', function() {
+        this.classList.add('done-ok');
+        this.innerHTML = `<svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:rgba(255,255,255,.9)"><polyline points="20 6 9 17 4 12" stroke="rgba(255,255,255,.9)" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg> Lifafa Sealed! 🎉`;
+        this.disabled = true;
+        
+        confettiBurst();
+        setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 1200);
+    });
+
+    /* ── Mini Confetti Burst ── */
+    function confettiBurst() {
+        const colors = ['#ff80a6','#ffd700','#ff1a66','#ffccd9','#ffffff','#c21f3a'];
+        for (let i = 0; i < 80; i++) {
+            const el = document.createElement('div');
+            const sz = 6 + Math.random() * 8;
+            const isHeart = Math.random() > 0.5;
+            
+            el.style.cssText = `
+                position: fixed; z-index: 9998; pointer-events: none;
+                width: ${sz}px; height: ${sz}px;
+                background: ${colors[Math.floor(Math.random() * colors.length)]};
+                border-radius: ${isHeart ? '50%' : '2px'};
+                left: ${Math.random() * 100}vw;
+                top: ${50 + Math.random() * 30}vh;
+                transform: rotate(${Math.random() * 360}deg);
+            `;
+            document.body.appendChild(el);
+            
+            const kf = [
+                { transform: `translate(0,0) rotate(0deg)`, opacity: 1 },
+                { transform: `translate(${(Math.random() - 0.5) * 200}px, ${-150 - Math.random() * 250}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+            ];
+            
+            el.animate(kf, { duration: 1200 + Math.random() * 800, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' })
+              .onfinish = () => el.remove();
+        }
+    }
 
         /**
          * 2. CANVAS ENGINE: ATTRACTIVE FLYING HEARTS
@@ -1462,6 +1726,5 @@
         
         console.log("Yaadon Ka Lifafa - Scrapbook Engine & Flying Hearts initialized.");
     </script>
-
 </body>
 </html>
