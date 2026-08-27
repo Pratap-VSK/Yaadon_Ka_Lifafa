@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Loading Memories | Yaadon Ka Lifafa</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   ROOT VARIABLES (Same Theme Colors)
+   ============================================================ */
+:root {
+    --bg-deep:        #140207;
+    --bg-grad-start:  #2e0513;
+    --bg-grad-end:    #140207;
+
+    --red:            #e6004c;
+    --red-glow:       #ff1a66;
+    --red-dark:       #80002a;
+    --pink:           #ff80a6;
+    --pink-light:     #ffccd9;
+    --gold:           #ffd700;
+    --gold-dark:      #b39700;
+
+    --text:           #ffebf0;
+    --text-muted:     #ffccd9;
+    --text-dark:      #330011;
+
+    --glass-bg:       rgba(26, 5, 13, 0.4);
+    --glass-border:   rgba(255, 128, 166, 0.3);
+
+    --font-cursive:   'Dancing Script', cursive;
+    --font-sans:      'Montserrat', sans-serif;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+}
+
+::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background: transparent;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; 
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: var(--font-sans);
+    position: fixed;
+    top: 0; left: 0;
+}
+
+/* Soft entry fade */
+body {
+    animation: pageFadeIn 0.8s ease-out forwards;
+}
+
+@keyframes pageFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ============================================================
+   BACKGROUND LAYERS (More Hearts & Deep Gradient)
+   ============================================================ */
+#bg-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 50%, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%);
+}
+
+.vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(14,2,7,0.9) 100%);
+}
+
+/* ============================================================
+   TOP LOGO
+   ============================================================ */
+.loading-logo {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    z-index: 1000;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 215, 0, 0.8);
+    box-shadow: 0 0 15px var(--red-glow);
+}
+
+/* ============================================================
+   3D IMAGE CAROUSEL LAUNCHER (Right to Left Wave)
+   ============================================================ */
+.carousel-scene {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    width: 100vw;
+    height: 65vh; /* Takes upper portion of screen */
+    perspective: 1500px; /* Gives 3D Depth */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.carousel-wrapper {
+    width: 240px;
+    height: 340px;
+    position: relative;
+    transform-style: preserve-3d;
+    /* Continuous Rotation (Right to Left) */
+    animation: spinCarousel 25s infinite linear;
+}
+
+@keyframes spinCarousel {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(-360deg); } /* Negative ensures right to left movement */
+}
+
+/* Carousel Image Items (7 Images in a perfect circle) */
+.carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 20px var(--glow-pink);
+    /* Reflection / Shimmer effect */
+    -webkit-box-reflect: below 5px linear-gradient(transparent, transparent 70%, rgba(255,255,255,0.2));
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Keeps images full size without stretching */
+    background-color: var(--glass-bg);
+}
+
+/* Distributing 7 images evenly: 360 / 7 = ~51.42 degrees */
+/* translateZ pushes them outward to form the circle */
+.item-1 { transform: rotateY(0deg) translateZ(400px); }
+.item-2 { transform: rotateY(51.42deg) translateZ(400px); }
+.item-3 { transform: rotateY(102.84deg) translateZ(400px); }
+.item-4 { transform: rotateY(154.26deg) translateZ(400px); }
+.item-5 { transform: rotateY(205.68deg) translateZ(400px); }
+.item-6 { transform: rotateY(257.10deg) translateZ(400px); }
+.item-7 { transform: rotateY(308.52deg) translateZ(400px); }
+
+/* ============================================================
+   THICK AESTHETIC LOADING BAR (BOTTOM SIDE)
+   ============================================================ */
+.loading-section {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35vh; /* Bottom portion */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 50px;
+    z-index: 20;
+    background: linear-gradient(to top, rgba(20, 2, 7, 1) 0%, transparent 100%);
+}
+
+/* Dynamic Text changing with images */
+.dynamic-loading-text {
+    font-family: var(--font-cursive);
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    color: var(--pink-light);
+    margin-bottom: 25px;
+    text-shadow: 0 3px 15px rgba(255, 26, 102, 0.8);
+    text-align: center;
+    transition: opacity 0.4s ease-in-out; /* Smooth fade when text changes */
+    opacity: 1;
+}
+
+.dynamic-loading-text.fade {
+    opacity: 0;
+}
+
+/* Thick Bar Container */
+.loading-bar-container {
+    width: clamp(300px, 80vw, 800px);
+    position: relative;
+}
+
+/* The Percentage Number */
+.percentage-text {
+    position: absolute;
+    top: -35px;
+    right: 0;
+    font-family: var(--font-sans);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+/* The Thick Background Bar */
+.thick-bar-bg {
+    width: 100%;
+    height: 24px; /* Thick aesthetic size */
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: inset 0 3px 10px rgba(0,0,0,0.8), 0 0 15px rgba(255,26,102,0.2);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+/* The Filled Progress */
+.thick-bar-fill {
+    height: 100%;
+    width: 0%; /* JavaScript will control this */
+    background: linear-gradient(90deg, var(--red-glow), var(--gold));
+    border-radius: 50px;
+    box-shadow: 0 0 25px var(--red-glow);
+    transition: width 0.1s linear; /* Smooth fill */
+    position: relative;
+}
+
+/* Shimmer passing over the bar */
+.thick-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: barShimmer 2s infinite linear;
+}
+
+@keyframes barShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================ */
+@media (max-width: 900px) {
+    /* Scale down 3D Carousel so it fits on mobile */
+    .carousel-wrapper {
+        width: 180px;
+        height: 260px;
+    }
+    
+    /* Pull images closer on small screens */
+    .item-1 { transform: rotateY(0deg) translateZ(250px); }
+    .item-2 { transform: rotateY(51.42deg) translateZ(250px); }
+    .item-3 { transform: rotateY(102.84deg) translateZ(250px); }
+    .item-4 { transform: rotateY(154.26deg) translateZ(250px); }
+    .item-5 { transform: rotateY(205.68deg) translateZ(250px); }
+    .item-6 { transform: rotateY(257.10deg) translateZ(250px); }
+    .item-7 { transform: rotateY(308.52deg) translateZ(250px); }
+
+    .loading-section {
+        padding-bottom: 40px;
+    }
+}
+</style>
+</head>
+<body>
+
+    <!-- Dense Background Hearts Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="vignette"></div>
+
+    <!-- Small Brand Logo Top Left -->
+    <img src="https://via.placeholder.com/100x100/e6004c/ffd700?text=LOGO" alt="Logo" class="loading-logo">
+
+    <!-- 3D IMAGE LAUNCHER (Carousel Wave) -->
+    <div class="carousel-scene">
+        <div class="carousel-wrapper">
+            <!-- 7 Full Size Premium Images -->
+            <div class="carousel-item item-1"><img src="https://images.unsplash.com/photo-1518199266791-5375a8316d4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 1"></div>
+            <div class="carousel-item item-2"><img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 2"></div>
+            <div class="carousel-item item-3"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 3"></div>
+            <div class="carousel-item item-4"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 4"></div>
+            <div class="carousel-item item-5"><img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 5"></div>
+            <div class="carousel-item item-6"><img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 6"></div>
+            <div class="carousel-item item-7"><img src="https://images.unsplash.com/photo-1505934333218-8fe21ff88c22?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 7"></div>
+        </div>
+    </div>
+
+    <!-- BOTTOM THICK LOADING BAR & DYNAMIC TEXT -->
+    <div class="loading-section">
+        <h2 class="dynamic-loading-text" id="dynamicText">Unlocking the magic...</h2>
+        
+        <div class="loading-bar-container">
+            <span class="percentage-text" id="percText">0%</span>
+            <div class="thick-bar-bg">
+                <div class="thick-bar-fill" id="fillBar"></div>
+            </div>
+        </div>
+    </div>
+
+<!-- ============================================================
+     JAVASCRIPT: Logic & Canvas Hearts
+     ============================================================ -->
+<script>
+    /* ── EXACT 12 SECONDS LOADING & TEXT CHANGE LOGIC ── */
+    
+    const fillBar = document.getElementById('fillBar');
+    const percText = document.getElementById('percText');
+    const dynamicText = document.getElementById('dynamicText');
+
+    // Total Time: 12 seconds = 12000 ms
+    const totalTimeMs = 12000;
+    // We want 100 steps (1% to 100%)
+    const intervalMs = totalTimeMs / 100; // 120ms per 1%
+
+    let currentPercent = 0;
+
+    // Array of magical texts syncing with image loading
+    const messages = [
+        { perc: 0, text: "Unlocking the magic... 🗝️" },
+        { perc: 15, text: "Gathering brightest stars... ✨" },
+        { perc: 30, text: "Sorting precious memories... 📸" },
+        { perc: 45, text: "Adding a touch of love... ❤️" },
+        { perc: 60, text: "Sealing the envelopes... 💌" },
+        { perc: 75, text: "Painting the canvas... 🎨" },
+        { perc: 90, text: "Almost there... ⏳" },
+        { perc: 100, text: "Ready for you! 🌹" }
+    ];
+
+    const loadInterval = setInterval(() => {
+        currentPercent++;
+        
+        // Update UI
+        fillBar.style.width = currentPercent + "%";
+        percText.innerText = currentPercent + "%";
+
+        // Check if we need to update the text based on current percentage
+        const matchedMessage = messages.find(m => m.perc === currentPercent);
+        
+        if (matchedMessage) {
+            // Fade out
+            dynamicText.classList.add('fade');
+            
+            setTimeout(() => {
+                // Change text and Fade in
+                dynamicText.innerText = matchedMessage.text;
+                dynamicText.classList.remove('fade');
+                
+                if(currentPercent === 100) {
+                    dynamicText.style.color = "var(--gold)"; // Final text turns gold
+                }
+            }, 400); // Wait for fade out duration
+        }
+
+        // When 100% reached
+        if (currentPercent >= 100) {
+            clearInterval(loadInterval);
+            
+            // REDIRECT TO MAIN PAGE AFTER 1 SECOND DELAY
+            setTimeout(() => {
+                // Yahan apna main link lagayein
+                // window.location.href = 'index.html'; 
+                console.log("Loading Finished! Redirect triggered.");
+            }, 1000);
+        }
+    }, intervalMs);
+
+
+    /* ── CANVAS BACKGROUND HEARTS ENGINE (HEAVY DENSITY) ── */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+
+    function resizeCanvas() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function drawHeart(x, y, size, opacity, color) {
+        ctx.save();
+        ctx.translate(x, y);
+        const s = size / 50;
+        ctx.scale(s, s);
+        ctx.globalAlpha = Math.max(0, Math.min(1, opacity));
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(0, 15);
+        ctx.bezierCurveTo(0, 15, -20, -5, -20, -15);
+        ctx.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
+        ctx.bezierCurveTo(7.5, -30, 20, -25, 20, -15);
+        ctx.bezierCurveTo(20, -5, 0, 15, 0, 15);
+        ctx.fill();
+        ctx.restore();
+    }
+
+    class FloatHeart {
+        constructor() {
+            this.reset(true);
+        }
+        reset(init) {
+            this.x = Math.random() * W;
+            this.y = init ? Math.random() * H : H + 50;
+            // Mixed sizes for depth
+            this.size = Math.random() * 15 + 5; 
+            this.spdY = Math.random() * 1.5 + 0.5;
+            
+            // Swing effect
+            this.wobA = Math.random() * Math.PI * 2;
+            this.wobS = Math.random() * 0.02 + 0.01;
+            this.wobD = Math.random() * 2 + 0.5;
+            
+            this.pA = Math.random() * Math.PI * 2;
+            this.ps = Math.random() * 0.03 + 0.01;
+            
+            // Colors: Pink, Deep Red, Gold
+            const colors = ['rgba(255,26,102,', 'rgba(255,128,166,', 'rgba(255,215,0,'];
+            const chosenColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            this.baseOpacity = Math.random() * 0.4 + 0.1;
+            this.color = chosenColor + (this.baseOpacity + 0.1) + ')';
+        }
+        update() {
+            this.y -= this.spdY;
+            this.wobA += this.wobS;
+            this.x += Math.sin(this.wobA) * this.wobD;
+            
+            this.pA += this.ps;
+            this.op = this.baseOpacity + Math.sin(this.pA) * 0.1;
+            
+            if (this.y < -60) this.reset(false);
+        }
+        draw() { 
+            drawHeart(this.x, this.y, this.size, this.op, this.color); 
+        }
+    }
+
+    const floatHearts = [];
+    // MASSIVE HEART COUNT FOR DENSE BACKGROUND
+    const HEART_COUNT = window.innerWidth < 768 ? 60 : 120; 
+    
+    for (let i = 0; i < HEART_COUNT; i++) {
+        floatHearts.push(new FloatHeart());
+    }
+
+    function animateHearts() {
+        ctx.clearRect(0, 0, W, H);
+        floatHearts.forEach(h => { h.update(); h.draw(); });
+        requestAnimationFrame(animateHearts);
+    }
+    animateHearts();
+</script>
+
+</body>
+</html>
