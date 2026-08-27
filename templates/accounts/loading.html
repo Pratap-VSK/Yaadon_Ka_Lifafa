@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Loading | Yaadon Ka Lifafa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ROOT VARIABLES
+   ============================================================ */
+:root {
+    --bg-deep:        #140207;
+    --bg-grad-start:  #2e0513;
+    --bg-grad-end:    #140207;
+    --red:            #e6004c;
+    --red-glow:       #ff1a66;
+    --gold:           #ffd700;
+    --pink-light:     #ffccd9;
+    --glass-bg:       rgba(26, 5, 13, 0.72);
+    --glass-border:   rgba(255, 128, 166, 0.22);
+    --font-cursive:   'Dancing Script', cursive;
+    --font-sans:      'Montserrat', sans-serif;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+}
+
+::-webkit-scrollbar { display: none; }
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 50%, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%);
+    color: var(--pink-light);
+    font-family: var(--font-sans);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* ============================================================
+   BACKGROUND EFFECTS (Hearts & Vignette)
+   ============================================================ */
+#bg-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.vignette {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(14,2,7,0.9) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ============================================================
+   CENTER LOADING GLASS BOX
+   ============================================================ */
+.loading-glass-box {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 40px 50px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(255,128,166,0.15);
+    z-index: 10;
+    position: relative;
+    /* Box floating effect */
+    animation: boxFloat 3s ease-in-out infinite alternate;
+}
+
+@keyframes boxFloat {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
+
+/* Brand Title */
+.brand-title {
+    font-family: var(--font-cursive);
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffebf0 0%, #ff80a6 50%, #ffd700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(255,128,166,0.4));
+}
+
+/* ============================================================
+   3D EMOJI SWOOP ANIMATION (Over the Progress Bar)
+   ============================================================ */
+.emoji-stage {
+    position: relative;
+    height: 60px;
+    width: 100%;
+    margin-bottom: 10px;
+    perspective: 800px; /* Enables true 3D Depth */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: visible;
+}
+
+.emoji {
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0; /* Hidden by default */
+    filter: drop-shadow(0 10px 15px rgba(255, 26, 102, 0.8));
+    will-change: transform, opacity;
+}
+
+/* Timing: 6.5s total load time / 3 emojis = ~2.16s per emoji */
+.e1 { animation: swoop3D 2.16s linear forwards; animation-delay: 0s; }
+.e2 { animation: swoop3D 2.16s linear forwards; animation-delay: 2.16s; }
+.e3 { animation: swoop3D 2.16s linear forwards; animation-delay: 4.32s; }
+
+/* The 3D Magic Keyframes */
+@keyframes swoop3D {
+    0% { 
+        /* Comes from deep Right */
+        transform: translate3d(150px, -20px, -150px) rotateY(-45deg) scale(0.5); 
+        opacity: 0; 
+    }
+    20% { 
+        /* Stops exactly over the bar and pops out in 3D */
+        transform: translate3d(0, 0, 50px) rotateY(0deg) scale(1.4); 
+        opacity: 1; 
+    }
+    80% { 
+        /* Holds position */
+        transform: translate3d(0, 0, 50px) rotateY(0deg) scale(1.4); 
+        opacity: 1; 
+    }
+    100% { 
+        /* Exits to deep Left */
+        transform: translate3d(-150px, -20px, -150px) rotateY(45deg) scale(0.5); 
+        opacity: 0; 
+    }
+}
+
+/* ============================================================
+   PROGRESS BAR
+   ============================================================ */
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 235, 240, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 15px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%; /* JS will fill this */
+    background: linear-gradient(90deg, var(--red-glow), var(--gold));
+    border-radius: 10px;
+    box-shadow: 0 0 15px var(--red-glow);
+    transition: width 0.1s linear;
+}
+
+/* Counter & Loading Text */
+.counter-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    margin-bottom: 5px;
+}
+
+.loading-text {
+    font-size: 0.95rem;
+    color: rgba(255, 204, 217, 0.8);
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 600px) {
+    .brand-title { font-size: 2.8rem; }
+    .loading-glass-box { padding: 30px 25px; }
+    .emoji { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+    <!-- Background Canvas for Floating Swinging Hearts -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <div class="vignette"></div>
+
+    <!-- Center Loading Box -->
+    <div class="loading-glass-box">
+        <h1 class="brand-title">Yaadon Ka Lifafa</h1>
+        
+        <!-- The 3D Emoji Stage directly above the Progress Bar -->
+        <div class="emoji-stage">
+            <div class="emoji e1">💌</div>
+            <div class="emoji e2">🌹</div>
+            <div class="emoji e3">💖</div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="counter-text" id="counterText">0%</div>
+        <p class="loading-text" id="loadingMessage">Gathering memories...</p>
+    </div>
+
+<!-- ============================================================
+     JAVASCRIPT: Logic & Canvas Hearts
+     ============================================================ -->
+<script>
+    /* ── EXACT 6.5 SECONDS LOADING LOGIC ── */
+    const totalTime = 6500; // 6.5 seconds
+    const intervalTime = 65; // Update every 65ms
+    let progress = 0;
+    
+    const progressBar = document.getElementById('progressBar');
+    const counterText = document.getElementById('counterText');
+    const loadingMessage = document.getElementById('loadingMessage');
+
+    const loadingInterval = setInterval(() => {
+        progress += 1;
+        
+        // Update Bar Width and Number
+        progressBar.style.width = progress + "%";
+        counterText.innerText = progress + "%";
+
+        // Change text playfully synchronized with the emojis
+        if (progress === 33) {
+            loadingMessage.innerText = "Sealing the envelopes... 💌";
+        } else if (progress === 66) {
+            loadingMessage.innerText = "Adding a touch of magic... ✨";
+        }
+
+        // When 100% is reached
+        if (progress >= 100) {
+            clearInterval(loadingInterval);
+            loadingMessage.innerText = "Ready to open! ❤️";
+            loadingMessage.style.color = "#ffd700"; // Turn text gold
+            
+            // REDIRECT LOGIC
+            setTimeout(() => {
+                // Yahan apna main page ka link daal dijiye, ex: window.location.href = 'welcome.html';
+                // window.location.href = 'index.html'; 
+                console.log("Loading Complete. Redirecting...");
+            }, 500); 
+        }
+    }, intervalTime);
+
+
+    /* ── CANVAS BACKGROUND HEARTS ENGINE (Swing Effect) ── */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+
+    function resizeCanvas() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function drawHeart(x, y, size, opacity, color) {
+        ctx.save();
+        ctx.translate(x, y);
+        const s = size / 50;
+        ctx.scale(s, s);
+        ctx.globalAlpha = Math.max(0, Math.min(1, opacity));
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(0, 15);
+        ctx.bezierCurveTo(0, 15, -20, -5, -20, -15);
+        ctx.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
+        ctx.bezierCurveTo(7.5, -30, 20, -25, 20, -15);
+        ctx.bezierCurveTo(20, -5, 0, 15, 0, 15);
+        ctx.fill();
+        ctx.restore();
+    }
+
+    class FloatHeart {
+        constructor(layer) {
+            this.layer = layer;
+            this.reset(true);
+        }
+        reset(init) {
+            this.x = Math.random() * W;
+            this.y = init ? Math.random() * H : H + 50;
+            const szBase = [5, 9, 14][this.layer];
+            this.size = Math.random() * szBase + szBase * 0.5;
+            this.spdY = [0.3, 0.7, 1.3][this.layer] + Math.random() * 0.5;
+            // Wobble for Swinging Effect
+            this.wobA = Math.random() * Math.PI * 2;
+            this.wobS = Math.random() * 0.02 + 0.01;
+            this.wobD = [0.5, 1.2, 2][this.layer];
+            
+            this.pA = Math.random() * Math.PI * 2;
+            this.ps = Math.random() * 0.025 + 0.01;
+            const alpha = [0.2, 0.3, 0.45][this.layer]; 
+            this.baseOpacity = Math.random() * alpha + alpha * 0.3;
+            const hue = Math.random() > 0.7 ? 'rgba(255,215,0,' : 'rgba(255,26,102,';
+            this.color = hue + (this.baseOpacity + 0.1) + ')';
+        }
+        update() {
+            this.y -= this.spdY;
+            // The Swinging X calculation
+            this.wobA += this.wobS;
+            this.x += Math.sin(this.wobA) * this.wobD;
+            
+            this.pA += this.ps;
+            this.op = this.baseOpacity + Math.sin(this.pA) * 0.08;
+            if (this.y < -60) this.reset(false);
+        }
+        draw() { 
+            drawHeart(this.x, this.y, this.size, this.op, this.color); 
+        }
+    }
+
+    const floatHearts = [];
+    const layers = window.innerWidth < 768 ? [4, 4, 3] : [8, 10, 6]; 
+    for (let l = 0; l < 3; l++) {
+        for (let i = 0; i < layers[l]; i++) floatHearts.push(new FloatHeart(l));
+    }
+
+    function animateHearts() {
+        ctx.clearRect(0, 0, W, H);
+        floatHearts.forEach(h => { h.update(); h.draw(); });
+        requestAnimationFrame(animateHearts);
+    }
+    animateHearts();
+</script>
+
+</body>
+</html>
