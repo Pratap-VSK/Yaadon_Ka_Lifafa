@@ -1,1417 +1,2113 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+    <!-- =========================================================================================
+         META TAGS & DOCUMENT CONFIGURATION
+         ========================================================================================= -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>For You | Scrapbook</title>
-    <meta name="description" content="A special 'For You' scrapbook filled with memories.">
-
+    <title>Best Wishes For You | Yaadon Ka Lifafa - The Ultimate Premium Edition</title>
+    
+    <!-- =========================================================================================
+         PREMIUM GOOGLE FONTS INTEGRATION
+         ========================================================================================= -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Patrick+Hand&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
 
+    <!-- =========================================================================================
+         MAIN STYLESHEET (FULLY EXPANDED & DETAILED FOR MAXIMUM COMPATIBILITY)
+         ========================================================================================= -->
     <style>
-        /* ==========================================================================
-           1. ROOT VARIABLES (PLAIN COOL PINK THEME)
-           ========================================================================== */
+        /* =========================================================================================
+           1. CSS CUSTOM VARIABLES (THEME CONFIGURATION)
+           ========================================================================================= */
         :root {
-            /* Solid Plain Cool Pink Background */
-            --color-bg-base: #ffe4e9; 
+            /* Background Gradients */
+            --bg-gradient-start: #ff9a9e;
+            --bg-gradient-mid: #fecfef;
+            --bg-gradient-end: #fecfef;
+            --bg-gradient-full: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 99%, var(--bg-gradient-end) 100%);
             
-            /* Frame & Accent Colors */
-            --color-frame-bg: #ffffff;
-            --color-frame-inner: #c21f3a; 
-            --color-frame-inner-gradient: linear-gradient(135deg, #d32645 0%, #9e1428 100%);
+            /* Core Typography Colors */
+            --text-color-dark: #3a0d16;
+            --text-color-maroon: #800020;
             
-            /* Notes Colors */
-            --color-note-pink: #fcd5ce;
-            --color-note-blue: #dff0f6;
-            --color-note-beige: #fdf5e6;
+            /* Envelope & Component Colors */
+            --envelope-base-color: #ff4d6d;
+            --envelope-dark-color: #c9184a;
+            --envelope-flap-color: #ff758f;
+            --envelope-front-color: #ff8fa3;
             
-            /* Text Colors */
-            --color-text-ink: #2c2c2c;
-            --color-text-teal: #10423e; 
-            --color-text-white: #ffffff;
+            /* Premium Gold Accents */
+            --gold-color-light: #f9d976;
+            --gold-color-dark: #e9b646;
+            --gold-gradient-full: linear-gradient(135deg, var(--gold-color-light) 0%, var(--gold-color-dark) 100%);
             
-            /* Tape Colors */
-            --color-tape-red: rgba(190, 40, 60, 0.85);
-            --color-tape-pink: rgba(240, 150, 170, 0.85);
-            --color-tape-striped: repeating-linear-gradient(45deg, rgba(180,40,60,0.8), rgba(180,40,60,0.8) 6px, rgba(210,70,90,0.8) 6px, rgba(210,70,90,0.8) 12px);
-            --color-tape-dots: radial-gradient(circle, rgba(180,40,60,0.6) 20%, transparent 20%);
+            /* Paper & Texture Colors */
+            --paper-background-color: #fffbf0;
+            --paper-line-color: rgba(255, 105, 180, 0.25);
             
-            /* String / Thread Color - HIGHLY VISIBLE */
-            --color-thread: #2a1610; 
-            --color-thread-shadow: rgba(0, 0, 0, 0.5);
-            
-            /* Glowing Effect Colors for Title */
-            --glow-pink: rgba(255, 105, 180, 0.9);
-            --glow-blue: rgba(0, 229, 255, 0.9);
-            --glow-yellow: rgba(255, 234, 0, 0.9);
-            
-            /* Typography */
-            --font-handwriting: 'Caveat', cursive;
-            --font-marker: 'Patrick Hand', cursive;
-            --font-sans: 'Montserrat', sans-serif;
+            /* Font Family Definitions */
+            --font-family-handwriting: 'Caveat', cursive;
+            --font-family-marker: 'Patrick Hand', cursive;
+            --font-family-sans-serif: 'Montserrat', sans-serif;
+            --font-family-elegant: 'Dancing Script', cursive;
         }
 
-        /* ==========================================================================
+        /* =========================================================================================
            2. GLOBAL RESET & BASE STYLES
-           ========================================================================== */
+           ========================================================================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         html {
             scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            -moz-text-size-adjust: 100%;
-        }
-
-        * {
-            box-sizing: border-box;
         }
 
         body {
             width: 100%;
             min-height: 100vh;
-            
-            background-color: var(--color-bg-base);
-            background-image: none; 
-            
-            color: var(--color-text-ink);
-            font-family: var(--font-sans);
+            background-image: var(--bg-gradient-full);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--text-color-dark);
+            font-family: var(--font-family-sans-serif);
             overflow-x: hidden;
             position: relative;
-            
-            margin-top: 0px;
-            margin-right: 0px;
-            margin-bottom: 0px;
-            margin-left: 0px;
-            
-            padding-top: 0px;
-            padding-right: 0px;
-            padding-bottom: 0px;
-            padding-left: 0px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            transition: opacity 1s ease; /* For smooth page exit */
         }
 
-        p, h1, h2, h3, h4, h5, h6 {
-            margin-top: 0px;
-            margin-right: 0px;
-            margin-bottom: 0px;
-            margin-left: 0px;
-            
-            padding-top: 0px;
-            padding-right: 0px;
-            padding-bottom: 0px;
-            padding-left: 0px;
-        }
-
+        /* Elegant Noise Overlay for Texture (Subtle Grain Effect) */
         body::after {
             content: '';
             position: fixed;
-            top: 0px;
-            left: 0px;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.03;
+            opacity: 0.05;
             pointer-events: none;
             z-index: 9999;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
         }
 
-        /* ==========================================================================
-           3. BACKGROUND DECORATIONS: SOFT-COLLAPSE IMAGES & FLOWERS
-           ========================================================================== */
-        .bg-decorations-container {
+        /* Explicitly style caret (typing cursor) to be very visible globally */
+        [contenteditable="true"] {
+            caret-color: var(--envelope-dark-color);
+        }
+
+        /* =========================================================================================
+           3. CANVAS POSITIONING FOR PARTICLE ENGINES
+           ========================================================================================= */
+        canvas {
             position: fixed;
-            top: 0px;
-            left: 0px;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
             pointer-events: none;
-            overflow: hidden;
+            display: block;
         }
 
-        /* The Soft-Collapse / Melted Border Effect for Images */
-        .melted-image-effect {
+        #particle-canvas {
+            z-index: 1; /* Stays behind everything as background */
+        }
+
+        #rose-canvas {
+            z-index: 999; /* Pops over the envelope when opened */
+        }
+
+        /* =========================================================================================
+           4. INTRO SEQUENCE & FADE IN LOGIC
+           ========================================================================================= */
+        body.intro-mode {
+            overflow-y: hidden;
+            overflow-x: hidden;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        
+        body.intro-mode .hide-on-intro {
+            display: none !important;
+            visibility: hidden;
+            opacity: 0;
+        }
+        
+        body.intro-mode .hero-section {
+            min-height: 100vh;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Enlarged envelope during initial load */
+        body.intro-mode .envelope-container {
+            -webkit-transform: scale(1.5);
+            -moz-transform: scale(1.5);
+            -ms-transform: scale(1.5);
+            -o-transform: scale(1.5);
+            transform: scale(1.5);
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        /* Smooth reveal animation for other page elements after intro */
+        .reveal-element {
+            opacity: 0;
+            -webkit-transform: translateY(40px);
+            -moz-transform: translateY(40px);
+            -ms-transform: translateY(40px);
+            -o-transform: translateY(40px);
+            transform: translateY(40px);
+            
+            -webkit-animation-name: fadeInRevealAnimation;
+            -moz-animation-name: fadeInRevealAnimation;
+            -o-animation-name: fadeInRevealAnimation;
+            animation-name: fadeInRevealAnimation;
+            
+            -webkit-animation-duration: 1.2s;
+            -moz-animation-duration: 1.2s;
+            -o-animation-duration: 1.2s;
+            animation-duration: 1.2s;
+            
+            -webkit-animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+            -moz-animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+            -o-animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+            animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+            
+            -webkit-animation-fill-mode: forwards;
+            -moz-animation-fill-mode: forwards;
+            -o-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+        }
+
+        /* Keyframes for the reveal */
+        @-webkit-keyframes fadeInRevealAnimation {
+            0% { opacity: 0; -webkit-transform: translateY(40px); }
+            100% { opacity: 1; -webkit-transform: translateY(0); }
+        }
+        @keyframes fadeInRevealAnimation {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =========================================================================================
+           5. HEADER & MARQUEE STYLES
+           ========================================================================================= */
+        .site-header {
+            width: 100%;
+            padding-top: 25px;
+            padding-right: 20px;
+            padding-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            background-image: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 100%);
+            margin-bottom: 20px;
+        }
+
+        .header-content {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            position: relative;
+            max-width: 1400px;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 0;
+            margin-left: auto;
+            padding-bottom: 15px;
+        }
+
+        .brand-logo {
+            position: absolute;
+            left: 20px;
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
+            background-color: #ffffff;
+            background-image: url('../../logo.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            
-            /* This inset shadow creates the vignette that fades the image into the background color */
-            box-shadow: 
-                inset 0px 0px 30px 15px var(--color-bg-base), 
-                0px 0px 40px 20px var(--color-bg-base),
-                0px 5px 15px rgba(0,0,0,0.05);
-                
-            border-top-width: 1px;
-            border-top-style: solid;
-            border-top-color: rgba(255,255,255,0.4);
-            
-            border-right-width: 1px;
-            border-right-style: solid;
-            border-right-color: rgba(255,255,255,0.4);
-            
-            border-bottom-width: 1px;
-            border-bottom-style: solid;
-            border-bottom-color: rgba(255,255,255,0.4);
-            
-            border-left-width: 1px;
-            border-left-style: solid;
-            border-left-color: rgba(255,255,255,0.4);
-        }
-
-        .bg-center-img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            
-            width: clamp(280px, 45vw, 450px);
-            height: clamp(280px, 45vw, 450px);
-            
-            transform: translate(-50%, -50%);
-            -webkit-transform: translate(-50%, -50%);
-            
-            opacity: 0.35; 
-            
-            animation-name: pulseCenter;
-            animation-duration: 6s;
-            animation-timing-function: ease-in-out;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-            
-            -webkit-animation-name: pulseCenter;
-            -webkit-animation-duration: 6s;
-            -webkit-animation-timing-function: ease-in-out;
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-direction: alternate;
-        }
-
-        @keyframes pulseCenter {
-            0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.25; }
-            100% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.45; }
-        }
-        @-webkit-keyframes pulseCenter {
-            0% { -webkit-transform: translate(-50%, -50%) scale(0.95); opacity: 0.25; }
-            100% { -webkit-transform: translate(-50%, -50%) scale(1.05); opacity: 0.45; }
-        }
-
-        .float-img {
-            position: absolute;
-            opacity: 0.55;
-            
-            animation-name: floatBgImg;
-            animation-duration: 9s;
-            animation-timing-function: ease-in-out;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-            
-            -webkit-animation-name: floatBgImg;
-            -webkit-animation-duration: 9s;
-            -webkit-animation-timing-function: ease-in-out;
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-direction: alternate;
-        }
-
-        .f-img-1 { top: 10%; left: 8%; width: 150px; height: 150px; animation-delay: 0s; -webkit-animation-delay: 0s; }
-        .f-img-2 { bottom: 15%; right: 6%; width: 170px; height: 170px; animation-delay: 2s; -webkit-animation-delay: 2s; animation-direction: alternate-reverse; -webkit-animation-direction: alternate-reverse; }
-
-        .flower-decor {
-            position: absolute;
-            opacity: 0.85;
-            filter: drop-shadow(2px 5px 8px rgba(0,0,0,0.15));
-            -webkit-filter: drop-shadow(2px 5px 8px rgba(0,0,0,0.15));
-            
-            animation-name: floatBgImg;
-            animation-duration: 8s;
-            animation-timing-function: ease-in-out;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-            
-            -webkit-animation-name: floatBgImg;
-            -webkit-animation-duration: 8s;
-            -webkit-animation-timing-function: ease-in-out;
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-direction: alternate;
-        }
-
-        .f-rose-1 { bottom: 30%; left: 5%; width: 160px; transform: rotate(15deg); -webkit-transform: rotate(15deg); }
-        .f-sakura-1 { top: 20%; right: 8%; width: 130px; transform: rotate(45deg); -webkit-transform: rotate(45deg); animation-delay: 1s; -webkit-animation-delay: 1s; }
-        .f-petal-1 { top: 60%; left: 60%; width: 50px; transform: rotate(80deg); -webkit-transform: rotate(80deg); animation-delay: 4s; -webkit-animation-delay: 4s; opacity: 0.6; }
-
-        @keyframes floatBgImg {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-30px) rotate(8deg); }
-        }
-        @-webkit-keyframes floatBgImg {
-            0% { -webkit-transform: translateY(0px) rotate(0deg); }
-            100% { -webkit-transform: translateY(-30px) rotate(8deg); }
-        }
-
-        /* ==========================================================================
-           4. HEADER: SOFT-COLLAPSE LOGO & "FOR YOU" TILES
-           ========================================================================== */
-        .header-container {
-            width: 100%;
+            box-shadow: 0px 5px 20px rgba(128, 0, 32, 0.25);
+            border-top: 3px solid var(--gold-color-light);
+            border-right: 3px solid var(--gold-color-light);
+            border-bottom: 3px solid var(--gold-color-light);
+            border-left: 3px solid var(--gold-color-light);
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: column;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
             align-items: center;
-            justify-content: flex-start;
-            
-            padding-top: 0px; 
-            padding-right: 20px;
-            padding-bottom: 80px;
-            padding-left: 20px;
-            
-            position: relative;
-            z-index: 20;
-        }
-
-        /* Custom Scrolling Logo with the new Melted Edge Effect */
-        .scrolling-logo {
-            position: absolute; 
-            top: 30px; 
-            left: 30px; 
-            width: 120px; 
-            height: 120px; 
-            z-index: 30;
-            opacity: 0.95;
-        }
-
-        .header-bg-glow {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            
-            transform: translateX(-50%);
-            -webkit-transform: translateX(-50%);
-            
-            width: 90%;
-            max-width: 500px;
-            height: 200px;
-            
-            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 70%);
-            
-            z-index: -1;
-            pointer-events: none;
-            
-            filter: blur(25px);
-            -webkit-filter: blur(25px);
-            
-            animation-name: pulseBg;
-            animation-duration: 4s;
-            animation-timing-function: ease-in-out;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-            
-            -webkit-animation-name: pulseBg;
-            -webkit-animation-duration: 4s;
-            -webkit-animation-timing-function: ease-in-out;
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-direction: alternate;
-        }
-
-        @keyframes pulseBg {
-            0% { opacity: 0.6; transform: translateX(-50%) scale(0.9); }
-            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
-        }
-        @-webkit-keyframes pulseBg {
-            0% { opacity: 0.6; -webkit-transform: translateX(-50%) scale(0.9); }
-            100% { opacity: 1; -webkit-transform: translateX(-50%) scale(1.1); }
-        }
-
-        .word-row {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            align-items: flex-start;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
             justify-content: center;
+            font-family: var(--font-family-elegant);
+            font-size: 2.2rem;
+            color: var(--text-color-maroon);
+            font-weight: 700;
             
-            margin-top: 0px;
-            margin-right: 0px;
-            margin-bottom: 25px;
-            margin-left: 0px;
-            
-            position: relative;
-        }
-
-        .hanging-letter-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            
-            margin-top: 0px;
-            margin-right: 6px;
-            margin-bottom: 0px;
-            margin-left: 6px;
-            
-            transform-origin: top center;
-            -webkit-transform-origin: top center;
-            
-            animation-name: continuousSwing;
-            animation-duration: 3s;
-            animation-timing-function: ease-in-out;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-            
-            -webkit-animation-name: continuousSwing;
-            -webkit-animation-duration: 3s;
-            -webkit-animation-timing-function: ease-in-out;
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-direction: alternate;
-        }
-
-        @keyframes continuousSwing {
-            0% { transform: rotate(6deg); }
-            100% { transform: rotate(-6deg); }
-        }
-        @-webkit-keyframes continuousSwing {
-            0% { -webkit-transform: rotate(6deg); }
-            100% { -webkit-transform: rotate(-6deg); }
-        }
-
-        .letter-string {
-            width: 3px;
-            height: clamp(30px, 6vw, 55px); 
-            background-color: var(--color-thread);
-            position: relative;
-            box-shadow: 1px 0px 3px rgba(0,0,0,0.5);
-        }
-
-        .letter-knot {
-            width: 14px;
-            height: 14px;
-            background-color: #1a0f11;
-            
-            border-top-left-radius: 50%;
-            border-top-right-radius: 50%;
-            border-bottom-right-radius: 50%;
-            border-bottom-left-radius: 50%;
-            
-            position: absolute;
-            bottom: -7px;
-            left: 50%;
-            
-            transform: translateX(-50%);
-            -webkit-transform: translateX(-50%);
-            z-index: 5;
-            box-shadow: 1px 2px 4px rgba(0,0,0,0.6);
-        }
-
-        .tile-letter {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            
-            width: clamp(40px, 7vw, 65px);
-            height: clamp(45px, 8vw, 75px);
-            
-            background-color: var(--color-frame-bg);
-            color: var(--color-text-teal);
-            
-            font-family: var(--font-sans);
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-            border-bottom-left-radius: 5px;
-            
-            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25), 0px 0px 25px var(--glow-pink);
-            
-            position: relative;
-            z-index: 2;
-            margin-top: 0px; 
-            
-            transition-property: transform, filter, box-shadow;
-            transition-duration: 0.3s;
-            transition-timing-function: ease;
-            
-            -webkit-transition-property: -webkit-transform, -webkit-filter, box-shadow;
-            -webkit-transition-duration: 0.3s;
+            -webkit-transition-property: -webkit-transform, box-shadow;
+            transition-property: transform, box-shadow;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
             -webkit-transition-timing-function: ease;
-            
-            cursor: pointer;
-            
-            animation-name: colorShiftGlow;
-            animation-duration: 4s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-            
-            -webkit-animation-name: colorShiftGlow;
-            -webkit-animation-duration: 4s;
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-direction: alternate;
+            transition-timing-function: ease;
         }
 
-        .tile-letter:hover {
-            transform: scale(1.15) rotate(5deg);
-            -webkit-transform: scale(1.15) rotate(5deg);
-            filter: brightness(1.2);
-            -webkit-filter: brightness(1.2);
-            z-index: 10;
+        .brand-logo:hover {
+            -webkit-transform: rotate(15deg) scale(1.08);
+            transform: rotate(15deg) scale(1.08);
+            box-shadow: 0px 8px 25px rgba(128, 0, 32, 0.35);
         }
 
-        @keyframes colorShiftGlow {
-            0% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-pink); }
-            50% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 30px var(--glow-blue); }
-            100% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-yellow); }
-        }
-        @-webkit-keyframes colorShiftGlow {
-            0% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-pink); }
-            50% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 30px var(--glow-blue); }
-            100% { box-shadow: 0px 8px 15px rgba(0,0,0,0.25), 0px 0px 20px var(--glow-yellow); }
+        .main-title {
+            font-family: var(--font-family-elegant);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            color: var(--text-color-maroon);
+            text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9);
+            letter-spacing: 1.5px;
+            font-weight: 700;
         }
 
-        /* Staggered swing animations for FOR YOU */
-        .w1 .hanging-letter-container:nth-child(1) { animation-delay: 0.1s; -webkit-animation-delay: 0.1s; }
-        .w1 .hanging-letter-container:nth-child(2) { animation-delay: 0.3s; -webkit-animation-delay: 0.3s; }
-        .w1 .hanging-letter-container:nth-child(3) { animation-delay: 0.5s; -webkit-animation-delay: 0.5s; }
-        
-        .w2 .hanging-letter-container:nth-child(1) { animation-delay: 0.7s; -webkit-animation-delay: 0.7s; }
-        .w2 .hanging-letter-container:nth-child(2) { animation-delay: 0.9s; -webkit-animation-delay: 0.9s; }
-        .w2 .hanging-letter-container:nth-child(3) { animation-delay: 1.1s; -webkit-animation-delay: 1.1s; }
-
-        /* ==========================================================================
-           5. MAIN SCRAPBOOK CONTAINER
-           ========================================================================== */
-        .main-container {
+        .marquee-wrapper {
             width: 100%;
-            max-width: 1200px;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            background-color: rgba(255, 255, 255, 0.65);
+            padding-top: 12px;
+            padding-bottom: 12px;
+            border-top-width: 1px;
+            border-top-style: dashed;
+            border-top-color: rgba(255, 77, 109, 0.35);
+            border-bottom-width: 1px;
+            border-bottom-style: dashed;
+            border-bottom-color: rgba(255, 77, 109, 0.35);
+            box-shadow: 0px 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            font-family: var(--font-family-sans-serif);
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--envelope-dark-color);
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
             
-            margin-top: 0px;
-            margin-right: auto;
-            margin-bottom: 0px;
-            margin-left: auto;
-            
-            padding-top: 50px;
-            padding-right: 20px;
-            padding-bottom: 150px;
-            padding-left: 20px;
-            
+            -webkit-animation-name: marqueeScrollAnimation;
+            animation-name: marqueeScrollAnimation;
+            -webkit-animation-duration: 25s;
+            animation-duration: 25s;
+            -webkit-animation-timing-function: linear;
+            animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+        }
+
+        /* Marquee Scroll Keyframes */
+        @-webkit-keyframes marqueeScrollAnimation {
+            0% { -webkit-transform: translateX(100vw); }
+            100% { -webkit-transform: translateX(-100%); }
+        }
+        @keyframes marqueeScrollAnimation {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* =========================================================================================
+           6. HERO SECTION & TEXT COMPOSER
+           ========================================================================================= */
+        .hero-section {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-box-pack: space-evenly;
+            -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center; 
+            max-width: 1500px; 
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 80px;
+            margin-left: auto;
+            padding-top: 0;
+            padding-right: 40px;
+            padding-bottom: 0;
+            padding-left: 40px;
+            z-index: 10;
+            position: relative;
+            gap: 60px;
+            
+            -webkit-transition-property: all;
+            transition-property: all;
+            -webkit-transition-duration: 1s;
+            transition-duration: 1s;
+            -webkit-transition-timing-function: ease;
+            transition-timing-function: ease;
+        }
+
+        .text-composer {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            min-width: 350px;
+            max-width: 550px;
+            margin-bottom: 30px; 
+            margin-top: 100px;
+        }
+
+        .composer-heading {
+            font-family: var(--font-family-marker);
+            font-size: 2.4rem;
+            color: var(--text-color-maroon);
+            margin-bottom: 15px;
+            display: inline-block;
+            border-bottom-width: 3px;
+            border-bottom-style: solid;
+            border-bottom-color: var(--gold-color-dark);
+            padding-bottom: 5px;
+        }
+
+        .editable-poem {
+            font-family: var(--font-family-handwriting);
+            font-size: 2.5rem; 
+            line-height: 1.8;
+            color: var(--text-color-dark);
+            background-image: repeating-linear-gradient(
+                transparent, 
+                transparent 42px, 
+                rgba(255, 77, 109, 0.15) 42px, 
+                rgba(255, 77, 109, 0.15) 44px
+            );
+            padding-top: 15px;
+            padding-right: 20px;
+            padding-bottom: 15px;
+            padding-left: 20px;
+            outline: none;
+            border-radius: 12px;
+            border-width: 2px;
+            border-style: solid;
+            border-color: transparent;
+            
+            -webkit-transition-property: background-color, border-color, box-shadow;
+            transition-property: background-color, border-color, box-shadow;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+        }
+        
+        .editable-poem:focus {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-color: var(--envelope-flap-color);
+            border-style: dashed;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+        }
+
+        /* =========================================================================================
+           7. ENVELOPE CONTAINER
+           ========================================================================================= */
+        .envelope-container {
+            position: relative;
+            /* Substantial dimensions for PC */
+            width: clamp(380px, 45vw, 650px);
+            height: clamp(260px, 32vw, 420px);
+            
+            /* High margin top guarantees the opened flap will NEVER overlap header */
+            margin-top: 250px; 
+            margin-bottom: 40px;
+            z-index: 20;
+            
+            -webkit-perspective: 1500px;
+            perspective: 1500px;
+            
+            -webkit-transition-property: -webkit-transform;
+            transition-property: transform;
+            -webkit-transition-duration: 1.2s;
+            transition-duration: 1.2s;
+            -webkit-transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+            transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .env-back {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background-color: var(--envelope-base-color);
+            border-radius: 8px;
+            box-shadow: 0px 25px 50px rgba(128, 0, 32, 0.35);
+        }
+
+        /* Pattern for the inside of the envelope */
+        .env-back::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.25) 15%, transparent 16%), radial-gradient(rgba(255,255,255,0.25) 15%, transparent 16%);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+            opacity: 0.6;
+            border-radius: 8px;
+        }
+
+        /* =========================================================================================
+           8. THE INTERACTIVE LETTER (SCALED & OVERLAP PROTECTED)
+           ========================================================================================= */
+        .env-letter {
+            position: absolute;
+            bottom: 5px;
+            left: 2%;
+            width: 96%;
+            height: 95%;
+            background-color: var(--paper-background-color);
+            border-radius: 6px;
+            z-index: 2; /* Important: Starts behind front flaps */
+            padding-top: 40px; 
+            padding-right: 30px; 
+            padding-bottom: 30px; 
+            padding-left: 30px; 
+            font-family: var(--font-family-handwriting);
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            box-shadow: 0px -2px 15px rgba(0,0,0,0.15);
+            will-change: transform, height, z-index;
+        }
+
+        /* Animation class applied via JS when envelope is opened */
+        .envelope-container.is-open .env-letter {
+            -webkit-animation-name: popCompletelyOut;
+            animation-name: popCompletelyOut;
+            -webkit-animation-duration: 2.2s;
+            animation-duration: 2.2s;
+            -webkit-animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+            animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-delay: 0.5s;
+            animation-delay: 0.5s;
+        }
+
+        /* The Animation: Pulls letter up high, swaps z-index, then drops it down onto the front flap */
+        @-webkit-keyframes popCompletelyOut {
+            0%   { -webkit-transform: translateY(0); height: 95%; z-index: 2; }
+            45%  { -webkit-transform: translateY(-80%); height: 115%; z-index: 2; }
+            50%  { z-index: 10; }
+            100% { -webkit-transform: translateY(12%) rotate(-1deg); height: 115%; z-index: 10; box-shadow: 0px 35px 70px rgba(0,0,0,0.4); }
+        }
+        @keyframes popCompletelyOut {
+            0% { transform: translateY(0); height: 95%; z-index: 2; }
+            45% { transform: translateY(-80%); height: 115%; z-index: 2; }
+            50% { z-index: 10; }
+            100% { transform: translateY(12%) rotate(-1deg); height: 115%; z-index: 10; box-shadow: 0px 35px 70px rgba(0,0,0,0.4); }
+        }
+
+        /* SCALED UP LETTER TEXT COMPONENTS */
+        .letter-to {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--text-color-maroon);
+            border-bottom-width: 3px;
+            border-bottom-style: dashed;
+            border-bottom-color: rgba(201, 24, 74, 0.4);
+            margin-bottom: 12px;
+            padding-bottom: 5px;
+            outline: none;
+        }
+        
+        .letter-from {
+            font-size: 2.6rem; 
+            font-weight: 700;
+            color: var(--text-color-maroon);
+            text-align: right;
+            margin-top: 15px;
+            border-top-width: 3px;
+            border-top-style: dashed;
+            border-top-color: rgba(201, 24, 74, 0.4);
+            padding-top: 12px;
+            outline: none;
+        }
+        
+        .letter-body {
+            font-size: 2.2rem; /* INCREASED FONT SIZE FOR BETTER READABILITY */
+            -webkit-box-flex: 1;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            outline: none;
+            overflow-y: hidden;
+            overflow-x: hidden;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 42px; /* INCREASED LINE HEIGHT FOR LARGER FONT */
+            background-image: repeating-linear-gradient(
+                transparent, 
+                transparent 41px, 
+                var(--paper-line-color) 41px, 
+                var(--paper-line-color) 42px
+            );
+            padding-top: 5px;
+            padding-bottom: 5px;
+            color: var(--text-color-dark);
+            
+            -webkit-transition-property: font-size;
+            transition-property: font-size;
+            -webkit-transition-duration: 0.2s;
+            transition-duration: 0.2s;
+            -webkit-transition-timing-function: ease;
+            transition-timing-function: ease;
+        }
+
+        /* =========================================================================================
+           9. ENVELOPE FLAPS & NEW FRONT MESSAGE
+           ========================================================================================= */
+        .env-front-wrapper {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        /* Left Triangle Flap */
+        .env-front-left {
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            width: 0; 
+            height: 0;
+            border-top-width: clamp(130px, 16vw, 210px);
+            border-top-style: solid;
+            border-top-color: transparent;
+            border-bottom-width: clamp(130px, 16vw, 210px);
+            border-bottom-style: solid;
+            border-bottom-color: transparent;
+            border-left-width: clamp(200px, 22.5vw, 325px);
+            border-left-style: solid;
+            border-left-color: var(--envelope-flap-color);
+            
+            -webkit-filter: drop-shadow(5px 0px 5px rgba(0,0,0,0.15));
+            filter: drop-shadow(5px 0px 5px rgba(0,0,0,0.15));
+        }
+        
+        /* Right Triangle Flap */
+        .env-front-right {
+            position: absolute; 
+            right: 0; 
+            top: 0; 
+            width: 0; 
+            height: 0;
+            border-top-width: clamp(130px, 16vw, 210px);
+            border-top-style: solid;
+            border-top-color: transparent;
+            border-bottom-width: clamp(130px, 16vw, 210px);
+            border-bottom-style: solid;
+            border-bottom-color: transparent;
+            border-right-width: clamp(200px, 22.5vw, 325px);
+            border-right-style: solid;
+            border-right-color: #ff5c77;
+            
+            -webkit-filter: drop-shadow(-5px 0px 5px rgba(0,0,0,0.15));
+            filter: drop-shadow(-5px 0px 5px rgba(0,0,0,0.15));
+        }
+        
+        /* Bottom Triangle Flap */
+        .env-bottom-flap {
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 0; 
+            height: 0;
+            border-left-width: clamp(200px, 22.5vw, 325px);
+            border-left-style: solid;
+            border-left-color: transparent;
+            border-right-width: clamp(200px, 22.5vw, 325px);
+            border-right-style: solid;
+            border-right-color: transparent;
+            border-bottom-width: clamp(150px, 18vw, 240px);
+            border-bottom-style: solid;
+            border-bottom-color: var(--envelope-front-color);
+            
+            -webkit-filter: drop-shadow(0px -5px 8px rgba(0,0,0,0.2));
+            filter: drop-shadow(0px -5px 8px rgba(0,0,0,0.2));
+        }
+
+        /* NEW: Envelope Front Message (Requested feature) */
+        .env-message {
+            position: absolute;
+            bottom: 25px; /* Adjust nicely onto the bottom flap area */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            text-align: center;
+            font-family: var(--font-family-handwriting);
+            font-size: clamp(1.2rem, 3vw, 1.5rem); 
+            color: rgba(90, 0, 15, 0.9); /* Deep highly visible maroon */
+            z-index: 4; /* Above the front flaps (z-index: 3) but behind the seal (z-index: 6) */
+            pointer-events: none; /* Passes clicks directly to envelope */
+            line-height: 1.3;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.4);
+            transition: opacity 0.4s ease;
+        }
+
+        /* Fades out the text when envelope is opened */
+        .envelope-container.is-open .env-message {
+            opacity: 0;
+        }
+
+        /* Top Opening Flap (The one that animates) */
+        .env-top-flap {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 0; 
+            height: 0; 
+            z-index: 5;
+            border-left-width: clamp(200px, 22.5vw, 325px);
+            border-left-style: solid;
+            border-left-color: transparent;
+            border-right-width: clamp(200px, 22.5vw, 325px);
+            border-right-style: solid;
+            border-right-color: transparent;
+            border-top-width: clamp(150px, 18vw, 240px);
+            border-top-style: solid;
+            border-top-color: var(--envelope-dark-color);
+            
+            -webkit-transform-origin: top center; 
+            transform-origin: top center;
+            
+            -webkit-transition-property: -webkit-transform;
+            transition-property: transform;
+            -webkit-transition-duration: 0.8s;
+            transition-duration: 0.8s;
+            -webkit-transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+            transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+            
+            -webkit-filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.35));
+            filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.35));
+        }
+
+        /* Rotate and push behind letter when open */
+        .envelope-container.is-open .env-top-flap {
+            -webkit-transform: rotateX(180deg);
+            transform: rotateX(180deg);
+            z-index: 1;
+            -webkit-filter: none; 
+            filter: none;
+        }
+
+        /* =========================================================================================
+           10. EMOJI RED HEART SEAL (INTERACTIVE BUTTON)
+           ========================================================================================= */
+        .emoji-heart-seal {
+            position: absolute; 
+            top: 50%; 
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%); 
+            transform: translate(-50%, -50%);
+            width: 110px; 
+            height: 110px; 
+            z-index: 6; 
+            cursor: pointer; 
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex; 
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center; 
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center; 
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
             flex-direction: column;
             
-            position: relative;
-            z-index: 10;
+            -webkit-transition-property: -webkit-transform, opacity;
+            transition-property: transform, opacity;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            
+            -webkit-animation-name: heartBeatAnimation;
+            animation-name: heartBeatAnimation;
+            -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-timing-function: ease-in-out;
+            animation-timing-function: ease-in-out;
         }
 
-        /* ==========================================================================
-           6. HIGHLY VISIBLE CONNECTING STRING (DHAAGA)
-           ========================================================================== */
-        .connecting-string-container {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            width: 100%;
+        .emoji-heart-svg {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
             height: 100%;
-            z-index: 5;
+            -webkit-filter: drop-shadow(0px 12px 18px rgba(138, 0, 0, 0.5));
+            filter: drop-shadow(0px 12px 18px rgba(138, 0, 0, 0.5));
+        }
+
+        .seal-tap-text {
+            position: absolute; 
+            bottom: -35px; 
+            color: #d90000;
+            font-family: var(--font-family-sans-serif); 
+            font-weight: 800; 
+            font-size: 1.2rem;
+            letter-spacing: 1.5px; 
+            background-color: rgba(255, 255, 255, 0.9); 
+            padding-top: 4px;
+            padding-right: 15px;
+            padding-bottom: 4px;
+            padding-left: 15px;
+            border-radius: 20px; 
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+        }
+
+        @-webkit-keyframes heartBeatAnimation {
+            0% { -webkit-transform: translate(-50%, -50%) scale(1); }
+            10% { -webkit-transform: translate(-50%, -50%) scale(1.1); }
+            20% { -webkit-transform: translate(-50%, -50%) scale(1); }
+            30% { -webkit-transform: translate(-50%, -50%) scale(1.1); }
+            40% { -webkit-transform: translate(-50%, -50%) scale(1); }
+            100% { -webkit-transform: translate(-50%, -50%) scale(1); }
+        }
+        @keyframes heartBeatAnimation {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            10% { transform: translate(-50%, -50%) scale(1.1); }
+            20% { transform: translate(-50%, -50%) scale(1); }
+            30% { transform: translate(-50%, -50%) scale(1.1); }
+            40% { transform: translate(-50%, -50%) scale(1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .emoji-heart-seal:hover {
+            -webkit-transform: translate(-50%, -50%) scale(1.2);
+            transform: translate(-50%, -50%) scale(1.2);
+            -webkit-animation: none; 
+            animation: none;
+        }
+
+        .envelope-container.is-open .emoji-heart-seal {
+            opacity: 0; 
             pointer-events: none;
+            -webkit-transform: translate(-50%, -50%) scale(0.2);
+            transform: translate(-50%, -50%) scale(0.2);
         }
 
-        /* The SVG Path that creates the rope */
-        .main-thread {
-            fill: none;
-            stroke: var(--color-thread);
-            stroke-width: 6px; 
-            stroke-dasharray: 12, 6; 
-            filter: drop-shadow(4px 6px 5px var(--color-thread-shadow));
-            -webkit-filter: drop-shadow(4px 6px 5px var(--color-thread-shadow));
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            vector-effect: non-scaling-stroke;
-        }
-
-        /* ==========================================================================
-           7. SCRAPBOOK BLOCKS & MEDIUM PHOTO FRAMES
-           ========================================================================== */
-        .scrap-block {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-            margin-top: 0px;
-            margin-right: 0px;
-            margin-bottom: 150px; 
-            margin-left: 0px;
-            
+        /* =========================================================================================
+           11. SCRAPBOOK AREA & ALIGNMENT LOGIC
+           ========================================================================================= */
+        .scrapbook-area {
+            max-width: 1500px;
+            margin-top: 0;
+            margin-right: auto;
+            margin-bottom: 0;
+            margin-left: auto;
             position: relative;
-            min-height: 450px;
             z-index: 10;
-        }
-
-        .scrap-block:nth-child(odd) {
-            flex-direction: row;
+            padding-top: 60px;
+            padding-right: 40px;
+            padding-bottom: 40px;
+            padding-left: 40px;
         }
         
-        .scrap-block:nth-child(even) {
+        .swing-row {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: start;
+            -ms-flex-align: start;
+            align-items: flex-start; 
+            -webkit-box-pack: start;
+            -ms-flex-pack: start;
+            justify-content: flex-start; 
+            gap: 150px; 
+            margin-bottom: 350px; /* High margin allows pendulums to swing freely */
+            width: 100%;
+            position: relative;
+        }
+        
+        /* Reverse alignment for even rows (Right side) */
+        .swing-row:nth-child(even) {
+            -webkit-box-pack: end;
+            -ms-flex-pack: end;
+            justify-content: flex-end; 
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: reverse;
+            -ms-flex-direction: row-reverse;
             flex-direction: row-reverse;
         }
 
-        .frame-wrapper {
+        .hanging-system {
             position: relative;
-            z-index: 15;
-            
-            transition-property: transform, z-index;
-            transition-duration: 0.4s;
-            transition-timing-function: ease;
-            
-            -webkit-transition-property: -webkit-transform, z-index;
-            -webkit-transition-duration: 0.4s;
-            -webkit-transition-timing-function: ease;
-        }
-
-        .frame-wrapper:hover {
-            transform: scale(1.06);
-            -webkit-transform: scale(1.06);
-            z-index: 50;
-        }
-
-        .polaroid-body {
-            /* MEDIUM Size Photo Box */
-            width: clamp(280px, 35vw, 380px); 
-            background-color: var(--color-frame-bg);
-            
-            padding-top: 16px;
-            padding-right: 16px;
-            padding-bottom: 45px;
-            padding-left: 16px;
-            
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border-bottom-left-radius: 4px;
-            
-            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.25);
-            position: relative;
-            cursor: pointer;
-        }
-
-        .photo-area {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            background: var(--color-frame-inner-gradient);
-            position: relative;
-            
+            width: clamp(380px, 35vw, 600px); 
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
             flex-direction: column;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
             align-items: center;
-            justify-content: center;
-            
-            border-top-left-radius: 3px;
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-            border-bottom-left-radius: 3px;
-            
-            box-shadow: inset 0px 0px 25px rgba(0, 0, 0, 0.6);
-            overflow: hidden;
-            
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
         }
 
-        .upload-input {
+        /* =========================================================================================
+           12. HYPER-REALISTIC 3D GREEN BRANCH & PERFECT KNOT ALIGNMENT
+           ========================================================================================= */
+        .vector-branch-container {
             position: absolute;
-            top: 0px;
-            left: 0px;
+            top: -95px; /* Precision alignment so ropes perfectly embed into the wood */
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            width: 1200px; /* Vast overflow to stretch offscreen */
+            height: 300px;
+            z-index: 4; 
+            pointer-events: none; 
+            -webkit-filter: drop-shadow(0px 30px 25px rgba(0,0,0,0.4));
+            filter: drop-shadow(0px 30px 25px rgba(0,0,0,0.4));
+        }
+
+        /* Mirror the branch entirely for right-aligned items */
+        .swing-row:nth-child(even) .vector-branch-container {
+            -webkit-transform: translateX(-50%) scaleX(-1);
+            transform: translateX(-50%) scaleX(-1);
+        }
+
+        .realistic-branch-svg {
             width: 100%;
             height: 100%;
-            opacity: 0;
-            cursor: pointer;
+        }
+
+        /* =========================================================================================
+           13. PHOTO PENDULUM ANIMATION, REALISTIC TWISTED ROPES & KNOTS
+           ========================================================================================= */
+        .pendulum {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex; 
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column; 
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center; 
+            width: 100%;
             z-index: 10;
-        }
-
-        .add-photo-txt {
-            font-family: var(--font-sans);
-            font-size: clamp(1.3rem, 2.3vw, 1.7rem);
-            font-weight: 800;
-            color: var(--color-text-white);
-            text-shadow: 2px 3px 8px rgba(0, 0, 0, 0.8);
-            z-index: 5;
             
-            transition-property: opacity;
-            transition-duration: 0.3s;
-            -webkit-transition-property: opacity;
-            -webkit-transition-duration: 0.3s;
-        }
-
-        .frame-sparkle {
-            position: absolute;
-            fill: #ffccd9;
-            opacity: 0.9;
-            z-index: 4;
+            -webkit-transform-origin: top center; 
+            transform-origin: top center;
             
-            transition-property: opacity;
-            transition-duration: 0.3s;
-            -webkit-transition-property: opacity;
-            -webkit-transition-duration: 0.3s;
-        }
-        .fs-1 { top: 15%; left: 15%; width: 22px; }
-        .fs-2 { bottom: 25%; right: 15%; width: 30px; }
-
-        /* ==========================================================================
-           8. TAPES AND DECORATIVE KNOTS (OPPOSITE TAPE LOGIC)
-           ========================================================================== */
-        .tape {
-            position: absolute;
-            height: 32px;
-            width: 120px;
-            z-index: 60; 
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
-            opacity: 0.95;
-            
-            clip-path: polygon(2% 0, 98% 0, 100% 10%, 96% 20%, 100% 30%, 97% 40%, 100% 50%, 96% 60%, 100% 70%, 97% 80%, 100% 90%, 98% 100%, 2% 100%, 0 90%, 4% 80%, 0 70%, 3% 60%, 0 50%, 4% 40%, 0 30%, 3% 20%, 0 10%);
-            -webkit-clip-path: polygon(2% 0, 98% 0, 100% 10%, 96% 20%, 100% 30%, 97% 40%, 100% 50%, 96% 60%, 100% 70%, 97% 80%, 100% 90%, 98% 100%, 2% 100%, 0 90%, 4% 80%, 0 70%, 3% 60%, 0 50%, 4% 40%, 0 30%, 3% 20%, 0 10%);
+            -webkit-animation-name: gentleSwingAnimation;
+            animation-name: gentleSwingAnimation;
+            -webkit-animation-duration: 6s;
+            animation-duration: 6s;
+            -webkit-animation-timing-function: ease-in-out;
+            animation-timing-function: ease-in-out;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            animation-direction: alternate;
         }
         
-        .tape-red-stripe { background: var(--color-tape-striped); }
-        .tape-pink-dots { background-color: var(--color-tape-pink); background-image: var(--color-tape-dots); background-size: 15px 15px; }
-        
-        .tape-tl { top: -15px; left: -25px; transform: rotate(-25deg); -webkit-transform: rotate(-25deg); }
-        .tape-br { bottom: -15px; right: -25px; transform: rotate(-25deg); -webkit-transform: rotate(-25deg); }
-        
-        .tape-tr { top: -15px; right: -25px; transform: rotate(25deg); -webkit-transform: rotate(25deg); }
-        .tape-bl { bottom: -15px; left: -25px; transform: rotate(25deg); -webkit-transform: rotate(25deg); }
+        /* Stagger swing timing to look organic */
+        .swing-row:nth-child(2) .pendulum { -webkit-animation-delay: -2s; animation-delay: -2s; -webkit-animation-duration: 7.2s; animation-duration: 7.2s; }
+        .swing-row:nth-child(3) .pendulum { -webkit-animation-delay: -4s; animation-delay: -4s; -webkit-animation-duration: 5.5s; animation-duration: 5.5s; }
+        .swing-row:nth-child(4) .pendulum { -webkit-animation-delay: -1s; animation-delay: -1s; -webkit-animation-duration: 6.8s; animation-duration: 6.8s; }
 
-        .decor-knot {
+        @-webkit-keyframes gentleSwingAnimation { 
+            0% { -webkit-transform: rotate(4deg); } 
+            100% { -webkit-transform: rotate(-4deg); } 
+        }
+        @keyframes gentleSwingAnimation { 
+            0% { transform: rotate(4deg); } 
+            100% { transform: rotate(-4deg); } 
+        }
+
+        /* Thick realistic twisted ropes container */
+        .rope-container {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex; 
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            width: 80%; /* Space between left/right ropes */
+            height: 180px; 
+            position: relative; 
+            margin-top: 0; /* Ensures the ropes start immediately at the anchor point without any visual gap */
+            z-index: 5; 
+        }
+        
+        /* Premium Twisted Jute/Hemp Rope Illusion */
+        .rope {
+            width: 10px; 
+            height: 100%;
+            background: repeating-linear-gradient(
+                -45deg,
+                #a67c52,
+                #a67c52 3px,
+                #c29a6b 3px,
+                #c29a6b 7px
+            );
+            box-shadow: inset 3px 0 5px rgba(0,0,0,0.6), inset -2px 0 4px rgba(0,0,0,0.5), 3px 0 8px rgba(0,0,0,0.5); 
+            position: relative;
+            border-radius: 5px;
+        }
+        
+        /* Realistic Knots that perfectly hug the wooden branch */
+        .rope::before {
+            content: '';
             position: absolute;
+            top: -22px; /* Pulls knot slightly above the branch center */
+            left: -6px; /* Centers the thick knot on the thin rope */
+            width: 22px;
+            height: 38px;
+            background: repeating-linear-gradient(
+                -45deg,
+                #a67c52,
+                #a67c52 2px,
+                #8b5a2b 2px,
+                #8b5a2b 5px
+            );
+            border-radius: 12px;
+            box-shadow: 0px 6px 12px rgba(0,0,0,0.8), inset 0 0 6px rgba(0,0,0,0.9);
             z-index: 25;
-            width: 50px; 
-            height: 50px;
-            pointer-events: none;
-            filter: drop-shadow(4px 6px 6px rgba(0,0,0,0.7));
-            -webkit-filter: drop-shadow(4px 6px 6px rgba(0,0,0,0.7));
         }
 
-        .knot-path { fill: #1a0f11; }
-
-        .pos-top-center { top: -20px; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%); }
-        .pos-top-left { top: -15px; left: 15%; transform: rotate(-10deg); -webkit-transform: rotate(-10deg); }
-        .pos-top-right { top: -15px; right: 15%; transform: rotate(10deg); -webkit-transform: rotate(10deg); }
-        .pos-bottom-left { bottom: 15px; left: -25px; transform: rotate(-30deg); -webkit-transform: rotate(-30deg); }
-
-        /* ==========================================================================
-           9. RIPPED PAPER QUOTES
-           ========================================================================== */
-        .note-wrapper {
-            position: relative;
-            z-index: 10;
-            
-            width: clamp(250px, 33vw, 350px);
-            
-            margin-top: 0px;
-            margin-right: 50px;
-            margin-bottom: 0px;
-            margin-left: 50px;
-            
-            transition-property: transform;
-            transition-duration: 0.4s;
-            transition-timing-function: ease;
-            
-            -webkit-transition-property: -webkit-transform;
-            -webkit-transition-duration: 0.4s;
-            -webkit-transition-timing-function: ease;
-        }
-
-        .note-wrapper:hover {
-            transform: scale(1.06) translateY(-8px);
-            -webkit-transform: scale(1.06) translateY(-8px);
-            z-index: 40;
-        }
-
-        .paper-note {
-            background-color: var(--color-note-pink);
-            
-            padding-top: 35px;
-            padding-right: 30px;
-            padding-bottom: 35px;
-            padding-left: 30px;
-            
-            box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
-            position: relative;
-            
-            clip-path: polygon(
-                2% 2%, 6% 0%, 10% 2%, 14% 0%, 18% 3%, 22% 0%, 26% 2%, 30% 0%, 34% 3%, 38% 0%, 42% 2%, 46% 0%, 50% 3%, 
-                54% 0%, 58% 2%, 62% 0%, 66% 3%, 70% 0%, 74% 2%, 78% 0%, 82% 3%, 86% 0%, 90% 2%, 94% 0%, 98% 2%, 
-                100% 98%, 96% 100%, 92% 98%, 88% 100%, 84% 97%, 80% 100%, 76% 98%, 72% 100%, 68% 97%, 64% 100%, 
-                60% 98%, 56% 100%, 52% 97%, 48% 100%, 44% 98%, 40% 100%, 36% 97%, 32% 100%, 28% 98%, 24% 100%, 
-                20% 97%, 16% 100%, 12% 98%, 8% 100%, 4% 98%, 0% 100%
-            );
-            -webkit-clip-path: polygon(
-                2% 2%, 6% 0%, 10% 2%, 14% 0%, 18% 3%, 22% 0%, 26% 2%, 30% 0%, 34% 3%, 38% 0%, 42% 2%, 46% 0%, 50% 3%, 
-                54% 0%, 58% 2%, 62% 0%, 66% 3%, 70% 0%, 74% 2%, 78% 0%, 82% 3%, 86% 0%, 90% 2%, 94% 0%, 98% 2%, 
-                100% 98%, 96% 100%, 92% 98%, 88% 100%, 84% 97%, 80% 100%, 76% 98%, 72% 100%, 68% 97%, 64% 100%, 
-                60% 98%, 56% 100%, 52% 97%, 48% 100%, 44% 98%, 40% 100%, 36% 97%, 32% 100%, 28% 98%, 24% 100%, 
-                20% 97%, 16% 100%, 12% 98%, 8% 100%, 4% 98%, 0% 100%
-            );
-        }
-        
-        .color-blue { background-color: var(--color-note-blue); }
-        .color-beige { background-color: var(--color-note-beige); }
-
-        .note-text {
-            font-family: var(--font-handwriting);
-            font-size: clamp(1.6rem, 2.3vw, 2.2rem);
-            color: var(--color-text-ink);
-            line-height: 1.6;
-            text-align: center;
-            outline: none;
-            cursor: text;
-        }
-
-        .highlight-text {
-            background-color: var(--color-maroon-dark);
-            color: var(--color-text-white);
-            
-            padding-top: 6px;
-            padding-right: 18px;
-            padding-bottom: 6px;
-            padding-left: 18px;
-            
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
-            font-weight: 700;
-            
-            display: inline-block;
-            margin-top: 25px;
-            
-            transform: rotate(-3deg);
-            -webkit-transform: rotate(-3deg);
-            
-            box-shadow: 3px 5px 10px rgba(0,0,0,0.5);
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-            border-bottom-left-radius: 4px;
-        }
-
-        .note-doodle {
-            position: absolute;
-            bottom: 15px;
-            right: 25px;
-            font-family: var(--font-marker);
-            font-size: 2rem;
-            color: var(--color-text-ink);
-        }
-
-        /* ==========================================================================
-           10. BLOCK SPECIFIC TRANSFORMATIONS
-           ========================================================================== */
-        .blk-1 .frame-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); }
-        .blk-1 .note-wrapper { transform: rotate(4deg); -webkit-transform: rotate(4deg); margin-top: 50px; }
-        
-        .blk-2 .frame-wrapper { transform: rotate(4deg); -webkit-transform: rotate(4deg); }
-        .blk-2 .note-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); margin-top: -40px; }
-
-        .blk-3 .frame-wrapper { transform: rotate(-2deg); -webkit-transform: rotate(-2deg); }
-        .blk-3 .note-wrapper { transform: rotate(5deg); -webkit-transform: rotate(5deg); margin-top: 30px; }
-
-        .blk-4 .frame-wrapper { transform: rotate(3deg); -webkit-transform: rotate(3deg); }
-        .blk-4 .note-wrapper { transform: rotate(-4deg); -webkit-transform: rotate(-4deg); margin-top: -30px; }
-
-        .blk-5 .frame-wrapper { transform: rotate(-4deg); -webkit-transform: rotate(-4deg); }
-        .blk-5 .note-wrapper { transform: rotate(3deg); -webkit-transform: rotate(3deg); margin-top: 40px; }
-
-        .blk-6 .frame-wrapper { transform: rotate(2deg); -webkit-transform: rotate(2deg); }
-        .blk-6 .note-wrapper { transform: rotate(-5deg); -webkit-transform: rotate(-5deg); margin-top: -20px; }
-
-        .blk-7 .frame-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); }
-        .blk-7 .note-wrapper { transform: rotate(2deg); -webkit-transform: rotate(2deg); margin-top: 50px; }
-
-        .blk-8 .frame-wrapper { transform: rotate(4deg); -webkit-transform: rotate(4deg); }
-        .blk-8 .note-wrapper { transform: rotate(-3deg); -webkit-transform: rotate(-3deg); margin-top: -40px; }
-
-        /* ==========================================================================
-           11. FOOTER (MINIMAL, ELEGANT 2 LINES ONLY)
-           ========================================================================== */
-        .minimal-footer {
-            width: 100%;
-            background-color: transparent;
-            color: #8c5b65;
-            
-            padding-top: 20px;
-            padding-right: 20px;
-            padding-bottom: 40px;
-            padding-left: 20px;
-            
-            position: relative;
+        /* Bottom Knot attaching to the photo frame */
+        .rope::after {
+            content: ''; 
+            position: absolute; 
+            bottom: -10px; 
+            left: -5px;
+            width: 20px; 
+            height: 20px; 
+            background: radial-gradient(circle at 30% 30%, #c29a6b, #68432a); 
+            border-radius: 50%;
+            box-shadow: 0px 5px 8px rgba(0,0,0,0.8); 
             z-index: 20;
-            text-align: center;
         }
 
-        .footer-logo {
-            font-family: var(--font-handwriting);
-            font-size: 3rem;
-            color: #d15c7a;
+        /* =========================================================================================
+           14. CLASSIC POLAROID PHOTO FRAMES
+           ========================================================================================= */
+        .photo-frame {
+            width: 100%; 
+            background-color: #fdfdfd;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.03'/%3E%3C/svg%3E");
+            padding-top: 25px;
+            padding-right: 25px;
+            padding-bottom: 85px; 
+            padding-left: 25px;
+            box-shadow: 0 25px 55px rgba(0,0,0,0.4), inset 0 0 10px rgba(0,0,0,0.05);
+            position: relative; 
+            z-index: 10; 
+            border-radius: 3px;
             
-            margin-top: 0px;
-            margin-right: 0px;
-            margin-bottom: 5px;
-            margin-left: 0px;
+            -webkit-transition-property: -webkit-filter, -webkit-transform;
+            transition-property: filter, transform;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+        }
+        
+        .photo-frame:hover {
+            -webkit-filter: brightness(1.05);
+            filter: brightness(1.05);
+            -webkit-transform: scale(1.02);
+            transform: scale(1.02);
+        }
+        
+        .image-dropzone {
+            width: 100%; 
+            aspect-ratio: 1/1; 
+            background-image: var(--gold-gradient-full);
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex; 
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center; 
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center; 
+            cursor: pointer;
+            position: relative; 
+            overflow: hidden;
+            box-shadow: inset 0 0 35px rgba(0,0,0,0.6);
+            background-size: cover; 
+            background-position: center;
+        }
+        
+        .file-input { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            opacity: 0; 
+            cursor: pointer; 
+            z-index: 10; 
+        }
+        
+        .upload-hint {
+            font-family: var(--font-family-sans-serif); 
+            color: #ffffff; 
+            font-weight: 800;
+            font-size: 2rem; 
+            text-shadow: 0px 5px 15px rgba(0,0,0,0.8);
+            pointer-events: none; 
+            z-index: 5;
+        }
+
+        /* Quote Boxes positioned next to the frames */
+        .photo-quote {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1; 
+            max-width: 480px; 
+            background-color: var(--paper-background-color);
+            padding-top: 50px;
+            padding-right: 40px;
+            padding-bottom: 50px;
+            padding-left: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+            font-family: var(--font-family-handwriting); 
+            font-size: 2.8rem; 
+            line-height: 1.7; 
+            text-align: center; 
+            outline: none; 
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgba(0,0,0,0.05);
+            position: relative; 
+            margin-top: 100px; 
             
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .footer-credit {
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            color: #8c5b65;
+            -webkit-transform: rotate(4deg); 
+            transform: rotate(4deg);
             
-            margin-top: 0px;
-            margin-right: 0px;
-            margin-bottom: 0px;
-            margin-left: 0px;
+            -webkit-transition-property: box-shadow;
+            transition-property: box-shadow;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+        }
+        
+        .swing-row:nth-child(even) .photo-quote {
+            -webkit-transform: rotate(-4deg); 
+            transform: rotate(-4deg);
+            background-color: #fcf0f2;
+        }
+        
+        .photo-quote:focus { 
+            box-shadow: 0 0 0 3px var(--envelope-flap-color); 
+        }
+        
+        /* Tape sticking quote to the wall */
+        .photo-quote::before {
+            content: ''; 
+            position: absolute; 
+            top: -25px; 
+            left: 50%;
+            -webkit-transform: translateX(-50%) rotate(-4deg); 
+            transform: translateX(-50%) rotate(-4deg);
+            width: 140px; 
+            height: 45px; 
+            background-color: rgba(255,255,255,0.75); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* =========================================================================================
+           15. FOOTER & CALL TO ACTION MODAL
+           ========================================================================================= */
+        .footer-action { 
+            text-align: center; 
+            padding-top: 30px;
+            padding-right: 20px;
+            padding-bottom: 100px;
+            padding-left: 20px;
+            position: relative; 
+            z-index: 15; 
+        }
+        
+        .btn-premium {
+            background-image: var(--gold-gradient-full); 
+            color: var(--text-color-dark); 
+            border-width: 0;
+            padding-top: 20px;
+            padding-right: 65px;
+            padding-bottom: 20px;
+            padding-left: 65px;
+            font-family: var(--font-family-sans-serif); 
+            font-weight: 800;
+            font-size: 1.8rem; 
+            border-radius: 60px; 
+            cursor: pointer;
+            box-shadow: 0px 15px 40px rgba(233, 182, 70, 0.5); 
+            text-transform: uppercase; 
+            letter-spacing: 2.5px;
             
-            font-weight: 500;
+            -webkit-transition-property: -webkit-transform, box-shadow; 
+            transition-property: transform, box-shadow;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+        }
+        
+        .btn-premium:hover {
+            -webkit-transform: translateY(-8px) scale(1.05); 
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0px 20px 50px rgba(233, 182, 70, 0.7);
         }
 
-        /* ==========================================================================
-           12. RESPONSIVE MEDIA QUERIES
-           ========================================================================== */
-        @media (max-width: 950px) {
-            .main-container {
-                padding-top: 20px;
-                padding-bottom: 80px;
-            }
-            .scrap-block, .scrap-block:nth-child(even) {
-                flex-direction: column;
-                margin-bottom: 120px;
-            }
-            .note-wrapper {
-                margin-top: -30px !important;
-                margin-right: 0px;
-                margin-left: 0px;
-                transform: rotate(0deg) !important;
-                -webkit-transform: rotate(0deg) !important;
-            }
-            .connecting-string-container {
-                display: none;
-            }
+        .site-footer {
+            text-align: center; 
+            padding-top: 40px;
+            padding-right: 30px;
+            padding-bottom: 40px;
+            padding-left: 30px;
+            font-family: var(--font-family-elegant);
+            font-size: 2.4rem; 
+            color: var(--text-color-maroon); 
+            background-color: rgba(255, 255, 255, 0.45);
+            border-top-width: 3px;
+            border-top-style: dashed;
+            border-top-color: rgba(255, 77, 109, 0.45); 
+            position: relative; 
+            z-index: 10;
+        }
+        
+        .footer-credits {
+            font-family: var(--font-family-sans-serif); 
+            font-size: 1.2rem; 
+            color: #555555;
+            display: block; 
+            margin-top: 12px; 
+            font-weight: 700;
         }
 
-        @media (max-width: 500px) {
-            .header-container { padding-top: 10px; padding-bottom: 40px; }
-            .tile-letter { width: 45px; height: 50px; font-size: 1.8rem; margin: 2px; }
-            .polaroid-body { width: 95vw; }
-            .note-wrapper { width: 92vw; }
-            .letter-string { height: 25px; }
-            .bg-center-img { width: 260px; height: 260px; }
-        }
-
-        /* Canvas for Interactive Flying Hearts */
-        #flying-hearts-canvas {
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100%;
+        /* Glassmorphism Modal */
+        .glass-modal-overlay {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.8);
+            -webkit-backdrop-filter: blur(10px); 
+            backdrop-filter: blur(10px);
+            
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex; 
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center; 
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center; 
+            z-index: 2000;
+            opacity: 0; 
             pointer-events: none;
-            z-index: 1;
+            
+            -webkit-transition-property: opacity; 
+            transition-property: opacity;
+            -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+            -webkit-transition-timing-function: ease;
+            transition-timing-function: ease;
+        }
+        
+        .glass-modal-overlay.active { 
+            opacity: 1; 
+            pointer-events: all; 
+        }
+        
+        .glass-modal-content {
+            background-color: #ffffff; 
+            padding-top: 80px;
+            padding-right: 60px;
+            padding-bottom: 80px;
+            padding-left: 60px;
+            border-radius: 25px; 
+            text-align: center;
+            border-top-width: 10px;
+            border-top-style: solid;
+            border-top-color: var(--gold-color-dark); 
+            box-shadow: 0px 30px 80px rgba(0,0,0,0.7); 
+            max-width: 90%;
+            
+            -webkit-transform: translateY(120px) scale(0.85); 
+            transform: translateY(120px) scale(0.85);
+            
+            -webkit-transition-property: -webkit-transform; 
+            transition-property: transform;
+            -webkit-transition-duration: 0.6s;
+            transition-duration: 0.6s;
+            -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .glass-modal-overlay.active .glass-modal-content {
+            -webkit-transform: translateY(0) scale(1); 
+            transform: translateY(0) scale(1);
+        }
+        
+        .modal-heading { 
+            font-family: var(--font-family-elegant); 
+            font-size: 5rem; 
+            color: var(--text-color-maroon); 
+            margin-bottom: 40px; 
+            transition: opacity 0.3s ease;
+        }
+        
+        /* Direct Next Button Styling */
+        .modal-btn-action {
+            background-color: var(--envelope-dark-color);
+            color: #ffffff;
+            border-width: 0;
+            padding-top: 18px;
+            padding-right: 50px;
+            padding-bottom: 18px;
+            padding-left: 50px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: var(--font-family-sans-serif);
+            font-weight: 800;
+            font-size: 1.5rem;
+            transform: scale(1.1);
+            box-shadow: 0px 10px 30px rgba(201, 24, 74, 0.5);
+            
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-btn-action:hover {
+            background-color: #a01038;
+            transform: scale(1.15);
         }
 
+        /* =========================================================================================
+           16. RESPONSIVE MEDIA QUERIES (TABLETS & MOBILE)
+           ========================================================================================= */
+        /* Table & Smaller Laptops */
+        @media (max-width: 1200px) {
+            .swing-row, .swing-row:nth-child(even) { 
+                -webkit-box-orient: vertical;
+                -ms-flex-direction: column;
+                flex-direction: column; 
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center; 
+                gap: 60px; 
+                margin-bottom: 200px; 
+            }
+            .photo-quote { 
+                max-width: 90%; 
+                margin-top: 30px; 
+                -webkit-transform: rotate(0) !important; 
+                transform: rotate(0) !important; 
+            }
+        }
+
+        /* Mobile Phones */
+        @media (max-width: 768px) {
+            .hero-section { 
+                -webkit-box-orient: vertical;
+                -ms-flex-direction: column;
+                flex-direction: column; 
+                text-align: center; 
+                margin-bottom: 60px; 
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center; 
+            }
+            .brand-logo { 
+                width: 70px; 
+                height: 70px; 
+                position: static; 
+                margin-bottom: 18px; 
+                font-size: 1.8rem; 
+            }
+            .header-content { 
+                -webkit-box-orient: vertical;
+                -ms-flex-direction: column;
+                flex-direction: column; 
+            }
+            .hanging-system { 
+                width: 90%; 
+            }
+            .envelope-container { 
+                margin-top: 50px; 
+            }
+            .main-title { 
+                font-size: 3.5rem; 
+            }
+            .modal-heading {
+                font-size: 3rem;
+            }
+        }
     </style>
 </head>
-<body>
 
-    <!-- ==========================================================================
-         CANVAS ENGINE: ATTRACTIVE FLYING HEARTS
-         ========================================================================== -->
-    <canvas id="flying-hearts-canvas"></canvas>
+<body class="intro-mode">
 
-    <!-- ==========================================================================
-         BACKGROUND DECORATIONS: SOFT-COLLAPSE IMAGES & FLOWERS
-         ========================================================================== -->
-    <div class="bg-decorations-container">
-        
-        <!-- MAIN CENTER IMAGE (Soft Blended) -->
-        <div class="bg-round-img bg-center-img melted-image-effect" style="background-image: url('../../logo.jpeg');"></div>
+    <!-- =========================================================================================
+         BACKGROUND CANVAS LAYER (PARTICLES)
+         ========================================================================================= -->
+    <canvas id="particle-canvas"></canvas>
+    
+    <!-- FOREGROUND CANVAS LAYER (ROSE EXPLOSION) -->
+    <canvas id="rose-canvas"></canvas>
 
-        <!-- FLOATING BACKGROUND IMAGES (Soft Blended) -->
-        <div class="bg-round-img float-img f-img-1 melted-image-effect" style="background-image: url('../../logo.jpeg');"></div>
-        <div class="bg-round-img float-img f-img-2 melted-image-effect" style="background-image: url('../../logo.jpeg');"></div>
-
-        <!-- Detailed Pink Rose -->
-        <svg class="flower-decor f-rose-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path d="M100,30 C80,0 20,40 40,80 C0,90 20,150 60,140 C70,190 130,190 140,140 C180,150 200,90 160,80 C180,40 120,0 100,30 Z" fill="#ffb3c6" stroke="#e6738c" stroke-width="3"/>
-            <path d="M100,60 C90,40 60,60 70,80 C50,80 60,110 80,100 C90,130 110,130 120,100 C140,110 150,80 130,80 C140,60 110,40 100,60 Z" fill="#ffccd5"/>
-            <path d="M100,80 C95,70 80,80 85,90 C75,90 80,105 90,100 C95,115 105,115 110,100 C120,105 125,90 115,90 C120,80 105,70 100,80 Z" fill="#ff99aa"/>
-        </svg>
-
-        <!-- Detailed Sakura Flower -->
-        <svg class="flower-decor f-sakura-1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path d="M100,20 C90,60 20,80 40,80 C40,80 80,100 100,140 C120,100 160,80 160,80 C160,80 110,60 100,20 Z" fill="#ff99aa" stroke="#d96677" stroke-width="4"/>
-            <path d="M100,20 C80,80 20,120 20,120 C20,120 70,130 100,160 C130,130 180,120 180,120 C180,120 120,80 100,20 Z" fill="#ffb3c6" opacity="0.8"/>
-            <circle cx="100" cy="130" r="10" fill="#ffea00"/>
-        </svg>
-
-    </div>
-
-    <!-- ==========================================================================
-         HEADER: LOGO (SCROLLING) & HANGING TILES FOR "FOR YOU"
-         ========================================================================== -->
-    <header class="header-container">
-        
-        <!-- Custom Logo with Melted Edge Effect (Scrolls with page) -->
-        <div class="scrolling-logo melted-image-effect" style="background-image: url('../../logo.jpeg');"></div>
-
-        <div class="header-bg-glow"></div>
-
-        <!-- Word 1: F O R -->
-        <div class="word-row w1">
-            <div class="hanging-letter-container">
-                <div class="letter-string"></div>
-                <div class="letter-knot"></div>
-                <span class="tile-letter">F</span>
-            </div>
-            <div class="hanging-letter-container">
-                <div class="letter-string"></div>
-                <div class="letter-knot"></div>
-                <span class="tile-letter">O</span>
-            </div>
-            <div class="hanging-letter-container">
-                <div class="letter-string"></div>
-                <div class="letter-knot"></div>
-                <span class="tile-letter">R</span>
-            </div>
+    <!-- =========================================================================================
+         HEADER COMPONENT
+         ========================================================================================= -->
+    <header class="site-header hide-on-intro reveal-element">
+        <div class="header-content">
+            <div class="brand-logo">YL</div>
+            <h1 class="main-title">Best Wishes For You Dear</h1>
         </div>
-        
-        <!-- Word 2: Y O U -->
-        <div class="word-row w2">
-            <div class="hanging-letter-container">
-                <div class="letter-string"></div>
-                <div class="letter-knot"></div>
-                <span class="tile-letter">Y</span>
-            </div>
-            <div class="hanging-letter-container">
-                <div class="letter-string"></div>
-                <div class="letter-knot"></div>
-                <span class="tile-letter">O</span>
-            </div>
-            <div class="hanging-letter-container">
-                <div class="letter-string"></div>
-                <div class="letter-knot"></div>
-                <span class="tile-letter">U</span>
-            </div>
+        <div class="marquee-wrapper">
+            <span class="marquee-content">
+                ✨ Best wishes ✨ Only for you ✨ May all your dreams come true ✨ Keep smiling ✨ Love & Blessings ✨ Memories last forever ✨
+            </span>
         </div>
     </header>
 
-    <!-- ==========================================================================
-         MAIN SCRAPBOOK BLOCKS
-         ========================================================================== -->
-    <main class="main-container">
+    <main>
+        <!-- =========================================================================================
+             HERO SECTION (LETTER WRITING COMPOSER & ENVELOPE)
+             ========================================================================================= -->
+        <section class="hero-section">
+            
+            <!-- Left Side: Poem / Text Composer -->
+            <div class="text-composer hide-on-intro reveal-element">
+                <span class="composer-heading">Heading:</span>
+                <p class="editable-poem" contenteditable="true" spellcheck="false">
+                    "Text which is touched Someone's heart...<br>
+                    for Boy, man, girls, women as well...<br>
+                    Bothy.." 🌸✨
+                </p>
+            </div>
 
-        <!-- CONNECTING STRING SVG -->
-        <div class="connecting-string-container">
-            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path class="main-thread" d="
-                    M 50,0 
-                    C 50,5 25,10 25,12.5 
-                    C 25,15 75,20 75,25 
-                    C 75,30 25,35 25,37.5 
-                    C 25,42 75,47 75,50
-                    C 75,55 25,60 25,62.5
-                    C 25,67 75,72 75,75
-                    C 75,80 25,85 25,87.5
-                    C 25,92 75,97 75,100
-                " vector-effect="non-scaling-stroke"/>
-            </svg>
-        </div>
+            <!-- Right Side: The Master Envelope -->
+            <div class="envelope-container" id="main-envelope">
+                
+                <div class="env-back"></div>
+                
+                <!-- THE LETTER (PC Scaled & Overlap Protected) -->
+                <div class="env-letter" id="auto-size-container">
+                    <div class="letter-to" contenteditable="true" spellcheck="false">To: [Receiver Name]</div>
+                    
+                    <div class="letter-body" id="auto-size-text" contenteditable="true" spellcheck="false">Write your heart-touching message here... 💖
+You can write up to 15 lines easily.
+Every line has a special feeling ✨
 
-        <svg style="display:none;">
+If you type too much text on one line,
+or write beyond the visible limit,
+the text will auto-magically shrink! 🌸
+
+Keep pouring your heart out.
+Memories last forever...
+
+Wishing you the happiest days ahead! ✨</div>
+                    
+                    <div class="letter-from" contenteditable="true" spellcheck="false">Yours, [Sender Name] ✍️</div>
+                </div>
+
+                <!-- Envelope Message Text Before Opening (Requested Feature) -->
+                <div class="env-message">
+                    "dear, ho skta hai ki aap esko open karo aur aap waise kuchh na pao jaisa aapne socha hai but esme include sabhi chezo ko feel kariye by perspective of creator"
+                </div>
+
+                <!-- Envelope Folds -->
+                <div class="env-front-wrapper">
+                    <div class="env-front-left"></div>
+                    <div class="env-front-right"></div>
+                    <div class="env-bottom-flap"></div>
+                </div>
+                
+                <div class="env-top-flap"></div>
+                
+                <!-- Glossy Red Emoji Heart Seal -->
+                <div class="emoji-heart-seal" id="btn-open-seal">
+                    <svg viewBox="0 0 100 100" class="emoji-heart-svg" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="emojiRed" cx="35%" cy="30%" r="65%">
+                                <stop offset="0%" stop-color="#ff4b4b"/>
+                                <stop offset="40%" stop-color="#f00000"/>
+                                <stop offset="100%" stop-color="#990000"/>
+                            </radialGradient>
+                        </defs>
+                        <path d="M50,88 C50,88 10,55 10,30 C10,12 28,5 40,10 C45,12 50,18 50,18 C50,18 55,12 60,10 C72,5 90,12 90,30 C90,55 50,88 50,88 Z" fill="url(#emojiRed)" />
+                        <path d="M22,25 C22,18 35,13 42,18 C35,15 25,18 25,25 C25,28 27,32 29,35 C25,32 22,29 22,25 Z" fill="rgba(255,255,255,0.6)" />
+                    </svg>
+                    <span class="seal-tap-text">TAP</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================================================
+             SCRAPBOOK SECTION (HANGING POLAROIDS & HYPER-REALISTIC 3D GREEN BRANCHES)
+             ========================================================================================= -->
+        <!-- SVG Definitions for Branches (Loaded once, reused infinitely) -->
+        <svg style="width:0; height:0; position:absolute;" aria-hidden="true" focusable="false">
             <defs>
-                <path id="sparkle-svg" d="M12 0 L14 9 L23 12 L14 15 L12 24 L10 15 L1 12 L10 9 Z" />
-                <g id="knot-svg">
-                    <path class="knot-path" d="M25,25 C5,10 0,30 15,30 C0,30 5,50 25,35 C15,55 35,60 35,40 C35,60 55,55 45,35 C65,45 60,30 40,30 C60,30 55,10 25,25 Z" />
-                    <circle cx="28" cy="32" r="6" fill="#000" />
+                <!-- Photorealistic 3D Wood Gradient -->
+                <linearGradient id="wood-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#3d2314" />
+                    <stop offset="30%" stop-color="#5c3622" />
+                    <stop offset="70%" stop-color="#4a2e1b" />
+                    <stop offset="100%" stop-color="#2a160b" />
+                </linearGradient>
+                
+                <!-- Detailed Two-Tone Leaf with Shadow -->
+                <g id="realistic-leaf">
+                    <path d="M0,0 C-40,-25 -50,-80 0,-110 C0,-110 0,0 0,0 Z" fill="#4d8412" filter="drop-shadow(3px 8px 5px rgba(0,0,0,0.3))"/>
+                    <path d="M0,0 C40,-25 50,-80 0,-110 C0,-110 0,0 0,0 Z" fill="#7cb324" />
+                    <!-- Leaf stem and vein -->
+                    <line x1="0" y1="0" x2="0" y2="-105" stroke="#274e06" stroke-width="3" stroke-linecap="round" />
+                    <path d="M0,-30 Q15,-40 25,-45 M0,-55 Q15,-65 20,-70 M0,-30 Q-15,-40 -25,-45" stroke="#4d8412" stroke-width="1.5" fill="none" />
+                </g>
+
+                <!-- Complex Leaf Cluster -->
+                <g id="leaf-cluster">
+                    <use href="#realistic-leaf" transform="rotate(15) scale(0.9)" />
+                    <use href="#realistic-leaf" transform="translate(-10, 15) rotate(-35) scale(0.8)" />
+                    <use href="#realistic-leaf" transform="translate(10, 10) rotate(45) scale(0.7)" />
                 </g>
             </defs>
         </svg>
 
-        <!-- BLOCK 1 -->
-        <div class="scrap-block blk-1">
-            <div class="frame-wrapper">
-                <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <div class="tape tape-red-stripe tape-tl"></div>
-                <div class="tape tape-pink-dots tape-br"></div>
-                
-                <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-1').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-1">Add photo</span>
-                    </div>
-                    <input type="file" id="file-1" class="upload-input" accept="image/*" onchange="previewImage(event, '1')">
-                </div>
-            </div>
+        <section class="scrapbook-area hide-on-intro reveal-element">
             
-            <div class="note-wrapper">
-                <div class="tape tape-pink-dots tape-tr"></div>
-                <div class="tape tape-red-stripe tape-bl"></div>
-                
-                <div class="paper-note">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        A little reminder:<br>the world is brighter because you're in it ♥
-                    </p>
-                    <div style="text-align: center;">
-                        <span class="highlight-text" contenteditable="true">Keep shining always!</span>
+            <!-- -------------------------------------------------------------------------------------
+                 Scrapbook Item 1
+                 ------------------------------------------------------------------------------------- -->
+            <div class="swing-row">
+                <div class="hanging-system">
+                    
+                    <!-- PERFECTLY ALIGNED 3D BRANCH (Spans horizontally directly behind the ropes) -->
+                    <div class="vector-branch-container">
+                        <svg class="realistic-branch-svg" viewBox="0 0 1200 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Main Wood Base spanning completely horizontally -->
+                            <path d="M -100,100 Q 300,120 600,95 T 1300,105" stroke="url(#wood-gradient)" stroke-width="50" fill="none" stroke-linecap="round" />
+                            
+                            <!-- Bark Highlight Details -->
+                            <path d="M -100,90 Q 300,110 600,85 T 1300,95" stroke="#7a4b31" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="100 40 60 30" opacity="0.6"/>
+                            <path d="M -100,110 Q 300,130 600,105 T 1300,115" stroke="#1c0f07" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="120 50 80 40" opacity="0.7"/>
+                            
+                            <!-- Branch Knots (Wood Bumps) -->
+                            <circle cx="350" cy="110" r="10" fill="#2a160b" />
+                            <circle cx="350" cy="110" r="14" stroke="#5c3622" stroke-width="3" fill="none" />
+                            
+                            <!-- Upward Shoot -->
+                            <path d="M 250,110 C 270,50 300,20 350,-10" stroke="url(#wood-gradient)" stroke-width="25" fill="none" stroke-linecap="round" />
+                            
+                            <!-- Leaf Placements -->
+                            <use href="#leaf-cluster" transform="translate(350,-10) scale(0.8)" />
+                            <use href="#leaf-cluster" transform="translate(180,100) rotate(-60) scale(0.7)" />
+                            <use href="#leaf-cluster" transform="translate(500,95) rotate(110) scale(0.9)" />
+                            <use href="#leaf-cluster" transform="translate(800,100) rotate(-30) scale(0.8)" />
+                            <use href="#leaf-cluster" transform="translate(1050,105) rotate(140) scale(0.9)" />
+                        </svg>
                     </div>
-                    <span class="note-doodle">♡</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- BLOCK 2 -->
-        <div class="scrap-block blk-2">
-            <div class="frame-wrapper">
-                <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <div class="tape tape-pink-dots tape-tr"></div>
-                <div class="tape tape-red-stripe tape-bl"></div>
-                
-                <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-2').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-2">Add photo</span>
+                    <!-- Hanging Logic (Ropes directly adjoined to branch, margin-top removed) -->
+                    <div class="pendulum">
+                        <div class="rope-container">
+                            <div class="rope"></div>
+                            <div class="rope"></div>
+                        </div>
+                        <div class="photo-frame">
+                            <div class="image-dropzone" onclick="document.getElementById('img-1').click()">
+                                <span class="upload-hint" id="hint-1">Photo 1</span>
+                            </div>
+                            <input type="file" id="img-1" class="file-input" accept="image/*" onchange="handleImage(event, '1')">
+                        </div>
                     </div>
-                    <input type="file" id="file-2" class="upload-input" accept="image/*" onchange="previewImage(event, '2')">
+                </div>
+                <div class="photo-quote" contenteditable="true" spellcheck="false">
+                    "Every picture has their own mean such as Calm, Straight, and other as well." ✨
                 </div>
             </div>
-            
-            <div class="note-wrapper">
-                <div class="tape tape-red-stripe tape-tl"></div>
-                <div class="tape tape-pink-dots tape-br"></div>
-                
-                <div class="paper-note color-beige">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        Thankful for you<br>every single day.
-                    </p>
-                    <span class="note-doodle">♥</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- BLOCK 3 -->
-        <div class="scrap-block blk-3">
-            <div class="frame-wrapper">
-                <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <div class="tape tape-red-stripe tape-tl"></div>
-                <div class="tape tape-pink-dots tape-br"></div>
-                
-                <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-3').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-3">Add photo</span>
+            <!-- -------------------------------------------------------------------------------------
+                 Scrapbook Item 2 (Right Aligned - Flipped mathematically)
+                 ------------------------------------------------------------------------------------- -->
+            <div class="swing-row">
+                <div class="hanging-system">
+                    
+                    <div class="vector-branch-container">
+                        <!-- Identical Branch perfectly flipped for the opposite side -->
+                        <svg class="realistic-branch-svg" viewBox="0 0 1200 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M -100,100 Q 300,120 600,95 T 1300,105" stroke="url(#wood-gradient)" stroke-width="50" fill="none" stroke-linecap="round" />
+                            <path d="M -100,90 Q 300,110 600,85 T 1300,95" stroke="#7a4b31" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="100 40 60 30" opacity="0.6"/>
+                            <path d="M -100,110 Q 300,130 600,105 T 1300,115" stroke="#1c0f07" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="120 50 80 40" opacity="0.7"/>
+                            <circle cx="350" cy="110" r="10" fill="#2a160b" />
+                            <circle cx="350" cy="110" r="14" stroke="#5c3622" stroke-width="3" fill="none" />
+                            <path d="M 250,110 C 270,50 300,20 350,-10" stroke="url(#wood-gradient)" stroke-width="25" fill="none" stroke-linecap="round" />
+                            <use href="#leaf-cluster" transform="translate(350,-10) scale(0.8)" />
+                            <use href="#leaf-cluster" transform="translate(180,100) rotate(-60) scale(0.7)" />
+                            <use href="#leaf-cluster" transform="translate(500,95) rotate(110) scale(0.9)" />
+                            <use href="#leaf-cluster" transform="translate(800,100) rotate(-30) scale(0.8)" />
+                            <use href="#leaf-cluster" transform="translate(1050,105) rotate(140) scale(0.9)" />
+                        </svg>
                     </div>
-                    <input type="file" id="file-3" class="upload-input" accept="image/*" onchange="previewImage(event, '3')">
-                </div>
-            </div>
-            
-            <div class="note-wrapper">
-                <div class="tape tape-pink-dots tape-tr"></div>
-                <div class="tape tape-red-stripe tape-bl"></div>
-                
-                <div class="paper-note color-blue">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        Good vibes only.<br>Making memories with you is my favorite thing to do!
-                    </p>
-                </div>
-            </div>
-        </div>
 
-        <!-- BLOCK 4 -->
-        <div class="scrap-block blk-4">
-            <div class="frame-wrapper">
-                <svg class="decor-knot pos-top-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <div class="tape tape-pink-dots tape-tr"></div>
-                <div class="tape tape-red-stripe tape-bl"></div>
-                
-                <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-4').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-4">Add photo</span>
+                    <div class="pendulum">
+                        <div class="rope-container">
+                            <div class="rope"></div>
+                            <div class="rope"></div>
+                        </div>
+                        <div class="photo-frame">
+                            <div class="image-dropzone" onclick="document.getElementById('img-2').click()">
+                                <span class="upload-hint" id="hint-2">Photo 2</span>
+                            </div>
+                            <input type="file" id="img-2" class="file-input" accept="image/*" onchange="handleImage(event, '2')">
+                        </div>
                     </div>
-                    <input type="file" id="file-4" class="upload-input" accept="image/*" onchange="previewImage(event, '4')">
+                </div>
+                <div class="photo-quote" contenteditable="true" spellcheck="false">
+                    "Happy Birthday & Blessing then for their future... 🌸"
                 </div>
             </div>
             
-            <div class="note-wrapper">
-                <div class="tape tape-red-stripe tape-tl"></div>
-                <div class="tape tape-pink-dots tape-br"></div>
-                
-                <div class="paper-note">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        To the one who makes<br>my heart smile.
-                    </p>
-                    <div style="text-align: center;">
-                        <span class="highlight-text" contenteditable="true">So much love!</span>
+            <!-- -------------------------------------------------------------------------------------
+                 Scrapbook Item 3
+                 ------------------------------------------------------------------------------------- -->
+            <div class="swing-row">
+                <div class="hanging-system">
+                    <div class="vector-branch-container">
+                        <svg class="realistic-branch-svg" viewBox="0 0 1200 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M -100,100 Q 300,120 600,95 T 1300,105" stroke="url(#wood-gradient)" stroke-width="50" fill="none" stroke-linecap="round" />
+                            <path d="M -100,90 Q 300,110 600,85 T 1300,95" stroke="#7a4b31" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="100 40 60 30" opacity="0.6"/>
+                            <path d="M -100,110 Q 300,130 600,105 T 1300,115" stroke="#1c0f07" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="120 50 80 40" opacity="0.7"/>
+                            <circle cx="350" cy="110" r="10" fill="#2a160b" />
+                            <circle cx="350" cy="110" r="14" stroke="#5c3622" stroke-width="3" fill="none" />
+                            <path d="M 250,110 C 270,50 300,20 350,-10" stroke="url(#wood-gradient)" stroke-width="25" fill="none" stroke-linecap="round" />
+                            <use href="#leaf-cluster" transform="translate(350,-10) scale(0.8)" />
+                            <use href="#leaf-cluster" transform="translate(180,100) rotate(-60) scale(0.7)" />
+                            <use href="#leaf-cluster" transform="translate(500,95) rotate(110) scale(0.9)" />
+                            <use href="#leaf-cluster" transform="translate(800,100) rotate(-30) scale(0.8)" />
+                            <use href="#leaf-cluster" transform="translate(1050,105) rotate(140) scale(0.9)" />
+                        </svg>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- BLOCK 5 -->
-        <div class="scrap-block blk-5">
-            <div class="frame-wrapper">
-                <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <div class="tape tape-red-stripe tape-tl"></div>
-                <div class="tape tape-pink-dots tape-br"></div>
-                
-                <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-5').click()">
-                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-5">Add photo</span>
+                    <div class="pendulum">
+                        <div class="rope-container">
+                            <div class="rope"></div>
+                            <div class="rope"></div>
+                        </div>
+                        <div class="photo-frame">
+                            <div class="image-dropzone" onclick="document.getElementById('img-3').click()">
+                                <span class="upload-hint" id="hint-3">Photo 3</span>
+                            </div>
+                            <input type="file" id="img-3" class="file-input" accept="image/*" onchange="handleImage(event, '3')">
+                        </div>
                     </div>
-                    <input type="file" id="file-5" class="upload-input" accept="image/*" onchange="previewImage(event, '5')">
+                </div>
+                <div class="photo-quote" contenteditable="true" spellcheck="false">
+                    "Some memories are tied with invisible threads to our hearts... 💖"
                 </div>
             </div>
-            
-            <div class="note-wrapper">
-                <div class="tape tape-pink-dots tape-tr"></div>
-                <div class="tape tape-red-stripe tape-bl"></div>
-                
-                <div class="paper-note color-beige">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        Here's to another year of us being absolutely awesome together!
-                    </p>
-                    <span class="note-doodle">♡</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- BLOCK 6 -->
-        <div class="scrap-block blk-6">
-            <div class="frame-wrapper">
-                <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <div class="tape tape-pink-dots tape-tr"></div>
-                <div class="tape tape-red-stripe tape-bl"></div>
-                
-                <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-6').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-6">Add photo</span>
+            <!-- -------------------------------------------------------------------------------------
+                 Scrapbook Item 4
+                 ------------------------------------------------------------------------------------- -->
+            <div class="swing-row">
+                <div class="hanging-system">
+                    <div class="vector-branch-container">
+                        <svg class="realistic-branch-svg" viewBox="0 0 1200 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M -100,100 Q 300,120 600,95 T 1300,105" stroke="url(#wood-gradient)" stroke-width="50" fill="none" stroke-linecap="round" />
+                            <path d="M -100,90 Q 300,110 600,85 T 1300,95" stroke="#7a4b31" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="100 40 60 30" opacity="0.6"/>
+                            <path d="M -100,110 Q 300,130 600,105 T 1300,115" stroke="#1c0f07" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="120 50 80 40" opacity="0.7"/>
+                            <circle cx="350" cy="110" r="10" fill="#2a160b" />
+                            <circle cx="350" cy="110" r="14" stroke="#5c3622" stroke-width="3" fill="none" />
+                            <path d="M 250,110 C 270,50 300,20 350,-10" stroke="url(#wood-gradient)" stroke-width="25" fill="none" stroke-linecap="round" />
+                            <use href="#leaf-cluster" transform="translate(350,-10) scale(0.8)" />
+                            <use href="#leaf-cluster" transform="translate(180,100) rotate(-60) scale(0.7)" />
+                            <use href="#leaf-cluster" transform="translate(500,95) rotate(110) scale(0.9)" />
+                            <use href="#leaf-cluster" transform="translate(800,100) rotate(-30) scale(0.8)" />
+                            <use href="#leaf-cluster" transform="translate(1050,105) rotate(140) scale(0.9)" />
+                        </svg>
                     </div>
-                    <input type="file" id="file-6" class="upload-input" accept="image/*" onchange="previewImage(event, '6')">
-                </div>
-            </div>
-            
-            <div class="note-wrapper">
-                <div class="tape tape-red-stripe tape-tl"></div>
-                <div class="tape tape-pink-dots tape-br"></div>
-                
-                <div class="paper-note color-blue">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        We don't remember days,<br>we remember moments.
-                    </p>
-                </div>
-            </div>
-        </div>
 
-        <!-- BLOCK 7 -->
-        <div class="scrap-block blk-7">
-            <div class="frame-wrapper">
-                <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <div class="tape tape-red-stripe tape-tl"></div>
-                <div class="tape tape-pink-dots tape-br"></div>
-                
-                <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-7').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-7">Add photo</span>
-                    </div>
-                    <input type="file" id="file-7" class="upload-input" accept="image/*" onchange="previewImage(event, '7')">
-                </div>
-            </div>
-            
-            <div class="note-wrapper">
-                <div class="tape tape-pink-dots tape-tr"></div>
-                <div class="tape tape-red-stripe tape-bl"></div>
-                
-                <div class="paper-note">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        You are my today<br>and all of my tomorrows.
-                    </p>
-                    <div style="text-align: center;">
-                        <span class="highlight-text" contenteditable="true">Forever & Always</span>
+                    <div class="pendulum">
+                        <div class="rope-container">
+                            <div class="rope"></div>
+                            <div class="rope"></div>
+                        </div>
+                        <div class="photo-frame">
+                            <div class="image-dropzone" onclick="document.getElementById('img-4').click()">
+                                <span class="upload-hint" id="hint-4">Photo 4</span>
+                            </div>
+                            <input type="file" id="img-4" class="file-input" accept="image/*" onchange="handleImage(event, '4')">
+                        </div>
                     </div>
                 </div>
+                <div class="photo-quote" contenteditable="true" spellcheck="false">
+                    "Smile widely, live loudly, love deeply. These moments are yours." ✨
+                </div>
             </div>
-        </div>
 
-        <!-- BLOCK 8 -->
-        <div class="scrap-block blk-8">
-            <div class="frame-wrapper">
-                <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <div class="tape tape-pink-dots tape-tr"></div>
-                <div class="tape tape-red-stripe tape-bl"></div>
-                
-                <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-8').click()">
-                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-8">Add photo</span>
-                    </div>
-                    <input type="file" id="file-8" class="upload-input" accept="image/*" onchange="previewImage(event, '8')">
-                </div>
-            </div>
-            
-            <div class="note-wrapper">
-                <div class="tape tape-red-stripe tape-tl"></div>
-                <div class="tape tape-pink-dots tape-br"></div>
-                
-                <div class="paper-note color-beige">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        Wishing you the happiest of days. May all your dreams come true! 🎉
-                    </p>
-                    <span class="note-doodle">♥</span>
-                </div>
-            </div>
+        </section>
+
+        <!-- =========================================================================================
+             CALL TO ACTION BUTTON
+             ========================================================================================= -->
+        <div class="footer-action hide-on-intro reveal-element">
+            <button class="btn-premium" id="btn-trigger-modal">Explore Next Chapter</button>
         </div>
 
     </main>
 
-    <!-- ==========================================================================
-         PREMIUM FOOTER (MINIMAL 2 LINES)
-         ========================================================================== -->
-    <footer class="minimal-footer">
-        <h2 class="footer-logo">Yaadon Ka Lifafa</h2>
-        <div class="footer-credit">
-            &copy; 2026 Yaadon Ka Lifafa. Created by Pritam Vishwakarma.
-        </div>
+    <!-- =========================================================================================
+         FOOTER
+         ========================================================================================= -->
+    <footer class="site-footer hide-on-intro reveal-element">
+        Yaadon Ka Lifafa || Only For You
+        <span class="footer-credits">© All rights reserved, Created by Pritam Vishwakarma</span>
     </footer>
 
-    <!-- ==========================================================================
-         JAVASCRIPT: IMAGE PREVIEW LOGIC & FLYING HEARTS ENGINE
-         ========================================================================== -->
+    <!-- =========================================================================================
+         GLASSMORPHISM MODAL OVERLAY (DIRECT ACTION MODAL)
+         ========================================================================================= -->
+    <div class="glass-modal-overlay" id="custom-modal">
+        <div class="glass-modal-content">
+            <h2 class="modal-heading" id="modal-dynamic-text">Memories Verified ✨<br><span style="font-size:2.5rem; color:#800020;">Ready for the next chapter?</span></h2>
+            <button class="modal-btn-action" id="btn-smart-action">Next Page ➔</button>
+        </div>
+    </div>
+
+    <!-- =========================================================================================
+         JAVASCRIPT ENGINE (FULLY EXPANDED WITH JSDOCS & DIRECT NAVIGATION LOGIC)
+         ========================================================================================= -->
     <script>
-        function previewImage(event, id) {
-            const input = event.target;
-            const file = input.files[0];
+        /**
+         * 1. ENVELOPE INTERACTION LOGIC
+         * Handles the opening animation of the envelope flaps and letter.
+         * Also controls the transition out of the 'intro-mode' state.
+         */
+        const envelopeComponent = document.getElementById('main-envelope');
+        const sealButton = document.getElementById('btn-open-seal');
+
+        sealButton.addEventListener('click', function() {
+            // Add class to trigger CSS animations for flaps and letter pop-out
+            envelopeComponent.classList.add('is-open');
             
-            if (file) {
-                const reader = new FileReader();
+            // Trigger particle explosion (Rose petals from seal)
+            fireRoseCannon();
+
+            // Wait for envelope animation to settle on top before showing rest of page content
+            setTimeout(function() {
+                // Removes the lock so users can scroll and see the rest of the site
+                document.body.classList.remove('intro-mode');
                 
-                reader.onload = function(e) {
-                    const placeholder = input.parentElement.querySelector('.photo-area');
+                // Initialize text auto-resizing once elements are visible in DOM
+                setTimeout(function() {
+                    autoSizeLetterText();
+                }, 100);
+            }, 1800);
+        });
+
+        /**
+         * 2. AUTO-RESIZING TEXT ALGORITHM
+         * Dynamically shrinks the font size of the letter body if the user types 
+         * beyond the container bounds. Protects the layout from breaking.
+         */
+        const textBody = document.getElementById('auto-size-text');
+        
+        function autoSizeLetterText() {
+            // Reset to default scaled size to calculate proper shrinkage (Increased to 2.2rem)
+            textBody.style.fontSize = '2.2rem'; 
+            let currentSizeInPx = 2.2 * 16; 
+            
+            // Loop while content overflows AND font is larger than readable minimum (18px)
+            while (
+                (textBody.scrollHeight > textBody.clientHeight || 
+                 textBody.scrollWidth > textBody.clientWidth) && 
+                currentSizeInPx > 18 
+            ) {
+                currentSizeInPx -= 0.5;
+                textBody.style.fontSize = currentSizeInPx + 'px';
+            }
+        }
+        
+        // Attach event listeners to monitor input and window changes
+        textBody.addEventListener('input', autoSizeLetterText);
+        window.addEventListener('resize', autoSizeLetterText);
+
+        /**
+         * 3. IMAGE UPLOAD HANDLING
+         * Reads the local file uploaded via the hidden file input and sets it 
+         * as the background of the corresponding photo frame div.
+         * 
+         * @param {Event} event - The file input change event.
+         * @param {string} idString - The unique ID suffix of the photo frame.
+         */
+        function handleImage(event, idString) {
+            const uploadedFile = event.target.files[0];
+            
+            if (uploadedFile) {
+                const fileReader = new FileReader();
+                
+                fileReader.onload = function(e) {
+                    // Find the parent dropzone area to apply the image
+                    const dropzoneElement = event.target.parentElement.querySelector('.image-dropzone');
                     
-                    placeholder.style.backgroundImage = `url(${e.target.result})`;
-                    placeholder.style.backgroundSize = 'cover';
-                    placeholder.style.backgroundPosition = 'center';
-                    placeholder.style.backgroundRepeat = 'no-repeat';
+                    // Set the background image to the loaded Data URL
+                    dropzoneElement.style.backgroundImage = 'url(' + e.target.result + ')';
                     
-                    const textElement = document.getElementById('txt-' + id);
-                    if(textElement) textElement.style.opacity = '0';
-                    
-                    const sparkles = placeholder.querySelectorAll('.frame-sparkle');
-                    sparkles.forEach(sparkle => sparkle.style.opacity = '0');
+                    // Hide the placeholder text (e.g., "Photo 1")
+                    const hintElement = document.getElementById('hint-' + idString);
+                    if(hintElement) { 
+                        hintElement.style.display = 'none'; 
+                    }
                 };
                 
-                reader.readAsDataURL(file);
+                // Read the file as a data URL to render in browser
+                fileReader.readAsDataURL(uploadedFile);
             }
         }
 
-        const canvas = document.getElementById('flying-hearts-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let flyingHearts = [];
+        /**
+         * 4. DIRECT ACTION NAVIGATION MODAL
+         * As requested: Removes the "Close" state entirely. Tapping the footer button immediately
+         * opens the "Ready for the next chapter" popup with the "Next Page" button.
+         */
+        const btnTrigger = document.getElementById('btn-trigger-modal');
+        const btnSmartAction = document.getElementById('btn-smart-action');
+        const modalOverlay = document.getElementById('custom-modal');
+
+        // Tap 1: Opens the modal overlay showing the "Next Page" button directly
+        btnTrigger.addEventListener('click', function() { 
+            modalOverlay.classList.add('active'); 
+        });
         
+        // Tap 2: Fades out the entire screen smoothly and navigates directly to the next page
+        btnSmartAction.addEventListener('click', function() { 
+            // Final Navigation Phase (Fade Out Page & Redirect)
+            document.body.style.opacity = 0; // Triggers smooth CSS transition on body
+            
+            setTimeout(() => {
+                // Redirects after 1 second of fading out
+                window.location.href = "next.html"; 
+            }, 1000);
+        });
+
+        /**
+         * 5. ENHANCED BACKGROUND HEARTS PARTICLE ENGINE (3D PARALLAX EFFECT)
+         * Uses HTML5 Canvas to create floating, glowing SVG hearts in the background.
+         * Hearts range drastically in size to create depth.
+         */
+        const particleCanvas = document.getElementById('particle-canvas');
+        const pContext = particleCanvas.getContext('2d');
+        let canvasWidth, canvasHeight;
+        let heartArray = [];
+        
+        // Beautiful romantic color palette for the hearts
         const heartColors = [
-            'rgba(255, 105, 180, 0.7)',
-            'rgba(255, 182, 193, 0.8)',
-            'rgba(220, 20, 60, 0.6)',
-            'rgba(255, 192, 203, 0.7)'
+            'rgba(255, 77, 109, 0.45)', 
+            'rgba(201, 24, 74, 0.35)', 
+            'rgba(255, 143, 163, 0.55)'
         ];
 
-        function resizeCanvas() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
+        function resizeParticleCanvas() { 
+            canvasWidth = window.innerWidth; 
+            canvasHeight = window.innerHeight; 
+            pContext.canvas.width = canvasWidth; 
+            pContext.canvas.height = canvasHeight; 
         }
+        
+        // Initialize canvas size and bind resize event
+        window.addEventListener('resize', resizeParticleCanvas); 
+        resizeParticleCanvas();
 
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class BeautifulHeart {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = height + Math.random() * 500;
-                this.size = Math.random() * 20 + 10;
-                this.speedY = Math.random() * 2.5 + 1;
-                this.wobbleAngle = Math.random() * Math.PI * 2;
-                this.wobbleSpeed = Math.random() * 0.03 + 0.01;
-                this.wobbleDistance = Math.random() * 3 + 1;
-                this.color = heartColors[Math.floor(Math.random() * heartColors.length)];
-                this.opacity = Math.random() * 0.6 + 0.2;
-                this.pulseAngle = Math.random() * Math.PI * 2;
-                this.pulseSpeed = Math.random() * 0.05 + 0.01;
+        class BackgroundHeart {
+            constructor() { 
+                this.resetProperties(true); 
             }
-
-            update() {
-                this.y -= this.speedY;
-                this.wobbleAngle += this.wobbleSpeed;
-                this.x += Math.sin(this.wobbleAngle) * this.wobbleDistance;
-                this.pulseAngle += this.pulseSpeed;
-                this.currentOpacity = this.opacity + Math.sin(this.pulseAngle) * 0.3;
-
-                if (this.y < -50) {
-                    this.y = height + 50;
-                    this.x = Math.random() * width;
-                    this.size = Math.random() * 20 + 10;
+            
+            /**
+             * Resets the heart's position and properties to create Parallax depth.
+             * @param {boolean} isRandomY - If true, spawns randomly on screen.
+             */
+            resetProperties(isRandomY) {
+                this.xPos = Math.random() * canvasWidth; 
+                this.yPos = isRandomY ? Math.random() * canvasHeight : canvasHeight + 50;
+                
+                // CRITICAL: Huge variance in size (from 5px to 35px) for 3D depth effect
+                this.heartSize = Math.random() * 30 + 5; 
+                
+                // Parallax Speed Logic: Larger hearts (closer) move much faster than small ones (further)
+                this.floatSpeed = (this.heartSize / 10) * (Math.random() * 0.5 + 0.3); 
+                
+                this.swingMagnitude = Math.random() * 3 + 1; 
+                this.swingAngle = Math.random() * Math.PI * 2;
+                this.heartColor = heartColors[Math.floor(Math.random() * heartColors.length)];
+            }
+            
+            updatePosition() {
+                // Move upward
+                this.yPos -= this.floatSpeed; 
+                
+                // Swing left and right gracefully
+                this.swingAngle += 0.02; 
+                this.xPos += Math.sin(this.swingAngle) * this.swingMagnitude;
+                
+                // Recycle heart if it floats entirely off the top of the screen
+                if (this.yPos < -50) { 
+                    this.resetProperties(false); 
                 }
             }
-
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                const scale = this.size / 50; 
-                ctx.scale(scale, scale);
-                ctx.globalAlpha = Math.max(0, Math.min(1, this.currentOpacity));
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 20;
-                ctx.shadowColor = this.color;
-
-                ctx.beginPath();
-                ctx.moveTo(0, 15);
-                ctx.bezierCurveTo(0, 15, -20, -5, -20, -15);
-                ctx.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
-                ctx.bezierCurveTo(7.5, -30, 20, -25, 20, -15);
-                ctx.bezierCurveTo(20, -5, 0, 15, 0, 15);
-                ctx.fill();
+            
+            drawHeart() {
+                pContext.save(); 
+                pContext.translate(this.xPos, this.yPos); 
+                pContext.scale(this.heartSize / 50, this.heartSize / 50);
                 
-                ctx.restore();
+                // Apply glowing shadow effect to larger hearts to enhance depth
+                if (this.heartSize > 15) {
+                    pContext.shadowBlur = 15; 
+                    pContext.shadowColor = this.heartColor; 
+                }
+                
+                pContext.fillStyle = this.heartColor; 
+                
+                // Draw the SVG Heart Path onto the Canvas
+                pContext.beginPath(); 
+                pContext.moveTo(0, 15);
+                pContext.bezierCurveTo(0, 15, -20, -5, -20, -15); 
+                pContext.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
+                pContext.bezierCurveTo(7.5, -30, 20, -25, 20, -15); 
+                pContext.bezierCurveTo(20, -5, 0, 15, 0, 15);
+                pContext.fill(); 
+                
+                pContext.restore();
             }
         }
-
-        function initHearts() {
-            flyingHearts = [];
-            const isMobile = width < 768;
-            const totalHearts = isMobile ? 35 : 70;
-
-            for (let i = 0; i < totalHearts; i++) {
-                flyingHearts.push(new BeautifulHeart());
-            }
-        }
-
-        function animateHearts() {
-            ctx.clearRect(0, 0, width, height);
-            for (let i = 0; i < flyingHearts.length; i++) {
-                flyingHearts[i].update();
-                flyingHearts[i].draw();
-            }
-            requestAnimationFrame(animateHearts);
-        }
-
-        initHearts();
-        animateHearts();
         
-        console.log("Yaadon Ka Lifafa - FOR YOU Scrapbook loaded successfully!");
-    </script>
+        /**
+         * Initializes the heart particle system based on screen width.
+         */
+        function initHearts() {
+            heartArray = [];
+            // Desktop gets 80 hearts, mobile gets 40
+            let quantity = canvasWidth < 768 ? 40 : 80; 
+            
+            for(let idx = 0; idx < quantity; idx++) { 
+                heartArray.push(new BackgroundHeart()); 
+            }
+        }
+        
+        initHearts();
+        
+        // Re-initialize if array empties out during resize anomalies
+        window.addEventListener('resize', function() { 
+            if(heartArray.length === 0) initHearts(); 
+        });
+        
+        /**
+         * The main animation loop for the background canvas.
+         */
+        function animateBackgroundHearts() { 
+            pContext.clearRect(0, 0, canvasWidth, canvasHeight); 
+            
+            heartArray.forEach(function(heartObj) { 
+                heartObj.updatePosition(); 
+                heartObj.drawHeart(); 
+            }); 
+            
+            requestAnimationFrame(animateBackgroundHearts); 
+        }
+        animateBackgroundHearts();
 
+        /**
+         * 6. ROSE PETAL CANNON PHYSICS ENGINE
+         * Fires an explosion of rose petals from the exact coordinates of the envelope seal.
+         */
+        const roseCanvas = document.getElementById('rose-canvas');
+        const rContext = roseCanvas.getContext('2d');
+        let rCanvasWidth, rCanvasHeight;
+        let rosePetalArray = [];
+        let isCannonFiring = false;
+        
+        function resizeRoseCanvas() { 
+            rCanvasWidth = window.innerWidth; 
+            rCanvasHeight = window.innerHeight; 
+            rContext.canvas.width = rCanvasWidth; 
+            rContext.canvas.height = rCanvasHeight; 
+        }
+        
+        window.addEventListener('resize', resizeRoseCanvas); 
+        resizeRoseCanvas();
+
+        class ExplodingRosePetal {
+            /**
+             * @param {number} startX - The X coordinate of the seal.
+             * @param {number} startY - The Y coordinate of the seal.
+             */
+            constructor(startX, startY) {
+                this.x = startX; 
+                this.y = startY;
+                
+                // Calculate random outward explosion vectors
+                const explosionAngle = Math.random() * Math.PI * 2;
+                const explosionVelocity = Math.random() * 15 + 5; 
+                
+                this.vx = Math.cos(explosionAngle) * explosionVelocity; 
+                this.vy = Math.sin(explosionAngle) * explosionVelocity - 12; // Bias upwards
+                
+                this.rotation = Math.random() * 360; 
+                this.opacity = 1; 
+                this.lifespan = 90; // Frames to live
+            }
+            
+            update() {
+                // Apply Friction (slow down over time)
+                this.vx *= 0.95; 
+                this.vy *= 0.95; 
+                
+                // Apply Gravity (pull downwards)
+                this.vy += 0.5; 
+                
+                // Update position and rotation
+                this.x += this.vx; 
+                this.y += this.vy; 
+                this.rotation += 5; 
+                
+                this.lifespan--;
+                
+                // Fade out smoothly during the last 20 frames
+                if(this.lifespan < 20) { 
+                    this.opacity -= 0.05; 
+                }
+            }
+            
+            draw() {
+                if(this.opacity <= 0) return;
+                
+                rContext.save(); 
+                rContext.translate(this.x, this.y); 
+                rContext.rotate(this.rotation * Math.PI/180);
+                rContext.globalAlpha = this.opacity; 
+                
+                // Petal Color
+                rContext.fillStyle = '#ff1a4a';
+                
+                // Draw Petal Shape
+                rContext.beginPath(); 
+                rContext.moveTo(0,0); 
+                rContext.quadraticCurveTo(-10, -10, 0, -20); 
+                rContext.quadraticCurveTo(10, -10, 0, 0); 
+                rContext.fill();
+                
+                rContext.restore();
+            }
+        }
+        
+        /**
+         * Triggers the Rose explosion. Calculates bounds and instantiates particles.
+         */
+        function fireRoseCannon() {
+            // Get coordinates of the envelope to fire from the center
+            const envRect = envelopeComponent.getBoundingClientRect();
+            const centerX = envRect.left + (envRect.width / 2); 
+            const centerY = envRect.top + (envRect.height / 2);
+            
+            rosePetalArray = [];
+            
+            // Generate 70 particles
+            for (let i = 0; i < 70; i++) { 
+                rosePetalArray.push(new ExplodingRosePetal(centerX, centerY)); 
+            }
+            
+            if(!isCannonFiring) { 
+                isCannonFiring = true; 
+                animateRoseCannon(); 
+            }
+        }
+        
+        /**
+         * Animation loop specifically for the rose explosion. 
+         * Stops rendering when all particles are dead to save CPU.
+         */
+        function animateRoseCannon() {
+            rContext.clearRect(0, 0, rCanvasWidth, rCanvasHeight);
+            let aliveParticles = 0; 
+            
+            rosePetalArray.forEach(function(petal) { 
+                petal.update(); 
+                petal.draw(); 
+                
+                // Count how many are still visible
+                if(petal.opacity > 0) { 
+                    aliveParticles++; 
+                } 
+            });
+            
+            // Continue looping if particles exist, else cleanly stop
+            if(aliveParticles > 0) { 
+                requestAnimationFrame(animateRoseCannon); 
+            } else { 
+                isCannonFiring = false; 
+            }
+        }
+    </script>
 </body>
 </html>
