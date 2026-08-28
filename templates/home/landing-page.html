@@ -1,2073 +1,1227 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Extremely Critical for Flawless Mobile, Tablet, and Desktop Responsiveness -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>Yaadon Ka Lifafa | Safe, Secure & Romantic Digital Memories</title>
-    <meta name="description" content="A premium romantic platform to save, share, and cherish your most beautiful memories. Create your digital envelope today.">
-    <meta name="author" content="Pritam Vishwakarma">
-
-    <!-- Premium Google Fonts Loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- 
-      Fonts Used:
-      1. Dancing Script: For cursive, romantic, flowing headers and signatures.
-      2. Playfair Display: For elegant, professional, serif sub-headers.
-      3. Montserrat: For ultra-clean, readable, user-friendly body text and UI elements.
-    -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-
-    <style>
-        /* ==========================================================================
-           1. ROOT VARIABLES (THE HEART OF DYNAMIC THEMING - NO PURE WHITE)
-           ========================================================================== */
-        :root {
-            /* Core Color Palette (Deep Romantic Red & Glowing Pink) */
-            --color-background-deep: #140207;
-            --color-background-gradient-start: #2e0513;
-            --color-background-gradient-end: #140207;
-            
-            --color-primary-red: #e6004c;
-            --color-primary-red-glow: #ff1a66;
-            --color-primary-red-dark: #80002a;
-            
-            --color-secondary-pink: #ff80a6;
-            --color-secondary-pink-light: #ffccd9;
-            --color-secondary-pink-glow: #ff4d88;
-            
-            --color-accent-gold: #ffd700;
-            --color-accent-gold-light: #ffeb80;
-            --color-accent-gold-dark: #b39700;
-            
-            /* Text Colors for User Friendliness (NO PURE WHITE ALLOWED) */
-            --color-text-main: #ffebf0; /* Off-white / very light pink instead of white */
-            --color-text-muted: #ffccd9;
-            --color-text-dark: #330011;
-            --color-text-paragraph: #ffe6ee;
-            
-            /* UI Backgrounds */
-            --color-card-bg-glass: rgba(255, 235, 240, 0.05); /* Tinted glass instead of white */
-            --color-nav-bg-glass: rgba(20, 2, 7, 0.85);
-            --color-footer-bg: #0a0103;
-            --color-footer-border: #4d0a1f;
-            
-            /* Showcase Envelope Paper Colors (Warm Vintage Rose Gold) */
-            --color-paper-light: #fff0f5;
-            --color-paper-dark: #ffccd9;
-
-            /* Typography Stacks */
-            --font-cursive: 'Dancing Script', cursive;
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Montserrat', sans-serif;
-
-            /* Base Spacing Engine */
-            --spacing-1: 4px;
-            --spacing-2: 8px;
-            --spacing-3: 12px;
-            --spacing-4: 16px;
-            --spacing-5: 24px;
-            --spacing-6: 32px;
-            --spacing-7: 48px;
-            --spacing-8: 64px;
-            --spacing-9: 96px;
-            --spacing-10: 128px;
-            
-            /* Fluid Typography Engine (Auto scales perfectly on all screens) */
-            --text-xs: clamp(0.75rem, 1vw, 0.875rem);
-            --text-sm: clamp(0.875rem, 1.2vw, 1rem);
-            --text-base: clamp(1rem, 1.5vw, 1.125rem);
-            --text-lg: clamp(1.125rem, 2vw, 1.25rem);
-            --text-xl: clamp(1.25rem, 2.5vw, 1.5rem);
-            --text-2xl: clamp(1.5rem, 3vw, 2rem);
-            --text-3xl: clamp(2rem, 4vw, 2.5rem);
-            --text-4xl: clamp(2.5rem, 5vw, 3.5rem);
-            --text-5xl: clamp(3rem, 7vw, 4.5rem);
-            --text-mega: clamp(4rem, 10vw, 7.5rem); /* Kept huge for "Love." title */
-
-            /* Borders and Shadows */
-            --border-radius-sm: 4px;
-            --border-radius-md: 8px;
-            --border-radius-lg: 16px;
-            --border-radius-xl: 24px;
-            --border-radius-round: 50%;
-            
-            --shadow-subtle: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-glow-pink: 0px 0px 25px rgba(255, 128, 166, 0.4);
-            --shadow-glow-red: 0px 0px 30px rgba(230, 0, 76, 0.6);
-            --shadow-glow-gold: 0px 0px 20px rgba(255, 215, 0, 0.5);
-            --shadow-card-heavy: 0px 20px 40px rgba(0, 0, 0, 0.8);
-            
-            /* Watermorphism Shadows */
-            --water-shadow-inset: inset 10px 10px 20px rgba(255, 128, 166, 0.1), inset -10px -10px 20px rgba(0, 0, 0, 0.8);
-            --water-shadow-drop: 10px 15px 25px rgba(0, 0, 0, 0.5);
-
-            /* Layout Limits */
-            --max-width-container: 1200px;
-            --header-height: 85px;
-        }
-
-        /* ==========================================================================
-           2. CSS RESET & NORMALIZATION
-           ========================================================================== */
-        html {
-            line-height: 1.15;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            -moz-text-size-adjust: 100%;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: inherit;
-            margin-top: 0;
-            margin-right: 0;
-            margin-bottom: 0;
-            margin-left: 0;
-            padding-top: 0;
-            padding-right: 0;
-            padding-bottom: 0;
-            padding-left: 0;
-            border-top-width: 0;
-            border-right-width: 0;
-            border-bottom-width: 0;
-            border-left-width: 0;
-            border-style: solid;
-            border-color: transparent;
-        }
-
-        body {
-            width: 100%;
-            min-height: 100vh;
-            background-color: var(--color-background-deep);
-            color: var(--color-text-main);
-            font-family: var(--font-sans);
-            font-size: var(--text-base);
-            font-weight: 400;
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        main {
-            display: block;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-            line-height: 1.2;
-            color: var(--color-text-main);
-        }
-
-        p {
-            margin-bottom: var(--spacing-4);
-            color: var(--color-text-paragraph);
-        }
-
-        a {
-            background-color: transparent;
-            text-decoration-line: none;
-            text-decoration-style: solid;
-            text-decoration-color: transparent;
-            color: inherit;
-            transition-property: color, background-color, border-color, box-shadow, transform;
-            transition-duration: 0.3s;
-            transition-timing-function: ease-in-out;
-            transition-delay: 0s;
-        }
-
-        ul, ol {
-            list-style-type: none;
-            list-style-position: outside;
-            list-style-image: none;
-        }
-
-        img, svg, picture, video, canvas {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border-style: none;
-        }
-
-        button, input, select, textarea {
-            font-family: inherit;
-            font-size: 100%;
-            line-height: 1.15;
-            margin-top: 0;
-            margin-right: 0;
-            margin-bottom: 0;
-            margin-left: 0;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            outline: none;
-            background-color: transparent;
-        }
-
-        button {
-            cursor: pointer;
-            text-transform: none;
-        }
-
-        /* ==========================================================================
-           3. BACKGROUND ENGINE & CANVAS LAYER
-           ========================================================================== */
-        #heart-canvas-engine {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1; /* Background Layer */
-            pointer-events: none;
-            background-image: radial-gradient(
-                circle at 50% 50%, 
-                var(--color-background-gradient-start) 0%, 
-                var(--color-background-gradient-end) 100%
-            );
-        }
-
-        .ambient-glow-overlay {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-            background-image: linear-gradient(
-                180deg, 
-                rgba(230, 0, 76, 0.05) 0%, 
-                rgba(20, 2, 7, 0.6) 50%, 
-                rgba(20, 2, 7, 0.95) 100%
-            );
-        }
-
-        .master-content-wrapper {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        .container {
-            width: 100%;
-            max-width: var(--max-width-container);
-            margin-top: 0;
-            margin-right: auto;
-            margin-bottom: 0;
-            margin-left: auto;
-            padding-top: 0;
-            padding-right: var(--spacing-5);
-            padding-bottom: 0;
-            padding-left: var(--spacing-5);
-        }
-
-        /* ==========================================================================
-           4. PROFESSIONAL NAVIGATION BAR (WITH CUSTOM LOGO)
-           ========================================================================== */
-        .site-header {
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            width: 100%;
-            height: var(--header-height);
-            background-color: var(--color-nav-bg-glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom-width: 1px;
-            border-bottom-style: solid;
-            border-bottom-color: rgba(255, 128, 166, 0.15);
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            transition-property: all;
-            transition-duration: 0.4s;
-            transition-timing-function: ease;
-        }
-
-        .site-header.scrolled {
-            height: 70px;
-            background-color: rgba(10, 1, 3, 0.98);
-            border-bottom-color: var(--color-primary-red);
-        }
-
-        .nav-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand-logo {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-            gap: var(--spacing-3);
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        /* Customer Provided Logo Integration */
-        .brand-logo-img {
-            height: 50px;
-            width: 50px;
-            object-fit: cover;
-            border-radius: 50%;
-            border-top-width: 2px;
-            border-right-width: 2px;
-            border-bottom-width: 2px;
-            border-left-width: 2px;
-            border-style: solid;
-            border-color: var(--color-accent-gold);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-            animation-name: heartbeatSimple;
-            animation-duration: 2.5s;
-            animation-iteration-count: infinite;
-            animation-timing-function: ease-in-out;
-            background-color: #fff; /* Ensures logo visibility if PNG has transparency issues */
-        }
-
-        .brand-logo-text {
-            font-family: var(--font-cursive);
-            font-size: var(--text-2xl);
-            font-weight: 700;
-            color: var(--color-text-main);
-            letter-spacing: 1px;
-            text-shadow: var(--shadow-glow-pink);
-        }
-
-        .nav-menu {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: var(--spacing-6);
-        }
-
-        .nav-link {
-            font-family: var(--font-sans);
-            font-size: var(--text-sm);
-            font-weight: 600;
-            color: var(--color-text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            padding-top: var(--spacing-2);
-            padding-bottom: var(--spacing-2);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background-color: var(--color-primary-red-glow);
-            transition-property: width;
-            transition-duration: 0.3s;
-            transition-timing-function: ease;
-            border-radius: 2px;
-            box-shadow: var(--shadow-glow-red);
-        }
-
-        .nav-link:hover {
-            color: var(--color-text-main);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Dedicated Login / Register Links */
-        .nav-buttons {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-end;
-            gap: var(--spacing-3);
-        }
-
-        .btn {
-            display: inline-flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-sans);
-            font-size: var(--text-sm);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding-top: var(--spacing-3);
-            padding-right: var(--spacing-5);
-            padding-bottom: var(--spacing-3);
-            padding-left: var(--spacing-5);
-            border-radius: var(--border-radius-xl);
-            cursor: pointer;
-            transition-property: all;
-            transition-duration: 0.3s;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            color: var(--color-secondary-pink);
-            border-top-width: 2px;
-            border-right-width: 2px;
-            border-bottom-width: 2px;
-            border-left-width: 2px;
-            border-style: solid;
-            border-color: var(--color-secondary-pink);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--color-secondary-pink);
-            color: var(--color-background-deep);
-            box-shadow: var(--shadow-glow-pink);
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background-image: linear-gradient(135deg, var(--color-primary-red) 0%, var(--color-primary-red-dark) 100%);
-            color: var(--color-text-main); /* Light pinkish, not pure white */
-            border-top-width: 0;
-            border-right-width: 0;
-            border-bottom-width: 0;
-            border-left-width: 0;
-            box-shadow: var(--shadow-glow-red);
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition-property: left;
-            transition-duration: 0.6s;
-            transition-timing-function: ease;
-            z-index: -1;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0px 10px 30px rgba(230, 0, 76, 0.8);
-            filter: brightness(1.1);
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .hamburger-bar {
-            width: 100%;
-            height: 3px;
-            background-color: var(--color-secondary-pink);
-            border-radius: 3px;
-            transition-property: all;
-            transition-duration: 0.3s;
-        }
-
-        /* ==========================================================================
-           5. HERO LANDING SECTION (MATCHING SCREENSHOT WITH "LOVE.")
-           ========================================================================== */
-        .hero-section {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: calc(var(--header-height) + var(--spacing-8));
-            padding-right: 0;
-            padding-bottom: var(--spacing-8);
-            padding-left: 0;
-            position: relative;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            max-width: 900px;
-            z-index: 10;
-        }
-
-        .hero-title-love {
-            font-family: var(--font-cursive);
-            font-size: var(--text-mega);
-            color: var(--color-accent-gold);
-            line-height: 1;
-            margin-bottom: var(--spacing-3);
-            text-shadow: 0px 10px 30px rgba(0,0,0,0.8), var(--shadow-glow-gold);
-            opacity: 0;
-            transform: translateY(30px);
-            animation-name: fadeUpIn;
-            animation-duration: 1.2s;
-            animation-fill-mode: forwards;
-            animation-delay: 0.3s;
-        }
-
-        .hero-subtitle-hindi {
-            font-family: var(--font-serif);
-            font-size: var(--text-2xl);
-            font-weight: 500;
-            color: var(--color-text-main);
-            margin-bottom: var(--spacing-5);
-            opacity: 0;
-            transform: translateY(30px);
-            animation-name: fadeUpIn;
-            animation-duration: 1.2s;
-            animation-fill-mode: forwards;
-            animation-delay: 0.6s;
-            text-shadow: 0px 2px 5px rgba(0,0,0,0.8);
-        }
-
-        .hero-description {
-            font-family: var(--font-sans);
-            font-size: var(--text-lg);
-            font-weight: 300;
-            color: var(--color-text-paragraph);
-            line-height: 1.8;
-            max-width: 750px;
-            margin-bottom: var(--spacing-7);
-            opacity: 0;
-            transform: translateY(30px);
-            animation-name: fadeUpIn;
-            animation-duration: 1.2s;
-            animation-fill-mode: forwards;
-            animation-delay: 0.9s;
-        }
-
-        .hero-cta-group {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: var(--spacing-4);
-            opacity: 0;
-            transform: translateY(30px);
-            animation-name: fadeUpIn;
-            animation-duration: 1.2s;
-            animation-fill-mode: forwards;
-            animation-delay: 1.2s;
-        }
-
-        .btn-large {
-            padding-top: var(--spacing-4);
-            padding-right: var(--spacing-7);
-            padding-bottom: var(--spacing-4);
-            padding-left: var(--spacing-7);
-            font-size: var(--text-base);
-        }
-
-        /* ==========================================================================
-           6. HOW IT WORKS (3 STEPS)
-           ========================================================================== */
-        .steps-section {
-            width: 100%;
-            padding-top: var(--spacing-10);
-            padding-right: 0;
-            padding-bottom: var(--spacing-10);
-            padding-left: 0;
-            background-color: rgba(20, 2, 7, 0.6);
-            position: relative;
-        }
-
-        .section-heading-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-bottom: var(--spacing-9);
-        }
-
-        .section-subtitle {
-            font-family: var(--font-sans);
-            font-size: var(--text-sm);
-            font-weight: 700;
-            color: var(--color-primary-red-glow);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: var(--spacing-3);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-subtitle::before,
-        .section-subtitle::after {
-            content: '';
-            display: inline-block;
-            width: 40px;
-            height: 2px;
-            background-color: var(--color-primary-red-glow);
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: var(--text-4xl);
-            color: var(--color-text-main);
-            margin-bottom: var(--spacing-4);
-        }
-
-        .section-title span.cursive-accent {
-            font-family: var(--font-cursive);
-            color: var(--color-secondary-pink);
-            font-size: 1.2em;
-            font-weight: 400;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            grid-gap: var(--spacing-6);
-            width: 100%;
-        }
-
-        .step-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding-top: var(--spacing-5);
-            padding-right: var(--spacing-4);
-            padding-bottom: var(--spacing-5);
-            padding-left: var(--spacing-4);
-            position: relative;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            border-radius: var(--border-radius-round);
-            background-color: var(--color-primary-red);
-            color: var(--color-text-main);
-            font-family: var(--font-serif);
-            font-size: var(--text-2xl);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: var(--spacing-5);
-            box-shadow: var(--shadow-glow-red);
-            z-index: 2;
-        }
-
-        .step-title {
-            font-family: var(--font-serif);
-            font-size: var(--text-xl);
-            color: var(--color-text-main);
-            margin-bottom: var(--spacing-3);
-        }
-
-        .step-desc {
-            font-family: var(--font-sans);
-            font-size: var(--text-sm);
-            color: var(--color-text-paragraph);
-            line-height: 1.7;
-        }
-
-        @media (min-width: 768px) {
-            .step-card:not(:last-child)::after {
-                content: '';
-                position: absolute;
-                top: 55px; 
-                right: -50%;
-                width: 100%;
-                height: 2px;
-                background-image: linear-gradient(90deg, var(--color-primary-red), transparent);
-                z-index: 1;
-            }
-        }
-
-        /* ==========================================================================
-           7. FEATURES SECTION (WATERMORPHISM CARDS)
-           ========================================================================== */
-        .features-section {
-            width: 100%;
-            padding-top: var(--spacing-10);
-            padding-right: 0;
-            padding-bottom: var(--spacing-10);
-            padding-left: 0;
-            background-color: rgba(10, 1, 3, 0.7);
-            border-top-width: 1px;
-            border-top-style: solid;
-            border-top-color: rgba(255, 128, 166, 0.1);
-            border-bottom-width: 1px;
-            border-bottom-style: solid;
-            border-bottom-color: rgba(255, 128, 166, 0.1);
-            position: relative;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            grid-gap: var(--spacing-6);
-            width: 100%;
-        }
-
-        .feature-card {
-            background-color: var(--color-card-bg-glass);
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 1px;
-            border-left-width: 1px;
-            border-style: solid;
-            border-color: rgba(255, 128, 166, 0.15);
-            border-radius: var(--border-radius-xl);
-            padding-top: var(--spacing-7);
-            padding-right: var(--spacing-5);
-            padding-bottom: var(--spacing-7);
-            padding-left: var(--spacing-5);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition-property: transform, box-shadow, border-color, background-color;
-            transition-duration: 0.4s;
-            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--shadow-glow-pink);
-            border-color: var(--color-secondary-pink);
-            background-color: rgba(255, 128, 166, 0.1);
-        }
-
-        .feature-icon-wrapper {
-            width: 80px;
-            height: 80px;
-            border-radius: var(--border-radius-round);
-            background-image: linear-gradient(135deg, rgba(230, 0, 76, 0.3), rgba(255, 128, 166, 0.1));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: var(--spacing-5);
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 1px;
-            border-left-width: 1px;
-            border-style: solid;
-            border-color: rgba(255, 26, 102, 0.4);
-            transition-property: transform, box-shadow;
-            transition-duration: 0.3s;
-        }
-
-        .feature-card:hover .feature-icon-wrapper {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0px 0px 20px rgba(255, 26, 102, 0.5);
-        }
-
-        .feature-icon-wrapper svg {
-            width: 40px;
-            height: 40px;
-            stroke: var(--color-secondary-pink-light);
-            stroke-width: 1.5;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .feature-title {
-            font-family: var(--font-serif);
-            font-size: var(--text-xl);
-            color: var(--color-text-main);
-            margin-bottom: var(--spacing-3);
-        }
-
-        .feature-desc {
-            font-family: var(--font-sans);
-            font-size: var(--text-sm);
-            color: var(--color-text-paragraph);
-            line-height: 1.7;
-            margin-bottom: 0;
-        }
-
-        /* ==========================================================================
-           8. WATERMORPHISM ROMANTIC QUOTES SECTION (REPLACED REVIEWS)
-           ========================================================================== */
-        .watermorphism-section {
-            width: 100%;
-            padding-top: var(--spacing-10);
-            padding-right: 0;
-            padding-bottom: var(--spacing-10);
-            padding-left: 0;
-            background-color: transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .water-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            grid-gap: var(--spacing-8);
-            width: 100%;
-            padding-top: var(--spacing-5);
-            padding-bottom: var(--spacing-5);
-        }
-
-        /* The Water Blob Card */
-        .water-blob-card {
-            position: relative;
-            background-image: linear-gradient(135deg, rgba(255, 128, 166, 0.15) 0%, rgba(20, 2, 7, 0.4) 100%);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 1px;
-            border-left-width: 1px;
-            border-style: solid;
-            border-color: rgba(255, 128, 166, 0.2);
-            /* Initial Water Blob Shape */
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            padding-top: var(--spacing-7);
-            padding-right: var(--spacing-6);
-            padding-bottom: var(--spacing-7);
-            padding-left: var(--spacing-6);
-            box-shadow: var(--water-shadow-inset), var(--water-shadow-drop);
-            animation-name: waterMorph;
-            animation-duration: 8s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-            animation-timing-function: ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            min-height: 300px;
-            transition: filter 0.3s;
-        }
-
-        .water-blob-card:hover {
-            filter: brightness(1.2);
-        }
-
-        /* Stagger animations for different blobs */
-        .water-blob-card:nth-child(2) {
-            animation-duration: 10s;
-            animation-direction: alternate-reverse;
-            border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%;
-        }
-
-        @keyframes waterMorph {
-            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-            33% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
-            66% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
-            100% { border-radius: 50% 50% 60% 40% / 30% 70% 50% 60%; }
-        }
-
-        /* Text inside the water drop */
-        .water-quote-text {
-            font-family: var(--font-serif);
-            font-size: var(--text-lg);
-            color: var(--color-text-main);
-            line-height: 1.8;
-            font-style: italic;
-            position: relative;
-            z-index: 5;
-            text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        /* Water Droplets (Realistic pure CSS drops overlaying the card) */
-        .water-droplet {
-            position: absolute;
-            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(20, 2, 7, 0.05) 100%);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.5), 2px 5px 8px rgba(0,0,0,0.3);
-            z-index: 6;
-        }
-
-        .drop-1 {
-            width: 35px;
-            height: 35px;
-            top: 15%;
-            left: 10%;
-            animation-name: floatDrop;
-            animation-duration: 4s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
-
-        .drop-2 {
-            width: 20px;
-            height: 20px;
-            bottom: 20%;
-            right: 15%;
-            animation-name: floatDrop;
-            animation-duration: 3s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate-reverse;
-        }
-
-        .drop-3 {
-            width: 15px;
-            height: 15px;
-            top: 40%;
-            right: 5%;
-            animation-name: floatDrop;
-            animation-duration: 5s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
-
-        @keyframes floatDrop {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(-10px) scale(1.05); }
-        }
-
-        /* ==========================================================================
-           9. PUBLIC SHOWCASE / DEAREST PERSON LETTER
-           ========================================================================== */
-        .showcase-section {
-            width: 100%;
-            padding-top: var(--spacing-10);
-            padding-right: 0;
-            padding-bottom: var(--spacing-10);
-            padding-left: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-
-        .envelope-showcase-wrapper {
-            width: 100%;
-            max-width: 900px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: var(--spacing-6);
-            perspective: 2000px;
-        }
-
-        .showcase-card {
-            /* Changed from pure white to a warm vintage rose-gold gradient */
-            background-image: linear-gradient(135deg, var(--color-paper-light) 0%, var(--color-paper-dark) 100%);
-            width: 90%;
-            max-width: 700px;
-            border-radius: var(--border-radius-lg);
-            padding-top: var(--spacing-8);
-            padding-right: var(--spacing-6);
-            padding-bottom: var(--spacing-8);
-            padding-left: var(--spacing-6);
-            box-shadow: var(--shadow-card-heavy);
-            position: relative;
-            transform: rotateX(5deg) rotateY(-5deg);
-            transition-property: transform, box-shadow;
-            transition-duration: 0.6s;
-            transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .showcase-card:hover {
-            transform: rotateX(0deg) rotateY(0deg) translateY(-10px);
-            box-shadow: 0px 30px 60px rgba(255, 26, 102, 0.3);
-        }
-
-        .showcase-card::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            bottom: 15px;
-            left: 15px;
-            border-top-width: 2px;
-            border-right-width: 2px;
-            border-bottom-width: 2px;
-            border-left-width: 2px;
-            border-style: dashed;
-            border-color: var(--color-primary-red-glow);
-            opacity: 0.5;
-            pointer-events: none;
-            border-radius: var(--border-radius-md);
-        }
-
-        .letter-header {
-            text-align: center;
-            margin-bottom: var(--spacing-6);
-        }
-
-        .letter-greeting-main {
-            font-family: var(--font-cursive);
-            font-size: var(--text-4xl);
-            color: var(--color-primary-red-dark);
-            margin-bottom: var(--spacing-2);
-        }
-
-        .letter-divider {
-            width: 80px;
-            height: 3px;
-            background-color: var(--color-primary-red);
-            margin-top: 0;
-            margin-right: auto;
-            margin-bottom: 0;
-            margin-left: auto;
-            border-radius: 2px;
-        }
-
-        .letter-content {
-            font-family: var(--font-serif);
-            font-size: var(--text-lg);
-            color: var(--color-text-dark); /* Dark text for readability on light paper */
-            line-height: 2;
-            text-align: center;
-            margin-bottom: var(--spacing-6);
-            padding-top: 0;
-            padding-right: var(--spacing-4);
-            padding-bottom: 0;
-            padding-left: var(--spacing-4);
-            font-style: italic;
-        }
-
-        .hindi-quote {
-            display: block;
-            margin-top: var(--spacing-4);
-            font-weight: 600;
-            color: var(--color-primary-red);
-            font-size: 1.1em;
-        }
-
-        .letter-footer {
-            text-align: right;
-            padding-right: var(--spacing-5);
-        }
-
-        .letter-signoff {
-            font-family: var(--font-sans);
-            font-size: var(--text-sm);
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: var(--spacing-1);
-        }
-
-        .letter-signature {
-            font-family: var(--font-cursive);
-            font-size: var(--text-3xl);
-            color: var(--color-primary-red);
-            font-weight: 700;
-        }
-
-        .showcase-floating-heart {
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 70px;
-            background-image: linear-gradient(135deg, var(--color-paper-light) 0%, var(--color-paper-dark) 100%);
-            border-radius: var(--border-radius-round);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .showcase-floating-heart svg {
-            width: 40px;
-            height: 40px;
-            fill: var(--color-primary-red-glow);
-            animation-name: heartbeatSimple;
-            animation-duration: 1.5s;
-            animation-iteration-count: infinite;
-        }
-
-        /* ==========================================================================
-           10. FAQ SECTION
-           ========================================================================== */
-        .faq-section {
-            width: 100%;
-            padding-top: var(--spacing-10);
-            padding-right: 0;
-            padding-bottom: var(--spacing-10);
-            padding-left: 0;
-            background-color: transparent;
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin-top: 0;
-            margin-right: auto;
-            margin-bottom: 0;
-            margin-left: auto;
-        }
-
-        .faq-item {
-            margin-bottom: var(--spacing-4);
-            border-bottom-width: 1px;
-            border-bottom-style: solid;
-            border-bottom-color: rgba(255, 128, 166, 0.2);
-            padding-bottom: var(--spacing-3);
-        }
-
-        .faq-question {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: var(--font-serif);
-            font-size: var(--text-lg);
-            color: var(--color-text-main);
-            background: none;
-            text-align: left;
-            padding-top: var(--spacing-3);
-            padding-right: 0;
-            padding-bottom: var(--spacing-3);
-            padding-left: 0;
-            cursor: pointer;
-        }
-
-        .faq-question:hover {
-            color: var(--color-secondary-pink);
-        }
-
-        .faq-icon {
-            font-size: 1.5rem;
-            color: var(--color-primary-red);
-            transition: transform 0.3s ease;
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-            font-family: var(--font-sans);
-            color: var(--color-text-paragraph);
-            line-height: 1.6;
-        }
-
-        .faq-answer-inner {
-            padding-top: var(--spacing-2);
-            padding-bottom: var(--spacing-4);
-        }
-
-        .faq-item.active .faq-icon {
-            transform: rotate(45deg);
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 200px; 
-        }
-
-        /* ==========================================================================
-           11. CALL TO ACTION (BOTTOM CTA)
-           ========================================================================== */
-        .bottom-cta-section {
-            width: 100%;
-            padding-top: var(--spacing-10);
-            padding-right: 0;
-            padding-bottom: var(--spacing-10);
-            padding-left: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background-image: radial-gradient(circle at center, rgba(230, 0, 76, 0.15) 0%, transparent 70%);
-        }
-
-        .cta-box {
-            max-width: 800px;
-            padding-top: var(--spacing-8);
-            padding-right: var(--spacing-4);
-            padding-bottom: var(--spacing-8);
-            padding-left: var(--spacing-4);
-        }
-
-        .cta-heading {
-            font-family: var(--font-cursive);
-            font-size: var(--text-5xl);
-            color: var(--color-text-main);
-            margin-bottom: var(--spacing-4);
-            text-shadow: var(--shadow-glow-pink);
-        }
-
-        .cta-text {
-            font-family: var(--font-sans);
-            font-size: var(--text-lg);
-            color: var(--color-text-paragraph);
-            margin-bottom: var(--spacing-6);
-        }
-
-        /* ==========================================================================
-           12. PROFESSIONAL MEGA FOOTER
-           ========================================================================== */
-        .site-footer {
-            width: 100%;
-            background-color: var(--color-footer-bg);
-            border-top-width: 2px;
-            border-top-style: solid;
-            border-top-color: var(--color-footer-border);
-            padding-top: var(--spacing-9);
-            padding-right: 0;
-            padding-bottom: 0;
-            padding-left: 0;
-            position: relative;
-            z-index: 10;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-gap: var(--spacing-6);
-            margin-bottom: var(--spacing-8);
-        }
-
-        .footer-col-brand { grid-column: span 4; }
-        .footer-col-links { grid-column: span 2; }
-        .footer-col-legal { grid-column: span 2; }
-        .footer-col-newsletter { grid-column: span 4; }
-
-        .footer-logo-text {
-            font-family: var(--font-cursive);
-            font-size: var(--text-3xl);
-            color: var(--color-text-main);
-            margin-bottom: var(--spacing-3);
-            display: inline-block;
-        }
-
-        .footer-desc {
-            font-family: var(--font-sans);
-            font-size: var(--text-sm);
-            color: var(--color-text-muted);
-            line-height: 1.8;
-            margin-bottom: var(--spacing-5);
-            max-width: 90%;
-        }
-
-        .footer-socials {
-            display: flex;
-            flex-direction: row;
-            gap: var(--spacing-3);
-        }
-
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--border-radius-round);
-            background-color: rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 1px;
-            border-left-width: 1px;
-            border-style: solid;
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .social-icon svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--color-text-muted);
-            transition: fill 0.3s;
-        }
-
-        .social-icon:hover {
-            background-color: var(--color-primary-red);
-            border-color: var(--color-primary-red);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-glow-red);
-        }
-
-        .social-icon:hover svg { fill: var(--color-text-main); }
-
-        .footer-heading {
-            font-family: var(--font-sans);
-            font-size: var(--text-lg);
-            font-weight: 700;
-            color: var(--color-text-main);
-            margin-bottom: var(--spacing-4);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .footer-menu {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-3);
-        }
-
-        .footer-link {
-            font-family: var(--font-sans);
-            font-size: var(--text-sm);
-            color: var(--color-text-muted);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-link::before {
-            content: '›';
-            color: var(--color-primary-red);
-            font-size: 1.2em;
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.3s ease;
-        }
-
-        .footer-link:hover {
-            color: var(--color-secondary-pink);
-            transform: translateX(5px);
-        }
-
-        .footer-link:hover::before {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .newsletter-form {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-3);
-            width: 100%;
-        }
-
-        .input-group {
-            position: relative;
-            width: 100%;
-        }
-
-        .newsletter-input {
-            width: 100%;
-            padding-top: 15px;
-            padding-right: 15px;
-            padding-bottom: 15px;
-            padding-left: 20px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 1px;
-            border-left-width: 1px;
-            border-style: solid;
-            border-color: rgba(255, 255, 255, 0.1);
-            border-radius: var(--border-radius-md);
-            font-family: var(--font-sans);
-            font-size: var(--text-sm);
-            color: var(--color-text-main);
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .newsletter-input:focus {
-            border-color: var(--color-secondary-pink);
-            box-shadow: 0px 0px 10px rgba(255, 128, 166, 0.2);
-        }
-
-        .newsletter-input::placeholder { color: rgba(255, 255, 255, 0.3); }
-
-        .btn-newsletter {
-            width: 100%;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            font-size: var(--text-sm);
-        }
-
-        /* Footer Bottom Bar - Pritam Vishwakarma Credit */
-        .footer-bottom {
-            width: 100%;
-            padding-top: var(--spacing-5);
-            padding-right: 0;
-            padding-bottom: var(--spacing-5);
-            padding-left: 0;
-            border-top-width: 1px;
-            border-top-style: solid;
-            border-top-color: rgba(255, 255, 255, 0.05);
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .copyright-text {
-            font-family: var(--font-sans);
-            font-size: var(--text-sm);
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 1px;
-        }
-
-        .copyright-text span.author-highlight {
-            color: var(--color-secondary-pink);
-            font-weight: 600;
-        }
-
-        /* ==========================================================================
-           13. CSS ANIMATIONS & KEYFRAMES
-           ========================================================================== */
-        @keyframes heartbeatSimple {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.15); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes fadeUpIn {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes floatUpDown {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-
-        @keyframes floatUpDownReverse {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(20px) rotate(-5deg); }
-        }
-
-        /* JS Scroll Reveal Classes */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition-property: opacity, transform;
-            transition-duration: 1s;
-            transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ==========================================================================
-           14. RESPONSIVE MEDIA QUERIES
-           ========================================================================== */
-        @media (max-width: 1024px) {
-            .footer-grid { grid-template-columns: repeat(6, 1fr); }
-            .footer-col-brand { grid-column: span 6; margin-bottom: var(--spacing-4); }
-            .footer-col-links { grid-column: span 3; }
-            .footer-col-legal { grid-column: span 3; }
-            .footer-col-newsletter { grid-column: span 6; margin-top: var(--spacing-4); }
-        }
-
-        @media (max-width: 768px) {
-            .nav-menu, .nav-buttons { display: none; } /* Handled by JS toggle ideally */
-            .mobile-menu-toggle { display: flex; }
-            .hero-section { padding-top: calc(var(--header-height) + var(--spacing-4)); }
-            .features-grid, .water-grid, .steps-grid { grid-template-columns: 1fr; }
-            .showcase-card { width: 95%; transform: none; padding: var(--spacing-5); }
-            .showcase-card:hover { transform: translateY(-5px); }
-            .footer-grid { grid-template-columns: 1fr; }
-            .footer-col-brand, .footer-col-links, .footer-col-legal, .footer-col-newsletter { grid-column: span 1; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Yaadon Ka Lifafa | Seal Your Love Forever</title>
+<meta name="description" content="A premium romantic platform to save, share, and cherish your most beautiful memories. Create your digital envelope today.">
+<meta name="author" content="Pritam Vishwakarma">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ─────────────────────────────────────── */
+:root{
+  --bg:#140207; --bg2:#2e0513;
+  --red:#e6004c; --red2:#ff1a66; --red3:#80002a;
+  --pink:#ff80a6; --pink2:#ffccd9; --pink3:#ff4d88;
+  --gold:#ffd700; --gold2:#ffeb80;
+  --txt:#ffebf0; --txtm:#ffccd9; --txtp:#ffe6ee; --txtd:#330011;
+  --glass:rgba(255,235,240,.05); --gb:rgba(255,128,166,.15);
+  --navbg:rgba(20,2,7,.88); --ftbg:#080102;
+  --pl:#fff0f5; --pd:#ffccd9;
+  --fc:'Dancing Script',cursive; --fs:'Playfair Display',serif; --fn:'Montserrat',sans-serif;
+  --r4:4px;--r8:8px;--r16:16px;--r24:24px;--r50:50px;
+  --hh:80px; --mw:1200px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;border:0 solid transparent;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{background:var(--bg);color:var(--txt);font-family:var(--fn);font-size:clamp(.95rem,1.2vw,1.05rem);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;transition:all .3s ease;}
+img,svg{max-width:100%;display:block;}
+ul{list-style:none;}
+button{cursor:pointer;font-family:inherit;background:none;border:none;}
+
+/* ── BG CANVAS ───────────────────────────────────── */
+#bg-canvas{position:fixed;inset:0;z-index:1;pointer-events:none;}
+.bg-overlay{position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(46,5,19,.6) 0%,rgba(20,2,7,.4) 50%,rgba(20,2,7,.96) 100%);}
+.wrap{position:relative;z-index:10;}
+
+/* ── SHARED ──────────────────────────────────────── */
+.ctr{width:100%;max-width:var(--mw);margin:0 auto;padding:0 24px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--fn);font-size:.85rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding:13px 28px;border-radius:var(--r50);cursor:pointer;position:relative;overflow:hidden;
+  transition:all .35s cubic-bezier(.4,0,.2,1);}
+.btn-o{border:2px solid var(--pink);color:var(--pink);}
+.btn-o:hover{background:var(--pink);color:var(--bg);box-shadow:0 0 28px rgba(255,128,166,.55);transform:translateY(-3px);}
+.btn-p{background:linear-gradient(135deg,var(--red),var(--red3));color:var(--txt);box-shadow:0 0 28px rgba(230,0,76,.55);}
+.btn-p::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:translateX(-100%);transition:transform .6s;}
+.btn-p:hover{transform:translateY(-3px);box-shadow:0 14px 38px rgba(230,0,76,.8);filter:brightness(1.1);}
+.btn-p:hover::after{transform:translateX(100%);}
+.btn-lg{padding:17px 52px;font-size:.95rem;}
+.sec-lbl{display:flex;align-items:center;gap:12px;font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red2);margin-bottom:14px;}
+.sec-lbl::before,.sec-lbl::after{content:'';flex:0 0 34px;height:1.5px;background:var(--red2);}
+.sec-ttl{font-family:var(--fs);font-size:clamp(1.9rem,3.8vw,2.9rem);color:var(--txt);line-height:1.2;}
+.sec-ttl .ac{font-family:var(--fc);color:var(--pink);font-size:1.22em;font-weight:400;}
+.sec-hd{text-align:center;margin-bottom:60px;display:flex;flex-direction:column;align-items:center;}
+.sec-hd p{color:var(--txtm);max-width:540px;margin-top:14px;font-size:.92rem;}
+
+/* ── SCROLL REVEAL ───────────────────────────────── */
+.rv{opacity:0;transform:translateY(55px) scale(.97);
+  transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1);}
+.rv.on{opacity:1;transform:none;}
+.rv-l{opacity:0;transform:translateX(-60px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);}
+.rv-l.on{opacity:1;transform:none;}
+.rv-r{opacity:0;transform:translateX(60px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);}
+.rv-r.on{opacity:1;transform:none;}
+.rv-zoom{opacity:0;transform:scale(.8) rotateY(15deg);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);}
+.rv-zoom.on{opacity:1;transform:none;}
+.d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;} .d4{transition-delay:.4s;} .d5{transition-delay:.55s;}
+
+/* ── NAVBAR ──────────────────────────────────────── */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--hh);
+  background:var(--navbg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--gb);box-shadow:0 8px 32px rgba(0,0,0,.4);
+  display:flex;align-items:center;transition:all .4s;}
+.hdr.sc{height:60px;background:rgba(8,1,2,.97);border-bottom-color:var(--red);}
+.nav-in{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.brand{display:flex;align-items:center;gap:12px;}
+.bimg{width:60px;height:60px;border-radius:50%;border:1px solid var(--gold);
+  box-shadow:0 0 16px rgba(228, 9, 9, 0.45);object-fit:cover;background:#fff;
+  animation:pulseLogo 2.5s ease-in-out infinite;}
+@keyframes pulseLogo{0%,100%{box-shadow:0 0 10px rgba(255,215,0,.3);}50%{box-shadow:0 0 24px rgba(255,215,0,.75);}}
+.bnm{font-family:var(--fc);font-size:2rem;font-weight:800;color:var(--pink3);}
+.nvl{display:flex;align-items:center;gap:28px;}
+.nl{font-size:.78rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--txtm);
+  position:relative;padding:8px 0;}
+.nl::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--red2);border-radius:2px;transition:width .3s;}
+.nl:hover{color:var(--txt);}
+.nl:hover::after{width:100%;}
+.nav-act{display:flex;align-items:center;gap:12px;}
+.hmbg{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.hmbg span{width:26px;height:2.5px;background:var(--pink);border-radius:3px;transition:all .3s;}
+
+/* ── HERO ────────────────────────────────────────── */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:calc(var(--hh) + 56px);
+  padding-bottom:64px;position:relative;}
+.hero-in{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.hero-txt{ }
+.h-eye{display:inline-flex;align-items:center;gap:8px;
+  font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
+  background:rgba(255,215,0,.09);border:1px solid rgba(255,215,0,.22);
+  padding:8px 18px;border-radius:var(--r50);margin-bottom:22px;}
+.h-eye svg{width:13px;height:13px;fill:var(--gold);}
+.h-title{font-family:var(--fc);font-size:clamp(4rem,9vw,7.5rem);line-height:1;
+  color:var(--gold);text-shadow:0 0 60px rgba(255,215,0,.3),0 10px 30px rgba(0,0,0,.8);
+  margin-bottom:18px;opacity:0;animation:fup 1.2s .3s forwards;}
+.h-sub{font-family:var(--fs);font-size:clamp(1rem,2vw,1.3rem);font-weight:500;
+  color:var(--txtm);margin-bottom:20px;opacity:0;animation:fup 1.2s .6s forwards;}
+.h-desc{font-size:.92rem;color:var(--txtp);line-height:1.9;max-width:500px;
+  margin-bottom:30px;opacity:0;animation:fup 1.2s .9s forwards;}
+.h-cta{display:flex;flex-wrap:wrap;gap:14px;opacity:0;animation:fup 1.2s 1.2s forwards;}
+.h-stats{display:flex;gap:28px;margin-top:28px;opacity:0;animation:fup 1.2s 1.5s forwards;}
+.stat{border-left:2px solid var(--red);padding-left:12px;}
+.stat-n{font-family:var(--fs);font-size:1.55rem;font-weight:700;color:var(--txt);}
+.stat-l{font-size:.7rem;color:var(--txtm);text-transform:uppercase;letter-spacing:1px;}
+@keyframes fup{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:none;}}
+
+/* ── HERO VISUAL — 3D ENVELOPE ───────────────────── */
+.env-vis{position:relative;display:flex;align-items:center;justify-content:center;}
+.env-scene{width:100%;max-width:460px;aspect-ratio:4/3;perspective:900px;
+  display:flex;align-items:center;justify-content:center;}
+.env3d{width:360px;height:248px;transform-style:preserve-3d;
+  transform:rotateX(18deg) rotateY(-22deg);
+  animation:envFloat 6s ease-in-out infinite;position:relative;}
+.env-scene:hover .env3d{transform:rotateX(6deg) rotateY(6deg)!important;animation-play-state:paused;}
+@keyframes envFloat{0%,100%{transform:rotateX(18deg) rotateY(-22deg) translateY(0);}
+  50%{transform:rotateX(13deg) rotateY(-18deg) translateY(-18px);}}
+.env-body{position:absolute;inset:0;
+  background:linear-gradient(145deg,var(--pl),var(--pd));
+  border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 40px rgba(230,0,76,.2);overflow:hidden;}
+.env-body::before{content:'';position:absolute;bottom:0;left:0;right:0;height:50%;
+  background:linear-gradient(to top,rgba(255,200,210,.45) 0%,transparent 100%);
+  clip-path:polygon(0 100%,50% 0,100% 100%);}
+.env-flap{position:absolute;top:0;left:0;right:0;height:55%;transform-origin:top center;
+  transform:rotateX(-42deg) translateZ(1px);
+  background:linear-gradient(160deg,var(--pl),#ffe0ea);
+  border-radius:14px 14px 0 0;clip-path:polygon(0 0,100% 0,50% 100%);
+  box-shadow:inset 0 -10px 20px rgba(230,0,76,.1);
+  animation:flapAnim 4s ease-in-out infinite;}
+@keyframes flapAnim{0%,100%{transform:rotateX(-42deg) translateZ(1px);}50%{transform:rotateX(-58deg) translateZ(1px);}}
+.env-letter{position:absolute;bottom:28%;left:8%;right:8%;height:68%;background:#fff8fa;
+  border-radius:8px 8px 0 0;transform:translateZ(8px);padding:14px;
+  display:flex;flex-direction:column;gap:7px;overflow:hidden;
+  box-shadow:0 -6px 20px rgba(0,0,0,.1);animation:ltrPeek 4s ease-in-out infinite;}
+@keyframes ltrPeek{0%,100%{transform:translateZ(8px) translateY(0);}50%{transform:translateZ(8px) translateY(-14px);}}
+.ll{height:5px;border-radius:3px;background:rgba(200,100,130,.2);}
+.ll:nth-child(1){width:80%}.ll:nth-child(2){width:95%}.ll:nth-child(3){width:68%}.ll:nth-child(4){width:88%}
+.lheart{width:18px;height:18px;fill:var(--red);opacity:.6;margin-top:6px;}
+.env-seal{position:absolute;bottom:33%;left:50%;transform:translateX(-50%);
+  width:52px;height:52px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,var(--red2),var(--red3));
+  box-shadow:0 4px 16px rgba(230,0,76,.6),inset 0 -4px 8px rgba(0,0,0,.3);
+  display:flex;align-items:center;justify-content:center;
+  animation:sealPulse 2s ease-in-out infinite;}
+@keyframes sealPulse{0%,100%{box-shadow:0 4px 16px rgba(230,0,76,.6);}
+  50%{box-shadow:0 4px 28px rgba(230,0,76,.95),0 0 42px rgba(230,0,76,.35);}}
+.env-seal svg{width:26px;height:26px;fill:var(--pl);}
+.fh-wrap{position:absolute;inset:-44px;pointer-events:none;}
+.fh{position:absolute;animation:floatHrt 5s ease-in-out infinite;}
+.fh svg{fill:var(--red2);filter:drop-shadow(0 0 6px var(--red2));}
+.fh:nth-child(1){top:6%;left:14%;animation-delay:0s;animation-duration:4.6s;}
+.fh:nth-child(2){top:18%;right:4%;animation-delay:1.3s;animation-duration:5.6s;}
+.fh:nth-child(3){bottom:14%;left:4%;animation-delay:2.6s;animation-duration:4.2s;}
+.fh:nth-child(4){bottom:4%;right:18%;animation-delay:.8s;animation-duration:6s;}
+@keyframes floatHrt{0%,100%{transform:translateY(0) rotate(0) scale(1);}
+  33%{transform:translateY(-16px) rotate(8deg) scale(1.1);}
+  66%{transform:translateY(-7px) rotate(-5deg) scale(.95);}}
+
+/* ── TICKER ──────────────────────────────────────── */
+.ticker{overflow:hidden;background:linear-gradient(135deg,rgba(230,0,76,.12),rgba(80,0,30,.12));
+  border-top:1px solid rgba(230,0,76,.2);border-bottom:1px solid rgba(230,0,76,.2);padding:12px 0;}
+.ticker-t{display:flex;align-items:center;gap:44px;width:max-content;animation:tick 32s linear infinite;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.ti{display:flex;align-items:center;gap:10px;font-size:.72rem;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;color:var(--pink2);white-space:nowrap;}
+.td{width:5px;height:5px;border-radius:50%;background:var(--red2);flex-shrink:0;}
+
+/* ── SCROLL STORY SECTION (NEW!) ─────────────────── */
+.story-section{padding:120px 0;position:relative;overflow:hidden;}
+.story-track{display:flex;flex-direction:column;gap:110px;}
+.story-row{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.story-row.flip{direction:rtl;}
+.story-row.flip>*{direction:ltr;}
+.story-vis{position:relative;display:flex;align-items:center;justify-content:center;}
+
+/* 4D Cards — the signature element */
+.card4d{
+  width:100%;max-width:380px;
+  background:linear-gradient(145deg,rgba(255,235,240,.08),rgba(20,2,7,.5));
+  border:1px solid rgba(255,128,166,.18);
+  border-radius:24px;
+  padding:36px 32px;
+  position:relative;overflow:hidden;
+  transform-style:preserve-3d;
+  transition:transform .05s linear,box-shadow .4s;
+  cursor:pointer;
+}
+/* Shimmer layer */
+.card4d::before{
+  content:'';position:absolute;inset:0;border-radius:24px;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,128,166,.12) 50%,transparent 60%);
+  opacity:0;transition:opacity .4s;pointer-events:none;z-index:0;
+  transform:translateZ(0);
+}
+.card4d:hover::before{opacity:1;}
+/* Rainbow border glow on hover */
+.card4d::after{
+  content:'';position:absolute;inset:-1.5px;border-radius:25px;
+  background:linear-gradient(135deg,var(--red),var(--pink),var(--gold),var(--pink),var(--red));
+  background-size:300% 300%;
+  animation:borderRainbow 4s linear infinite;
+  z-index:-1;opacity:0;transition:opacity .4s;
+}
+.card4d:hover::after{opacity:1;}
+@keyframes borderRainbow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+/* Depth layers */
+.card4d-inner{position:relative;z-index:2;}
+.c4-icon{width:58px;height:58px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(230,0,76,.28),rgba(255,128,166,.1));
+  border:1px solid rgba(255,26,102,.3);display:flex;align-items:center;justify-content:center;
+  margin-bottom:22px;transition:transform .3s,box-shadow .3s;}
+.card4d:hover .c4-icon{transform:translateY(-4px) scale(1.08);box-shadow:0 8px 20px rgba(255,26,102,.4);}
+.c4-icon svg{width:28px;height:28px;stroke:var(--pink2);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.c4-tag{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);
+  background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.25);
+  padding:4px 12px;border-radius:var(--r50);margin-bottom:14px;}
+.c4-ttl{font-family:var(--fs);font-size:1.35rem;color:var(--txt);margin-bottom:12px;
+  transition:color .3s;}
+.card4d:hover .c4-ttl{color:var(--pink2);}
+.c4-desc{font-size:.875rem;color:var(--txtm);line-height:1.75;}
+.c4-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;}
+.ctag{font-size:.68rem;font-weight:600;letter-spacing:.8px;padding:5px 12px;border-radius:var(--r50);
+  border:1px solid rgba(255,128,166,.2);color:var(--pink2);background:rgba(255,128,166,.06);}
+/* Floating glow orb inside card */
+.c4-orb{position:absolute;width:80px;height:80px;border-radius:50%;
+  background:radial-gradient(circle,rgba(230,0,76,.25),transparent 70%);
+  bottom:-20px;right:-20px;pointer-events:none;z-index:0;
+  transition:transform .3s;}
+.card4d:hover .c4-orb{transform:scale(1.6);}
+/* Depth highlight top edge */
+.c4-shine{position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,128,166,.5),transparent);
+  z-index:3;}
+/* Progress bars variant */
+.c4-bars{display:flex;flex-direction:column;gap:12px;margin-top:20px;}
+.cbar-row{display:flex;flex-direction:column;gap:5px;}
+.cbar-lbl{font-size:.72rem;color:var(--txtm);display:flex;justify-content:space-between;}
+.cbar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
+.cbar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--red),var(--pink));}
+/* Number display */
+.c4-num{font-family:var(--fc);font-size:4rem;color:var(--red2);opacity:.18;
+  position:absolute;bottom:-8px;right:4px;line-height:1;pointer-events:none;z-index:0;}
+
+/* Story text side */
+.story-txt .sec-lbl{justify-content:flex-start;}
+.story-txt .sec-lbl::before{display:none;}
+.story-ttl{font-family:var(--fs);font-size:clamp(1.7rem,3.2vw,2.4rem);color:var(--txt);
+  line-height:1.25;margin-bottom:18px;}
+.story-ttl .ac{font-family:var(--fc);color:var(--pink);font-size:1.2em;font-weight:400;}
+.story-desc{font-size:.9rem;color:var(--txtp);line-height:1.9;margin-bottom:22px;}
+.story-pts{display:flex;flex-direction:column;gap:14px;margin-bottom:26px;}
+.spt{display:flex;align-items:flex-start;gap:14px;}
+.spt-ic{width:34px;height:34px;border-radius:var(--r8);flex-shrink:0;
+  background:rgba(230,0,76,.15);border:1px solid rgba(230,0,76,.22);
+  display:flex;align-items:center;justify-content:center;}
+.spt-ic svg{width:16px;height:16px;stroke:var(--red2);fill:none;stroke-width:2;}
+.spt strong{display:block;color:var(--txt);font-size:.87rem;margin-bottom:2px;}
+.spt span{font-size:.8rem;color:var(--txtm);}
+
+/* Floating decorative around story cards */
+.float-deco{position:absolute;pointer-events:none;}
+.float-deco svg{fill:none;stroke:var(--red);stroke-width:1;opacity:.25;}
+.fd-tl{top:-20px;left:-20px;animation:fdFloat 5s ease-in-out infinite;}
+.fd-br{bottom:-16px;right:-16px;animation:fdFloat 4s ease-in-out infinite reverse;}
+@keyframes fdFloat{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-10px) rotate(10deg);}}
+
+/* ── HOW IT WORKS – HORIZONTAL TIMELINE ─────────── */
+.steps-sec{padding:120px 0;background:rgba(10,1,3,.55);}
+.timeline{display:flex;gap:0;position:relative;margin-top:16px;}
+.timeline::before{content:'';position:absolute;top:44px;left:80px;right:80px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--red),var(--pink),var(--red),transparent);z-index:0;}
+.t-step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:0 16px;position:relative;z-index:2;}
+.t-num{width:88px;height:88px;border-radius:50%;
+  background:linear-gradient(135deg,var(--red),var(--red3));
+  color:var(--txt);font-family:var(--fs);font-size:2rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 8px rgba(230,0,76,.12),0 8px 24px rgba(230,0,76,.5);
+  margin-bottom:22px;transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .4s;}
+.t-step:hover .t-num{transform:rotateY(360deg) scale(1.1);box-shadow:0 0 0 10px rgba(230,0,76,.18),0 12px 30px rgba(230,0,76,.7);}
+.t-ttl{font-family:var(--fs);font-size:1.15rem;color:var(--txt);margin-bottom:10px;}
+.t-desc{font-size:.85rem;color:var(--txtm);line-height:1.7;}
+
+/* ── FEATURES BENTO ──────────────────────────────── */
+.feat-sec{padding:120px 0;background:rgba(8,1,2,.6);}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;}
+.bc{background:var(--glass);border:1px solid var(--gb);border-radius:22px;
+  padding:36px 28px;backdrop-filter:blur(14px);position:relative;overflow:hidden;
+  transform-style:preserve-3d;transition:all .05s linear;cursor:pointer;}
+.bc::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--pink),transparent);
+  transform:scaleX(0);transition:transform .45s;pointer-events:none;}
+.bc:hover::after{transform:scaleX(1);}
+.bc::before{content:'';position:absolute;inset:0;border-radius:22px;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,128,166,.09) 50%,transparent 70%);
+  opacity:0;transition:opacity .4s;pointer-events:none;z-index:0;}
+.bc:hover::before{opacity:1;}
+.bc-in{position:relative;z-index:2;}
+.bw5{grid-column:span 5}.bm4{grid-column:span 4}.bt3{grid-column:span 3;grid-row:span 2}
+.bw7{grid-column:span 7}.bw5b{grid-column:span 5}
+.bi{width:56px;height:56px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(230,0,76,.24),rgba(255,128,166,.1));
+  border:1px solid rgba(255,26,102,.28);display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;transition:transform .3s,box-shadow .3s;pointer-events:none;}
+.bc:hover .bi{transform:rotate(-6deg) scale(1.1);box-shadow:0 0 16px rgba(255,26,102,.4);}
+.bi svg{width:26px;height:26px;stroke:var(--pink2);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.bt{font-family:var(--fs);font-size:1.2rem;color:var(--txt);margin-bottom:10px;}
+.bd{font-size:.86rem;color:var(--txtm);line-height:1.7;}
+.b-num{font-family:var(--fc);font-size:7rem;color:var(--red2);opacity:.12;
+  position:absolute;bottom:-14px;right:-4px;line-height:1;pointer-events:none;z-index:0;}
+.b-badge{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);
+  background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.25);
+  padding:4px 12px;border-radius:var(--r50);margin-bottom:14px;}
+.b-bars{display:flex;flex-direction:column;gap:10px;margin-top:18px;}
+.bb-r{display:flex;flex-direction:column;gap:4px;}
+.bb-l{font-size:.7rem;color:var(--txtm);display:flex;justify-content:space-between;}
+.bb-t{height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;}
+.bb-f{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--red),var(--pink));}
+.tag-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;}
+.tg{font-size:.68rem;font-weight:600;letter-spacing:.8px;padding:5px 11px;border-radius:var(--r50);
+  border:1px solid rgba(255,128,166,.2);color:var(--pink2);background:rgba(255,128,166,.06);}
+
+/* ── QUOTES (REPLACED WATER BLOBS WITH GLASS QUOTES) ─ */
+.q-sec{padding:120px 0;}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+.q-card{background:linear-gradient(145deg,rgba(255,128,166,.1),rgba(20,2,7,.4));
+  border:1px solid rgba(255,128,166,.18);border-radius:22px;padding:52px 44px;
+  position:relative;overflow:hidden;backdrop-filter:blur(14px);
+  transform-style:preserve-3d;
+  transition:transform .05s linear,box-shadow .4s;}
+.q-card::before{content:'"';font-family:var(--fc);font-size:8rem;color:var(--red);
+  opacity:.12;position:absolute;top:-10px;left:18px;line-height:1;pointer-events:none;}
+.q-card:hover{box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 28px rgba(255,128,166,.3);}
+.q-txt{font-family:var(--fs);font-size:1.05rem;color:var(--txt);
+  line-height:1.85;font-style:italic;position:relative;z-index:2;
+  text-shadow:0 2px 4px rgba(0,0,0,.45);}
+.q-txt.red{color:var(--red2);}
+
+/* ── LETTER SHOWCASE ─────────────────────────────── */
+.show-sec{padding:120px 0;position:relative;overflow:hidden;}
+.show-sec::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(230,0,76,.1),transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.show-in{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.show-txt .sec-lbl{justify-content:flex-start;}
+.show-txt .sec-lbl::before{display:none;}
+.show-ttl{font-family:var(--fs);font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--txt);
+  line-height:1.25;margin-bottom:18px;}
+.show-ttl .ac{font-family:var(--fc);color:var(--pink);font-size:1.2em;font-weight:400;}
+.show-p{color:var(--txtm);line-height:1.9;margin-bottom:24px;font-size:.9rem;}
+.show-pts{display:flex;flex-direction:column;gap:14px;margin-bottom:28px;}
+.sp{display:flex;align-items:flex-start;gap:14px;}
+.sp-ic{width:34px;height:34px;border-radius:8px;flex-shrink:0;
+  background:rgba(230,0,76,.15);border:1px solid rgba(230,0,76,.22);
+  display:flex;align-items:center;justify-content:center;}
+.sp-ic svg{width:16px;height:16px;stroke:var(--red2);fill:none;stroke-width:2;}
+.sp strong{display:block;color:var(--txt);font-size:.87rem;margin-bottom:2px;}
+.sp span{font-size:.8rem;color:var(--txtm);}
+/* 3D letter card */
+.ltr-scene{perspective:1000px;display:flex;align-items:center;justify-content:center;}
+.ltr3d{width:100%;max-width:400px;transform:rotateX(7deg) rotateY(9deg);
+  transform-style:preserve-3d;animation:ltrRot 8s ease-in-out infinite;}
+@keyframes ltrRot{0%,100%{transform:rotateX(7deg) rotateY(9deg);}50%{transform:rotateX(3deg) rotateY(-5deg);}}
+.ltr-scene:hover .ltr3d{transform:none!important;animation-play-state:paused;}
+.ltr-card{background:linear-gradient(145deg,var(--pl),var(--pd));border-radius:18px;
+  padding:44px 32px;
+  box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,128,166,.2),
+    7px 7px 0 rgba(200,80,120,.2),14px 14px 0 rgba(200,80,120,.1);position:relative;}
+.ltr-card::before{content:'';position:absolute;inset:13px;
+  border:1.5px dashed rgba(230,0,76,.38);border-radius:12px;pointer-events:none;}
+.lc-hrt{position:absolute;top:-22px;left:50%;transform:translateX(-50%);
+  width:50px;height:50px;border-radius:50%;
+  background:linear-gradient(135deg,var(--pl),var(--pd));
+  box-shadow:0 4px 14px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;}
+.lc-hrt svg{width:26px;height:26px;fill:var(--red2);animation:hbeat 1.5s ease-in-out infinite;}
+@keyframes hbeat{0%,100%{transform:scale(1);}15%{transform:scale(1.22);}30%{transform:scale(1);}44%{transform:scale(1.15);}}
+.lc-gr{font-family:var(--fc);font-size:1.9rem;color:var(--red3);text-align:center;margin-bottom:8px;}
+.lc-div{width:56px;height:2px;background:var(--red);margin:0 auto 22px;border-radius:1px;}
+.lc-body{font-family:var(--fs);font-size:.97rem;color:var(--txtd);line-height:2;
+  text-align:center;font-style:italic;margin-bottom:22px;}
+.lc-sign{text-align:right;}
+.lc-sl{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:#888;margin-bottom:3px;}
+.lc-sn{font-family:var(--fc);font-size:1.7rem;color:var(--red);}
+
+/* ── FAQ ─────────────────────────────────────────── */
+.faq-sec{padding:120px 0;}
+.faq-w{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+.fi{border-bottom:1px solid rgba(255,128,166,.14);}
+.fq{width:100%;display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--fs);font-size:1.02rem;color:var(--txt);
+  padding:16px 0;text-align:left;cursor:pointer;gap:14px;transition:color .2s;}
+.fq:hover{color:var(--pink);}
+.fq-ic{width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  border:1.5px solid var(--red);color:var(--red);display:flex;align-items:center;justify-content:center;
+  font-size:1.15rem;font-weight:700;transition:transform .3s,background .3s;}
+.fi.open .fq-ic{transform:rotate(45deg);background:var(--red);color:var(--txt);}
+.fa{max-height:0;overflow:hidden;transition:max-height .45s ease;
+  font-size:.88rem;color:var(--txtm);line-height:1.7;}
+.fa-in{padding:6px 0 22px;}
+.fi.open .fa{max-height:220px;}
+
+/* ── BOTTOM CTA ──────────────────────────────────── */
+.cta-sec{padding:120px 0;text-align:center;position:relative;overflow:hidden;}
+.cta-sec::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,rgba(230,0,76,.14) 0%,transparent 65%);pointer-events:none;}
+.cta-box{max-width:680px;margin:0 auto;position:relative;z-index:2;}
+.cta-h{font-family:var(--fc);font-size:clamp(2.4rem,6vw,4.2rem);color:var(--txt);
+  margin-bottom:14px;text-shadow:0 0 26px rgba(255,128,166,.45);}
+.cta-p{color:var(--txtm);margin-bottom:28px;font-size:.97rem;}
+.cta-bs{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.cta-tr{margin-top:28px;display:flex;align-items:center;gap:12px;justify-content:center;}
+.av-row{display:flex;}
+.av{width:32px;height:32px;border-radius:50%;border:2px solid var(--bg);
+  background:linear-gradient(135deg,var(--red),var(--pink));
+  margin-left:-8px;display:flex;align-items:center;justify-content:center;
+  font-size:.5rem;color:var(--txt);font-weight:700;}
+.av:first-child{margin-left:0;}
+.cta-ts{font-size:.76rem;color:var(--txtm);}
+
+/* ── FOOTER ──────────────────────────────────────── */
+.ftr{background:var(--ftbg);border-top:2px solid rgba(80,0,30,.7);
+  padding-top:88px;position:relative;z-index:10;}
+.ftr-top{display:grid;grid-template-columns:2fr 1fr 1fr 2fr;gap:44px;
+  padding-bottom:60px;border-bottom:1px solid rgba(255,255,255,.05);}
+.f-bname{font-family:var(--fc);font-size:1.9rem;color:var(--txt);display:block;margin-bottom:14px;}
+.f-desc{font-size:.85rem;color:var(--txtm);line-height:1.8;margin-bottom:22px;}
+.f-socs{display:flex;gap:10px;}
+.fsoc{width:37px;height:37px;border-radius:50%;border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.fsoc svg{width:15px;height:15px;fill:var(--txtm);transition:fill .3s;}
+.fsoc:hover{background:var(--red);border-color:var(--red);transform:translateY(-3px);box-shadow:0 0 26px rgba(230,0,76,.55);}
+.fsoc:hover svg{fill:var(--txt);}
+.f-cht{font-family:var(--fn);font-size:.78rem;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--txt);margin-bottom:22px;}
+.f-lks{display:flex;flex-direction:column;gap:11px;}
+.flk{font-size:.85rem;color:var(--txtm);display:inline-flex;align-items:center;gap:7px;transition:all .3s;}
+.flk::before{content:'›';color:var(--red);font-size:1.2em;transform:translateX(-5px);
+  transition:transform .3s,opacity .3s;opacity:0;}
+.flk:hover{color:var(--pink);transform:translateX(5px);}
+.flk:hover::before{opacity:1;transform:translateX(0);}
+.f-ni{display:flex;flex-direction:column;gap:11px;}
+.f-inp{width:100%;padding:13px 17px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);border-radius:var(--r8);
+  color:var(--txt);font-family:var(--fn);font-size:.85rem;
+  outline:none;transition:border-color .3s,box-shadow .3s;-webkit-appearance:none;}
+.f-inp:focus{border-color:var(--pink);box-shadow:0 0 12px rgba(255,128,166,.2);}
+.f-inp::placeholder{color:rgba(255,255,255,.22);}
+.ftr-bot{padding:22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.fcp{font-size:.78rem;color:rgba(255,255,255,.38);letter-spacing:.5px;}
+.fcp .hl{color:var(--pink);font-weight:600;}
+.fbl{display:flex;gap:22px;}
+.fblk{font-size:.73rem;color:rgba(255,255,255,.32);}
+.fblk:hover{color:var(--pink);}
+
+/* ── SCROLL TOP ──────────────────────────────────── */
+.stb{position:fixed;bottom:24px;right:24px;width:43px;height:43px;border-radius:50%;
+  background:var(--red);box-shadow:0 0 28px rgba(230,0,76,.55);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(20px);transition:all .4s;z-index:500;cursor:pointer;border:none;}
+.stb.vis{opacity:1;transform:none;}
+.stb svg{width:19px;height:19px;stroke:var(--txt);fill:none;stroke-width:2.5;}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:1024px){
+  .ftr-top{grid-template-columns:1fr 1fr;}
+  .bw5,.bm4,.bt3,.bw7,.bw5b{grid-column:1/-1;}
+  .bt3{grid-row:span 1;}
+}
+@media(max-width:768px){
+  .nvl,.nav-act{display:none;}
+  .hmbg{display:flex;}
+  .hero-in{grid-template-columns:1fr;text-align:center;}
+  .hero-txt{order:2;}
+  .env-vis{order:1;}
+  .h-cta,.h-stats{justify-content:center;}
+  .h-desc{margin:0 auto 28px;}
+  .story-row,.story-row.flip{grid-template-columns:1fr;direction:ltr;}
+  .timeline{flex-direction:column;gap:32px;}
+  .timeline::before{display:none;}
+  .show-in{grid-template-columns:1fr;}
+  .q-grid{grid-template-columns:1fr;}
+  .ftr-top{grid-template-columns:1fr;gap:28px;}
+  .ftr-bot{flex-direction:column;text-align:center;}
+  .fbl{flex-wrap:wrap;justify-content:center;}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}
+}
+</style>
 </head>
 <body>
 
-    <!-- ==========================================================================
-         CANVAS ENGINE: The Flying Hearts Background
-         ========================================================================== -->
-    <!-- Ensures dynamic romantic hearts flying across the screen at all times -->
-    <canvas id="heart-canvas-engine"></canvas>
-    
-    <!-- Ambient Gradient Overlay -->
-    <div class="ambient-glow-overlay"></div>
+<canvas id="bg-canvas"></canvas>
+<div class="bg-overlay"></div>
 
-    <!-- ==========================================================================
-         MASTER CONTENT WRAPPER
-         ========================================================================== -->
-    <div class="master-content-wrapper">
+<button class="stb" id="stb" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 
-        <!-- ==========================================================================
-             1. PROFESSIONAL NAVIGATION BAR
-             ========================================================================== -->
-        <header class="site-header" id="navbar">
-            <div class="container nav-container">
-                
-                <!-- Logo & Brand (Using customer provided logo '1000187917.png') -->
-                <a href="index.html" class="brand-logo">
-                    <!-- Added actual logo file with glowing styles -->
-                    <img src="1000187917.png" alt="Yaadon Ka Lifafa Logo" class="brand-logo-img">
-                </a>
+<div class="wrap">
 
-                <!-- Desktop Menu -->
-                <nav class="nav-menu">
-                    <div class="nav-item"><a href="#home" class="nav-link">Home</a></div>
-                    <div class="nav-item"><a href="#how-it-works" class="nav-link">How it Works</a></div>
-                    <div class="nav-item"><a href="#features" class="nav-link">Features</a></div>
-                    <div class="nav-item"><a href="#quotes" class="nav-link">Love Notes</a></div>
-                </nav>
+<!-- ───── NAVBAR ───── -->
+<header class="hdr" id="hdr">
+  <div class="ctr nav-in">
+      <img src="{% static 'logo/logo.jpeg' %}" alt="Logo" class="bimg">
+      <span class="bnm">Yaadon Ka Lifafa</span>
+    </a>
+    <nav class="nvl">
+      <a href="#home"     class="nl">Home</a>
+      <a href="#story"    class="nl">Our Story</a>
+      <a href="#features" class="nl">Features</a>
+      <a href="#showcase" class="nl">Showcase</a>
+      <a href="#faq"      class="nl">FAQ</a>
+    </nav>
+    <div class="nav-act">
+      <a href="login.html"    class="btn btn-o">Log In</a>
+      <a href="register.html" class="btn btn-p">Register Free</a>
+    </div>
+    <div class="hmbg" id="hmbg"><span></span><span></span><span></span></div>
+  </div>
+</header>
 
-                <!-- Desktop Buttons (Redirecting to Separate Pages instead of modals) -->
-                <div class="nav-buttons">
-                    <a href="login.html" class="btn btn-outline">Log In</a>
-                    <a href="register.html" class="btn btn-primary">Register</a>
-                </div>
-
-                <!-- Mobile Hamburger Toggle -->
-                <div class="mobile-menu-toggle">
-                    <span class="hamburger-bar"></span>
-                    <span class="hamburger-bar"></span>
-                    <span class="hamburger-bar"></span>
-                </div>
-
+<!-- ───── HERO ───── -->
+<section id="home" class="hero">
+  <div class="ctr hero-in">
+    <!-- Text -->
+    <div class="hero-txt">
+      <div class="h-eye">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Premium Digital Memory Platform
+      </div>
+      <h1 class="h-title">Love.</h1>
+      <p class="h-sub">"Some memories are not meant to be forgotten — they're meant to be sealed forever."</p>
+      <p class="h-desc">Welcome to Yaadon Ka Lifafa — a premium digital sanctuary for your most beautiful memories. Seal love letters, preserve photo timelines, and gift stunning animated envelopes to the one who holds your heart.</p>
+      <div class="h-cta">
+        <a href="register.html" class="btn btn-p btn-lg">Create Your Lifafa</a>
+        <a href="#showcase"     class="btn btn-o btn-lg">See a Sample</a>
+      </div>
+      <div class="h-stats">
+        <div class="stat"><div class="stat-n">50K+</div><div class="stat-l">Lifafas Created</div></div>
+        <div class="stat"><div class="stat-n">120+</div><div class="stat-l">Countries</div></div>
+        <div class="stat"><div class="stat-n">4.9★</div><div class="stat-l">Avg Rating</div></div>
+      </div>
+    </div>
+    <!-- 3D Envelope -->
+    <div class="env-vis">
+      <div class="env-scene">
+        <div class="env3d">
+          <div class="env-body">
+            <div class="env-letter">
+              <div class="ll"></div><div class="ll"></div><div class="ll"></div><div class="ll"></div>
+              <svg class="lheart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             </div>
-        </header>
-
-        <!-- ==========================================================================
-             2. HERO LANDING SECTION (MATCHING SCREENSHOT WITH "LOVE.")
-             ========================================================================== -->
-        <section id="home" class="hero-section">
-            
-            <!-- Floating Decorative SVGs -->
-            <div class="floating-element-left">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#ff80a6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
+            <div class="env-seal">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             </div>
-            <div class="floating-element-right">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="M12 6v6l4 2"></path>
-                </svg>
+          </div>
+          <div class="env-flap"></div>
+        </div>
+      </div>
+      <div class="fh-wrap">
+        <div class="fh"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="fh"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="fh"><svg width="17" height="17" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="fh"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── TICKER ───── -->
+<div class="ticker">
+  <div class="ticker-t">
+    <div class="ti"><span class="td"></span>Digital Love Letters</div>
+    <div class="ti"><span class="td"></span>Animated Envelopes</div>
+    <div class="ti"><span class="td"></span>Memory Galleries</div>
+    <div class="ti"><span class="td"></span>Wax Seal Magic</div>
+    <div class="ti"><span class="td"></span>Private & Encrypted</div>
+    <div class="ti"><span class="td"></span>Cinematic Unboxing</div>
+    <div class="ti"><span class="td"></span>Time Capsule Mode</div>
+    <div class="ti"><span class="td"></span>Share Anywhere</div>
+    <div class="ti"><span class="td"></span>Digital Love Letters</div>
+    <div class="ti"><span class="td"></span>Animated Envelopes</div>
+    <div class="ti"><span class="td"></span>Memory Galleries</div>
+    <div class="ti"><span class="td"></span>Wax Seal Magic</div>
+    <div class="ti"><span class="td"></span>Private & Encrypted</div>
+    <div class="ti"><span class="td"></span>Cinematic Unboxing</div>
+    <div class="ti"><span class="td"></span>Time Capsule Mode</div>
+    <div class="ti"><span class="td"></span>Share Anywhere</div>
+  </div>
+</div>
+
+<!-- ───── SCROLL STORY SECTION ───── -->
+<section id="story" class="story-section">
+  <div class="ctr">
+
+    <div class="sec-hd rv">
+      <div class="sec-lbl">Discover As You Scroll</div>
+      <h2 class="sec-ttl">Every Scroll Reveals <span class="ac">Something New</span></h2>
+      <p>Explore the features that make Yaadon Ka Lifafa the most expressive way to share love digitally.</p>
+    </div>
+
+    <div class="story-track">
+
+      <!-- ROW 1: Card left, text right -->
+      <div class="story-row">
+        <div class="story-vis rv-l d1">
+          <div class="card4d" data-4d>
+            <div class="c4-shine"></div>
+            <div class="c4-orb"></div>
+            <div class="card4d-inner">
+              <div class="c4-tag">✉ Letters</div>
+              <div class="c4-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <h3 class="c4-ttl">Digital Love Letters</h3>
+              <p class="c4-desc">Write deeply personal letters rendered in stunning handwritten typefaces. Each word you type becomes a piece of art — with typewriter animation effects on delivery.</p>
+              <div class="c4-tags">
+                <span class="ctag">Typewriter FX</span>
+                <span class="ctag">Custom Fonts</span>
+                <span class="ctag">Auto-Save</span>
+              </div>
+              <div class="c4-num">✉</div>
             </div>
+          </div>
+          <div class="float-deco fd-tl"><svg width="50" height="50" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg></div>
+        </div>
+        <div class="story-txt rv-r d2">
+          <div class="sec-lbl">Write Your Story</div>
+          <h3 class="story-ttl">Pour Your Heart Into <span class="ac">Every Word</span></h3>
+          <p class="story-desc">Your love story deserves more than a text message. Craft letters with beautiful typography, add your own photos, choose from curated stationery themes — and watch your words come alive with animation.</p>
+          <div class="story-pts">
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Handwritten Font Rendering</strong><span>Choose from 12+ romantic typefaces that make every letter feel personal.</span></div></div>
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Typewriter Opening Effect</strong><span>Recipients see your words appearing one by one, letter by letter, as if written live.</span></div></div>
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Auto-Draft Saving</strong><span>Never lose a single word — your letter saves automatically every few seconds.</span></div></div>
+          </div>
+          <a href="register.html" class="btn btn-p">Start Writing Now</a>
+        </div>
+      </div>
 
-            <div class="container hero-content">
-
-                <!-- Title matched perfectly with the screenshot provided -->
-                <h1 class="hero-title-love">
-                    Love.
-                </h1>
-
-                <!-- Heart-touching Hindi Subtitle -->
-                <div class="hero-subtitle-hindi">
-                    <!-- "कुछ यादें लफ़्ज़ों में नहीं, लिफाफों में महफूज़ होती हैं।" -->
-                </div>
-
-                <p class="hero-description">
-                    Welcome to Yaadon Ka Lifafa. A premium digital sanctuary designed for all. Whether you want to preserve a secret love letter, store a timeline of unforgettable memories, or gift a customized envelope to your dearest person, your emotions belong here.
-                </p>
-
-                <div class="hero-cta-group">
-                    <!-- Standard anchor tags for separate pages -->
-                    <a href="register.html" class="btn btn-primary btn-large">Create Your Lifafa</a>
-                    <a href="#showcase" class="btn btn-outline btn-large">Explore Letters</a>
-                </div>
-
+      <!-- ROW 2: Text left, card right -->
+      <div class="story-row flip">
+        <div class="story-vis rv-r d1">
+          <div class="card4d" data-4d>
+            <div class="c4-shine"></div>
+            <div class="c4-orb"></div>
+            <div class="card4d-inner">
+              <div class="c4-tag">📷 Galleries</div>
+              <div class="c4-icon">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+              <h3 class="c4-ttl">Polaroid Memory Galleries</h3>
+              <p class="c4-desc">Upload your favourite photographs and watch them transform into interactive polaroid galleries you can flip, zoom, tilt, and annotate with handwritten captions.</p>
+              <div class="c4-tags">
+                <span class="ctag">Polaroid FX</span>
+                <span class="ctag">Captions</span>
+                <span class="ctag">Timeline</span>
+              </div>
+              <div class="c4-num">📷</div>
             </div>
-        </section>
+          </div>
+          <div class="float-deco fd-br"><svg width="44" height="44" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+        </div>
+        <div class="story-txt rv-l d2">
+          <div class="sec-lbl">Capture Everything</div>
+          <h3 class="story-ttl">Turn Moments Into <span class="ac">Living Galleries</span></h3>
+          <p class="story-desc">Your photos deserve more than a cloud folder. Upload them into Yaadon Ka Lifafa and our engine transforms them into a cinematic, animated gallery — a visual timeline of your love story.</p>
+          <div class="story-pts">
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Animated Polaroid Effect</strong><span>Each photo is wrapped in a Polaroid frame with a gentle 3D tilt and vintage grain.</span></div></div>
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Memory Timeline View</strong><span>Arrange photos in a scrollable timeline — see your story unfold month by month.</span></div></div>
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Handwritten Captions</strong><span>Add notes, dates, and little jokes — the way you would on a real printed photo.</span></div></div>
+          </div>
+          <a href="register.html" class="btn btn-p">Upload Your Photos</a>
+        </div>
+      </div>
 
-        <!-- ==========================================================================
-             3. HOW IT WORKS (3 STEPS)
-             ========================================================================== -->
-        <section id="how-it-works" class="steps-section reveal">
-            <div class="container">
-                <div class="section-heading-wrapper">
-                    <div class="section-subtitle">Simple Steps</div>
-                    <h2 class="section-title">How To Create <span class="cursive-accent">Your Lifafa</span></h2>
-                </div>
-
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
-                        <h3 class="step-title">Register & Connect</h3>
-                        <p class="step-desc">Create your free account. You can keep it private or link it with your dearest person to share a joint memory vault.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-number">2</div>
-                        <h3 class="step-title">Write & Upload</h3>
-                        <p class="step-desc">Pour your heart into digital letters. Upload photos that automatically turn into beautiful polaroid galleries.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-number">3</div>
-                        <h3 class="step-title">Seal & Surprise</h3>
-                        <p class="step-desc">Seal your envelope with a digital wax stamp. Send the secret link to your partner and watch their heart melt.</p>
-                    </div>
-                </div>
+      <!-- ROW 3: Card left, text right -->
+      <div class="story-row">
+        <div class="story-vis rv-l d1">
+          <div class="card4d" data-4d>
+            <div class="c4-shine"></div>
+            <div class="c4-orb"></div>
+            <div class="card4d-inner">
+              <div class="c4-tag">🛡 Security</div>
+              <div class="c4-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h3 class="c4-ttl">Vault-Grade Privacy</h3>
+              <p class="c4-desc">Your love is private. Every Lifafa is protected with military-grade 256-bit AES encryption. No one — not even us — can read your letters.</p>
+              <div class="c4-bars">
+                <div class="cbar-row"><div class="cbar-lbl"><span>Encryption</span><span>256-bit AES</span></div><div class="cbar"><div class="cbar-fill" style="width:98%"></div></div></div>
+                <div class="cbar-row"><div class="cbar-lbl"><span>Privacy</span><span>100%</span></div><div class="cbar"><div class="cbar-fill" style="width:100%"></div></div></div>
+                <div class="cbar-row"><div class="cbar-lbl"><span>Uptime</span><span>99.9%</span></div><div class="cbar"><div class="cbar-fill" style="width:99%"></div></div></div>
+              </div>
+              <div class="c4-num">🔒</div>
             </div>
-        </section>
+          </div>
+        </div>
+        <div class="story-txt rv-r d2">
+          <div class="sec-lbl">Your Privacy, First</div>
+          <h3 class="story-ttl">Your Secrets Stay <span class="ac">Forever Safe</span></h3>
+          <p class="story-desc">We built Yaadon Ka Lifafa with privacy at its core. Your letters, photos, and memories are encrypted at rest and in transit — only the people you choose can ever see what's inside.</p>
+          <div class="story-pts">
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>256-bit AES Encryption</strong><span>The same level of security used by banks and governments worldwide.</span></div></div>
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Password-Protected Envelopes</strong><span>Add a secret password only your partner knows, for an extra layer of intimacy.</span></div></div>
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>No Data Selling — Ever</strong><span>Your memories are yours. We never share, sell, or analyse your personal content.</span></div></div>
+          </div>
+          <a href="register.html" class="btn btn-p">Create Safely Now</a>
+        </div>
+      </div>
 
-        <!-- ==========================================================================
-             4. FEATURES SECTION
-             ========================================================================== -->
-        <section id="features" class="features-section reveal">
-            <div class="container">
-                
-                <div class="section-heading-wrapper">
-                    <div class="section-subtitle">Why Choose Us</div>
-                    <h2 class="section-title">A Digital Envelope <span class="cursive-accent">Crafted With Emotions</span></h2>
-                    <p style="max-width: 600px; margin: 0 auto;">We bring the vintage charm of handwritten letters and photo albums into the secure, beautifully animated digital world.</p>
-                </div>
-
-                <div class="features-grid">
-                    
-                    <!-- Feature 1 -->
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Digital Love Letters</h3>
-                        <p class="feature-desc">Write deeply personal letters with beautiful typography. Custom typewriter effects make reading magical.</p>
-                    </div>
-
-                    <!-- Feature 2 -->
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper">
-                            <svg viewBox="0 0 24 24">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                <polyline points="21 15 16 10 5 21"></polyline>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Memory Galleries</h3>
-                        <p class="feature-desc">Upload your favorite photographs. Our system automatically turns them into beautiful interactive polaroids.</p>
-                    </div>
-
-                    <!-- Feature 3 -->
-                    <div class="feature-card">
-                        <div class="feature-icon-wrapper">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="feature-title">Forever Secure</h3>
-                        <p class="feature-desc">Your memories are safe with us. We use top-tier encryption so your private moments remain strictly between you two.</p>
-                    </div>
-
-                </div>
+      <!-- ROW 4: Text left, card right -->
+      <div class="story-row flip">
+        <div class="story-vis rv-r d1">
+          <div class="card4d" data-4d>
+            <div class="c4-shine"></div>
+            <div class="c4-orb"></div>
+            <div class="card4d-inner">
+              <div class="c4-tag">⏰ Time Capsule</div>
+              <div class="c4-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <h3 class="c4-ttl">Time Capsule Mode</h3>
+              <p class="c4-desc">Lock a Lifafa until a specific date. Your partner cannot open it before then — creating the most suspenseful, romantic countdown they have ever experienced.</p>
+              <div class="c4-tags">
+                <span class="ctag">Lock Until Date</span>
+                <span class="ctag">Countdown Timer</span>
+                <span class="ctag">Anniversary Ready</span>
+              </div>
+              <div class="c4-num">⏰</div>
             </div>
-        </section>
+          </div>
+        </div>
+        <div class="story-txt rv-l d2">
+          <div class="sec-lbl">The Ultimate Surprise</div>
+          <h3 class="story-ttl">Make Them Wait for <span class="ac">The Magic Moment</span></h3>
+          <p class="story-desc">Imagine gifting your partner a sealed Lifafa three months before your anniversary — and watching them wait, excited, counting down the days until they can finally open it.</p>
+          <div class="story-pts">
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Set a Future Unlock Date</strong><span>Choose any date — a birthday, anniversary, or a random Tuesday — and lock it until then.</span></div></div>
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Live Countdown Timer</strong><span>Your partner sees a beautiful animated countdown ticking down to the reveal moment.</span></div></div>
+            <div class="spt"><div class="spt-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Auto-Opens on the Day</strong><span>At midnight on the unlock date, the envelope opens itself with a cinematic animation.</span></div></div>
+          </div>
+          <a href="register.html" class="btn btn-p">Create a Time Capsule</a>
+        </div>
+      </div>
 
-        <!-- ==========================================================================
-             5. NEW: WATERMORPHISM ANIMATED QUOTES (Replacing the old Reviews block)
-             ========================================================================== -->
-        <section id="quotes" class="watermorphism-section reveal">
-            <div class="container">
-                
-                <div class="section-heading-wrapper">
-                    <div class="section-subtitle">Romantic Notes</div>
-                    <h2 class="section-title">Emotions That Flow <span class="cursive-accent">Like Water</span></h2>
-                </div>
+    </div><!-- .story-track -->
+  </div>
+</section>
 
-                <div class="water-grid">
-                    
-                    <!-- Water Blob 1 -->
-                    <div class="water-blob-card">
-                        <!-- Water droplets floating inside -->
-                        <div class="water-droplet drop-1"></div>
-                        <div class="water-droplet drop-2"></div>
-                        <p class="water-quote-text">
-                            "Some memories are not just saved in files; they flow in our hearts like water, taking the shape of the container of our souls."
-                        </p>
-                    </div>
+<!-- ───── HOW IT WORKS ───── -->
+<section id="how" class="steps-sec">
+  <div class="ctr">
+    <div class="sec-hd rv">
+      <div class="sec-lbl">Simple Steps</div>
+      <h2 class="sec-ttl">How To Create <span class="ac">Your Lifafa</span></h2>
+      <p>Three beautiful steps from heartfelt idea to the most romantic digital surprise your partner has ever received.</p>
+    </div>
+    <div class="timeline rv">
+      <div class="t-step"><div class="t-num">1</div><h3 class="t-ttl">Register & Connect</h3><p class="t-desc">Create your free account in 30 seconds. Stay private or invite your partner to a shared memory vault that grows with your love story.</p></div>
+      <div class="t-step"><div class="t-num">2</div><h3 class="t-ttl">Write & Upload</h3><p class="t-desc">Pour your heart into a digital letter. Upload photos that become stunning polaroid galleries. Add music, stickers, and custom backgrounds.</p></div>
+      <div class="t-step"><div class="t-num">3</div><h3 class="t-ttl">Seal & Surprise</h3><p class="t-desc">Press the virtual wax stamp to seal your envelope. Share the secret link — and watch their reaction when the cinematic opening plays.</p></div>
+    </div>
+  </div>
+</section>
 
-                    <!-- Water Blob 2 (Hindi) -->
-                    <div class="water-blob-card">
-                        <div class="water-droplet drop-3"></div>
-                        <div class="water-droplet drop-1"></div>
-                        <p class="water-quote-text" style="color: var(--color-primary-red-glow);">
-                            <!-- "वो खूबसूरत पल जो हमने साथ बिताए हैं, वो इस लिफाफे में हमेशा ज़िंदा रहेंगे। मेरी हर धड़कन सिर्फ तुम्हारा नाम लेती है।" -->
-                        </p>
-                    </div>
+<!-- ───── FEATURES BENTO ───── -->
+<section id="features" class="feat-sec">
+  <div class="ctr">
+    <div class="sec-hd rv">
+      <div class="sec-lbl">Why Choose Us</div>
+      <h2 class="sec-ttl">Crafted With <span class="ac">Emotion & Precision</span></h2>
+      <p>The vintage charm of handwritten letters meets the beautiful, animated digital world.</p>
+    </div>
+    <div class="bento rv">
+      <div class="bc bw5" data-bento>
+        <div class="bc-in">
+          <div class="bi"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <h3 class="bt">Love Letters with Soul</h3>
+          <p class="bd">Write in English, add custom typefaces, and deliver letters with stunning typewriter animation effects.</p>
+          <div class="tag-row"><span class="tg">Typewriter FX</span><span class="tg">12+ Fonts</span><span class="tg">Auto-Save</span></div>
+        </div>
+        <div class="b-num">✉</div>
+      </div>
+      <div class="bc bm4" data-bento>
+        <div class="bc-in">
+          <div class="bi"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+          <h3 class="bt">Polaroid Galleries</h3>
+          <p class="bd">Photos become animated polaroid galleries with captions, timelines, and 3D tilt effects on every frame.</p>
+          <div class="tag-row"><span class="tg">3D Tilt</span><span class="tg">Captions</span></div>
+        </div>
+        <div class="b-num">📷</div>
+      </div>
+      <div class="bc bt3 rv-r" data-bento>
+        <div class="bc-in">
+          <div class="b-badge">★ Top Rated</div>
+          <div class="bi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3 class="bt">Vault-Grade Security</h3>
+          <p class="bd">Military-grade 256-bit encryption. Your memories are yours — we can never read them.</p>
+          <div class="b-bars">
+            <div class="bb-r"><div class="bb-l"><span>Encryption</span><span>256-bit</span></div><div class="bb-t"><div class="bb-f" style="width:98%"></div></div></div>
+            <div class="bb-r"><div class="bb-l"><span>Privacy</span><span>100%</span></div><div class="bb-t"><div class="bb-f" style="width:100%"></div></div></div>
+            <div class="bb-r"><div class="bb-l"><span>Uptime</span><span>99.9%</span></div><div class="bb-t"><div class="bb-f" style="width:99%"></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="bc bw7 rv d2" data-bento>
+        <div class="bc-in">
+          <div class="bi"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <h3 class="bt">Virtual Wax Seal</h3>
+          <p class="bd">Press a beautifully animated 3D wax stamp to seal your envelope. Choose from hearts, roses, initials, and mandalas — each rendered in rich animated gold, red, and silver.</p>
+          <div class="tag-row"><span class="tg">Animated 3D</span><span class="tg">Custom Initials</span><span class="tg">Gold & Silver</span><span class="tg">One-Tap Apply</span></div>
+        </div>
+      </div>
+      <div class="bc bw5b rv d3" data-bento>
+        <div class="bc-in">
+          <div class="bi"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+          <h3 class="bt">Share Anywhere</h3>
+          <p class="bd">One secure link opens a cinematic full-screen unboxing experience — no app download needed. Share via WhatsApp, email, SMS, or QR code.</p>
+          <div class="tag-row"><span class="tg">WhatsApp</span><span class="tg">Email</span><span class="tg">QR Code</span></div>
+        </div>
+        <div class="b-num">🔗</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                </div>
+<!-- ───── QUOTES ───── -->
+<section id="quotes" class="q-sec">
+  <div class="ctr">
+    <div class="sec-hd rv">
+      <div class="sec-lbl">Words That Stay</div>
+      <h2 class="sec-ttl">Love Speaks in <span class="ac">Quiet Moments</span></h2>
+    </div>
+    <div class="q-grid">
+      <div class="q-card rv-l" data-4d>
+        <p class="q-txt">"Some memories are not just saved in files — they flow in our hearts forever, taking the shape of everything we love most about the person who makes us feel alive."</p>
+      </div>
+      <div class="q-card rv-r" data-4d>
+        <p class="q-txt red">"The greatest gift you can give someone is not a thing — it is a memory so vivid, so beautifully preserved, that every time they open it, they fall in love with you all over again."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── LETTER SHOWCASE ───── -->
+<section id="showcase" class="show-sec">
+  <div class="ctr">
+    <div class="show-in">
+      <div class="show-txt rv-l">
+        <div class="sec-lbl">Lifafa Showcase</div>
+        <h2 class="show-ttl">See How <span class="ac">Love Unfolds</span></h2>
+        <p class="show-p">Every Lifafa is a hand-crafted digital experience — a love letter, a gallery, and a memory capsule, all beautifully animated and waiting to be unwrapped.</p>
+        <div class="show-pts">
+          <div class="sp"><div class="sp-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Cinematic Opening Animation</strong><span>Recipients get a full-screen envelope-opening experience with optional background music.</span></div></div>
+          <div class="sp"><div class="sp-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Pure English Elegance</strong><span>Write in English with beautiful serif and cursive typefaces — every word feels intentional.</span></div></div>
+          <div class="sp"><div class="sp-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div><strong>Password-Protected Opening</strong><span>Add a secret that only your person knows — making the reveal even more intimate.</span></div></div>
+        </div>
+        <a href="register.html" class="btn btn-p btn-lg">Create Yours Now</a>
+      </div>
+      <div class="ltr-scene rv-zoom d2">
+        <div class="ltr3d">
+          <div class="ltr-card">
+            <div class="lc-hrt"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+            <div class="lc-gr">My Dearest Person,</div>
+            <div class="lc-div"></div>
+            <div class="lc-body">
+              From the very first moment our paths crossed, my world became a brighter, warmer place. You are the calm in my chaos — the spark in my everyday life.<br><br>
+              <em style="color:#c0003a;">"You are every reason, every hope, and every dream I have ever had."</em><br><br>
+              Thank you for being you. Every single moment with you is a gift.
             </div>
-        </section>
+            <div class="lc-sign"><div class="lc-sl">Forever Yours,</div><div class="lc-sn">Your Secret Admirer</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- ==========================================================================
-             6. PUBLIC SHOWCASE / DEAREST PERSON LETTER
-             ========================================================================== -->
-        <section id="showcase" class="showcase-section reveal">
-            <div class="container">
-                
-                <div class="section-heading-wrapper" style="margin-bottom: var(--spacing-5);">
-                    <div class="section-subtitle">Lifafa Showcase</div>
-                    <h2 class="section-title">See How <span class="cursive-accent">Love Unfolds</span></h2>
-                    <p>Take a look at how a public letter is beautifully presented to a recipient.</p>
-                </div>
+<!-- ───── FAQ ───── -->
+<section id="faq" class="faq-sec">
+  <div class="ctr">
+    <div class="sec-hd rv">
+      <div class="sec-lbl">Got Questions?</div>
+      <h2 class="sec-ttl">Frequently Asked <span class="ac">Questions</span></h2>
+    </div>
+    <div class="faq-w rv">
+      <div class="fi"><button class="fq">Is Yaadon Ka Lifafa free to use? <span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Yes! Register and create basic digital envelopes completely free of charge. We offer premium plans for advanced animations, background music, video uploads, time capsule mode, and unlimited cloud storage.</div></div></div>
+      <div class="fi"><button class="fq">Are my memories and photos safe here? <span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Absolutely. Your privacy is our top priority. All your data is stored with 256-bit AES encryption — the same standard used by banks. Only you and the people you share with can ever access your content.</div></div></div>
+      <div class="fi"><button class="fq">How do I send a Lifafa to my partner? <span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Once you finish crafting your letter and adding photos, the system generates a unique, secure link. Share it via WhatsApp, Email, SMS, or a QR code. Your partner clicks it and receives a cinematic full-screen opening experience — no app or registration needed on their end.</div></div></div>
+      <div class="fi"><button class="fq">Can I schedule a Lifafa to open on a special date? <span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">Yes! With our Time Capsule feature (Premium), you can lock a Lifafa until a specific date. Your partner sees a beautiful live countdown. At midnight on the unlock date, the envelope opens itself with a cinematic animation — perfect for anniversaries and birthdays.</div></div></div>
+      <div class="fi"><button class="fq">Do recipients need to register to open a Lifafa? <span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">No registration needed for recipients. They just click the link and the experience begins immediately — beautifully, instantly, with zero friction. Only the creator needs an account.</div></div></div>
+      <div class="fi"><button class="fq">What makes Yaadon Ka Lifafa different from a regular email? <span class="fq-ic">+</span></button><div class="fa"><div class="fa-in">An email is a message. A Lifafa is an experience. It features a 3D animated envelope opening, cinematic letter reveal, polaroid photo gallery, background music, wax seal animation, typewriter text effects, and optional countdown timer — all in one beautifully designed package.</div></div></div>
+    </div>
+  </div>
+</section>
 
-                <div class="envelope-showcase-wrapper">
-                    <!-- The Showcase Card (No White - Using Rose Gold Gradient) -->
-                    <div class="showcase-card">
-                        
-                        <div class="showcase-floating-heart">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                            </svg>
-                        </div>
+<!-- ───── BOTTOM CTA ───── -->
+<section class="cta-sec">
+  <div class="ctr">
+    <div class="cta-box rv">
+      <h2 class="cta-h">Ready to seal your love?</h2>
+      <p class="cta-p">Join 50,000+ people already preserving their most precious memories in a digital envelope crafted with emotion.</p>
+      <div class="cta-bs">
+        <a href="register.html" class="btn btn-p btn-lg">Start Creating — It's Free</a>
+        <a href="login.html"    class="btn btn-o btn-lg">Log In</a>
+      </div>
+      <div class="cta-tr">
+        <div class="av-row"><div class="av">PR</div><div class="av">AK</div><div class="av">RS</div><div class="av">+</div></div>
+        <span class="cta-ts">Trusted by 50,000+ couples worldwide</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-                        <div class="letter-header">
-                            <h3 class="letter-greeting-main">My Dearest Person,</h3>
-                            <div class="letter-divider"></div>
-                        </div>
+<!-- ───── FOOTER ───── -->
+<footer class="ftr">
+  <div class="ctr">
+    <div class="ftr-top">
+      <div>
+        <a href="#home" class="f-bname">Yaadon Ka Lifafa</a>
+        <p class="f-desc">A premium platform dedicated to preserving your most precious memories, love letters, and photographs in beautifully animated digital envelopes. Love, digitized.</p>
+        <div class="f-socs">
+          <a href="#" class="fsoc" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" class="fsoc" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+          <a href="#" class="fsoc" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" class="fsoc" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="f-cht">Quick Links</h4>
+        <ul class="f-lks"><li><a href="#home" class="flk">Home</a></li><li><a href="#story" class="flk">Our Story</a></li><li><a href="#features" class="flk">Features</a></li><li><a href="#showcase" class="flk">Showcase</a></li><li><a href="#faq" class="flk">FAQ</a></li></ul>
+      </div>
+      <div>
+        <h4 class="f-cht">Support</h4>
+        <ul class="f-lks"><li><a href="#" class="flk">Contact Us</a></li><li><a href="#" class="flk">Help Center</a></li><li><a href="#" class="flk">Pricing Plans</a></li><li><a href="#" class="flk">Privacy Policy</a></li><li><a href="#" class="flk">Terms of Service</a></li></ul>
+      </div>
+      <div>
+        <h4 class="f-cht">Stay Connected</h4>
+        <p class="f-desc">Subscribe for romantic ideas, feature updates, and special anniversary offer drops.</p>
+        <form class="f-ni" onsubmit="event.preventDefault();this.querySelector('button').textContent='💌 Subscribed!';this.querySelector('input').value='';">
+          <input type="email" class="f-inp" placeholder="your@email.com" required>
+          <button type="submit" class="btn btn-p" style="width:100%;padding:14px;">Subscribe to Love</button>
+        </form>
+      </div>
+    </div>
+    <div class="ftr-bot">
+      <p class="fcp">&copy; 2026 Yaadon Ka Lifafa. Created by <span class="hl">Pritam Vishwakarma</span> · All rights reserved.</p>
+      <div class="fbl"><a href="#" class="fblk">Privacy</a><a href="#" class="fblk">Terms</a><a href="#" class="fblk">Cookies</a></div>
+    </div>
+  </div>
+</footer>
 
-                        <div class="letter-content">
-                            From the very first moment our paths crossed, my world has been a brighter, warmer place. 
-                            You are the calm in my chaos and the spark in my everyday life. 
-                            This digital envelope holds just a fraction of the memories we've created, but my heart holds every single one of them perfectly intact.
-                            <br>
-                            <!-- Beautiful Hindi Injection -->
-                            <!-- <span class="hindi-quote">"तुम्हारी हर मुस्कुराहट मेरे दिन का सबसे खूबसूरत हिस्सा है।"</span> -->
-                            <br>
-                            Thank you for being you. Every moment spent with you is a blessing.
-                        </div>
+</div><!-- .wrap -->
 
-                        <div class="letter-footer">
-                            <div class="letter-signoff">Forever Yours,</div>
-                            <div class="letter-signature">Your Secret Admirer</div>
-                        </div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
 
-                    </div>
-                </div>
+  /* ── NAV SCROLL ─────────────────────────── */
+  const hdr = document.getElementById('hdr');
+  const stb = document.getElementById('stb');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('sc', scrollY > 60);
+    stb.classList.toggle('vis', scrollY > 400);
+  }, {passive:true});
+  stb.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 
-            </div>
-        </section>
+  /* ── INTERSECTION REVEAL ─────────────────── */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }});
+  }, {rootMargin:'0px 0px -55px 0px', threshold:.07});
+  document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-zoom').forEach(el => io.observe(el));
 
-        <!-- ==========================================================================
-             7. FAQ SECTION
-             ========================================================================== -->
-        <section class="faq-section reveal">
-            <div class="container">
-                <div class="section-heading-wrapper">
-                    <div class="section-subtitle">Got Questions?</div>
-                    <h2 class="section-title">Frequently Asked <span class="cursive-accent">Questions</span></h2>
-                </div>
+  /* ── FAQ ─────────────────────────────────── */
+  document.querySelectorAll('.fi').forEach(fi => {
+    fi.querySelector('.fq').addEventListener('click', () => {
+      const was = fi.classList.contains('open');
+      document.querySelectorAll('.fi').forEach(f => f.classList.remove('open'));
+      if (!was) fi.classList.add('open');
+    });
+  });
 
-                <div class="faq-container">
-                    <!-- FAQ 1 -->
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            Is Yaadon Ka Lifafa free to use?
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                Yes! You can register and create your basic digital envelopes completely free of charge. We also offer premium features for advanced animations and video uploads.
-                            </div>
-                        </div>
-                    </div>
-                    <!-- FAQ 2 -->
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            <!-- क्या मेरी यादें और तस्वीरें यहाँ सुरक्षित हैं? -->
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                <!-- जी हाँ, बिल्कुल। आपकी निजता (Privacy) हमारी पहली प्राथमिकता है। आपका सारा डेटा एन्क्रिप्टेड (Encrypted) फॉर्म में सुरक्षित रहता है और उसे केवल आप ही देख सकते हैं। -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- FAQ 3 -->
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            How do I send a Lifafa to my partner?
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                Once you finish crafting your letter and adding photos, the system will generate a unique, secure link. You can send this link via WhatsApp, Email, or SMS to your dearest person.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  /* ── 4D CARD MOUSE TILT ──────────────────── */
+  // True 4D: X, Y rotation + dynamic lighting shift + Z scale + chromatic shift
+  function apply4D(el, e) {
+    const r  = el.getBoundingClientRect();
+    const cx = (e.clientX - r.left)  / r.width  - .5;  // -0.5 to 0.5
+    const cy = (e.clientY - r.top)   / r.height - .5;
+    const dist = Math.sqrt(cx*cx + cy*cy);
+    // Rotate
+    const rY =  cx * 22;
+    const rX = -cy * 18;
+    // Z depth + slight scale
+    const tz = dist * 20 + 10;
+    const sc = 1.02 + dist * .03;
+    el.style.transform = `perspective(700px) rotateX(${rX}deg) rotateY(${rY}deg) translateZ(${tz}px) scale(${sc})`;
+    el.style.transition = 'transform .05s linear';
+    // Dynamic shimmer gradient
+    const pxPct = ((cx + .5) * 100).toFixed(1);
+    const pyPct = ((cy + .5) * 100).toFixed(1);
+    el.style.setProperty('--sx', pxPct + '%');
+    el.style.setProperty('--sy', pyPct + '%');
+    // Box-shadow depth shift
+    const sx = cx * -18;
+    const sy = cy * -14;
+    el.style.boxShadow = `${sx}px ${sy}px 40px rgba(0,0,0,.6), 0 0 28px rgba(255,128,166,.25), inset 0 0 0 1px rgba(255,128,166,.15)`;
+  }
 
-        <!-- ==========================================================================
-             8. CALL TO ACTION (BOTTOM CTA)
-             ========================================================================== -->
-        <section class="bottom-cta-section reveal">
-            <div class="container cta-box">
-                <h2 class="cta-heading">Ready to pack your memories?</h2>
-                <p class="cta-text">Join thousands of users who have already started preserving their beautiful moments in a digital envelope.</p>
-                <a href="register.html" class="btn btn-primary btn-large" style="padding-left: 60px; padding-right: 60px;">Start Creating Now</a>
-            </div>
-        </section>
+  document.querySelectorAll('[data-4d]').forEach(card => {
+    card.addEventListener('mousemove', e => apply4D(card, e));
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+      card.style.transition = 'transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s';
+    });
+  });
 
-        <!-- ==========================================================================
-             9. PROFESSIONAL MEGA FOOTER
-             ========================================================================== -->
-        <footer class="site-footer">
-            <div class="container">
-                
-                <!-- Footer Top Grid -->
-                <div class="footer-grid">
-                    
-                    <!-- Column 1: Brand Info -->
-                    <div class="footer-col-brand">
-                        <a href="index.html" class="footer-logo-text">Yaadon Ka Lifafa</a>
-                        <p class="footer-desc">
-                            A premium platform dedicated to preserving your most precious memories, love letters, and photographs in beautifully animated digital envelopes. Love, digitized.
-                        </p>
-                        <div class="footer-socials">
-                            <!-- Facebook SVG -->
-                            <a href="#" class="social-icon" aria-label="Facebook">
-                                <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                            </a>
-                            <!-- Twitter/X SVG -->
-                            <a href="#" class="social-icon" aria-label="Twitter">
-                                <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-                            </a>
-                            <!-- Instagram SVG -->
-                            <a href="#" class="social-icon" aria-label="Instagram">
-                                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                            </a>
-                        </div>
-                    </div>
+  /* ── BENTO TILT ──────────────────────────── */
+  document.querySelectorAll('[data-bento]').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - .5;
+      const y = (e.clientY - r.top)  / r.height - .5;
+      card.style.transform = `perspective(700px) rotateY(${x*9}deg) rotateX(${-y*7}deg) translateZ(14px)`;
+      card.style.transition = 'transform .05s linear';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform .5s cubic-bezier(.2,.8,.2,1)';
+    });
+  });
 
-                    <!-- Column 2: Quick Links -->
-                    <div class="footer-col-links">
-                        <h4 class="footer-heading">Quick Links</h4>
-                        <ul class="footer-menu">
-                            <li><a href="#" class="footer-link">Home</a></li>
-                            <li><a href="#" class="footer-link">About Us</a></li>
-                            <li><a href="#" class="footer-link">How it Works</a></li>
-                            <li><a href="#" class="footer-link">Pricing Plans</a></li>
-                        </ul>
-                    </div>
+  /* ── STEP NUMBER HOVER ───────────────────── */
+  document.querySelectorAll('.t-num').forEach(n => {
+    n.parentElement.addEventListener('mouseenter', () => n.style.animationName = 'none');
+    n.parentElement.addEventListener('mouseleave', () => n.style.animationName = '');
+  });
 
-                    <!-- Column 3: Legal & Support -->
-                    <div class="footer-col-legal">
-                        <h4 class="footer-heading">Support</h4>
-                        <ul class="footer-menu">
-                            <li><a href="#" class="footer-link">Contact Us</a></li>
-                            <li><a href="#" class="footer-link">FAQ & Help</a></li>
-                            <li><a href="#" class="footer-link">Privacy Policy</a></li>
-                            <li><a href="#" class="footer-link">Terms of Service</a></li>
-                        </ul>
-                    </div>
+  /* ── CANVAS BG: Animated symbols ─────────── */
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
 
-                    <!-- Column 4: Newsletter -->
-                    <div class="footer-col-newsletter">
-                        <h4 class="footer-heading">Stay Connected</h4>
-                        <p class="footer-desc" style="max-width: 100%;">Subscribe to our newsletter for romantic ideas, updates, and special anniversary offers.</p>
-                        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed Successfully!');">
-                            <div class="input-group">
-                                <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-newsletter">Subscribe to Love</button>
-                        </form>
-                    </div>
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize, {passive:true});
+  resize();
 
-                </div>
+  // Background draws animated floating letters, hearts, roses, envelopes
+  const SYMBOLS = ['♥','✉','✿','❋','◇','✦','♡','⊹'];
+  const COLORS  = [
+    'rgba(255,26,102,.',
+    'rgba(230,0,76,.',
+    'rgba(255,128,166,.',
+    'rgba(255,215,0,.',
+  ];
 
-                <!-- Footer Bottom Bar - Pritam Vishwakarma Credit EXACTLY AS REQUIRED -->
-                <div class="footer-bottom">
-                    <p class="copyright-text">
-                        &copy; 2026 Yaadon Ka Lifafa. Created by <span class="author-highlight">Pritam Vishwakarma</span> with all rights reserved.
-                    </p>
-                </div>
+  class Particle {
+    constructor(init=false) { this.reset(init); }
+    reset(init=false) {
+      this.x    = Math.random() * W;
+      this.y    = init ? Math.random() * H : H + 50;
+      this.vy   = Math.random() * 1.1 + 0.3;
+      this.vx   = (Math.random() - .5) * .6;
+      this.rot  = Math.random() * Math.PI * 2;
+      this.rs   = (Math.random() - .5) * .018;
+      this.sz   = Math.random() * 18 + 8;
+      this.alpha= Math.random() * .35 + .1;
+      this.sym  = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+      const ci  = Math.floor(Math.random() * COLORS.length);
+      this.col  = COLORS[ci] + this.alpha.toFixed(2) + ')';
+      this.wobA = Math.random() * Math.PI * 2;
+      this.wobS = Math.random() * .015 + .005;
+      this.wobD = Math.random() * 1.2 + .4;
+      // some particles are "image-like" blobs
+      this.isBlob = Math.random() < .18;
+      this.blobR  = Math.random() * 30 + 12;
+      this.blobC  = 'rgba(230,0,76,' + (Math.random() * .08 + .03) + ')';
+    }
+    update() {
+      this.y   -= this.vy;
+      this.wobA += this.wobS;
+      this.x   += Math.sin(this.wobA) * this.wobD + this.vx;
+      this.rot += this.rs;
+      if (this.y < -60) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.rot);
+      if (this.isBlob) {
+        // Animated glowing circle blob (simulates soft photo orbs)
+        const grad = ctx.createRadialGradient(0,0,0,0,0,this.blobR);
+        grad.addColorStop(0, this.blobC.replace('rgba','rgba').replace(',0.',',0.18'));
+        grad.addColorStop(1, 'transparent');
+        ctx.beginPath();
+        ctx.arc(0, 0, this.blobR, 0, Math.PI*2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+      } else {
+        ctx.globalAlpha  = this.alpha;
+        ctx.fillStyle    = this.col;
+        ctx.font         = `${this.sz}px serif`;
+        ctx.textAlign    = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowBlur   = 6;
+        ctx.shadowColor  = this.col;
+        ctx.fillText(this.sym, 0, 0);
+      }
+      ctx.restore();
+    }
+  }
 
-            </div>
-        </footer>
+  // Larger animated bokeh blobs in fixed positions (simulates animated bg pics)
+  class BokehBlob {
+    constructor() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.r = Math.random() * 180 + 60;
+      this.a = 0;
+      this.as = Math.random() * .005 + .002;
+      this.maxA = Math.random() * .07 + .03;
+      this.growing = true;
+      this.col = Math.random() < .5
+        ? `rgba(230,0,76,`
+        : `rgba(255,128,166,`;
+      this.dx = (Math.random() - .5) * .25;
+      this.dy = (Math.random() - .5) * .2;
+    }
+    update() {
+      if (this.growing) { this.a += this.as; if (this.a >= this.maxA) this.growing = false; }
+      else              { this.a -= this.as; if (this.a <= 0) { this.a=0; this.reset(); } }
+      this.x += this.dx; this.y += this.dy;
+      if (this.x < -200 || this.x > W+200) this.dx *= -1;
+      if (this.y < -200 || this.y > H+200) this.dy *= -1;
+    }
+    reset() {
+      this.x = Math.random() * W; this.y = Math.random() * H;
+      this.growing = true; this.a = 0;
+    }
+    draw() {
+      const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+      g.addColorStop(0, this.col + this.a.toFixed(3) + ')');
+      g.addColorStop(.6, this.col + (this.a*.4).toFixed(3) + ')');
+      g.addColorStop(1, 'transparent');
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+      ctx.fillStyle = g;
+      ctx.fill();
+    }
+  }
 
-    </div> <!-- End of Master Content Wrapper -->
+  const COUNT  = window.innerWidth < 768 ? 45 : 110;
+  const BLOBS  = window.innerWidth < 768 ?  4 :  9;
+  const parts  = Array.from({length:COUNT}, (_, i) => new Particle(i < COUNT/2));
+  const blobsA = Array.from({length:BLOBS},  () => new BokehBlob());
 
-    <!-- ==========================================================================
-         10. JAVASCRIPT: ENGINE & UI LOGIC
-         ========================================================================== -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            
-            // ---------------------------------------------------------
-            // 1. STICKY NAVBAR LOGIC
-            // ---------------------------------------------------------
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
+  // Heart drawing function for the BG
+  function drawHeart(ctx, x, y, size, color, alpha) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.shadowBlur = 8; ctx.shadowColor = color;
+    ctx.beginPath();
+    const s = size / 10;
+    ctx.scale(s, s);
+    ctx.moveTo(0,6);
+    ctx.bezierCurveTo(0,6,-10,-2,-10,-7);
+    ctx.bezierCurveTo(-10,-13,-3.5,-15,0,-7.5);
+    ctx.bezierCurveTo(3.5,-15,10,-13,10,-7);
+    ctx.bezierCurveTo(10,-2,0,6,0,6);
+    ctx.fill();
+    ctx.restore();
+  }
 
-            // ---------------------------------------------------------
-            // 2. SCROLL REVEAL ANIMATIONS
-            // ---------------------------------------------------------
-            const revealElements = document.querySelectorAll('.reveal');
-            
-            const revealOptions = {
-                root: null,
-                rootMargin: '0px 0px -50px 0px',
-                threshold: 0.1
-            };
+  const HEART_COUNT = window.innerWidth < 768 ? 22 : 55;
+  class FloatHeart {
+    constructor(init=false) {
+      this.x = Math.random()*W;
+      this.y = init ? Math.random()*H : H+60;
+      this.sz = Math.random()*13+4;
+      this.vy = Math.random()*1.4+.35;
+      this.wobA = Math.random()*Math.PI*2; this.wobS=Math.random()*.02+.007;
+      this.wobD = Math.random()*1.1+.3;
+      this.alpha = Math.random()*.38+.12;
+      this.rot = Math.random()*Math.PI*2; this.rotS=(Math.random()-.5)*.014;
+      const c=['rgba(255,26,102,.6)','rgba(230,0,76,.4)','rgba(255,128,166,.5)','rgba(255,215,0,.18)'];
+      this.col=c[Math.floor(Math.random()*c.length)];
+    }
+    update() {
+      this.y-=this.vy; this.wobA+=this.wobS; this.x+=Math.sin(this.wobA)*this.wobD; this.rot+=this.rotS;
+      if(this.y<-60){this.x=Math.random()*W;this.y=H+60;this.sz=Math.random()*13+4;this.vy=Math.random()*1.4+.35;}
+    }
+    draw(){drawHeart(ctx,this.x,this.y,this.sz,this.col,this.alpha);}
+  }
+  const hh = Array.from({length:HEART_COUNT},(_,i)=>new FloatHeart(i<HEART_COUNT/2));
 
-            const revealOnScroll = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, revealOptions);
+  (function loop() {
+    ctx.clearRect(0,0,W,H);
+    blobsA.forEach(b=>{ b.update(); b.draw(); });
+    hh.forEach(h=>{ h.update(); h.draw(); });
+    parts.forEach(p=>{ p.update(); p.draw(); });
+    requestAnimationFrame(loop);
+  })();
 
-            revealElements.forEach(el => revealOnScroll.observe(el));
+  console.log('Yaadon Ka Lifafa v3.0 — by Pritam Vishwakarma ♥');
+});
+</script>
 
-            // ---------------------------------------------------------
-            // 3. FAQ ACCORDION LOGIC
-            // ---------------------------------------------------------
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                const btn = item.querySelector('.faq-question');
-                btn.addEventListener('click', () => {
-                    faqItems.forEach(otherItem => {
-                        if (otherItem !== item) {
-                            otherItem.classList.remove('active');
-                        }
-                    });
-                    item.classList.toggle('active');
-                });
-            });
-
-            // ---------------------------------------------------------
-            // 4. ADVANCED HTML5 CANVAS FLYING HEARTS ENGINE
-            // ---------------------------------------------------------
-            const canvas = document.getElementById('heart-canvas-engine');
-            const ctx = canvas.getContext('2d');
-            
-            let width, height;
-            let heartsArray = [];
-            
-            // Color palette for the hearts to give depth
-            const heartColors = [
-                'rgba(255, 26, 102, 0.6)',  // Neon Pink
-                'rgba(230, 0, 76, 0.4)',    // Deep Red
-                'rgba(255, 128, 166, 0.5)', // Light Pink
-                'rgba(255, 215, 0, 0.2)'    // Subtle Gold
-            ];
-
-            function resizeCanvas() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
-            }
-
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            class FlyingHeart {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = height + Math.random() * 500;
-                    this.size = Math.random() * 15 + 5; 
-                    this.speedY = Math.random() * 1.5 + 0.5;
-                    this.wobbleAngle = Math.random() * Math.PI * 2;
-                    this.wobbleSpeed = Math.random() * 0.02 + 0.01;
-                    this.wobbleDistance = Math.random() * 1 + 0.5;
-                    this.color = heartColors[Math.floor(Math.random() * heartColors.length)];
-                    this.opacity = Math.random() * 0.5 + 0.2;
-                    this.pulseAngle = Math.random() * Math.PI * 2;
-                    this.pulseSpeed = Math.random() * 0.03 + 0.01;
-                }
-
-                update() {
-                    this.y -= this.speedY;
-                    this.wobbleAngle += this.wobbleSpeed;
-                    this.x += Math.sin(this.wobbleAngle) * this.wobbleDistance;
-                    this.pulseAngle += this.pulseSpeed;
-                    this.currentOpacity = this.opacity + Math.sin(this.pulseAngle) * 0.2;
-
-                    if (this.y < -50) {
-                        this.y = height + 50;
-                        this.x = Math.random() * width;
-                        this.size = Math.random() * 15 + 5;
-                        this.speedY = Math.random() * 1.5 + 0.5;
-                    }
-                }
-
-                draw() {
-                    ctx.save();
-                    ctx.translate(this.x, this.y);
-                    const scale = this.size / 50; 
-                    ctx.scale(scale, scale);
-                    ctx.globalAlpha = Math.max(0, Math.min(1, this.currentOpacity));
-                    ctx.fillStyle = this.color;
-                    ctx.shadowBlur = 10;
-                    ctx.shadowColor = this.color;
-
-                    // Mathematical Bezier Curve Heart
-                    ctx.beginPath();
-                    ctx.moveTo(0, 15);
-                    ctx.bezierCurveTo(0, 15, -20, -5, -20, -15);
-                    ctx.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
-                    ctx.bezierCurveTo(7.5, -30, 20, -25, 20, -15);
-                    ctx.bezierCurveTo(20, -5, 0, 15, 0, 15);
-                    ctx.fill();
-                    
-                    ctx.restore();
-                }
-            }
-
-            function initEngine() {
-                heartsArray = [];
-                const isMobile = width < 768;
-                const totalHearts = isMobile ? 40 : 100; 
-
-                for (let i = 0; i < totalHearts; i++) {
-                    heartsArray.push(new FlyingHeart());
-                }
-            }
-
-            function animateEngine() {
-                ctx.clearRect(0, 0, width, height);
-                for (let i = 0; i < heartsArray.length; i++) {
-                    heartsArray[i].update();
-                    heartsArray[i].draw();
-                }
-                requestAnimationFrame(animateEngine);
-            }
-
-            initEngine();
-            animateEngine();
-
-            console.log("Yaadon Ka Lifafa - Premium Engine Initialized by Pritam Vishwakarma.");
-        });
-    </script>
 </body>
 </html>
