@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Lifafa, ScrapbookPage
 
-# Register your models here.
+admin.site.register(Lifafa)
+admin.site.register(ScrapbookPage)
