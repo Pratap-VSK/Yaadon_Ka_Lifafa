@@ -714,15 +714,18 @@ a:hover { color: var(--red-glow); text-shadow: 0 0 10px rgba(255,26,102,.5); }
         <h2 class="auth-title">Welcome Back</h2>
         <p class="auth-subtitle">Sign in to unlock your memories.</p>
 
-        <form id="loginForm" onsubmit="handleLogin(event)" novalidate autocomplete="on">
+    <form id="loginForm" method="POST" action="{% url 'login' %}">
+          {% csrf_token %}
+          <!-- Ye hidden input view ko batayega ki ye LOGIN request hai -->
+          <input type="hidden" name="action" value="login">
 
           <div class="input-group">
-            <label class="input-label">Email Address</label>
+            <label class="input-label">Username</label>
             <div class="input-wrapper">
-              <span class="input-icon-left">✉️</span>
-              <input type="email" id="loginEmail" class="auth-input has-icon-left" placeholder="you@example.com" autocomplete="email" required>
+              <span class="input-icon-left">👤</span>
+              <!-- name="username" add kiya gaya hai -->
+              <input type="text" name="username" id="loginEmail" class="auth-input has-icon-left" placeholder="Your Username" required>
             </div>
-            <div class="validation-msg" id="loginEmailMsg"></div>
           </div>
 
           <div class="input-group">
@@ -732,17 +735,14 @@ a:hover { color: var(--red-glow); text-shadow: 0 0 10px rgba(255,26,102,.5); }
             </label>
             <div class="input-wrapper">
               <span class="input-icon-left">🔑</span>
-              <input type="password" id="loginPassword" class="auth-input has-icon-both" placeholder="••••••••" autocomplete="current-password" required>
+              <!-- name="password" add kiya gaya hai -->
+              <input type="password" name="password" id="loginPassword" class="auth-input has-icon-both" placeholder="••••••••" required>
               <button type="button" class="input-icon-right" onclick="togglePwdVisibility('loginPassword', this)" aria-label="Show password">👁️</button>
             </div>
-            <div class="validation-msg" id="loginPwdMsg"></div>
           </div>
-
-          <div class="rate-limit-warn" id="loginRateWarn">⚠️ Too many attempts. Please wait <span id="cooldownTimer">30</span>s before trying again.</div>
 
           <button type="submit" class="btn-submit" id="loginBtn">Sign In</button>
         </form>
-
         <div class="security-badge">🛡️ &nbsp;Your Data is Encrypted</div>
 
         <div class="divider">OR</div>
@@ -766,56 +766,48 @@ a:hover { color: var(--red-glow); text-shadow: 0 0 10px rgba(255,26,102,.5); }
         <p class="auth-subtitle" style="color:var(--red-glow); font-style:italic; margin-bottom:8px;">"The beginning of beautiful memories starts here."</p>
         <p class="auth-subtitle">Start preserving your most precious moments.</p>
 
-        <form id="registerForm" onsubmit="handleRegister(event)" novalidate autocomplete="on">
+      <!-- Note: Iska action bhi 'login' hi rahega kyunki aapke views.py me dono kaam ek hi function handle kar raha hai -->
+        <form id="registerForm" method="POST" action="{% url 'login' %}">
+          {% csrf_token %}
+          <!-- Ye hidden input view ko batayega ki ye REGISTER request hai -->
+          <input type="hidden" name="action" value="register">
 
           <div class="input-group">
-            <label class="input-label">Full Name</label>
+            <label class="input-label">Username</label>
             <div class="input-wrapper">
               <span class="input-icon-left">👤</span>
-              <input type="text" id="regName" class="auth-input has-icon-left" placeholder="Your Name" autocomplete="name" required minlength="2">
+              <!-- name="username" add kiya gaya hai -->
+              <input type="text" name="username" id="regName" class="auth-input has-icon-left" placeholder="Choose a Username" required minlength="2">
             </div>
-            <div class="validation-msg" id="regNameMsg"></div>
           </div>
 
           <div class="input-group">
             <label class="input-label">Email Address</label>
             <div class="input-wrapper">
               <span class="input-icon-left">✉️</span>
-              <input type="email" id="regEmail" class="auth-input has-icon-left" placeholder="you@example.com" autocomplete="email" required>
+              <!-- name="email" add kiya gaya hai -->
+              <input type="email" name="email" id="regEmail" class="auth-input has-icon-left" placeholder="you@example.com" required>
             </div>
-            <div class="validation-msg" id="regEmailMsg"></div>
           </div>
 
           <div class="input-group">
             <label class="input-label">Create Password</label>
             <div class="input-wrapper">
               <span class="input-icon-left">🔒</span>
-              <input type="password" id="regPassword" class="auth-input has-icon-both" placeholder="Min. 8 characters" autocomplete="new-password" required oninput="updateStrength(this.value)">
+              <!-- name="password" add kiya gaya hai -->
+              <input type="password" name="password" id="regPassword" class="auth-input has-icon-both" placeholder="Min. 8 characters" required>
               <button type="button" class="input-icon-right" onclick="togglePwdVisibility('regPassword', this)" aria-label="Show password">👁️</button>
             </div>
-            <div class="strength-bar-wrap"><div class="strength-bar" id="strengthBar"></div></div>
-            <div class="strength-label" id="strengthLabel">Password strength</div>
-            <div class="validation-msg" id="regPwdMsg"></div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Confirm Password</label>
-            <div class="input-wrapper">
-              <span class="input-icon-left">🔒</span>
-              <input type="password" id="regConfirm" class="auth-input has-icon-both" placeholder="Repeat password" autocomplete="new-password" required>
-              <button type="button" class="input-icon-right" onclick="togglePwdVisibility('regConfirm', this)" aria-label="Show password">👁️</button>
-            </div>
-            <div class="validation-msg" id="regConfirmMsg"></div>
           </div>
 
           <div class="checkbox-row">
-            <input type="checkbox" id="agreeTerms" required>
-            <label for="agreeTerms">I agree to the <a href="#" onclick="return false;">Privacy Policy</a> & <a href="#" onclick="return false;">Terms of Service</a>. My memories will be encrypted and private.</label>
+            <input type="checkbox" id="agreeTerms" name="terms" required>
+            <label for="agreeTerms">I agree to the <a href="#" onclick="return false;">Privacy Policy</a>. My memories will be private.</label>
           </div>
 
           <button type="submit" class="btn-submit" id="registerBtn">Create My Lifafa ✨</button>
         </form>
-
+        
         <div class="security-badge">🛡️ &nbsp;Zero-knowledge encryption — even we can't read your memories.</div>
 
         <div class="auth-footer" style="margin-top:16px;">
@@ -831,7 +823,9 @@ a:hover { color: var(--red-glow); text-shadow: 0 0 10px rgba(255,26,102,.5); }
         <p class="auth-subtitle" style="color:var(--red-glow); font-style:italic; margin-bottom:8px;">"Someone has sent something special for you."</p>
         <p class="auth-subtitle">Enter the secret key to reveal your hidden letter.</p>
 
-        <form id="secretForm" onsubmit="handleSecretKey(event)" novalidate>
+        <form id="secretForm" method="POST" action="{% url 'login' %}" onsubmit="handleSecretKey(event)" novalidate>
+           {% csrf_token %}
+            <!-- Baaki ka input code same rahega -->
           <div class="input-group">
             <label class="input-label" style="justify-content:center;">Secret Key / Code</label>
             <div class="input-wrapper">
@@ -869,8 +863,10 @@ a:hover { color: var(--red-glow); text-shadow: 0 0 10px rgba(255,26,102,.5); }
         <h2 class="auth-title">Reset Password</h2>
         <p class="auth-subtitle">We'll send a secure reset link to your email.</p>
 
-        <form id="forgotForm" onsubmit="handleForgot(event)" novalidate>
-          <div class="input-group">
+        <form id="forgotForm" method="POST" action="#" onsubmit="handleForgot(event)" novalidate>
+            {% csrf_token %}
+            <!-- Baaki ka input code same rahega -->
+            <div class="input-group">
             <label class="input-label">Your Email Address</label>
             <div class="input-wrapper">
               <span class="input-icon-left">✉️</span>
@@ -1128,7 +1124,7 @@ function startCooldown() {
 }
 
 function handleLogin(e) {
-  e.preventDefault();
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
   if (rateLimited) { showToast('⏳ Please wait before trying again.', 'error'); return; }
 
   const email    = document.getElementById('loginEmail');

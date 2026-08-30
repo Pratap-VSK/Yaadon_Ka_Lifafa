@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-from .models import Lifafa, ScrapbookPage  
-s
-# Your existing views
+from .models import Lifafa, ScrapbookPage
+
 def enjoy(request):
     return render(request, 'customization/for-you.html')
 
@@ -12,25 +11,25 @@ def celeb(request):
 # Updated Logic to Save Data to the Database
 def save_data(request):
     if request.method == 'POST':
-        # 1. Fetch text data from the frontend
-        receiver = request.POST.get('receiver_name', '')
-        message = request.POST.get('message', '')
-        sender = request.POST.get('sender_name', '')
+        # 1. Fetch text data matching the JavaScript FormData keys exactly
+        heading = request.POST.get('main_heading', '')
+        receiver = request.POST.get('letter_to', '')
+        message = request.POST.get('letter_body', '')
+        sender = request.POST.get('letter_from', '')
 
-        # 2. Create and save a new Lifafa entry in the database
         new_lifafa = Lifafa.objects.create(
+            main_heading=heading,
             receiver_name=receiver,
             sender_name=sender,
             message=message
         )
         
-        # 3. Loop through the 8 blocks and save ScrapbookPages
         for i in range(1, 9):
-            image_file = request.FILES.get(f'image_{i}') 
+            # Fetch image using 'photo_{i}' instead of 'image_{i}' to match JS
+            image_file = request.FILES.get(f'photo_{i}') 
             quote_text = request.POST.get(f'quote_{i}', '')
             
-            # If the user uploaded an image OR wrote a quote for this block, save it
-            if image_file or quote_text:
+            if image_file or quote_text.strip():
                 ScrapbookPage.objects.create(
                     lifafa=new_lifafa,
                     page_number=i,
@@ -38,7 +37,6 @@ def save_data(request):
                     quote_text=quote_text
                 )
 
-        # 4. Generate the actual sharable link using the Database ID
         actual_uuid = str(new_lifafa.id)
         generated_link = f"http://127.0.0.1:8000/shared-lifafa/{actual_uuid}/"
 
@@ -49,18 +47,14 @@ def save_data(request):
             'link': generated_link
         })
 
-    return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+    return JsonResponse({'success': False, 'error': 'Invalid request method.'}, status=400)
 
 def view_lifafa(request, pk):
     # 1. Fetch the main Envelope (Lifafa) using the unique ID from the URL
-    # If the ID doesn't exist in the database, it automatically shows a 404 Error page
     lifafa = get_object_or_404(Lifafa, id=pk)
     
-    # 2. Fetch all the uploaded pages/photos linked to this specific Lifafa
     pages = lifafa.pages.all()
     
-    # 3. Create a dictionary to easily map page numbers (1 to 8) to their data
-    # This ensures your fixed CSS layout doesn't break
     page_data = {}
     for page in pages:
         page_data[page.page_number] = page
@@ -73,5 +67,4 @@ def view_lifafa(request, pk):
     }
     
     # 5. Render the page with the fetched data
-    # (You can use your existing template, or create a duplicate named 'receiver_view.html')
     return render(request, 'customization/only-for-you.html', context)
