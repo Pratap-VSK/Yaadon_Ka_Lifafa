@@ -57,37 +57,38 @@ yaadon_ka_lifafa/[cite: 1]
 ├── db.sqlite3            # Pre-configured local SQLite Database[cite: 1]
 ├── manage.py             # Django execution script[cite: 1]
 └── requirements.txt      # Python dependencies for the project[cite: 1]
-
+```
 🚀 Getting Started
 Follow these steps to deploy your envelope locally:
 
 1. Clone the Repository
-Bash
+```Bash
 git clone [https://github.com/pratap-vsk/yaadon_ka_lifafa.git](https://github.com/pratap-vsk/yaadon_ka_lifafa.git)
 cd yaadon_ka_lifafa
-
+```
 2. Install Dependencies
 Make sure you have Python installed, then run:
-
+```
 Bash
 pip install -r requirements.txt
-
+```
 3. Database Setup
 Apply all the migrations for the account, data_proccess, and crash_handle apps[cite: 1]:
-
+```
 Bash
 python manage.py makemigrations
 python manage.py migrate
-
+```
 4. Ignite the Server
 Start the Django development server:
-
+```
 Bash
 python manage.py runserver
-
+```
 5. Open the Lifafa
+```
 Navigate to http://127.0.0.1:8000 in your web browser and watch the magic unfold!
-
+```
 🎨 Adding Your Own Memories
 To customize the images shown in the 3D Carousel and Scrapbook:
 
