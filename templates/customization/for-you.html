@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -261,7 +262,7 @@
             height: 90px;
             border-radius: 50%;
             background-color: #ffffff;
-            background-image: url('yaad.jpeg');
+            background-image: url('{% static "logo/yaad.jpeg" %}');
             background-size: 180px;
             background-position: center;
             background-repeat: no-repeat;
@@ -1728,7 +1729,7 @@
     <div class="glass-modal-overlay" id="custom-modal">
         <div class="glass-modal-content">
             <h2 class="modal-heading" id="modal-dynamic-text">Memories Verified ✨<br><span style="font-size:2.5rem; color:#800020;">Ready for the next chapter?</span></h2>
-            <button class="modal-btn-action" id="btn-smart-action">Next Page ➔</button>
+            <button class="modal-btn-action" id="btn-smart-action"">Next Page ➔</button>
         </div>
     </div>
 
@@ -1844,7 +1845,7 @@
             
             setTimeout(() => {
                 // Redirects after 1 second of fading out
-                window.location.href = "next.html"; 
+                window.location.href = "{% url 'second' %}"; 
             }, 1000);
         });
 

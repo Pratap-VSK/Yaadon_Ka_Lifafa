@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -641,7 +642,7 @@ a:hover { color: var(--red-glow); text-shadow: 0 0 10px rgba(255,26,102,.5); }
 <div class="vignette"></div>
 <div class="star-field" id="starField"></div>
 
-<img src="logo.jpeg" alt="Brand Logo" class="custom-brand-logo">
+<img src="{% static "logo/logo.jpeg" %}" alt="Brand Logo" class="custom-brand-logo">
 
 <div class="toast" id="toast"></div>
 
