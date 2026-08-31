@@ -831,8 +831,8 @@
 
 
                 /* ══════════════════════════════════════════ 
-            DONE BUTTON
-        ══════════════════════════════════════════ */
+             DONE BUTTON
+         ══════════════════════════════════════════ */
         .done-section {
             width: 100%;
             display: flex;
@@ -968,7 +968,7 @@
         }
 
         /* ══════════════════════════════════════════ 
-           OLD RESPONSIVE REFINEMENTS (Kept Intact)
+            OLD RESPONSIVE REFINEMENTS (Kept Intact)
         ══════════════════════════════════════════ */
         @media (max-width: 900px) {
             .blk, .blk:nth-child(even) {
@@ -1023,7 +1023,7 @@
         }
 
         /* ══════════════════════════════════════════ 
-           ADDED REAL RESPONSIVE FIXES (MOBILE VIEW)
+            ADDED REAL RESPONSIVE FIXES (MOBILE VIEW)
         ══════════════════════════════════════════ */
         @media (max-width: 900px) {
             /* 1. Stack blocks vertically with proper gaps */
@@ -1181,7 +1181,7 @@
     </style>
 </head>
 <body>
-
+    {% csrf_token %}
     <!-- ==========================================================================
          CANVAS ENGINE: ATTRACTIVE FLYING HEARTS
          ========================================================================== -->
@@ -1234,7 +1234,7 @@
         <div class="hanging-logo-container">
             <div class="logo-string"></div>
             <svg class="logo-knot" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-            <div class="logo-circle" style="background-image: url('{% static 'logo/yaad.jpeg' %}'); "></div>
+            <div class="logo-circle" style="background-image: url('{% static 'logo/yaad.jpeg' %}');"></div>
         </div>        
         <!-- Soft glowing background for the title to make it pop beautifully -->
         <div class="header-bg-glow"></div>
@@ -1243,7 +1243,7 @@
         <div class="word-row w1" style="width: 400px; height: 400px; border-radius: 50%; background-image: url('{% static "images/cat3.jpg" %}'); background-size: 95%; background-position: align-self; box-shadow: 0px 8px 58px rgba(6, 159, 30, 0.3); opacity: 1;"></div>
 
         <div class="word-row w1">
-            <div class="hanging-letter-container", aria-grabbed="false">
+            <div class="hanging-letter-container" aria-grabbed="false">
                 <div class="letter-string"></div>
                 <div class="letter-knot"></div>
                 <span class="tile-letter">H</span>
@@ -1377,38 +1377,47 @@
             </defs>
         </svg>
 
-
-
         <!-- BLOCK 1 -->
         <div class="scrap-block blk-1">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
                 <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-1').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-1">Add photo</span>
+                    <div class="photo-area" 
+                         {% if not is_receiver_mode %}onclick="document.getElementById('file-1').click()"{% endif %}
+                         {% if is_receiver_mode and page_data.1.image %}style="background-image: url('{{ page_data.1.image.url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+                        
+                        {% if not is_receiver_mode %}
+                            <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                            <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
+                            <span class="add-photo-txt" id="txt-1">Add photo</span>
+                        {% endif %}
                     </div>
-                    <input type="file" id="file-1" class="upload-input" accept="image/*" onchange="previewImage(event, '1')">
+                    {% if not is_receiver_mode %}
+                        <input type="file" id="file-1" class="upload-input" accept="image/*" onchange="previewImage(event, '1')">
+                    {% endif %}
                 </div>
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
                 <div class="paper-note">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        A little reminder:<br>the world is brighter because you're in it ♥
+                    <p class="note-text" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                        {% if is_receiver_mode %}
+                            {{ page_data.1.quote_text }}
+                        {% else %}
+                            A little reminder:<br>the world is brighter because you're in it ♥
+                        {% endif %}
                     </p>
+                    {% if not is_receiver_mode %}
                     <div style="text-align: center;">
                         <span class="highlight-text" contenteditable="true">Keep shining always!</span>
                     </div>
+                    {% endif %}
                     <span class="note-doodle">♡</span>
                 </div>
             </div>
@@ -1418,27 +1427,36 @@
         <div class="scrap-block blk-2">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
                 <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-2').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-2">Add photo</span>
+                    <div class="photo-area" 
+                         {% if not is_receiver_mode %}onclick="document.getElementById('file-2').click()"{% endif %}
+                         {% if is_receiver_mode and page_data.2.image %}style="background-image: url('{{ page_data.2.image.url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+                        
+                        {% if not is_receiver_mode %}
+                            <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                            <span class="add-photo-txt" id="txt-2">Add photo</span>
+                        {% endif %}
                     </div>
-                    <input type="file" id="file-2" class="upload-input" accept="image/*" onchange="previewImage(event, '2')">
+                    {% if not is_receiver_mode %}
+                        <input type="file" id="file-2" class="upload-input" accept="image/*" onchange="previewImage(event, '2')">
+                    {% endif %}
                 </div>
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
                 <div class="paper-note color-beige">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        Thankful for you<br>every single day.
+                    <p class="note-text" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                        {% if is_receiver_mode %}
+                            {{ page_data.2.quote_text }}
+                        {% else %}
+                            Thankful for you<br>every single day.
+                        {% endif %}
                     </p>
                     <span class="note-doodle">♥</span>
                 </div>
@@ -1449,27 +1467,36 @@
         <div class="scrap-block blk-3">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
                 <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-3').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-3">Add photo</span>
+                    <div class="photo-area" 
+                         {% if not is_receiver_mode %}onclick="document.getElementById('file-3').click()"{% endif %}
+                         {% if is_receiver_mode and page_data.3.image %}style="background-image: url('{{ page_data.3.image.url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+                        
+                        {% if not is_receiver_mode %}
+                            <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                            <span class="add-photo-txt" id="txt-3">Add photo</span>
+                        {% endif %}
                     </div>
-                    <input type="file" id="file-3" class="upload-input" accept="image/*" onchange="previewImage(event, '3')">
+                    {% if not is_receiver_mode %}
+                        <input type="file" id="file-3" class="upload-input" accept="image/*" onchange="previewImage(event, '3')">
+                    {% endif %}
                 </div>
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
                 <div class="paper-note color-blue">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        Good vibes only.<br>Making memories with you is my favorite thing to do!
+                    <p class="note-text" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                        {% if is_receiver_mode %}
+                            {{ page_data.3.quote_text }}
+                        {% else %}
+                            Good vibes only.<br>Making memories with you is my favorite thing to do!
+                        {% endif %}
                     </p>
                 </div>
             </div>
@@ -1479,32 +1506,43 @@
         <div class="scrap-block blk-4">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
                 <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-4').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-4">Add photo</span>
+                    <div class="photo-area" 
+                         {% if not is_receiver_mode %}onclick="document.getElementById('file-4').click()"{% endif %}
+                         {% if is_receiver_mode and page_data.4.image %}style="background-image: url('{{ page_data.4.image.url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+                        
+                        {% if not is_receiver_mode %}
+                            <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                            <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
+                            <span class="add-photo-txt" id="txt-4">Add photo</span>
+                        {% endif %}
                     </div>
-                    <input type="file" id="file-4" class="upload-input" accept="image/*" onchange="previewImage(event, '4')">
+                    {% if not is_receiver_mode %}
+                        <input type="file" id="file-4" class="upload-input" accept="image/*" onchange="previewImage(event, '4')">
+                    {% endif %}
                 </div>
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
                 <div class="paper-note">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        To the one who makes<br>my heart smile.
+                    <p class="note-text" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                        {% if is_receiver_mode %}
+                            {{ page_data.4.quote_text }}
+                        {% else %}
+                            To the one who makes<br>my heart smile.
+                        {% endif %}
                     </p>
+                    {% if not is_receiver_mode %}
                     <div style="text-align: center;">
                         <span class="highlight-text" contenteditable="true">So much love!</span>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -1513,27 +1551,36 @@
         <div class="scrap-block blk-5">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
                 <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-5').click()">
-                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-5">Add photo</span>
+                    <div class="photo-area" 
+                         {% if not is_receiver_mode %}onclick="document.getElementById('file-5').click()"{% endif %}
+                         {% if is_receiver_mode and page_data.5.image %}style="background-image: url('{{ page_data.5.image.url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+                        
+                        {% if not is_receiver_mode %}
+                            <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
+                            <span class="add-photo-txt" id="txt-5">Add photo</span>
+                        {% endif %}
                     </div>
-                    <input type="file" id="file-5" class="upload-input" accept="image/*" onchange="previewImage(event, '5')">
+                    {% if not is_receiver_mode %}
+                        <input type="file" id="file-5" class="upload-input" accept="image/*" onchange="previewImage(event, '5')">
+                    {% endif %}
                 </div>
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
                 <div class="paper-note color-beige">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        Here's to another year of us being absolutely awesome together!
+                    <p class="note-text" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                        {% if is_receiver_mode %}
+                            {{ page_data.5.quote_text }}
+                        {% else %}
+                            Here's to another year of us being absolutely awesome together!
+                        {% endif %}
                     </p>
                     <span class="note-doodle">♡</span>
                 </div>
@@ -1544,27 +1591,36 @@
         <div class="scrap-block blk-6">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
                 <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-6').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-6">Add photo</span>
+                    <div class="photo-area" 
+                         {% if not is_receiver_mode %}onclick="document.getElementById('file-6').click()"{% endif %}
+                         {% if is_receiver_mode and page_data.6.image %}style="background-image: url('{{ page_data.6.image.url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+                        
+                        {% if not is_receiver_mode %}
+                            <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                            <span class="add-photo-txt" id="txt-6">Add photo</span>
+                        {% endif %}
                     </div>
-                    <input type="file" id="file-6" class="upload-input" accept="image/*" onchange="previewImage(event, '6')">
+                    {% if not is_receiver_mode %}
+                        <input type="file" id="file-6" class="upload-input" accept="image/*" onchange="previewImage(event, '6')">
+                    {% endif %}
                 </div>
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
                 <div class="paper-note color-blue">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        We don't remember days,<br>we remember moments.
+                    <p class="note-text" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                        {% if is_receiver_mode %}
+                            {{ page_data.6.quote_text }}
+                        {% else %}
+                            We don't remember days,<br>we remember moments.
+                        {% endif %}
                     </p>
                 </div>
             </div>
@@ -1574,32 +1630,43 @@
         <div class="scrap-block blk-7">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
                 <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-7').click()">
-                        <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
-                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-7">Add photo</span>
+                    <div class="photo-area" 
+                         {% if not is_receiver_mode %}onclick="document.getElementById('file-7').click()"{% endif %}
+                         {% if is_receiver_mode and page_data.7.image %}style="background-image: url('{{ page_data.7.image.url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+                        
+                        {% if not is_receiver_mode %}
+                            <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                            <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
+                            <span class="add-photo-txt" id="txt-7">Add photo</span>
+                        {% endif %}
                     </div>
-                    <input type="file" id="file-7" class="upload-input" accept="image/*" onchange="previewImage(event, '7')">
+                    {% if not is_receiver_mode %}
+                        <input type="file" id="file-7" class="upload-input" accept="image/*" onchange="previewImage(event, '7')">
+                    {% endif %}
                 </div>
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
                 <div class="paper-note">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        You are my today<br>and all of my tomorrows.
+                    <p class="note-text" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                        {% if is_receiver_mode %}
+                            {{ page_data.7.quote_text }}
+                        {% else %}
+                            You are my today<br>and all of my tomorrows.
+                        {% endif %}
                     </p>
+                    {% if not is_receiver_mode %}
                     <div style="text-align: center;">
                         <span class="highlight-text" contenteditable="true">Forever & Always</span>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -1608,27 +1675,37 @@
         <div class="scrap-block blk-8">
             <div class="frame-wrapper">
                 <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
-                <!-- TAPES IN OPPOSITION ON FRAME -->
                 <div class="tape tape-pink-dots tape-tr"></div>
                 <div class="tape tape-red-stripe tape-bl"></div>
                 
-                <div class="polaroid-body">
-                    <div class="photo-area" onclick="document.getElementById('file-8').click()">
-                        <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
-                        <span class="add-photo-txt" id="txt-8">Add photo</span>
+               <div class="polaroid-body">
+                    <div class="photo-area" 
+                         {% if not is_receiver_mode %}onclick="document.getElementById('file-8').click()"{% endif %}
+                         {% if is_receiver_mode and page_data.8.image %}style="background-image: url('{{ page_data.8.image.url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"{% endif %}>
+                        
+                        {% if not is_receiver_mode %}
+                            <svg class="frame-sparkle fs-1"><use href="#sparkle-svg"/></svg>
+                            <svg class="frame-sparkle fs-2"><use href="#sparkle-svg"/></svg>
+                            <span class="add-photo-txt" id="txt-8">Add photo</span>
+                        {% endif %}
                     </div>
-                    <input type="file" id="file-8" class="upload-input" accept="image/*" onchange="previewImage(event, '8')">
+                    {% if not is_receiver_mode %}
+                        <input type="file" id="file-8" class="upload-input" accept="image/*" onchange="previewImage(event, '8')">
+                    {% endif %}
                 </div>
             </div>
             
             <div class="note-wrapper">
-                <!-- TAPES IN OPPOSITION ON NOTE -->
                 <div class="tape tape-red-stripe tape-tl"></div>
                 <div class="tape tape-pink-dots tape-br"></div>
                 
                 <div class="paper-note color-beige">
-                    <p class="note-text" contenteditable="true" spellcheck="false">
-                        Wishing you the happiest of birthdays. May all your dreams come true! 🎉
+                    <p class="note-text" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                        {% if is_receiver_mode %}
+                            {{ page_data.8.quote_text }}
+                        {% else %}
+                            Wishing you the happiest of birthdays. May all your dreams come true! 🎉
+                        {% endif %}
                     </p>
                     <span class="note-doodle">♥</span>
                 </div>
@@ -1636,7 +1713,9 @@
         </div>
 
     </main>
-    <!-- Done Button Section -->
+
+    <!-- Done Button Section (Hidden completely in receiver view) -->
+    {% if not is_receiver_mode %}
     <div class="done-section">
            <p class="done-label">All memories added? Seal it with love! 💌</p>
            <button class="done-btn" id="doneBtn">
@@ -1644,7 +1723,7 @@
            Done — Seal My Lifafa
            </button>
     </div>
-
+    {% endif %}
 
     <!-- ==========================================================================
          PREMIUM FOOTER (MINIMAL 2 LINES)
@@ -1692,16 +1771,73 @@
                 reader.readAsDataURL(file);
             }
         }
-    /* ── Done Button Logic ── */
+
+   {% if not is_receiver_mode %}
+   <script>
+   /* ── Done Button Logic (Saving to Backend & Generating Link) ── */
     const doneBtn = document.getElementById('doneBtn');
-    doneBtn.addEventListener('click', function() {
-        this.classList.add('done-ok');
-        this.innerHTML = `<svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:rgba(255,255,255,.9)"><polyline points="20 6 9 17 4 12" stroke="rgba(255,255,255,.9)" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg> Lifafa Sealed! 🎉`;
-        this.disabled = true;
-        
-        confettiBurst();
-        setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 1200);
-    });
+    
+    if (doneBtn) {
+        doneBtn.addEventListener('click', async function() {
+            this.innerHTML = "Saving Memories... ⏳";
+            this.disabled = true;
+
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            const formData = new FormData();
+
+            // Collect all 8 Uploaded Images
+            for(let i = 1; i <= 8; i++) {
+                const fileInput = document.getElementById('file-' + i);
+                if(fileInput && fileInput.files.length > 0) {
+                    formData.append('photo_' + i, fileInput.files[0]);
+                }
+            }
+
+            // Collect all 8 editable quotes
+            const quotes = document.querySelectorAll('.note-text');
+            quotes.forEach((quote, index) => {
+                formData.append('quote_' + (index + 1), quote.innerText);
+            });
+
+            // Default envelope text to prevent database errors for this specific page
+            formData.append('main_heading', 'Happy Birthday');
+            formData.append('letter_to', 'Birthday Star');
+            formData.append('letter_body', 'Here are our beautiful memories.');
+            formData.append('letter_from', 'Yours truly');
+
+            try {
+                const response = await fetch("{% url 'save_data' %}", {
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': csrfToken },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    this.classList.add('done-ok');
+                    this.innerHTML = `<svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:rgba(255,255,255,.9)"><polyline points="20 6 9 17 4 12" stroke="rgba(255,255,255,.9)" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg> Link Generated! Copied 📋`;
+                    
+                    navigator.clipboard.writeText(result.link);
+                    alert("Memories saved successfully!\n\nYour secret sharing link is:\n" + result.link + "\n\n(It has been copied to your clipboard automatically!)");
+
+                    confettiBurst();
+                    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 1200);
+                } else {
+                    alert("Error: " + (result.error || "Could not save memories."));
+                    this.innerHTML = "Done — Seal My Lifafa";
+                    this.disabled = false;
+                }
+            } catch (error) {
+                console.error("Fetch Error:", error);
+                alert("Network connection error. Please check your internet and try again.");
+                this.innerHTML = "Done — Seal My Lifafa";
+                this.disabled = false;
+            }
+        });
+    }
+    </script>
+    {% endif %}
 
     /* ── Mini Confetti Burst ── */
     function confettiBurst() {

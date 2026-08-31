@@ -1228,21 +1228,24 @@ function handleSecretKey(e) {
   const btn    = document.getElementById('unlockBtn');
 
   clearState(key, keyMsg);
-  const clean = key.value.replace('-', '');
+  // Dash (-) hata kar sirf 8 character ka alphanumeric key extract karein
+  const clean = key.value.replace('-', '').toUpperCase();
+  
   if (clean.length !== 8) {
-    setInvalid(key, keyMsg, '⚠ Enter a complete 8-character key (e.g. LOVE-2026).');
+    setInvalid(key, keyMsg, '⚠ Enter a complete 8-character key (e.g. A1B2C3D4).');
     return;
   }
 
-  btn.textContent = 'Unlocking…'; btn.classList.add('btn-loading'); btn.disabled = true;
+  // Button ko loading state mein daalein
+  btn.textContent = 'Unlocking…'; 
+  btn.classList.add('btn-loading'); 
+  btn.disabled = true;
+  
+  // 1 second ka chhota sa loading effect dikhakar direct Django Loading URL par bhej dein
   setTimeout(() => {
-    btn.textContent = '🗝️  Unlock Envelope';
-    btn.classList.remove('btn-loading'); btn.disabled = false;
-    showToast('💌 Envelope unlocked! A special message awaits you.', 'info', 4000);
-    setValid(key, keyMsg, '✓ Key accepted!');
-  }, 2000);
+    window.location.href = "/special/unlock/loading/" + clean + "/";
+  }, 1000);
 }
-
 function handleForgot(e) {
   e.preventDefault();
   const email    = document.getElementById('forgotEmail');

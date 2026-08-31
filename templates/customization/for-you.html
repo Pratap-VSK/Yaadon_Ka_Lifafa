@@ -1439,9 +1439,13 @@
             <!-- Left Side: Poem / Text Composer -->
             <div class="text-composer hide-on-intro reveal-element">
                 <span class="composer-heading">Heading:</span>
-                <p class="editable-poem" contenteditable="true" spellcheck="false">
-                    "Text which is touched Someone's heart...<br>
-                    Here Your Text" 🌸✨
+                <p class="editable-poem" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                    {% if is_receiver_mode %}
+                        {{ lifafa.main_heading }}
+                    {% else %}
+                        "Text which is touched Someone's heart...<br>
+                        Here Your Text" 🌸✨
+                    {% endif %}
                 </p>
             </div>
 
@@ -1451,23 +1455,18 @@
                 <div class="env-back"></div>
                 
                 <!-- THE LETTER (PC Scaled & Overlap Protected) -->
-                <div class="env-letter" id="auto-size-container">
-                    <div class="letter-to" contenteditable="true" spellcheck="false">To: [Receiver Name]</div>
+               <div class="env-letter" id="auto-size-container">
+                    <div class="letter-to" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                        {% if is_receiver_mode %}{{ lifafa.receiver_name }}{% else %}To: [Receiver Name]{% endif %}
+                    </div>
                     
-                    <div class="letter-body" id="auto-size-text" contenteditable="true" spellcheck="false">Write your heart-touching message here... 💖
+                    <div class="letter-body" id="auto-size-text" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">{% if is_receiver_mode %}{{ lifafa.message }}{% else %}Write your heart-touching message here... 💖
                     You can write up to 15 lines easily.
-                    Every line has a special feeling ✨
-
-                    If you type too much text on one line,
-                    or write beyond the visible limit,
-                    the text will auto-magically shrink! 🌸
-
-                    Keep pouring your heart out.
-                    Memories last forever...
-
-                    Wishing you the happiest days ahead! ✨</div>
+                    Every line has a special feeling ✨{% endif %}</div>
                                         
-                    <div class="letter-from" contenteditable="true" spellcheck="false">Yours, [Sender Name] ✍️</div>
+                    <div class="letter-from" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                        {% if is_receiver_mode %}{{ lifafa.sender_name }}{% else %}Yours, [Sender Name] ✍️{% endif %}
+                    </div>
                 </div>
 
                 <!-- Envelope Message Text Before Opening (Requested Feature) -->
@@ -1615,18 +1614,27 @@
                             <div class="rope"></div>
                         </div>
                         <div class="photo-frame">
-                            <div class="image-dropzone" onclick="document.getElementById('img-2').click()">
-                                <span class="upload-hint" id="hint-2">Photo 2</span>
+                            <div class="image-dropzone" 
+                                 {% if not is_receiver_mode %}onclick="document.getElementById('img-1').click()"{% endif %}
+                                 {% if is_receiver_mode and page_data.1.image %}style="background-image: url('{{ page_data.1.image.url }}'); background-size: cover; background-position: center;"{% endif %}>
+                                {% if not is_receiver_mode %}
+                                    <span class="upload-hint" id="hint-1">Photo 1</span>
+                                {% endif %}
                             </div>
-                            <input type="file" id="img-2" class="file-input" accept="image/*" onchange="handleImage(event, '2')">
+                            {% if not is_receiver_mode %}
+                                <input type="file" id="img-1" class="file-input" accept="image/*" onchange="handleImage(event, '1')">
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="photo-quote" contenteditable="true" spellcheck="false">
-                    "Your text here "Birthday Wishes"... 🌸"
+                <div class="photo-quote" contenteditable="{% if is_receiver_mode %}false{% else %}true{% endif %}" spellcheck="false">
+                    {% if is_receiver_mode %}
+                        {{ page_data.1.quote_text }}
+                    {% else %}
+                        "Every picture has their own meaninig." ✨
+                    {% endif %}
                 </div>
             </div>
-            
             <!-- -------------------------------------------------------------------------------------
                  Scrapbook Item 3
                  ------------------------------------------------------------------------------------- -->
@@ -1700,18 +1708,22 @@
                         </div>
                     </div>
                 </div>
+                <!-- The extra </div> was removed from here -->
                 <div class="photo-quote" contenteditable="true" spellcheck="false">
                     "Smile widely, live loudly, love deeply. These moments are yours." ✨
                 </div>
             </div>
-
         </section>
 
         <!-- =========================================================================================
              CALL TO ACTION BUTTON
              ========================================================================================= -->
         <div class="footer-action hide-on-intro reveal-element">
-            <button class="btn-premium" id="btn-trigger-modal">Explore Next Chapter</button>
+            {% if is_receiver_mode %}
+                <a href="{% url 'receiver_scrapbook' secret_key %}" class="btn-premium" style="text-decoration:none; display:inline-block;">Explore Next Chapter ➔</a>
+            {% else %}
+                <button class="btn-premium" id="btn-trigger-modal">Explore Next Chapter</button>
+            {% endif %}
         </div>
 
     </main>
@@ -1727,13 +1739,15 @@
     <!-- =========================================================================================
          GLASSMORPHISM MODAL OVERLAY (DIRECT ACTION MODAL)
          ========================================================================================= -->
+   <!-- GLASSMORPHISM MODAL OVERLAY -->
+    {% if not is_receiver_mode %}
     <div class="glass-modal-overlay" id="custom-modal">
         <div class="glass-modal-content">
             <h2 class="modal-heading" id="modal-dynamic-text">Memories Verified ✨<br><span style="font-size:2.5rem; color:#800020;">Ready for the next chapter?</span></h2>
-            <button class="modal-btn-action" id="btn-smart-action"">Next Page ➔</button>
+            <button class="modal-btn-action" id="btn-smart-action">Next Page ➔</button>
         </div>
     </div>
-
+    {% endif %}
     <!-- =========================================================================================
          JAVASCRIPT ENGINE (FULLY EXPANDED WITH JSDOCS & DIRECT NAVIGATION LOGIC)
          ========================================================================================= -->
@@ -1826,78 +1840,82 @@
         }
 
         /**
-         * 4. DIRECT ACTION NAVIGATION MODAL
-         * As requested: Removes the "Close" state entirely. Tapping the footer button immediately
-         * opens the "Ready for the next chapter" popup with the "Next Page" button.
+         * 4. DIRECT ACTION NAVIGATION MODAL & SAVE LOGIC (Hidden for Receiver)
          */
+        {% if not is_receiver_mode %}
         const btnTrigger = document.getElementById('btn-trigger-modal');
         const btnSmartAction = document.getElementById('btn-smart-action');
         const modalOverlay = document.getElementById('custom-modal');
 
         // Tap 1: Opens the modal overlay showing the "Next Page" button directly
-        btnTrigger.addEventListener('click', function() { 
-            modalOverlay.classList.add('active'); 
-        });
+        if (btnTrigger) {
+            btnTrigger.addEventListener('click', function() { 
+                modalOverlay.classList.add('active'); 
+            });
+        }
         
         // Tap 2: Saves data to database using Fetch API, then navigates to the next page
-        btnSmartAction.addEventListener('click', async function() { 
-            // 1. Button ko loading text mein badlein aur disable karein
-            this.innerHTML = "Saving Memories... ⏳";
-            this.disabled = true;
+        if (btnSmartAction) {
+            btnSmartAction.addEventListener('click', async function() { 
+                // 1. Button ko loading text mein badlein aur disable karein
+                this.innerHTML = "Saving Memories... ⏳";
+                this.disabled = true;
 
-            // 2. CSRF Token aur naya FormData object banayein
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-            const formData = new FormData();
+                // 2. CSRF Token aur naya FormData object banayein
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                const formData = new FormData();
 
-            // 3. Sabhi 8 Uploaded Images ko collect karein
-            for(let i = 1; i <= 8; i++) {
-                const imgInput = document.getElementById('img-' + i);
-                if(imgInput && imgInput.files.length > 0) {
-                    formData.append('photo_' + i, imgInput.files[0]);
+                // 3. Sabhi 8 Uploaded Images ko collect karein (for safety loop till 8)
+                for(let i = 1; i <= 8; i++) {
+                    const imgInput = document.getElementById('img-' + i);
+                    if(imgInput && imgInput.files.length > 0) {
+                        formData.append('photo_' + i, imgInput.files[0]);
+                    }
                 }
-            }
 
-            // 4. Envelope ka Texts aur sabhi Quotes ko collect karein
-            formData.append('main_heading', document.querySelector('.editable-poem').innerText);
-            formData.append('letter_to', document.querySelector('.letter-to').innerText);
-            formData.append('letter_body', document.querySelector('.letter-body').innerText);
-            formData.append('letter_from', document.querySelector('.letter-from').innerText);
-            
-            const quotes = document.querySelectorAll('.photo-quote');
-            quotes.forEach((quote, index) => {
-                formData.append('quote_' + (index + 1), quote.innerText);
-            });
-
-            try {
-                // 5. Django Backend ('save_data' view) ko POST request bhejein
-                const response = await fetch("{% url 'save_data' %}", {
-                    method: 'POST',
-                    headers: { 'X-CSRFToken': csrfToken },
-                    body: formData
+                // 4. Envelope ka Texts aur sabhi Quotes ko collect karein
+                formData.append('main_heading', document.querySelector('.editable-poem').innerText);
+                formData.append('letter_to', document.querySelector('.letter-to').innerText);
+                formData.append('letter_body', document.querySelector('.letter-body').innerText);
+                formData.append('letter_from', document.querySelector('.letter-from').innerText);
+                
+                const quotes = document.querySelectorAll('.photo-quote');
+                quotes.forEach((quote, index) => {
+                    formData.append('quote_' + (index + 1), quote.innerText);
                 });
 
-                if(response.ok) {
-                    // 6. Data save hone ke baad page ko fade out karke redirect karein
-                    this.innerHTML = "Done! Redirecting... ✨";
-                    document.body.style.opacity = 0; 
-                    
-                    setTimeout(() => {
-                        window.location.href = "{% url 'second' %}"; 
-                    }, 1000);
-                } else {
-                    // Agar backend se error aaye
-                    alert("Oops! Memories save nahi ho payi. Please try again.");
+                try {
+                    // 5. Django Backend ('save_data' view) ko POST request bhejein
+                    const response = await fetch("{% url 'save_data' %}", {
+                        method: 'POST',
+                        headers: { 'X-CSRFToken': csrfToken },
+                        body: formData
+                    });
+
+                    if(response.ok) {
+                        // 6. Data save hone ke baad page ko fade out karke redirect karein
+                        this.innerHTML = "Done! Redirecting... ✨";
+                        document.body.style.opacity = 0; 
+                        
+                        setTimeout(() => {
+                            window.location.href = "{% url 'second' %}"; // Change this URL name if your next page URL name is different
+                        }, 1000);
+                    } else {
+                        // Agar backend se error aaye
+                        alert("Oops! Memories save nahi ho payi. Please try again.");
+                        this.innerHTML = "Next Page ➔";
+                        this.disabled = false;
+                    }
+                } catch (error) {
+                    // Agar internet chala jaye ya network error ho
+                    console.error("Error saving data:", error);
+                    alert("Network error. Please check your connection.");
                     this.innerHTML = "Next Page ➔";
                     this.disabled = false;
                 }
-            } catch (error) {
-                // Agar internet chala jaye ya network error ho
-                console.error("Error saving data:", error);
-                alert("Network error. Please check your connection.");
-                this.innerHTML = "Next Page ➔";
-                this.disabled = false;
-            }
-        });
+            });
+        }
+        {% endif %}
 
         /**
          * 5. ENHANCED BACKGROUND HEARTS PARTICLE ENGINE (3D PARALLAX EFFECT)

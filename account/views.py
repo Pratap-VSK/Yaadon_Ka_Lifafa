@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as django_login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 
+
+@never_cache
 def login(request):
     """
     Handles both rendering the authentication page and processing Login/Signup POST requests.
@@ -39,7 +43,8 @@ def login(request):
     # If GET request, just render the authentication page
     return render(request, 'accounts/authentication.html')
 
-
+@login_required
+@never_cache
 def loading(request):
     """
     Renders the loading animation page.
@@ -52,6 +57,8 @@ def loading(request):
     return render(request, 'accounts/loading.html')
 
 
+@login_required
+@never_cache
 def logout_user(request):
     """
     Logs the user out and sends them back to the login page.
