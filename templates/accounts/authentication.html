@@ -1228,7 +1228,6 @@ function handleSecretKey(e) {
   const btn    = document.getElementById('unlockBtn');
 
   clearState(key, keyMsg);
-  // Dash (-) hata kar sirf 8 character ka alphanumeric key extract karein
   const clean = key.value.replace('-', '').toUpperCase();
   
   if (clean.length !== 8) {
@@ -1243,7 +1242,7 @@ function handleSecretKey(e) {
   
   // 1 second ka chhota sa loading effect dikhakar direct Django Loading URL par bhej dein
   setTimeout(() => {
-    window.location.href = "/special/unlock/loading/" + clean + "/";
+    window.location.href = "/special/loading/" + clean + "/";
   }, 1000);
 }
 function handleForgot(e) {

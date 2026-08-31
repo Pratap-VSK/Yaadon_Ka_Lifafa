@@ -1,0 +1,654 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Special Memory For You | Yaadon Ka Lifafa</title>
+    <meta name="description" content="A beautiful memory scrapbook specifically designed for you.">
+
+    <!-- PREMIUM GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Patrick+Hand&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 1. CSS CUSTOM VARIABLES */
+        :root {
+            --color-bg-base: #ffccd5;
+            --bg-gradient-full: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            --text-color-dark: #3a0d16;
+            --text-color-maroon: #800020;
+            --color-text-ink: #2c2c2c;
+            --color-text-teal: #10423e; 
+            --envelope-base-color: #ff4d6d;
+            --envelope-dark-color: #c9184a;
+            --envelope-flap-color: #ff758f;
+            --envelope-front-color: #ff8fa3;
+            --gold-color-light: #f9d976;
+            --gold-color-dark: #08f954;
+            --paper-background-color: #fffbf0;
+            --paper-line-color: rgba(255, 105, 180, 0.25);
+            --color-frame-bg: #ffffff;
+            --color-frame-inner-gradient: linear-gradient(135deg, #d32645 0%, #9e1428 100%);
+            --color-note-pink: #fcd5ce;
+            --color-note-blue: #dff0f6;
+            --color-note-beige: #fdf5e6;
+            --color-tape-red: rgba(190, 40, 60, 0.85);
+            --color-tape-pink: rgba(240, 150, 170, 0.85);
+            --color-tape-striped: repeating-linear-gradient(45deg, rgba(180, 40, 60, 0.8), rgba(180, 40, 60, 0.8) 6px, rgba(210, 70, 90, 0.8) 6px, rgba(210, 70, 90, 0.8) 12px);
+            --color-tape-dots: radial-gradient(circle, rgba(180, 40, 60, 0.6) 20%, transparent 20%);
+            --color-thread: #2a1610; 
+            --color-thread-shadow: rgba(0, 0, 0, 0.5);
+            --glow-pink: rgba(255, 105, 180, 0.9);
+            --glow-blue: rgba(0, 229, 255, 0.9);
+            --glow-yellow: rgba(255, 234, 0, 0.9);
+            --font-family-handwriting: 'Caveat', cursive;
+            --font-family-marker: 'Patrick Hand', cursive;
+            --font-family-sans-serif: 'Montserrat', sans-serif;
+            --font-family-elegant: 'Dancing Script', cursive;
+        }
+
+        /* 2. GLOBAL RESET & BASE STYLES */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        body { width: 100%; min-height: 100vh; background-color: var(--color-bg-base); background-image: var(--bg-gradient-full); background-attachment: fixed; background-size: cover; color: var(--text-color-dark); font-family: var(--font-family-sans-serif); overflow-x: hidden; position: relative; }
+        body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.05; pointer-events: none; z-index: 9999; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+        
+        canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: block; }
+        #particle-canvas { z-index: 1; }
+        #rose-canvas { z-index: 999; }
+
+        /* Intro Sequence */
+        body.intro-mode { overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        body.intro-mode .hide-on-intro { display: none !important; opacity: 0; }
+        body.intro-mode .hero-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; width: 100%; }
+        body.intro-mode .envelope-container { transform: scale(1.1); }
+
+        .reveal-element { opacity: 0; transform: translateY(40px); animation: fadeInReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        @keyframes fadeInReveal { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* 3. HEADER & MARQUEE */
+        .site-header { width: 100%; padding: 25px 20px 10px; z-index: 10; text-align: center; background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 0%, rgba(255,255,255,0) 100%); margin-bottom: 20px; position: relative; }
+        .header-content { display: flex; align-items: center; justify-content: center; max-width: 1400px; margin: 0 auto; padding-bottom: 15px; position: relative; }
+        .hanging-logo-container { position: absolute; top: -20px; left: 5%; display: flex; flex-direction: column; align-items: center; z-index: 20; transform-origin: top center; animation: logoSwing 4s ease-in-out infinite alternate; }
+        @keyframes logoSwing { 0% { transform: rotate(3deg); } 100% { transform: rotate(-3deg); } }
+        .logo-string { width: 3px; height: 33px; background-color: var(--color-thread); box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.5); }
+        .logo-knot { width: 35px; height: 35px; margin-top: -12px; z-index: 15; filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.6)); fill: #1a0f11; position: relative; }
+        .logo-circle { width: clamp(70px, 15vw, 110px); height: clamp(70px, 15vw, 110px); border-radius: 50%; background-size: cover; background-position: center; box-shadow: 0px 5px 15px rgba(16, 159, 30, 0.3); margin-top: -15px; z-index: 10; border: 3px solid var(--gold-color-light); background-color: #fff; }
+        .main-title { font-family: var(--font-family-elegant); font-size: clamp(2.5rem, 6vw, 5.5rem); color: var(--text-color-maroon); text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.9); font-weight: 700; margin-left: auto; margin-right: auto; }
+        
+        .marquee-wrapper { width: 100%; overflow: hidden; background-color: rgba(255, 255, 255, 0.65); padding: 12px 0; border-top: 1px dashed rgba(255, 77, 109, 0.35); border-bottom: 1px dashed rgba(255, 77, 109, 0.35); box-shadow: 0px 2px 10px rgba(0,0,0,0.02); }
+        .marquee-content { display: inline-block; white-space: nowrap; font-family: var(--font-family-sans-serif); font-weight: 800; font-size: clamp(0.9rem, 2vw, 1.2rem); color: var(--envelope-dark-color); text-transform: uppercase; letter-spacing: 2.5px; animation: marqueeScroll 25s linear infinite; }
+        @keyframes marqueeScroll { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+
+        /* 4. HANGING LETTERS & CAT */
+        .hanging-letters-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; padding-bottom: 80px; position: relative; z-index: 20; }
+        .word-row { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 25px; position: relative; }
+        .hanging-letter-container { display: flex; flex-direction: column; align-items: center; margin: 0 3px; transform-origin: top center; animation: continuousSwing 3s ease-in-out infinite alternate; }
+        @keyframes continuousSwing { 0% { transform: rotate(6deg); } 100% { transform: rotate(-6deg); } }
+        .letter-string { width: 3px; height: clamp(15px, 4vw, 45px); background-color: var(--color-thread); box-shadow: 1px 0px 3px rgba(11, 4, 4, 0.5); }
+        .letter-knot { width: 10px; height: 10px; background-color: #1a0f11; border-radius: 50%; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); z-index: 5; }
+        .tile-letter { display: inline-flex; align-items: center; justify-content: center; width: clamp(28px, 6vw, 60px); height: clamp(32px, 7vw, 70px); background-color: var(--color-frame-bg); color: var(--text-color-teal); font-family: var(--font-family-sans-serif); font-size: clamp(1.2rem, 3.5vw, 2.5rem); font-weight: 800; text-transform: uppercase; border-radius: 4px; box-shadow: 0px 8px 15px rgba(32, 154, 56, 0.25), 0px 0px 25px var(--glow-pink); z-index: 2; animation: colorShiftGlow 4s infinite alternate; }
+        @keyframes colorShiftGlow { 0% { box-shadow: 0 8px 15px rgba(0,0,0,0.25), 0 0 20px var(--glow-pink); } 50% { box-shadow: 0 8px 15px rgba(0,0,0,0.25), 0 0 30px var(--glow-blue); } 100% { box-shadow: 0 8px 15px rgba(0,0,0,0.25), 0 0 20px var(--glow-yellow); } }
+        .tile-letter:hover { transform: scale(1.15) rotate(5deg); filter: brightness(1.2); z-index: 10; }
+        
+        /* Staggered swing */
+        .w1 .hanging-letter-container:nth-child(1) { animation-delay: 0.1s; } .w1 .hanging-letter-container:nth-child(2) { animation-delay: 0.2s; } .w1 .hanging-letter-container:nth-child(3) { animation-delay: 0.3s; } .w1 .hanging-letter-container:nth-child(4) { animation-delay: 0.4s; } .w1 .hanging-letter-container:nth-child(5) { animation-delay: 0.5s; }
+        .w2 .hanging-letter-container:nth-child(1) { animation-delay: 0.6s; } .w2 .hanging-letter-container:nth-child(2) { animation-delay: 0.7s; } .w2 .hanging-letter-container:nth-child(3) { animation-delay: 0.8s; } .w2 .hanging-letter-container:nth-child(4) { animation-delay: 0.9s; } .w2 .hanging-letter-container:nth-child(5) { animation-delay: 1.0s; } .w2 .hanging-letter-container:nth-child(6) { animation-delay: 1.1s; } .w2 .hanging-letter-container:nth-child(7) { animation-delay: 1.2s; } .w2 .hanging-letter-container:nth-child(8) { animation-delay: 1.3s; }
+        .w3 .hanging-letter-container:nth-child(1) { animation-delay: 1.4s; } .w3 .hanging-letter-container:nth-child(2) { animation-delay: 1.5s; } .w3 .hanging-letter-container:nth-child(3) { animation-delay: 1.6s; } .w3 .hanging-letter-container:nth-child(4) { animation-delay: 1.7s; }
+
+        /* Cat Image Styling for Responsiveness */
+        .cat-image-circle {
+            width: clamp(150px, 40vw, 400px); 
+            height: clamp(150px, 40vw, 400px); 
+            border-radius: 50%; 
+            background-image: url('{% static "images/cat3.jpg" %}'); 
+            background-size: cover; 
+            background-position: center; 
+            box-shadow: 0px 8px 58px rgba(6, 159, 30, 0.3);
+            margin-bottom: 25px;
+        }
+
+        /* 5. HERO SECTION & ENVELOPE (READ ONLY) */
+        .hero-section { display: flex; flex-wrap: wrap; justify-content: space-evenly; align-items: center; max-width: 1500px; margin: 0 auto 80px; padding: 0 20px; z-index: 10; position: relative; gap: 40px; }
+        .text-composer { flex: 1; min-width: 300px; max-width: 550px; margin: 50px 0 20px; text-align: center; }
+        .composer-heading { font-family: var(--font-family-marker); font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--text-color-maroon); margin-bottom: 15px; border-bottom: 3px solid var(--gold-color-dark); display: inline-block; padding-bottom: 5px; }
+        .editable-poem { font-family: var(--font-family-handwriting); font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.8; color: var(--text-color-dark); background-image: repeating-linear-gradient(transparent, transparent 42px, rgba(255, 77, 109, 0.15) 42px, rgba(255, 77, 109, 0.15) 44px); padding: 15px; border-radius: 12px; }
+        
+        .envelope-container { position: relative; width: clamp(300px, 90vw, 650px); height: clamp(200px, 60vw, 420px); margin-top: 50px; margin-bottom: 40px; z-index: 20; perspective: 1500px; transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+        .env-back { position: absolute; inset: 0; background-color: var(--envelope-base-color); border-radius: 8px; box-shadow: 0px 25px 50px rgba(128, 0, 32, 0.35); }
+        .env-back::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.25) 15%, transparent 16%), radial-gradient(rgba(255,255,255,0.25) 15%, transparent 16%); background-size: 24px 24px; opacity: 0.6; border-radius: 8px; }
+        .env-letter { position: absolute; bottom: 5px; left: 2%; width: 96%; height: 95%; background-color: var(--paper-background-color); border-radius: 6px; z-index: 2; padding: clamp(20px, 5vw, 40px) clamp(15px, 4vw, 30px); font-family: var(--font-family-handwriting); display: flex; flex-direction: column; box-shadow: 0px -2px 15px rgba(0,0,0,0.15); will-change: transform, z-index; }
+        
+        .envelope-container.is-open .env-letter { animation: popCompletelyOut 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards; animation-delay: 0.5s; }
+        @keyframes popCompletelyOut { 0% { transform: translateY(0px); z-index: 2; } 45% { transform: translateY(-120%); z-index: 2; } 50% { transform: translateY(-120%); z-index: 10; } 100% { transform: translateY(12%) rotate(-1deg); z-index: 10; box-shadow: 0px 35px 70px rgba(0,0,0,0.4); } }
+        
+        .letter-to { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; color: var(--text-color-maroon); border-bottom: 2px dashed rgba(201, 24, 74, 0.4); margin-bottom: 12px; padding-bottom: 5px; }
+        .letter-from { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; color: var(--text-color-maroon); text-align: right; margin-top: 15px; border-top: 2px dashed rgba(201, 24, 74, 0.4); padding-top: 12px; }
+        .letter-body { font-size: clamp(1.5rem, 3.5vw, 2.2rem); flex-grow: 1; overflow: hidden; white-space: pre-wrap; word-wrap: break-word; line-height: clamp(30px, 6vw, 42px); background-image: repeating-linear-gradient(transparent, transparent 41px, var(--paper-line-color) 41px, var(--paper-line-color) 42px); padding: 5px 0; color: var(--text-color-dark); }
+
+        .env-front-wrapper { position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: 6px; overflow: hidden; }
+        .env-front-left { position: absolute; left: 0; top: 0; border-top: clamp(100px, 30vw, 210px) solid transparent; border-bottom: clamp(100px, 30vw, 210px) solid transparent; border-left: clamp(150px, 45vw, 325px) solid var(--envelope-flap-color); filter: drop-shadow(5px 0px 5px rgba(0,0,0,0.15)); }
+        .env-front-right { position: absolute; right: 0; top: 0; border-top: clamp(100px, 30vw, 210px) solid transparent; border-bottom: clamp(100px, 30vw, 210px) solid transparent; border-right: clamp(150px, 45vw, 325px) solid #ff5c77; filter: drop-shadow(-5px 0px 5px rgba(0,0,0,0.15)); }
+        .env-bottom-flap { position: absolute; bottom: 0; left: 0; border-left: clamp(150px, 45vw, 325px) solid transparent; border-right: clamp(150px, 45vw, 325px) solid transparent; border-bottom: clamp(110px, 35vw, 240px) solid var(--envelope-front-color); filter: drop-shadow(0px -5px 8px rgba(0,0,0,0.2)); }
+        
+        .env-message { position: absolute; bottom: 35px; left: 50%; transform: translateX(-50%); width: 80%; text-align: center; font-family: var(--font-family-handwriting); font-size: clamp(1rem, 2.5vw, 1.5rem); color: rgba(90, 0, 15, 0.9); z-index: 4; pointer-events: none; line-height: 1; text-shadow: 1px 1px 3px rgba(255,255,255,0.4); transition: opacity 0.3s ease; }
+        .envelope-container.is-open .env-message { opacity: 0; }
+        .env-top-flap { position: absolute; top: 0; left: 0; z-index: 5; border-left: clamp(150px, 45vw, 325px) solid transparent; border-right: clamp(150px, 45vw, 325px) solid transparent; border-top: clamp(120px, 35vw, 240px) solid var(--envelope-dark-color); transform-origin: top center; transition: transform 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045); filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.35)); }
+        .envelope-container.is-open .env-top-flap { transform: rotateX(180deg); z-index: 1; filter: none; }
+
+        /* Emoji Red Heart Seal */
+        .emoji-heart-seal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: clamp(70px, 15vw, 110px); height: clamp(70px, 15vw, 110px); z-index: 6; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-direction: column; animation: heartBeatAnimation 2s infinite ease-in-out; transition: transform 0.3s; }
+        .emoji-heart-svg { position: absolute; inset: 0; filter: drop-shadow(0px 12px 18px rgba(138, 0, 0, 0.5)); }
+        .seal-tap-text { position: absolute; bottom: -25px; color: #d90000; font-family: var(--font-family-sans-serif); font-weight: 800; font-size: clamp(0.8rem, 2vw, 1.2rem); letter-spacing: 1px; background-color: rgba(255, 255, 255, 0.9); padding: 4px 10px; border-radius: 20px; box-shadow: 0px 4px 12px rgba(0,0,0,0.2); }
+        @keyframes heartBeatAnimation { 0%, 20%, 40%, 100% { transform: translate(-50%, -50%) scale(1); } 10%, 30% { transform: translate(-50%, -50%) scale(1.1); } }
+        .emoji-heart-seal:hover { transform: translate(-50%, -50%) scale(1.2); animation: none; }
+        .envelope-container.is-open .emoji-heart-seal { opacity: 0; pointer-events: none; }
+
+        /* 6. SCRAPBOOK AREA (DHAAGA, TAPES, PHOTOS) - FETCHED FROM DB */
+        .main-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 50px 20px 150px; display: flex; flex-direction: column; position: relative; z-index: 10; }
+        .connecting-string-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .main-thread { fill: none; stroke: var(--color-thread); stroke-width: 5px; stroke-dasharray: 10, 5; filter: drop-shadow(4px 6px 5px var(--color-thread-shadow)); stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+        .scrapbook-area { max-width: 1500px; margin: 0 auto; position: relative; z-index: 10; padding: 60px 20px 40px; }
+        
+        .swing-row { display: flex; align-items: flex-start; justify-content: flex-start; gap: 50px; margin-bottom: 250px; width: 100%; position: relative; }
+        .swing-row:nth-child(even) { justify-content: flex-end; flex-direction: row-reverse; }
+        .hanging-system { position: relative; width: clamp(280px, 80vw, 600px); display: flex; flex-direction: column; align-items: center; }
+        
+        .pendulum { display: flex; flex-direction: column; align-items: center; width: 100%; z-index: 10; transform-origin: top center; animation: gentleSwingAnimation 6s ease-in-out infinite alternate; }
+        .swing-row:nth-child(2) .pendulum { animation-delay: -2s; animation-duration: 7.2s; } .swing-row:nth-child(3) .pendulum { animation-delay: -4s; animation-duration: 5.5s; } .swing-row:nth-child(4) .pendulum { animation-delay: -1s; animation-duration: 6.8s; }
+        @keyframes gentleSwingAnimation { 0% { transform: rotate(4deg); } 100% { transform: rotate(-4deg); } }
+
+        .decor-knot { position: absolute; z-index: 25; width: clamp(30px, 6vw, 45px); height: clamp(30px, 6vw, 45px); pointer-events: none; filter: drop-shadow(4px 6px 6px rgba(0,0,0,0.7)); }
+        .knot-path { fill: #1a0f11; }
+        .pos-top-center { top: -15px; left: 50%; transform: translateX(-50%); } .pos-top-left { top: -15px; left: 15%; transform: rotate(-10deg); } .pos-top-right { top: -15px; right: 15%; transform: rotate(10deg); } .pos-bottom-left { bottom: 15px; left: -15px; transform: rotate(-30deg); }
+
+        /* Read Only Polaroids */
+        .polaroid-body { width: clamp(260px, 85vw, 450px); background-color: var(--color-frame-bg); padding: 12px 12px 35px; box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.25); position: relative; z-index: 10; border-radius: 4px; transition: filter 0.4s, transform 0.4s; }
+        .polaroid-body:hover { filter: brightness(1.05); transform: scale(1.02); }
+        .photo-area { width: 100%; aspect-ratio: 1/1; background-color: var(--color-note-pink); background-image: var(--color-frame-inner-gradient); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; box-shadow: inset 0px 0px 25px rgba(0,0,0,0.6); background-size: cover; background-position: center; background-repeat: no-repeat; border-radius: 3px; }
+        
+        .note-wrapper { position: relative; z-index: 10; width: clamp(260px, 85vw, 420px); margin: 0 20px; transition: transform 0.4s ease; }
+        .note-wrapper:hover { transform: scale(1.06) translateY(-8px); z-index: 40; }
+        .paper-note { background-color: var(--color-note-pink); padding: 25px 20px; box-shadow: 0px 8px 20px rgba(0,0,0,0.15); position: relative; clip-path: polygon( 2% 2%, 6% 0%, 10% 2%, 14% 0%, 18% 3%, 22% 0%, 26% 2%, 30% 0%, 34% 3%, 38% 0%, 42% 2%, 46% 0%, 50% 3%, 54% 0%, 58% 2%, 62% 0%, 66% 3%, 70% 0%, 74% 2%, 78% 0%, 82% 3%, 86% 0%, 90% 2%, 94% 0%, 98% 2%, 100% 98%, 96% 100%, 92% 98%, 88% 100%, 84% 97%, 80% 100%, 76% 98%, 72% 100%, 68% 97%, 64% 100%, 60% 98%, 56% 100%, 52% 97%, 48% 100%, 44% 98%, 40% 100%, 36% 97%, 32% 100%, 28% 98%, 24% 100%, 20% 97%, 16% 100%, 12% 98%, 8% 100%, 4% 98%, 0% 100% ); }
+        .color-blue { background-color: var(--color-note-blue); } .color-beige { background-color: var(--color-note-beige); }
+        .note-text { font-family: var(--font-family-handwriting); font-size: clamp(1.4rem, 4vw, 2rem); color: var(--color-text-ink); line-height: 1.6; text-align: center; }
+        .note-doodle { position: absolute; bottom: 10px; right: 20px; font-family: var(--font-family-marker); font-size: 1.5rem; color: var(--color-text-ink); }
+        
+        .tape { position: absolute; height: clamp(20px, 4vw, 30px); width: clamp(80px, 15vw, 110px); z-index: 60; box-shadow: 0px 4px 8px rgba(0,0,0,0.3); opacity: 0.95; clip-path: polygon( 2% 0, 98% 0, 100% 10%, 96% 20%, 100% 30%, 97% 40%, 100% 50%, 96% 60%, 100% 70%, 97% 80%, 100% 90%, 98% 100%, 2% 100%, 0 90%, 4% 80%, 0 70%, 3% 60%, 0 50%, 4% 40%, 0 30%, 3% 20%, 0 10% ); }
+        .tape-red-stripe { background: var(--color-tape-striped); } .tape-pink-dots { background-color: var(--color-tape-pink); background-image: var(--color-tape-dots); background-size: 15px 15px; }
+        .tape-tl { top: -15px; left: -25px; transform: rotate(-25deg); } .tape-br { bottom: -15px; right: -25px; transform: rotate(-25deg); } .tape-tr { top: -15px; right: -25px; transform: rotate(25deg); } .tape-bl { bottom: -15px; left: -25px; transform: rotate(25deg); }
+
+        .blk-1 .frame-wrapper { transform: rotate(-3deg); } .blk-1 .note-wrapper { transform: rotate(4deg); margin-top: 30px; }
+        .blk-2 .frame-wrapper { transform: rotate(4deg); } .blk-2 .note-wrapper { transform: rotate(-3deg); margin-top: -20px; }
+        .blk-3 .frame-wrapper { transform: rotate(-2deg); } .blk-3 .note-wrapper { transform: rotate(5deg); margin-top: 30px; }
+        .blk-4 .frame-wrapper { transform: rotate(3deg); } .blk-4 .note-wrapper { transform: rotate(-4deg); margin-top: -20px; }
+        .blk-5 .frame-wrapper { transform: rotate(-4deg); } .blk-5 .note-wrapper { transform: rotate(3deg); margin-top: 30px; }
+        .blk-6 .frame-wrapper { transform: rotate(2deg); } .blk-6 .note-wrapper { transform: rotate(-5deg); margin-top: -20px; }
+        .blk-7 .frame-wrapper { transform: rotate(-3deg); } .blk-7 .note-wrapper { transform: rotate(2deg); margin-top: 30px; }
+        .blk-8 .frame-wrapper { transform: rotate(4deg); } .blk-8 .note-wrapper { transform: rotate(-3deg); margin-top: -20px; }
+
+        /* 7. FOOTER STYLES */
+        .site-footer { text-align: center; padding: 40px 20px; font-family: var(--font-family-elegant); font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--text-color-maroon); background-color: transparent; border: none; position: relative; z-index: 10; }
+        .footer-credits { font-family: var(--font-family-sans-serif); font-size: clamp(0.9rem, 2vw, 1.2rem); color: #555555; display: block; margin-top: 12px; font-weight: 700; }
+
+        /* 8. RESPONSIVE QUERIES */
+        @media (max-width: 900px) { 
+            .swing-row, .swing-row:nth-child(even) { flex-direction: column !important; align-items: center !important; gap: 40px !important; margin-bottom: 150px !important; justify-content: center !important; } 
+            .note-wrapper, .frame-wrapper { transform: rotate(0deg) !important; margin: 0 auto !important; } 
+            .connecting-string-container { display: block !important; z-index: 5 !important; pointer-events: none; } 
+            .decor-knot { top: -20px !important; bottom: auto !important; left: 50% !important; right: auto !important; transform: translateX(-50%) !important; } 
+            .hanging-logo-container { left: 50% !important; transform: translateX(-50%) !important; top: -10px !important; } 
+            .site-header { padding-top: 100px; } /* Push text down to make room for centered logo on mobile */
+        }
+    </style>
+</head>
+
+<body class="intro-mode">
+    <canvas id="particle-canvas"></canvas>
+    <canvas id="rose-canvas"></canvas>
+
+    <header class="site-header hide-on-intro reveal-element">
+        <div class="header-content">
+            <div class="hanging-logo-container">
+                <div class="logo-string"></div>
+                <svg class="logo-knot" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                <div class="logo-circle" style="background-image: url('{% static "logo/yaad.jpeg" %}');"></div>
+            </div>  
+            <h1 class="main-title">Best Wishes For You Dear</h1>
+        </div>
+        <div class="marquee-wrapper">
+            <span class="marquee-content">
+                ✨ Best wishes for you👉Happy Birthday Dear ✨ May all your dreams come true ✨ Keep smiling ✨ Love & Blessings ✨ Memories last forever ✨
+            </span>
+        </div>
+    </header>
+
+    <div class="hanging-letters-wrapper hide-on-intro reveal-element">
+        <div class="cat-image-circle word-row w1"></div>
+
+        <div class="word-row w1">
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">H</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">A</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">P</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">P</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">Y</span></div>
+        </div>
+        <div class="word-row w2">
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">B</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">I</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">R</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">T</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">H</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">D</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">A</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">Y</span></div>
+        </div>
+        <div class="word-row w3">
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">D</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">E</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">A</span></div>
+            <div class="hanging-letter-container"><div class="letter-string"></div><div class="letter-knot"></div><span class="tile-letter">R</span></div>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero-section">
+            <div class="text-composer hide-on-intro reveal-element">
+                <span class="composer-heading">Heading:</span>
+                <p class="editable-poem">{{ lifafa.main_heading|default:"A special memory for you..." }}</p>
+            </div>
+
+            <div class="envelope-container" id="main-envelope">
+                <div class="env-back"></div>
+                <div class="env-letter" id="auto-size-container">
+                    <div class="letter-to">{{ lifafa.receiver_name|default:"Dear" }}</div>
+                    <div class="letter-body" id="auto-size-text">{{ lifafa.message }}</div>
+                    <div class="letter-from">{{ lifafa.sender_name }}</div>
+                </div>
+
+                <div class="env-message">Beyond this seal isn't what you anticipated. It’s a small piece of my world—step inside and feel it through my eyes👀</div>
+
+                <div class="env-front-wrapper">
+                    <div class="env-front-left"></div>
+                    <div class="env-front-right"></div>
+                    <div class="env-bottom-flap"></div>
+                </div>
+                <div class="env-top-flap"></div>
+                
+                <div class="emoji-heart-seal" id="btn-open-seal">
+                    <svg viewBox="0 0 100 100" class="emoji-heart-svg" xmlns="http://www.w3.org/2000/svg">
+                        <defs><radialGradient id="emojiRed" cx="35%" cy="30%" r="65%"><stop offset="0%" stop-color="#ff4b4b"/><stop offset="40%" stop-color="#f00000"/><stop offset="100%" stop-color="#990000"/></radialGradient></defs>
+                        <path d="M50,88 C50,88 10,55 10,30 C10,12 28,5 40,10 C45,12 50,18 50,18 C50,18 55,12 60,10 C72,5 90,12 90,30 C90,55 50,88 50,88 Z" fill="url(#emojiRed)" />
+                        <path d="M22,25 C22,18 35,13 42,18 C35,15 25,18 25,25 C25,28 27,32 29,35 C25,32 22,29 22,25 Z" fill="rgba(255,255,255,0.6)" />
+                    </svg>
+                    <span class="seal-tap-text">TAP</span>
+                </div>
+            </div>
+        </section>
+
+        <svg style="width:0px; height:0px; position:absolute;" aria-hidden="true" focusable="false">
+            <defs>
+                <g id="knot-svg">
+                    <path class="knot-path" d="M25,25 C5,10 0,30 15,30 C0,30 5,50 25,35 C15,55 35,60 35,40 C35,60 55,55 45,35 C65,45 60,30 40,30 C60,30 55,10 25,25 Z" />
+                    <circle cx="28" cy="32" r="6" fill="#000" />
+                </g>
+            </defs>
+        </svg>
+
+        <section class="scrapbook-area hide-on-intro reveal-element" id="scrapbook-content">
+            <div class="connecting-string-container">
+                <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path class="main-thread" d="M 50,0 C 50,5 25,10 25,12.5 C 25,15 75,20 75,25 C 75,30 25,35 25,37.5 C 25,42 75,47 75,50 C 75,55 25,60 25,62.5 C 25,67 75,72 75,75 C 75,80 25,85 25,87.5 C 25,92 75,97 75,100" vector-effect="non-scaling-stroke"/>
+                </svg>
+            </div>
+
+            <!-- Block 1 -->
+            <div class="swing-row blk-1">
+                <div class="hanging-system">
+                    <div class="pendulum">
+                        <div class="frame-wrapper">
+                            <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                            <div class="tape tape-red-stripe tape-tl"></div>
+                            <div class="tape tape-pink-dots tape-br"></div>
+                            <div class="polaroid-body">
+                                <div class="photo-area" style="background-image: url('{% if pages.1.image %}{{ pages.1.image.url }}{% endif %}');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-wrapper">
+                    <div class="tape tape-pink-dots tape-tr"></div>
+                    <div class="tape tape-red-stripe tape-bl"></div>
+                    <div class="paper-note color-pink">
+                        <p class="note-text">{{ pages.1.quote_text }}</p>
+                        <span class="note-doodle">♡</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 2 -->
+            <div class="swing-row blk-2">
+                <div class="hanging-system">
+                    <div class="pendulum">
+                        <div class="frame-wrapper">
+                            <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                            <div class="tape tape-pink-dots tape-tr"></div>
+                            <div class="tape tape-red-stripe tape-bl"></div>
+                            <div class="polaroid-body">
+                                <div class="photo-area" style="background-image: url('{% if pages.2.image %}{{ pages.2.image.url }}{% endif %}');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-wrapper">
+                    <div class="tape tape-red-stripe tape-tl"></div>
+                    <div class="tape tape-pink-dots tape-br"></div>
+                    <div class="paper-note color-beige">
+                        <p class="note-text">{{ pages.2.quote_text }}</p>
+                        <span class="note-doodle">♥</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 3 -->
+            <div class="swing-row blk-3">
+                <div class="hanging-system">
+                    <div class="pendulum">
+                        <div class="frame-wrapper">
+                            <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                            <div class="tape tape-red-stripe tape-tl"></div>
+                            <div class="tape tape-pink-dots tape-br"></div>
+                            <div class="polaroid-body">
+                                <div class="photo-area" style="background-image: url('{% if pages.3.image %}{{ pages.3.image.url }}{% endif %}');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-wrapper">
+                    <div class="tape tape-pink-dots tape-tr"></div>
+                    <div class="tape tape-red-stripe tape-bl"></div>
+                    <div class="paper-note color-blue">
+                        <p class="note-text">{{ pages.3.quote_text }}</p>
+                        <span class="note-doodle">♡</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 4 -->
+            <div class="swing-row blk-4">
+                <div class="hanging-system">
+                    <div class="pendulum">
+                        <div class="frame-wrapper">
+                            <svg class="decor-knot pos-top-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                            <div class="tape tape-pink-dots tape-tr"></div>
+                            <div class="tape tape-red-stripe tape-bl"></div>
+                            <div class="polaroid-body">
+                                <div class="photo-area" style="background-image: url('{% if pages.4.image %}{{ pages.4.image.url }}{% endif %}');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-wrapper">
+                    <div class="tape tape-red-stripe tape-tl"></div>
+                    <div class="tape tape-pink-dots tape-br"></div>
+                    <div class="paper-note color-pink">
+                        <p class="note-text">{{ pages.4.quote_text }}</p>
+                        <span class="note-doodle">♥</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 5 -->
+            <div class="swing-row blk-5">
+                <div class="hanging-system">
+                    <div class="pendulum">
+                        <div class="frame-wrapper">
+                            <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                            <div class="tape tape-red-stripe tape-tl"></div>
+                            <div class="tape tape-pink-dots tape-br"></div>
+                            <div class="polaroid-body">
+                                <div class="photo-area" style="background-image: url('{% if pages.5.image %}{{ pages.5.image.url }}{% endif %}');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-wrapper">
+                    <div class="tape tape-pink-dots tape-tr"></div>
+                    <div class="tape tape-red-stripe tape-bl"></div>
+                    <div class="paper-note color-beige">
+                        <p class="note-text">{{ pages.5.quote_text }}</p>
+                        <span class="note-doodle">♡</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 6 -->
+            <div class="swing-row blk-6">
+                <div class="hanging-system">
+                    <div class="pendulum">
+                        <div class="frame-wrapper">
+                            <svg class="decor-knot pos-bottom-left" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                            <div class="tape tape-pink-dots tape-tr"></div>
+                            <div class="tape tape-red-stripe tape-bl"></div>
+                            <div class="polaroid-body">
+                                <div class="photo-area" style="background-image: url('{% if pages.6.image %}{{ pages.6.image.url }}{% endif %}');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-wrapper">
+                    <div class="tape tape-red-stripe tape-tl"></div>
+                    <div class="tape tape-pink-dots tape-br"></div>
+                    <div class="paper-note color-blue">
+                        <p class="note-text">{{ pages.6.quote_text }}</p>
+                        <span class="note-doodle">♥</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 7 -->
+            <div class="swing-row blk-7">
+                <div class="hanging-system">
+                    <div class="pendulum">
+                        <div class="frame-wrapper">
+                            <svg class="decor-knot pos-top-right" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                            <div class="tape tape-red-stripe tape-tl"></div>
+                            <div class="tape tape-pink-dots tape-br"></div>
+                            <div class="polaroid-body">
+                                <div class="photo-area" style="background-image: url('{% if pages.7.image %}{{ pages.7.image.url }}{% endif %}');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-wrapper">
+                    <div class="tape tape-pink-dots tape-tr"></div>
+                    <div class="tape tape-red-stripe tape-bl"></div>
+                    <div class="paper-note color-pink">
+                        <p class="note-text">{{ pages.7.quote_text }}</p>
+                        <span class="note-doodle">♡</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 8 -->
+            <div class="swing-row blk-8">
+                <div class="hanging-system">
+                    <div class="pendulum">
+                        <div class="frame-wrapper">
+                            <svg class="decor-knot pos-top-center" viewBox="0 0 70 70"><use href="#knot-svg"/></svg>
+                            <div class="tape tape-pink-dots tape-tr"></div>
+                            <div class="tape tape-red-stripe tape-bl"></div>
+                            <div class="polaroid-body">
+                                <div class="photo-area" style="background-image: url('{% if pages.8.image %}{{ pages.8.image.url }}{% endif %}');"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-wrapper">
+                    <div class="tape tape-red-stripe tape-tl"></div>
+                    <div class="tape tape-pink-dots tape-br"></div>
+                    <div class="paper-note color-beige">
+                        <p class="note-text">{{ pages.8.quote_text }}</p>
+                        <span class="note-doodle">♥</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="site-footer hide-on-intro reveal-element">
+        <h2>Yaadon Ka Lifafa</h2>
+        <span class="footer-credits">&copy; 2026 Yaadon Ka Lifafa. Created by Pritam Vishwakarma.</span>
+    </footer>
+
+    <script>
+        const envelopeComponent = document.getElementById('main-envelope');
+        const sealButton = document.getElementById('btn-open-seal');
+
+        sealButton.addEventListener('click', function() {
+            envelopeComponent.classList.add('is-open');
+            fireRoseCannon();
+            setTimeout(function() {
+                document.body.classList.remove('intro-mode');
+                // AUTO SCROLL REMOVED! Only auto-sizing text runs.
+                setTimeout(function() {
+                    autoSizeLetterText();
+                }, 100);
+            }, 1800);
+        });
+
+        const textBody = document.getElementById('auto-size-text');
+        function autoSizeLetterText() {
+            if(!textBody) return;
+            textBody.style.fontSize = '2.2rem'; 
+            let currentSizeInPx = 2.2 * 16; 
+            while ((textBody.scrollHeight > textBody.clientHeight || textBody.scrollWidth > textBody.clientWidth) && currentSizeInPx > 18) {
+                currentSizeInPx -= 0.5;
+                textBody.style.fontSize = currentSizeInPx + 'px';
+            }
+        }
+        window.addEventListener('resize', autoSizeLetterText);
+
+        const particleCanvas = document.getElementById('particle-canvas');
+        const pContext = particleCanvas.getContext('2d');
+        let canvasWidth, canvasHeight;
+        let heartArray = [];
+        const heartColors = ['rgba(255, 77, 109, 0.45)', 'rgba(201, 24, 74, 0.35)', 'rgba(255, 143, 163, 0.55)'];
+
+        function resizeParticleCanvas() { 
+            canvasWidth = window.innerWidth; 
+            canvasHeight = window.innerHeight; 
+            pContext.canvas.width = canvasWidth; 
+            pContext.canvas.height = canvasHeight; 
+        }
+        window.addEventListener('resize', resizeParticleCanvas); 
+        resizeParticleCanvas();
+
+        class BackgroundHeart {
+            constructor() { this.resetProperties(true); }
+            resetProperties(isRandomY) {
+                this.xPos = Math.random() * canvasWidth; 
+                this.yPos = isRandomY ? Math.random() * canvasHeight : canvasHeight + 50;
+                this.heartSize = Math.random() * 30 + 5; 
+                this.floatSpeed = (this.heartSize / 10) * (Math.random() * 0.5 + 0.3); 
+                this.swingMagnitude = Math.random() * 3 + 1; 
+                this.swingAngle = Math.random() * Math.PI * 2;
+                this.heartColor = heartColors[Math.floor(Math.random() * heartColors.length)];
+            }
+            updatePosition() {
+                this.yPos -= this.floatSpeed; 
+                this.swingAngle += 0.02; 
+                this.xPos += Math.sin(this.swingAngle) * this.swingMagnitude;
+                if (this.yPos < -50) { this.resetProperties(false); }
+            }
+            drawHeart() {
+                pContext.save(); 
+                pContext.translate(this.xPos, this.yPos); 
+                pContext.scale(this.heartSize / 50, this.heartSize / 50);
+                if (this.heartSize > 15) { pContext.shadowBlur = 15; pContext.shadowColor = this.heartColor; }
+                pContext.fillStyle = this.heartColor; 
+                pContext.beginPath(); 
+                pContext.moveTo(0, 15);
+                pContext.bezierCurveTo(0, 15, -20, -5, -20, -15); 
+                pContext.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
+                pContext.bezierCurveTo(7.5, -30, 20, -25, 20, -15); 
+                pContext.bezierCurveTo(20, -5, 0, 15, 0, 15);
+                pContext.fill(); 
+                pContext.restore();
+            }
+        }
+        
+        function initHearts() {
+            heartArray = [];
+            let quantity = canvasWidth < 768 ? 40 : 80; 
+            for(let idx = 0; idx < quantity; idx++) { heartArray.push(new BackgroundHeart()); }
+        }
+        initHearts();
+        window.addEventListener('resize', function() { if(heartArray.length === 0) initHearts(); });
+        
+        function animateBackgroundHearts() { 
+            pContext.clearRect(0, 0, canvasWidth, canvasHeight); 
+            heartArray.forEach(function(heartObj) { heartObj.updatePosition(); heartObj.drawHeart(); }); 
+            requestAnimationFrame(animateBackgroundHearts); 
+        }
+        animateBackgroundHearts();
+
+        const roseCanvas = document.getElementById('rose-canvas');
+        const rContext = roseCanvas.getContext('2d');
+        let rCanvasWidth, rCanvasHeight, rosePetalArray = [], isCannonFiring = false;
+        
+        function resizeRoseCanvas() { rCanvasWidth = window.innerWidth; rCanvasHeight = window.innerHeight; rContext.canvas.width = rCanvasWidth; rContext.canvas.height = rCanvasHeight; }
+        window.addEventListener('resize', resizeRoseCanvas); resizeRoseCanvas();
+
+        class ExplodingRosePetal {
+            constructor(startX, startY) {
+                this.x = startX; this.y = startY;
+                const explosionAngle = Math.random() * Math.PI * 2;
+                const explosionVelocity = Math.random() * 15 + 5; 
+                this.vx = Math.cos(explosionAngle) * explosionVelocity; 
+                this.vy = Math.sin(explosionAngle) * explosionVelocity - 12; 
+                this.rotation = Math.random() * 360; this.opacity = 1; this.lifespan = 90; 
+            }
+            update() {
+                this.vx *= 0.95; this.vy *= 0.95; this.vy += 0.5; 
+                this.x += this.vx; this.y += this.vy; this.rotation += 5; this.lifespan--;
+                if(this.lifespan < 20) { this.opacity -= 0.05; }
+            }
+            draw() {
+                if(this.opacity <= 0) return;
+                rContext.save(); 
+                rContext.translate(this.x, this.y); 
+                rContext.rotate(this.rotation * Math.PI/180);
+                rContext.globalAlpha = this.opacity; 
+                rContext.fillStyle = '#ff1a4a';
+                rContext.beginPath(); 
+                rContext.moveTo(0,0); 
+                rContext.quadraticCurveTo(-10, -10, 0, -20); 
+                rContext.quadraticCurveTo(10, -10, 0, 0); 
+                rContext.fill();
+                rContext.restore();
+            }
+        }
+        
+        function fireRoseCannon() {
+            const envRect = envelopeComponent.getBoundingClientRect();
+            const centerX = envRect.left + (envRect.width / 2); 
+            const centerY = envRect.top + (envRect.height / 2);
+            rosePetalArray = [];
+            for (let i = 0; i < 70; i++) { rosePetalArray.push(new ExplodingRosePetal(centerX, centerY)); }
+            if(!isCannonFiring) { isCannonFiring = true; animateRoseCannon(); }
+        }
+        
+        function animateRoseCannon() {
+            rContext.clearRect(0, 0, rCanvasWidth, rCanvasHeight);
+            let aliveParticles = 0; 
+            rosePetalArray.forEach(function(petal) { petal.update(); petal.draw(); if(petal.opacity > 0) { aliveParticles++; } });
+            if(aliveParticles > 0) { requestAnimationFrame(animateRoseCannon); } else { isCannonFiring = false; }
+        }
+    </script>
+</body>
+</html>

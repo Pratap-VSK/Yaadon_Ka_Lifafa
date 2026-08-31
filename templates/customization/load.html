@@ -1,0 +1,482 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Loading Memories | Yaadon Ka Lifafa</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   ROOT VARIABLES 
+   ============================================================ */
+:root {
+    --bg-deep:        #140207;
+    --bg-grad-start:  #2e0513;
+    --bg-grad-end:    #140207;
+    --red:            #e6004c;
+    --red-glow:       #ff1a66;
+    --red-dark:       #80002a;
+    --pink:           #ff80a6;
+    --pink-light:     #ffccd9;
+    --rose-gold:      #ffb3c6;
+    --glass-bg:       rgba(26, 5, 13, 0.4);
+    --glass-border:   rgba(255, 128, 166, 0.3);
+    --font-cursive:   'Dancing Script', cursive;
+    --font-sans:      'Montserrat', sans-serif;
+    --carousel-z: 450px; 
+}
+
+/* ============================================================
+   RESET & BASE (Non-Selectable Applied)
+   ============================================================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    
+    /* Double tap / Drag selection disabled */
+    -webkit-touch-callout: none; 
+    -webkit-user-select: none;   
+    -moz-user-select: none;      
+    -ms-user-select: none;       
+    user-select: none;           
+}
+
+::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background: transparent;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; 
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: var(--font-sans);
+    position: fixed;
+    top: 0; left: 0;
+}
+
+body {
+    animation: pageFadeIn 0.8s ease-out forwards;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes pageFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ============================================================
+   BACKGROUND LAYERS 
+   ============================================================ */
+#bg-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 50%, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%);
+}
+
+.vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(14,2,7,0.9) 100%);
+}
+
+/* ============================================================
+   TOP LOGO
+   ============================================================ */
+.loading-logo {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    z-index: 1000;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(56, 4, 17, 0.966);
+    box-shadow: 0 0 15px rgba(255, 26, 102, 0.6);
+}
+
+/* ============================================================
+   3D IMAGE CAROUSEL LAUNCHER
+   ============================================================ */
+.carousel-scene {
+    flex: 1;
+    width: 100vw;
+    perspective: 1500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    padding-top: 5vh;
+}
+
+.carousel-wrapper {
+    width: 220px;
+    height: 320px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: spinCarousel 20s infinite linear;
+}
+
+@keyframes spinCarousel {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(-360deg); }
+}
+
+.carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 3px solid rgba(255, 235, 240, 0.9);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 25px rgba(255, 26, 102, 0.5);
+    -webkit-box-reflect: below 5px linear-gradient(transparent, transparent 70%, rgba(255,255,255,0.25));
+    background-color: var(--glass-bg);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.item-1 { transform: rotateY(0deg) translateZ(var(--carousel-z)); }
+.item-2 { transform: rotateY(40deg) translateZ(var(--carousel-z)); }
+.item-3 { transform: rotateY(80deg) translateZ(var(--carousel-z)); }
+.item-4 { transform: rotateY(120deg) translateZ(var(--carousel-z)); }
+.item-5 { transform: rotateY(160deg) translateZ(var(--carousel-z)); }
+.item-6 { transform: rotateY(200deg) translateZ(var(--carousel-z)); }
+.item-7 { transform: rotateY(240deg) translateZ(var(--carousel-z)); }
+.item-8 { transform: rotateY(280deg) translateZ(var(--carousel-z)); }
+.item-9 { transform: rotateY(320deg) translateZ(var(--carousel-z)); }
+
+/* ============================================================
+   LOADING TEXT & BAR SECTION
+   ============================================================ */
+.loading-section {
+    height: 35vh; 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 50px;
+    z-index: 20;
+    background: linear-gradient(to top, rgba(20, 2, 7, 0.95) 0%, transparent 100%);
+}
+
+.dynamic-loading-text {
+    font-family: var(--font-cursive);
+    font-size: clamp(1.2rem, 0.8vw, 1.4rem); 
+    color: var(--pink-light);
+    margin-bottom: 17px;
+    text-shadow: 0 3px 10px rgba(255, 26, 102, 0.9);
+    text-align: center;
+    transition: opacity 0.4s ease-in-out, color 0.4s ease-in-out, text-shadow 0.4s ease-in-out;
+    opacity: 1;
+    padding: 0 20px;
+}
+
+.dynamic-loading-text.fade { opacity: 0; }
+.dynamic-loading-text.completed {
+    color: var(--rose-gold);
+    text-shadow: 0 0 15px var(--red-glow), 0 0 30px var(--red-glow);
+}
+
+.loading-bar-container {
+    width: clamp(280px, 75vw, 600px);
+    position: relative;
+}
+
+.percentage-text {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--rose-gold);
+    text-shadow: 0 0 10px var(--red-glow);
+}
+
+.thick-bar-bg {
+    width: 100%;
+    height: 20px; 
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 128, 166, 0.4);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: inset 0 3px 8px rgba(0,0,0,0.8), 0 0 15px rgba(255,105,180,0.2);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.thick-bar-fill {
+    height: 100%;
+    width: 0%; 
+    background: linear-gradient(90deg, #ffccd9, #ff80a6, #ff1a66);
+    border-radius: 50px;
+    box-shadow: 0 0 20px var(--red-glow), inset 0 0 8px rgba(255,255,255,0.4);
+    transition: width 0.1s linear; 
+    position: relative;
+}
+
+.thick-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: barShimmer 1.5s infinite linear;
+}
+
+@keyframes barShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ============================================================
+   CONTINUE BUTTON (Pop-up after loading)
+   ============================================================ */
+.continue-btn {
+    display: none; 
+    margin-top: 15px;
+    padding: 16px 45px;
+    background: linear-gradient(135deg, var(--red-glow) 0%, var(--red-dark) 100%);
+    color: #ffffff !important;
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(230, 0, 76, 0.5);
+    transition: all 0.3s ease;
+    animation: popInBtn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.continue-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(230, 0, 76, 0.8);
+}
+
+@keyframes popInBtn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+    :root { --carousel-z: 280px; }
+    .carousel-wrapper { width: 180px; height: 260px; }
+    .loading-logo { width: 55px; height: 55px; top: 40px; left: 40px; }
+    .loading-section { height: 38vh; padding-bottom: 40px; }
+}
+@media (max-height: 700px) {
+    .carousel-wrapper { width: 140px; height: 200px; }
+    :root { --carousel-z: 220px; }
+    .dynamic-loading-text { font-size: 1.6rem; margin-bottom: 15px; }
+}
+</style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+    <div class="vignette"></div>
+
+    <img src="{% static 'logo/logo.jpeg' %}" alt="Logo" class="loading-logo">
+
+    <div class="carousel-scene">
+        <div class="carousel-wrapper">
+            <div class="carousel-item item-1"><img src="{% static 'images/cat1.jpg' %}" alt="Special Memory 1"></div>
+            <div class="carousel-item item-2"><img src="{% static 'images/cat2.jpg' %}" alt="Special Memory 2"></div>
+            <div class="carousel-item item-3"><img src="{% static 'images/cute_addy.jpg' %}" alt="Special Memory 3"></div>
+            <div class="carousel-item item-4"><img src="{% static 'images/Ftaddy.jpg' %}" alt="Special Memory 4"></div>
+            <div class="carousel-item item-5"><img src="{% static 'images/kittyy.jpg' %}" alt="Special Memory 5"></div>
+            <div class="carousel-item item-6"><img src="{% static 'images/Panda2.jpg' %}" alt="Special Memory 6"></div>
+            <div class="carousel-item item-7"><img src="{% static 'images/love_tedi.jpg' %}" alt="Special Memory 7"></div>
+            <div class="carousel-item item-8"><img src="{% static 'images/penguin2.jpg' %}" alt="Special Memory 8"></div>
+            <div class="carousel-item item-9"><img src="{% static 'images/catty.jpg' %}" alt="Special Memory 9"></div>
+        </div>
+    </div>
+
+    <!-- BOTTOM LOADING SECTION -->
+    <div class="loading-section">
+        <h2 class="dynamic-loading-text" id="dynamicText">Please wait, preparing something special... 🥺💕</h2>
+        
+        <div class="loading-bar-container" id="barContainer">
+            <span class="percentage-text" id="percText">0%</span>
+            <div class="thick-bar-bg">
+                <div class="thick-bar-fill" id="fillBar"></div>
+            </div>
+        </div>
+
+        <a href="{% url 'user_page' secret_key %}" class="continue-btn" id="continueBtn">
+        Open Lifafa 💌
+        </a>
+    </div>
+
+<script>
+    /* ── EXACT 12 SECONDS LOADING & TEXT LOGIC ── */
+    const fillBar = document.getElementById('fillBar');
+    const percText = document.getElementById('percText');
+    const dynamicText = document.getElementById('dynamicText');
+    const barContainer = document.getElementById('barContainer');
+    const continueBtn = document.getElementById('continueBtn');
+
+    const totalTimeMs = 12000;
+    const intervalMs = totalTimeMs / 100; 
+
+    let currentPercent = 0;
+
+    const messages = [
+        { perc: 0, text: "Please wait, preparing something special... 🥺💕" },
+        { perc: 15, text: "Gathering our precious memories... 📸🥰" },
+        { perc: 30, text: "Adding a little bit of magic... ✨🧚‍♀️" },
+        { perc: 45, text: "Wrapping it with all my love... 🎁❤️" },
+        { perc: 60, text: "Loading smiles and sweet moments... 😊💌" },
+        { perc: 75, text: "Just a few more seconds, my love... ⏳💖" },
+        { perc: 90, text: "Almost ready to make you smile... 🙈🌹" }
+    ];
+
+    const loadInterval = setInterval(() => {
+        currentPercent++;
+        
+        fillBar.style.width = currentPercent + "%";
+        percText.innerText = currentPercent + "%";
+
+        const matchedMessage = messages.find(m => m.perc === currentPercent);
+        
+        if (matchedMessage) {
+            dynamicText.classList.add('fade');
+            
+            setTimeout(() => {
+                dynamicText.innerText = matchedMessage.text;
+                dynamicText.classList.remove('fade');
+            }, 400); 
+        }
+
+        if (currentPercent >= 100) {
+            clearInterval(loadInterval);
+            
+            setTimeout(() => {
+                // 1. Hide Loading Bar
+                barContainer.style.display = 'none';
+                
+                // 2. Change Final Text
+                dynamicText.classList.add('fade');
+                setTimeout(() => {
+                    dynamicText.innerText = "All memories are ready! ✨";
+                    dynamicText.classList.remove('fade');
+                    dynamicText.classList.add('completed');
+                }, 400);
+                
+                // 3. Show Button
+               // 3. Show Button
+            continueBtn.style.display = 'inline-block';
+
+            // Auto-redirect 2 seconds after the button appears
+            setTimeout(() => { 
+                window.location.href = "{% url 'user_page' secret_key %}"; 
+            }, 2000);
+            }, 800);
+        }
+    }, intervalMs);
+
+    /* ── CANVAS BACKGROUND HEARTS ENGINE ── */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+
+    function resizeCanvas() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function drawHeart(x, y, size, opacity, color) {
+        ctx.save();
+        ctx.translate(x, y);
+        const s = size / 50;
+        ctx.scale(s, s);
+        ctx.globalAlpha = Math.max(0, Math.min(1, opacity));
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(0, 15);
+        ctx.bezierCurveTo(0, 15, -20, -5, -20, -15);
+        ctx.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
+        ctx.bezierCurveTo(7.5, -30, 20, -25, 20, -15);
+        ctx.bezierCurveTo(20, -5, 0, 15, 0, 15);
+        ctx.fill();
+        ctx.restore();
+    }
+
+    class FloatHeart {
+        constructor() { this.reset(true); }
+        reset(init) {
+            this.x = Math.random() * W;
+            this.y = init ? Math.random() * H : H + 50;
+            this.size = Math.random() * 15 + 5; 
+            this.spdY = Math.random() * 1.5 + 0.5;
+            this.wobA = Math.random() * Math.PI * 2;
+            this.wobS = Math.random() * 0.02 + 0.01;
+            this.wobD = Math.random() * 2 + 0.5;
+            this.pA = Math.random() * Math.PI * 2;
+            this.ps = Math.random() * 0.03 + 0.01;
+            const colors = ['rgba(255,26,102,', 'rgba(255,128,166,', 'rgba(255,179,198,'];
+            this.color = colors[Math.floor(Math.random() * colors.length)] + (Math.random() * 0.4 + 0.2) + ')';
+        }
+        update() {
+            this.y -= this.spdY;
+            this.wobA += this.wobS;
+            this.x += Math.sin(this.wobA) * this.wobD;
+            this.pA += this.ps;
+            this.op = 0.5 + Math.sin(this.pA) * 0.1;
+            if (this.y < -60) this.reset(false);
+        }
+        draw() { drawHeart(this.x, this.y, this.size, this.op, this.color); }
+    }
+
+    const floatHearts = [];
+    const HEART_COUNT = window.innerWidth < 768 ? 60 : 120; 
+    for (let i = 0; i < HEART_COUNT; i++) floatHearts.push(new FloatHeart());
+
+    function animateHearts() {
+        ctx.clearRect(0, 0, W, H);
+        floatHearts.forEach(h => { h.update(); h.draw(); });
+        requestAnimationFrame(animateHearts);
+    }
+    animateHearts();
+</script>
+
+</body>
+</html>
