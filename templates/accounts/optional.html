@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Yaadon Ka Lifafa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Montserrat:wght@800&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --btn-top: #ff758f; --btn-bottom: #e04565;
+            --stroke: #7a1023; --title-red: #ff3b5c;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* 1. Animated Background */
+        body {
+            min-height: 100vh; overflow-x: hidden;
+            background: linear-gradient(135deg, #2b1040, #150a1f, #4a2b5e, #1a0b2e);
+            background-size: 300% 300%;
+            animation: bgGlow 12s ease-in-out infinite alternate;
+            font-family: 'Montserrat', sans-serif;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        @keyframes bgGlow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
+        /* 2. Header & Logo */
+        header { width: 100%; max-width: 1000px; padding: 30px 20px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .logo {
+            position: absolute; left: 30px; width: clamp(60px, 8vw, 80px); height: clamp(60px, 8vw, 80px);
+            border-radius: 50%; border: 2px solid rgba(255,255,255,0.2);
+            background: url('../../static/images/logo.jpeg') center/cover;
+            box-shadow: 0 0 20px rgba(0,229,255,0.4);
+        }
+        .title {
+            font-family: 'Caveat', cursive; font-size: clamp(3rem, 6vw, 4.5rem); color: var(--title-red);
+            text-shadow: 0 0 15px rgba(255,59,92,0.6), 0 0 5px #fff; letter-spacing: 2px;
+        }
+
+        /* 3. Main Content & Ribbon */
+        main { width: 100%; max-width: 700px; padding: 0 20px 50px; display: flex; flex-direction: column; align-items: center; z-index: 10; }
+        
+        .ribbon {
+            background: linear-gradient(90deg, #d32645, #ff4d6d); padding: 8px 30px; border-radius: 4px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4); margin-bottom: 30px; border-top: 1px solid rgba(255,255,255,0.4);
+        }
+        .ribbon-text { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: #ffe600; text-shadow: 1px 1px 2px #000; }
+
+        /* 4. Enhanced 3D Buttons */
+        .btn-group { width: 100%; display: flex; flex-direction: column; gap: 20px; }
+        
+        .menu-btn {
+            position: relative; overflow: hidden; width: 100%;
+            background: linear-gradient(180deg, var(--btn-top), var(--btn-bottom));
+            border-radius: 15px; padding: 20px 30px; text-decoration: none;
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid #ffb3c1; border-bottom: 1px solid #9e1428;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 8px rgba(122,16,35,0.6);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;
+        }
+        
+        /* Hollow Text Effect */
+        .btn-text {
+            font-size: clamp(1.2rem, 3.5vw, 1.8rem); font-weight: 800; color: transparent;
+            -webkit-text-stroke: 1.5px var(--stroke); text-stroke: 1.5px var(--stroke);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2); position: relative; z-index: 2;
+        }
+
+        /* SVG Arrow */
+        .arrow { width: clamp(30px, 5vw, 45px); stroke: var(--stroke); stroke-width: 3; fill: none; transition: 0.3s; position: relative; z-index: 2; }
+
+        /* Button Shine & Hover Effects */
+        .menu-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-25deg); transition: 0.5s; z-index: 1;
+        }
+        .menu-btn:hover { transform: scale(1.03) translateY(-4px); box-shadow: 0 15px 25px rgba(0,0,0,0.6), 0 0 20px rgba(255,117,143,0.5); }
+        .menu-btn:hover::before { left: 150%; }
+        .menu-btn:hover .arrow { transform: translateX(10px); filter: drop-shadow(0 0 5px #fff); }
+        .menu-btn:active { transform: scale(0.98); box-shadow: 0 5px 10px rgba(0,0,0,0.5); }
+
+        /* 5. Magic Sparkle Mouse Trail */
+        .sparkle {
+            position: absolute; pointer-events: none; width: 12px; height: 12px;
+            background: radial-gradient(circle, #fff, #ff758f, transparent);
+            border-radius: 50%; box-shadow: 0 0 10px #fff; z-index: 9999;
+            animation: sparkleAnim 0.8s linear forwards;
+        }
+        @keyframes sparkleAnim { 0% { transform: scale(1) rotate(0deg); opacity: 1; } 100% { transform: scale(0) translateY(30px) rotate(90deg); opacity: 0; } }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header { flex-direction: column; padding-top: 40px; gap: 10px; }
+            .logo { position: relative; left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"></div>
+        <h1 class="title">Yaadon Ka Lifafa</h1>
+    </header>
+
+    <main>
+        <div class="ribbon">
+            <span class="ribbon-text">Make Your Moment Special: 👇</span>
+        </div>
+
+        <div class="btn-group">
+            <a href="{% url 'birthday' %}" class="menu-btn">
+                <span class="btn-text">BirthDay Special</span>
+                <svg class="arrow" viewBox="0 0 50 20"><path d="M0,10 L45,10 M35,2 L45,10 L35,18"/></svg>
+            </a>
+
+            <a href="{% url 'anniversary' %}" class="menu-btn">
+                <span class="btn-text">Anniversary Special</span>
+                <svg class="arrow" viewBox="0 0 50 20"><path d="M0,10 L45,10 M35,2 L45,10 L35,18"/></svg>
+            </a>
+
+            <a href="{% url 'valentine' %}" class="menu-btn">
+                <span class="btn-text">Valentines Day Special</span>
+                <svg class="arrow" viewBox="0 0 50 20"><path d="M0,10 L45,10 M35,2 L45,10 L35,18"/></svg>
+            </a>
+
+            <a href="{% url 'custom' %}" class="menu-btn">
+                <span class="btn-text">Personal Design</span>
+                <svg class="arrow" viewBox="0 0 50 20"><path d="M0,10 L45,10 M35,2 L45,10 L35,18"/></svg>
+            </a>
+        </div>
+    </main>
+
+    <!-- Sparkle Mouse Trail Script -->
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            // Prevent creating too many sparkles to save performance
+            if (Math.random() > 0.4) {
+                let sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = (e.pageX - 6) + 'px';
+                sparkle.style.top = (e.pageY - 6) + 'px';
+                document.body.appendChild(sparkle);
+                
+                // Remove element after animation ends
+                setTimeout(() => sparkle.remove(), 800);
+            }
+        });
+    </script>
+</body>
+</html>
