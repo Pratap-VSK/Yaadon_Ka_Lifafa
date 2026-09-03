@@ -1,151 +1,599 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu | Yaadon Ka Lifafa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Montserrat:wght@800&family=Patrick+Hand&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --btn-top: #ff758f; --btn-bottom: #e04565;
-            --stroke: #7a1023; --title-red: #ff3b5c;
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        /* 1. Animated Background */
-        body {
-            min-height: 100vh; overflow-x: hidden;
-            background: linear-gradient(135deg, #2b1040, #150a1f, #4a2b5e, #1a0b2e);
-            background-size: 300% 300%;
-            animation: bgGlow 12s ease-in-out infinite alternate;
-            font-family: 'Montserrat', sans-serif;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        @keyframes bgGlow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu | Yaadon Ka Lifafa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
-        /* 2. Header & Logo */
-        header { width: 100%; max-width: 1000px; padding: 30px 20px; display: flex; align-items: center; justify-content: center; position: relative; }
-        .logo {
-            position: absolute; left: 30px; width: clamp(60px, 8vw, 80px); height: clamp(60px, 8vw, 80px);
-            border-radius: 50%; border: 2px solid rgba(255,255,255,0.2);
-            background: url('../../static/images/logo.jpeg') center/cover;
-            box-shadow: 0 0 20px rgba(0,229,255,0.4);
-        }
-        .title {
-            font-family: 'Caveat', cursive; font-size: clamp(3rem, 6vw, 4.5rem); color: var(--title-red);
-            text-shadow: 0 0 15px rgba(255,59,92,0.6), 0 0 5px #fff; letter-spacing: 2px;
-        }
+  <style>
+    /* ═══════════════════════════════════════════
+       RESET & ROOT VARIABLES
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* 3. Main Content & Ribbon */
-        main { width: 100%; max-width: 700px; padding: 0 20px 50px; display: flex; flex-direction: column; align-items: center; z-index: 10; }
-        
-        .ribbon {
-            background: linear-gradient(90deg, #d32645, #ff4d6d); padding: 8px 30px; border-radius: 4px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4); margin-bottom: 30px; border-top: 1px solid rgba(255,255,255,0.4);
-        }
-        .ribbon-text { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: #ffe600; text-shadow: 1px 1px 2px #000; }
+    :root {
+      --c-bg-1: #10052a;
+      --c-bg-2: #42f323;
+      --c-bg-3: #3b1260;
+      --c-bg-4: #180635;
 
-        /* 4. Enhanced 3D Buttons */
-        .btn-group { width: 100%; display: flex; flex-direction: column; gap: 20px; }
-        
-        .menu-btn {
-            position: relative; overflow: hidden; width: 100%;
-            background: linear-gradient(180deg, var(--btn-top), var(--btn-bottom));
-            border-radius: 15px; padding: 20px 30px; text-decoration: none;
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid #ffb3c1; border-bottom: 1px solid #9e1428;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 3px 5px rgba(255,255,255,0.6), inset 0 -4px 8px rgba(122,16,35,0.6);
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: pointer;
-        }
-        
-        /* Hollow Text Effect */
-        .btn-text {
-            font-size: clamp(1.2rem, 3.5vw, 1.8rem); font-weight: 800; color: transparent;
-            -webkit-text-stroke: 1.5px var(--stroke); text-stroke: 1.5px var(--stroke);
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.2); position: relative; z-index: 2;
-        }
+      --c-pink:    #ff3b5c;
+      --c-rose:    #ff758f;
+      --c-magenta: #e0196b;
+      --c-gold:    #ffdf00;
+      --c-cream:   #fff4f7;
 
-        /* SVG Arrow */
-        .arrow { width: clamp(30px, 5vw, 45px); stroke: var(--stroke); stroke-width: 3; fill: none; transition: 0.3s; position: relative; z-index: 2; }
+      /* Button hover palette — each button gets a unique scheme */
+      --bh-1-a: #ff6b35; --bh-1-b: #c0392b; 
+      --bh-2-a: #40fd36; --bh-2-b: #0d280b; 
+      --bh-3-a: #ec4899; --bh-3-b: #9d174d; 
+      --bh-4-a: #0ea5e9; --bh-4-b: #1e40af; 
 
-        /* Button Shine & Hover Effects */
-        .menu-btn::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transform: skewX(-25deg); transition: 0.5s; z-index: 1;
-        }
-        .menu-btn:hover { transform: scale(1.03) translateY(-4px); box-shadow: 0 15px 25px rgba(0,0,0,0.6), 0 0 20px rgba(255,117,143,0.5); }
-        .menu-btn:hover::before { left: 150%; }
-        .menu-btn:hover .arrow { transform: translateX(10px); filter: drop-shadow(0 0 5px #fff); }
-        .menu-btn:active { transform: scale(0.98); box-shadow: 0 5px 10px rgba(0,0,0,0.5); }
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --shadow-btn: 0 12px 36px rgba(0,0,0,.65), 0 4px 12px rgba(0,0,0,.45);
+      --font-main: 'Poppins', sans-serif;
+      --font-brand: 'Caveat', cursive;
+    }
 
-        /* 5. Magic Sparkle Mouse Trail */
-        .sparkle {
-            position: absolute; pointer-events: none; width: 12px; height: 12px;
-            background: radial-gradient(circle, #fff, #ff758f, transparent);
-            border-radius: 50%; box-shadow: 0 0 10px #fff; z-index: 9999;
-            animation: sparkleAnim 0.8s linear forwards;
-        }
-        @keyframes sparkleAnim { 0% { transform: scale(1) rotate(0deg); opacity: 1; } 100% { transform: scale(0) translateY(30px) rotate(90deg); opacity: 0; } }
+    /* ═══════════════════════════════════════════
+       BODY & FULL SCREEN FIX
+    ═══════════════════════════════════════════ */
+    html, body {
+      height: 100%;
+      height: 100dvh; /* Mobile browser height fix */
+      overflow: hidden; /* Scroll disabled */
+      width: 100vw;
+    }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            header { flex-direction: column; padding-top: 40px; gap: 10px; }
-            .logo { position: relative; left: 0; }
-        }
-    </style>
+    body {
+      background: var(--c-bg-1);
+      font-family: var(--font-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between; /* Spreads elements fully */
+      position: relative;
+    }
+
+    /* Multi-layer animated gradient */
+    .bg-layer {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 20%, rgba(232,0,100,.28) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 80% 80%, rgba(138,43,226,.35) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 70% at 50% 50%, rgba(30,0,80,.6)   0%, transparent 70%),
+        linear-gradient(160deg, #10052a 0%, #220840 40%, #3b1260 70%, #180635 100%);
+      background-size: 200% 200%, 200% 200%, 100% 100%, 100% 100%;
+      animation: bgDrift 16s ease-in-out infinite alternate;
+    }
+    @keyframes bgDrift {
+      0%   { background-position: 0% 0%,   100% 100%, center, center; }
+      50%  { background-position: 60% 40%,  40%  60%,  center, center; }
+      100% { background-position: 100% 100%, 0%    0%,  center, center; }
+    }
+
+    /* Stars / tiny dots */
+    .stars {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.7) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,200,220,.5) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,.4) 1px, transparent 1px);
+      background-size: 180px 180px, 280px 280px, 120px 120px;
+      background-position: 0 0, 90px 90px, 45px 45px;
+      animation: starTwinkle 8s ease-in-out infinite alternate;
+    }
+    @keyframes starTwinkle {
+      0%   { opacity: .5; }
+      50%  { opacity: .9; }
+      100% { opacity: .4; }
+    }
+
+    #heartCanvas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+
+    /* ═══════════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════════ */
+    header {
+      position: relative; z-index: 10;
+      width: 100%; max-width: 860px;
+      padding: clamp(3vh, 25px, 6vh) clamp(15px, 4vw, 40px) 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: min(1.5vh, 15px);
+    }
+
+    .logo-ring {
+      width: clamp(55px, 8vh, 85px);
+      height: clamp(55px, 8vh, 85px);
+      border-radius: 50%;
+      padding: 3px;
+      background: conic-gradient(#ff3b5c, #ff758f, #ffdf00, #ff3b5c, #a855f7, #ff3b5c);
+      background-size: 300% 300%;
+      animation: ringRotate 4s linear infinite;
+      box-shadow: 0 0 22px rgba(255,59,92,.55), 0 0 50px rgba(255,59,92,.22);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    @keyframes ringRotate {
+      0%   { filter: hue-rotate(0deg);   }
+      100% { filter: hue-rotate(360deg); }
+    }
+    
+    .logo-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff758f, #e04565);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-inner img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    .brand-name {
+      font-family: var(--font-brand);
+      font-size: clamp(2.4rem, 6vh, 4.5rem);
+      font-weight: 700;
+      line-height: 1;
+      text-align: center;
+      color: #fff;
+      text-shadow:
+        0 1px 0 #c01040, 0 2px 0 #b00e38, 0 3px 0 #a00c30, 0 4px 0 #900a28,
+        0 8px 10px rgba(0,0,0,.55), 0 12px 20px rgba(0,0,0,.35);
+      background: linear-gradient(105deg, #ff9fb5 0%, #fff 25%, #ffd6e0 40%, #fff 55%, #ff758f 70%, #ffdf00 85%, #ff9fb5 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: brandShine 3.5s linear infinite;
+      transition: transform .3s ease, filter .3s ease;
+    }
+    .brand-name:hover {
+      transform: scale(1.04) translateY(-4px);
+      filter: drop-shadow(0 10px 20px rgba(255,59,92,.7));
+    }
+    @keyframes brandShine {
+      0%   { background-position: 0% center; }
+      100% { background-position: 250% center; }
+    }
+
+    .tagline {
+      font-size: clamp(.75rem, 1.6vh, 1rem);
+      color: rgba(255,200,220,.65);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: min(2vh, 25px);
+    }
+
+    .ribbon-wrap {
+      position: relative;
+      width: clamp(240px, 80%, 560px);
+      margin-bottom: min(1.5vh, 20px);
+    }
+    .ribbon {
+      background: linear-gradient(90deg, #8b0000, #c0003a, #e8005c, #ff3b5c, #e8005c, #c0003a, #8b0000);
+      background-size: 300% auto;
+      animation: ribbonFlow 3s linear infinite;
+      padding: max(1vh, 8px) 20px;
+      border-radius: 8px;
+      text-align: center;
+      position: relative; overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.35);
+    }
+    @keyframes ribbonFlow {
+      0%   { background-position: 0% center; }
+      100% { background-position: 300% center; }
+    }
+    .ribbon::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.18) 50%, transparent 100%);
+      background-size: 200% auto; animation: ribbonGloss 2s linear infinite;
+    }
+    @keyframes ribbonGloss {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200%  center; }
+    }
+    .ribbon-text {
+      font-family: var(--font-brand);
+      font-size: clamp(1.2rem, 2.5vh, 1.8rem);
+      color: var(--c-gold);
+      text-shadow: 0 0 12px rgba(255,220,0,.6), 1px 1px 3px #000;
+      position: relative; z-index: 1;
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════════════
+       MAIN / BUTTON GROUP (Line-wise for ALL screens)
+    ═══════════════════════════════════════════ */
+    main {
+      position: relative; z-index: 10;
+      width: 100%; max-width: 800px; /* Wider for desktop, constrained for mobile */
+      padding: 0 clamp(15px, 4vw, 40px);
+      display: flex; flex-direction: column; justify-content: center;
+      flex: 1; /* Takes all remaining vertical space */
+      min-height: 0; 
+    }
+
+    .btn-group-grid {
+      display: flex;
+      flex-direction: column; /* Forces line-wise display on both Mobile and Desktop */
+      justify-content: center; 
+      gap: clamp(15px, 3.5vh, 40px); /* Spreads buttons evenly */
+      width: 100%;
+      height: 100%;
+      max-height: adjust; /* Stops buttons from looking extremely tall on large screens */
+      margin: auto 0;
+    }
+
+    /* ═══════════════════════════════════════════
+       3-D MENU BUTTONS
+    ═══════════════════════════════════════════ */
+    .menu-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      padding: 0 clamp(15px, 4vw, 35px);
+      
+      flex: 1; 
+      min-height: 60px; 
+      max-height: 13vh; 
+
+      overflow: hidden;
+      cursor: pointer;
+      outline: none;
+
+      --top-c:  #ff758f; --mid-c:  #f04060; --bot-c:  #c01040; --edge-c: #7a0020;
+      background: linear-gradient(180deg, var(--top-c) 0%, var(--mid-c) 50%, var(--bot-c) 100%);
+      box-shadow: 0 8px 0 var(--edge-c), var(--shadow-btn), inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 4px rgba(0,0,0,.3);
+      border: none;
+      transition: background .35s ease, box-shadow .25s ease, transform .2s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .menu-btn::before {
+      content: ''; position: absolute; top: 0; left: -130%; width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.45) 50%, transparent);
+      transform: skewX(-20deg); transition: left .55s ease; z-index: 1;
+    }
+    .menu-btn::after {
+      content: ''; position: absolute; inset: -2px; border-radius: calc(var(--radius-md) + 2px);
+      background: linear-gradient(135deg, rgba(255,255,255,.5), transparent, rgba(255,255,255,.2));
+      opacity: 0; transition: opacity .35s; pointer-events: none; z-index: 0;
+    }
+
+    .btn-left {
+      display: flex; align-items: center; gap: clamp(12px, 3vw, 25px);
+      position: relative; z-index: 2; flex: 1; min-width: 0;
+    }
+    .btn-icon {
+      font-size: clamp(1.8rem, 4.5vh, 3.2rem);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.4));
+      flex-shrink: 0; transition: transform .3s ease;
+    }
+    .btn-label { display: flex; flex-direction: column; gap: 2px; }
+    
+    .btn-title {
+      font-size: clamp(1.1rem, 2.5vh, 1.8rem);
+      font-weight: 800; color: #fff;
+      text-shadow: 1px 1px 0 rgba(0,0,0,.5), 0 3px 8px rgba(0,0,0,.35);
+      letter-spacing: .02em; line-height: 1.1; white-space: nowrap; transition: text-shadow .3s;
+    }
+    .btn-sub {
+      font-size: clamp(.7rem, 1.5vh, 1rem);
+      color: rgba(255,255,255,.7); font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+    }
+    .btn-arrow {
+      width: clamp(35px, 5vh, 55px);
+      height: clamp(35px, 5vh, 55px);
+      border-radius: 50%; background: rgba(255,255,255,.18); border: 1.5px solid rgba(255,255,255,.35);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      position: relative; z-index: 2; transition: transform .3s ease, background .3s;
+    }
+    .btn-arrow svg {
+      width: clamp(45px, 4.2vh, 52px);
+      height: clamp(15px, 2.2vh, 22px);
+      stroke: #28fc2f; stroke-width: 5.5; fill: none;
+    }
+
+    /* ════ HOVER STATES ════ */
+    .btn-birthday:hover { --top-c: #ff9a5c; --mid-c: #ff6b35; --bot-c: #c0392b; --edge-c: #7d1a0a; box-shadow: 0 8px 0 var(--edge-c), 0 18px 40px rgba(255,107,53,.6), inset 0 1px 0 rgba(255,255,255,.5); }
+    .btn-anniversary:hover { --top-c: #c243e6; --mid-c: #a855f7; --bot-c: #6d28d9; --edge-c: #3b1296; box-shadow: 0 8px 0 var(--edge-c), 0 18px 40px rgba(168,85,247,.6), inset 0 1px 0 rgba(255,255,255,.5); }
+    .btn-valentine:hover { --top-c: #f9a8d4; --mid-c: #ec4899; --bot-c: #9d174d; --edge-c: #5c0a2d; box-shadow: 0 8px 0 var(--edge-c), 0 18px 40px rgba(236,72,153,.6), inset 0 1px 0 rgba(255,255,255,.5); }
+    .btn-personal:hover { --top-c: #7dd3fc; --mid-c: #0ea5e9; --bot-c: #1e40af; --edge-c: #0c1f6e; box-shadow: 0 8px 0 var(--edge-c), 0 18px 40px rgba(14,165,233,.6), inset 0 1px 0 rgba(255,255,255,.5); }
+
+    .menu-btn:hover { transform: translateY(-5px) scale(1.012); }
+    .menu-btn:hover::before { left: 160%; }
+    .menu-btn:hover::after  { opacity: 1; }
+    .menu-btn:hover .btn-arrow { transform: translateX(5px); background: rgba(255,255,255,.3); }
+    .menu-btn:hover .btn-icon  { transform: scale(1.2) rotate(-8deg); }
+    .menu-btn:active { transform: translateY(2px) scale(.985); box-shadow: 0 3px 0 var(--edge-c), 0 6px 15px rgba(0,0,0,.5); }
+
+    /* ═══════════════════════════════════════════
+       SPARKLE MOUSE TRAIL & BURST HEARTS
+    ═══════════════════════════════════════════ */
+    .sparkle { position: absolute; pointer-events: none; z-index: 9999; border-radius: 50%; animation: sparkleFade .8s ease-out forwards; }
+    @keyframes sparkleFade { 0% { transform: scale(1.4); opacity: 1; } 100% { transform: scale(0) translateY(24px); opacity: 0; } }
+    
+    .burst-heart { position: absolute; pointer-events: none; z-index: 9999; font-size: 1.2rem; animation: burstUp 1s ease-out forwards; }
+    @keyframes burstUp { 0% { transform: translate(-50%,-50%) scale(.3); opacity: 1; } 60% { opacity: .9; } 100% { transform: translate(var(--bx), var(--by)) scale(1.2); opacity: 0; } }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
+    footer {
+      position: relative; z-index: 10;
+      padding-bottom: max(3vh, 15px);
+      font-size: clamp(0.75rem, 1.5vh, 1rem);
+      color: rgba(255,180,200,.35);
+      letter-spacing: .1em;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE BREAKPOINTS (Optimized for 1 column everywhere)
+    ═══════════════════════════════════════════ */
+    @media (max-width: 420px) {
+      .btn-sub { display: none; }
+      .ribbon { border-radius: var(--radius-md); }
+    }
+    @media (max-width: 320px) {
+      .btn-left { gap: 8px; }
+      .btn-icon { font-size: 1.6rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .2s !important; }
+      #heartCanvas { display: none; }
+      .stars { animation: none; }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo"></div>
-        <h1 class="title">Yaadon Ka Lifafa</h1>
-    </header>
+  <!-- BG layers -->
+  <div class="bg-layer" aria-hidden="true"></div>
+  <div class="stars"    aria-hidden="true"></div>
+  <canvas id="heartCanvas" aria-hidden="true"></canvas>
 
-    <main>
-        <div class="ribbon">
-            <span class="ribbon-text">Make Your Moment Special: 👇</span>
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div class="logo-row">
+      <div class="logo-ring" id="logoRing" title="Yaadon Ka Lifafa">
+        <div class="logo-inner">
+          <img
+            src="../../static/images/logo.jpeg"
+            alt="Yaadon Ka Lifafa logo"
+            onerror="this.style.display='none';this.parentElement.textContent='💌';"
+          />
         </div>
+      </div>
+      <h1 class="brand-name">Yaadon Ka Lifafa</h1>
+    </div>
 
-        <div class="btn-group">
-            <a href="{% url 'birthday' %}" class="menu-btn">
-                <span class="btn-text">BirthDay Special</span>
-                <svg class="arrow" viewBox="0 0 50 20"><path d="M0,10 L45,10 M35,2 L45,10 L35,18"/></svg>
-            </a>
+    <p class="tagline">Har Pal Ko Khaas Banao ✦</p>
 
-            <a href="{% url 'anniversary' %}" class="menu-btn">
-                <span class="btn-text">Anniversary Special</span>
-                <svg class="arrow" viewBox="0 0 50 20"><path d="M0,10 L45,10 M35,2 L45,10 L35,18"/></svg>
-            </a>
+    <!-- Ribbon -->
+    <div class="ribbon-wrap" role="note">
+      <div class="ribbon">
+        <span class="ribbon-text">✨ Make Your Moment Special 💕</span>
+      </div>
+    </div>
+  </header>
 
-            <a href="{% url 'valentine' %}" class="menu-btn">
-                <span class="btn-text">Valentines Day Special</span>
-                <svg class="arrow" viewBox="0 0 50 20"><path d="M0,10 L45,10 M35,2 L45,10 L35,18"/></svg>
-            </a>
+  <!-- ══ MENU BUTTONS ══ -->
+  <main>
+    <div class="btn-group-grid">
 
-            <a href="{% url 'custom' %}" class="menu-btn">
-                <span class="btn-text">Personal Design</span>
-                <svg class="arrow" viewBox="0 0 50 20"><path d="M0,10 L45,10 M35,2 L45,10 L35,18"/></svg>
-            </a>
+      <!-- Birthday -->
+      <a href="{% url 'birthday' %}" class="menu-btn btn-birthday">
+        <div class="btn-left">
+          <span class="btn-icon" aria-hidden="true">🎂</span>
+          <div class="btn-label">
+            <span class="btn-title">Birthday Special</span>
+            <span class="btn-sub">Celebrate their day</span>
+          </div>
         </div>
-    </main>
+        <div class="btn-arrow">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14M14 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </a>
 
-    <!-- Sparkle Mouse Trail Script -->
-    <script>
-        document.addEventListener('mousemove', function(e) {
-            // Prevent creating too many sparkles to save performance
-            if (Math.random() > 0.4) {
-                let sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = (e.pageX - 6) + 'px';
-                sparkle.style.top = (e.pageY - 6) + 'px';
-                document.body.appendChild(sparkle);
-                
-                // Remove element after animation ends
-                setTimeout(() => sparkle.remove(), 800);
-            }
-        });
-    </script>
+      <!-- Anniversary -->
+      <a href="{% url 'anniversary' %}" class="menu-btn btn-anniversary">
+        <div class="btn-left">
+          <span class="btn-icon" aria-hidden="true">💍</span>
+          <div class="btn-label">
+            <span class="btn-title">Anniversary Special</span>
+            <span class="btn-sub">Relive your journey</span>
+          </div>
+        </div>
+        <div class="btn-arrow">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14M14 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Valentine -->
+      <a href="{% url 'valentine' %}" class="menu-btn btn-valentine">
+        <div class="btn-left">
+          <span class="btn-icon" aria-hidden="true">💝</span>
+          <div class="btn-label">
+            <span class="btn-title">Valentine's Day Special</span>
+            <span class="btn-sub">Express your love</span>
+          </div>
+        </div>
+        <div class="btn-arrow">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14M14 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Personal Design -->
+      <a href="{% url 'custom' %}" class="menu-btn btn-personal">
+        <div class="btn-left">
+          <span class="btn-icon" aria-hidden="true">🎨</span>
+          <div class="btn-label">
+            <span class="btn-title">Personal Design</span>
+            <span class="btn-sub">Your unique vision</span>
+          </div>
+        </div>
+        <div class="btn-arrow">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14M14 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </a>
+
+    </div><!-- /btn-group-grid -->
+  </main>
+
+  <footer>Made with 💕 Yaadon Ka Lifafa</footer>
+
+  <!-- ══ SCRIPTS ══ -->
+  <script>
+    /* ── 1. Floating heart canvas ── */
+    (function () {
+      const canvas = document.getElementById('heartCanvas');
+      const ctx    = canvas.getContext('2d');
+      const SYM = ['♥','♡','❤','💕','💗','✦','✿','★','❧','✾'];
+      const HUES = [0, 330, 350, 310, 270, 290];
+
+      function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      class Dot {
+        constructor(init) {
+          this.init = init;
+          this.reset();
+        }
+        reset() {
+          const s = this;
+          s.x     = Math.random() * canvas.width;
+          s.y     = this.init ? Math.random() * canvas.height : canvas.height + 30;
+          s.size  = 9  + Math.random() * 20;
+          s.speed = 0.3 + Math.random() * 0.5;
+          s.drift = (Math.random() - 0.5) * 0.55;
+          s.rot   = Math.random() * Math.PI * 2;
+          s.rotV  = (Math.random() - 0.5) * 0.022;
+          s.alpha = 0.1 + Math.random() * 0.25;
+          s.pulse = Math.random() * Math.PI * 2;
+          s.sym   = SYM[Math.floor(Math.random() * SYM.length)];
+          s.hue   = HUES[Math.floor(Math.random() * HUES.length)];
+        }
+        update() {
+          this.y     -= this.speed;
+          this.x     += this.drift;
+          this.rot   += this.rotV;
+          this.pulse += 0.028;
+          if (this.y < -35) { this.init = false; this.reset(); }
+        }
+        draw() {
+          const scale = 1 + 0.1 * Math.sin(this.pulse);
+          ctx.save();
+          ctx.translate(this.x, this.y);
+          ctx.rotate(this.rot);
+          ctx.scale(scale, scale);
+          ctx.globalAlpha = this.alpha * (0.8 + 0.2 * Math.sin(this.pulse));
+          ctx.fillStyle   = `hsl(${this.hue},90%,72%)`;
+          ctx.shadowColor = `hsl(${this.hue},100%,65%)`;
+          ctx.shadowBlur  = 10;
+          ctx.font        = `${this.size}px serif`;
+          ctx.textAlign   = 'center';
+          ctx.textBaseline= 'middle';
+          ctx.fillText(this.sym, 0, 0);
+          ctx.restore();
+        }
+      }
+
+      const dots = Array.from({ length: 60 }, (_, i) => new Dot(true));
+      (function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        dots.forEach(d => { d.update(); d.draw(); });
+        requestAnimationFrame(loop);
+      })();
+    })();
+
+    /* ── 2. Sparkle mouse trail ── */
+    const SPARKLE_COLORS = [
+      '#fff', '#ff758f', '#ffb3c1', '#ffe600',
+      '#ff3b5c', '#d4b3ff', '#7dd3fc', '#f9a8d4'
+    ];
+    let lastSparkle = 0;
+    document.addEventListener('mousemove', function (e) {
+      const now = Date.now();
+      if (now - lastSparkle < 35) return; // throttle
+      lastSparkle = now;
+      if (Math.random() > 0.5) return;
+
+      const el    = document.createElement('div');
+      el.className = 'sparkle';
+      const col  = SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)];
+      const size = 6 + Math.random() * 10;
+      el.style.cssText = `
+        left:${e.clientX - size/2}px;
+        top:${e.clientY  - size/2}px;
+        width:${size}px; height:${size}px;
+        background: radial-gradient(circle, #fff 0%, ${col} 55%, transparent 100%);
+        box-shadow: 0 0 ${size}px ${col};
+      `;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 820);
+    });
+
+    /* ── 3. Click burst hearts ── */
+    const BURST = ['💕','💗','✨','💖','❤','💝','⭐'];
+    document.querySelectorAll('.menu-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        for (let i = 0; i < 10; i++) {
+          const h = document.createElement('div');
+          h.className = 'burst-heart';
+          const angle = (Math.random() * 2 - 1) * 120; // px horizontal spread
+          const rise  = 80 + Math.random() * 100;       // px upward
+          h.textContent = BURST[Math.floor(Math.random() * BURST.length)];
+          h.style.cssText = `
+            left:${e.clientX}px;
+            top:${e.clientY}px;
+            font-size:${14 + Math.random()*18}px;
+            --bx:${angle}px;
+            --by:-${rise}px;
+            animation-duration:${0.8 + Math.random()*0.6}s;
+            animation-delay:${Math.random()*0.15}s;
+          `;
+          document.body.appendChild(h);
+          setTimeout(() => h.remove(), 1800);
+        }
+      });
+    });
+
+    /* ── 4. Logo pulse on click ── */
+    document.getElementById('logoRing').addEventListener('click', function () {
+      this.style.transition = 'transform .15s ease';
+      this.style.transform  = 'scale(1.18)';
+      setTimeout(() => { this.style.transform = 'scale(1)'; }, 200);
+    });
+  </script>
 </body>
 </html>

@@ -1,660 +1,287 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Loading Memories | Yaadon Ka Lifafa</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Magic Moment</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap');
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a0b2e, #4a154b);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-<style>
-/* ============================================================
-   ROOT VARIABLES
-   ============================================================ */
-:root {
-  --bg-deep:       #140207;
-  --bg-grad-start: #2e0513;
-  --bg-grad-end:   #140207;
-  --red:           #e6004c;
-  --red-glow:      #ff1a66;
-  --red-dark:      #80002a;
-  --pink:          #ff80a6;
-  --pink-light:    #ffccd9;
-  --rose-gold:     #ffb3c6;
-  --glass-bg:      rgba(26, 5, 13, 0.4);
-  --glass-border:  rgba(255, 128, 166, 0.3);
-  --font-cursive:  'Caveat', cursive;
-  --font-sans:     'Montserrat', sans-serif;
+        /* Background Animation Container */
+        #bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
 
-  /* Carousel depth — adjusted per breakpoint */
-  --cz: 420px;
-  --cw: 200px;
-  --ch: 290px;
-}
+        /* Glassmorphism Form Container */
+        .creation-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 550px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            z-index: 10;
+            animation: fadeIn 1.5s ease-in-out;
+            margin: 40px 0;
+        }
 
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-::-webkit-scrollbar { display: none; }
+        .header-text h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin-bottom: 5px;
+            color: #ff7eb3;
+            text-shadow: 0 0 10px #ff7eb3, 0 0 20px #ff7eb3;
+        }
 
-html {
-  height: 100%;
-  /* Prevent iOS address-bar bounce */
-  overflow: hidden;
-}
+        .header-text p {
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+        }
 
-body {
-  width: 100vw;
-  height: 100%;
-  /* Use dvh so content fills the true visible viewport on mobile */
-  min-height: 100dvh;
-  overflow: hidden;
-  background: var(--bg-deep);
-  font-family: var(--font-sans);
-  position: fixed;
-  top: 0; left: 0;
-  display: flex;
-  flex-direction: column;
-  animation: pageFadeIn 0.8s ease-out both;
-}
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
 
-@keyframes pageFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff7eb3;
+        }
 
-/* ============================================================
-   BACKGROUND LAYERS
-   ============================================================ */
-#bg-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(ellipse at 50% 40%,
-    var(--bg-grad-start) 0%,
-    var(--bg-grad-end) 100%);
-}
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: 0.3s ease;
+        }
 
-.vignette {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background: radial-gradient(circle at 50% 45%,
-    transparent 25%,
-    rgba(14, 2, 7, 0.88) 100%);
-}
+        .input-group textarea {
+            resize: none;
+            top: 15px;
+            transform: none;
+        }
 
-/* ============================================================
-   LOGO
-   ============================================================ */
-.loading-logo {
-  position: fixed;
-  top: clamp(14px, 3vh, 28px);
-  left: clamp(14px, 4vw, 32px);
-  z-index: 1000;
-  width: clamp(44px, 8vw, 80px);
-  height: clamp(44px, 8vw, 80px);
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(255, 26, 102, 0.5);
-  box-shadow: 0 0 18px rgba(255, 26, 102, 0.55),
-              0 0 40px rgba(255, 26, 102, 0.2);
-  animation: logoPulse 3s ease-in-out infinite;
-}
+        .input-group textarea ~ i {
+            top: 25px;
+        }
 
-@keyframes logoPulse {
-  0%, 100% { box-shadow: 0 0 14px rgba(255, 26, 102, 0.5), 0 0 30px rgba(255, 26, 102, 0.15); }
-  50%       { box-shadow: 0 0 28px rgba(255, 26, 102, 0.8), 0 0 60px rgba(255, 26, 102, 0.35); }
-}
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: #ff7eb3;
+            box-shadow: 0 0 10px rgba(255, 126, 179, 0.5);
+        }
 
-/* ============================================================
-   BRAND TITLE (small, top-centre)
-   ============================================================ */
-.brand-title {
-  position: fixed;
-  top: clamp(20px, 3.5vh, 34px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  font-family: var(--font-cursive);
-  font-size: clamp(1rem, 3vw, 1.5rem);
-  font-weight: 600;
-  color: rgba(255, 204, 217, 0.7);
-  white-space: nowrap;
-  letter-spacing: 0.5px;
-  text-shadow: 0 0 16px rgba(255, 26, 102, 0.4);
-}
+        /* Media Upload Styling */
+        .file-upload-group input[type="file"] {
+            display: none;
+        }
 
-/* ============================================================
-   CAROUSEL SCENE — fills available space between logo and bar
-   ============================================================ */
-.carousel-scene {
-  flex: 1;
-  width: 100%;
-  perspective: 1400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  /* Safe padding: top clears the fixed logo, bottom clears the loading bar */
-  padding-top: clamp(80px, 14vh, 130px);
-  padding-bottom: clamp(20px, 4vh, 50px);
-  overflow: hidden;
-}
+        .file-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed #ff7eb3;
+            padding: 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 25px;
+        }
 
-/* ============================================================
-   CAROUSEL WRAPPER — intrinsic size via CSS vars
-   ============================================================ */
-.carousel-wrapper {
-  width: var(--cw);
-  height: var(--ch);
-  position: relative;
-  transform-style: preserve-3d;
-  animation: spinCarousel 22s infinite linear;
-  flex-shrink: 0;
-}
+        .file-label:hover {
+            background: rgba(255, 126, 179, 0.2);
+        }
 
-@keyframes spinCarousel {
-  from { transform: rotateY(0deg); }
-  to   { transform: rotateY(-360deg); }
-}
+        .file-label i {
+            font-size: 2rem;
+            color: #ff7eb3;
+            margin-bottom: 10px;
+        }
 
-.carousel-item {
-  position: absolute;
-  inset: 0;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 2.5px solid rgba(255, 235, 240, 0.85);
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.85),
-    0 0 30px rgba(255, 26, 102, 0.45),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-  background: var(--glass-bg);
-  /* Reflection — looks great on WebKit */
-  -webkit-box-reflect: below 6px
-    linear-gradient(transparent, transparent 65%, rgba(255, 255, 255, 0.18));
-}
+        .file-label span {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
 
-.carousel-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  /* Slight warm filter to unify varied photos */
-  filter: brightness(0.92) saturate(1.1);
-  transition: filter 0.4s;
-}
+        .file-name-display {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #ff758c;
+            font-weight: 600;
+        }
 
-/* Individual rotations — 9 items × 40° = 360° */
-.item-1 { transform: rotateY(  0deg) translateZ(var(--cz)); }
-.item-2 { transform: rotateY( 40deg) translateZ(var(--cz)); }
-.item-3 { transform: rotateY( 80deg) translateZ(var(--cz)); }
-.item-4 { transform: rotateY(120deg) translateZ(var(--cz)); }
-.item-5 { transform: rotateY(160deg) translateZ(var(--cz)); }
-.item-6 { transform: rotateY(200deg) translateZ(var(--cz)); }
-.item-7 { transform: rotateY(240deg) translateZ(var(--cz)); }
-.item-8 { transform: rotateY(280deg) translateZ(var(--cz)); }
-.item-9 { transform: rotateY(320deg) translateZ(var(--cz)); }
+        /* Submit Button */
+        .create-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
 
-/* ============================================================
-   LOADING SECTION — pinned to bottom
-   ============================================================ */
-.loading-section {
-  width: 100%;
-  /* Fixed height so carousel always has room */
-  height: clamp(160px, 30vh, 220px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  padding-bottom: clamp(24px, 5vh, 52px);
-  gap: clamp(10px, 2vh, 16px);
-  z-index: 20;
-  /* Gradient blends bottom into bg so cut-off images look intentional */
-  background: linear-gradient(to top,
-    rgba(20, 2, 7, 0.98) 0%,
-    rgba(20, 2, 7, 0.7) 55%,
-    transparent 100%);
-  flex-shrink: 0;
-}
+        .create-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 126, 179, 0.4);
+        }
 
-/* ── Dynamic message ── */
-.dynamic-loading-text {
-  font-family: var(--font-cursive);
-  font-size: clamp(1.15rem, 4vw, 1.55rem);
-  font-weight: 600;
-  color: var(--pink-light);
-  text-shadow: 0 2px 12px rgba(255, 26, 102, 0.75);
-  text-align: center;
-  padding: 0 clamp(16px, 5vw, 48px);
-  max-width: 540px;
-  line-height: 1.4;
-  transition: opacity 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
-  opacity: 1;
-}
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-.dynamic-loading-text.fade { opacity: 0; }
-.dynamic-loading-text.completed {
-  color: var(--rose-gold);
-  text-shadow: 0 0 18px var(--red-glow), 0 0 38px var(--red-glow);
-}
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 126, 179, 0.4);
+            animation: floatUp linear infinite;
+        }
 
-/* ── Progress bar ── */
-.loading-bar-container {
-  width: clamp(240px, 72vw, 580px);
-  position: relative;
-  padding-top: 32px; /* space for percentage above */
-}
-
-.percentage-text {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-family: var(--font-sans);
-  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
-  font-weight: 800;
-  color: var(--rose-gold);
-  text-shadow: 0 0 10px var(--red-glow);
-  line-height: 1;
-}
-
-.thick-bar-bg {
-  width: 100%;
-  height: clamp(14px, 2.5vw, 20px);
-  background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(255, 128, 166, 0.35);
-  border-radius: 50px;
-  overflow: hidden;
-  box-shadow:
-    inset 0 3px 8px rgba(0, 0, 0, 0.75),
-    0 0 16px rgba(255, 105, 180, 0.18);
-  backdrop-filter: blur(8px);
-}
-
-.thick-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #ffccd9, #ff80a6, #ff1a66);
-  border-radius: 50px;
-  box-shadow: 0 0 22px var(--red-glow), inset 0 0 8px rgba(255, 255, 255, 0.35);
-  transition: width 0.1s linear;
-  position: relative;
-  overflow: hidden;
-}
-
-.thick-bar-fill::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
-  animation: shimmer 1.6s infinite linear;
-  transform: translateX(-100%);
-}
-
-@keyframes shimmer {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
-}
-
-/* ── Continue button ── */
-.continue-btn {
-  display: none;
-  padding: clamp(13px, 2.5vh, 17px) clamp(32px, 10vw, 52px);
-  background: linear-gradient(135deg, var(--red-glow) 0%, var(--red-dark) 100%);
-  color: #ffffff;
-  font-family: var(--font-sans);
-  font-size: clamp(0.9rem, 3vw, 1.15rem);
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center;
-  box-shadow: 0 8px 28px rgba(230, 0, 76, 0.55);
-  animation: popInBtn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  white-space: nowrap;
-}
-
-.continue-btn:hover,
-.continue-btn:focus-visible {
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: 0 14px 38px rgba(230, 0, 76, 0.8);
-  outline: none;
-}
-
-.continue-btn:active {
-  transform: translateY(-1px) scale(1.01);
-}
-
-@keyframes popInBtn {
-  0%   { transform: scale(0.6); opacity: 0; }
-  100% { transform: scale(1);   opacity: 1; }
-}
-
-/* ============================================================
-   RESPONSIVE BREAKPOINTS
-   ============================================================ */
-
-/* Large desktop */
-@media (min-width: 1200px) {
-  :root { --cz: 500px; --cw: 240px; --ch: 340px; }
-}
-
-/* Tablet landscape / small desktop */
-@media (max-width: 1024px) {
-  :root { --cz: 380px; --cw: 190px; --ch: 275px; }
-}
-
-/* Tablet portrait */
-@media (max-width: 768px) {
-  :root { --cz: 290px; --cw: 160px; --ch: 230px; }
-}
-
-/* Large phone */
-@media (max-width: 480px) {
-  :root { --cz: 220px; --cw: 130px; --ch: 188px; }
-  .brand-title { display: none; } /* too crowded on tiny screens */
-}
-
-/* Very small phone (≤360px wide) */
-@media (max-width: 360px) {
-  :root { --cz: 180px; --cw: 110px; --ch: 158px; }
-}
-
-/* Short viewport (landscape phone) */
-@media (max-height: 500px) {
-  :root { --cz: 200px; --cw: 120px; --ch: 170px; }
-  .carousel-scene {
-    padding-top: clamp(60px, 10vh, 90px);
-    padding-bottom: 10px;
-  }
-  .loading-section {
-    height: clamp(130px, 38vh, 175px);
-    padding-bottom: clamp(14px, 3vh, 28px);
-    gap: 8px;
-  }
-  .brand-title { display: none; }
-}
-
-/* Very short (landscape ≤400px) */
-@media (max-height: 400px) {
-  :root { --cz: 160px; --cw: 95px; --ch: 138px; }
-  .carousel-scene { padding-top: 55px; }
-  .dynamic-loading-text { font-size: 1rem; }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .carousel-wrapper { animation-duration: 120s; }
-  .thick-bar-fill::after { display: none; }
-  .loading-logo { animation: none; }
-}
-</style>
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
-<div class="vignette"></div>
+    <!-- Floating Hearts Background -->
+    <div id="bg-animation"></div>
 
-<img src="{% static 'logo/logo.jpeg' %}" alt="Yaadon Ka Lifafa" class="loading-logo">
-<span class="brand-title">Yaadon Ka Lifafa</span>
+    <div class="creation-container">
+        <div class="header-text">
+            <h1>Craft Your Love Story ✨</h1>
+            <p>Har khoobsurat safar ek choti si yaad se shuru hota hai...</p>
+        </div>
 
-<!-- 3D Carousel -->
-<div class="carousel-scene">
-  <div class="carousel-wrapper" id="carouselWrapper">
-    <div class="carousel-item item-1"><img src="{% static 'images/cat1.jpg' %}"      alt="Special Memory 1" loading="eager"></div>
-    <div class="carousel-item item-2"><img src="{% static 'images/cat2.jpg' %}"      alt="Special Memory 2" loading="eager"></div>
-    <div class="carousel-item item-3"><img src="{% static 'images/cute_addy.jpg' %}" alt="Special Memory 3" loading="eager"></div>
-    <div class="carousel-item item-4"><img src="{% static 'images/Ftaddy.jpg' %}"    alt="Special Memory 4" loading="eager"></div>
-    <div class="carousel-item item-5"><img src="{% static 'images/kittyy.jpg' %}"    alt="Special Memory 5" loading="eager"></div>
-    <div class="carousel-item item-6"><img src="{% static 'images/Panda2.jpg' %}"    alt="Special Memory 6" loading="eager"></div>
-    <div class="carousel-item item-7"><img src="{% static 'images/love_tedi.jpg' %}" alt="Special Memory 7" loading="eager"></div>
-    <div class="carousel-item item-8"><img src="{% static 'images/penguin2.jpg' %}"  alt="Special Memory 8" loading="eager"></div>
-    <div class="carousel-item item-9"><img src="{% static 'images/catty.jpg' %}"     alt="Special Memory 9" loading="eager"></div>
-  </div>
-</div>
+        <form method="POST" enctype="multipart/form-data" class="magic-form" onsubmit="return validateForm()">
+            <!-- Django CSRF Token (Uncomment below line in Django) -->
+            <!-- {% csrf_token %} -->
+            
+            <div class="input-group">
+                <i class="fa-solid fa-heart"></i>
+                <input type="text" name="partner_names" placeholder="Your Names (e.g. Rahul & Anjali)" required>
+            </div>
 
-<!-- Loading bar + message -->
-<div class="loading-section">
-  <h2 class="dynamic-loading-text" id="dynamicText">
-    Please wait, preparing something special... 🥺💕
-  </h2>
+            <div class="input-group">
+                <i class="fa-solid fa-calendar-days"></i>
+                <input type="date" name="anniversary_date" required>
+            </div>
 
-  <div class="loading-bar-container" id="barContainer">
-    <span class="percentage-text" id="percText">0%</span>
-    <div class="thick-bar-bg">
-      <div class="thick-bar-fill" id="fillBar"></div>
+            <div class="input-group">
+                <i class="fa-solid fa-pen-fancy"></i>
+                <textarea name="special_message" rows="4" placeholder="Write a message that makes their heart smile..." required></textarea>
+            </div>
+
+            <!-- Combined Media Upload (Image or Video) -->
+            <div class="file-upload-group">
+                <label for="media-upload" class="file-label">
+                    <i class="fa-solid fa-photo-film"></i>
+                    Upload Memory (Image or Video)
+                    <span>Max video size: 10MB</span>
+                    <div id="file-name" class="file-name-display"></div>
+                </label>
+                <!-- Accepts both images and videos -->
+                <input type="file" id="media-upload" name="memories" accept="image/*, video/*" onchange="checkFileSize(this)">
+            </div>
+
+            <button type="submit" class="create-btn">
+                Create Magic <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
+        </form>
     </div>
-  </div>
 
-  <a href="{% url 'first' %}" class="continue-btn" id="continueBtn">
-    Open Lifafa 💌
-  </a>
-</div>
+    <script>
+        // 1. Background Floating Hearts Animation
+        function createHearts() {
+            const container = document.getElementById('bg-animation');
+            const heartCount = 25; // Number of hearts
 
-<script>
-(function () {
-  'use strict';
+            for(let i = 0; i < heartCount; i++) {
+                let heart = document.createElement('i');
+                heart.classList.add('fa-solid', 'fa-heart', 'floating-heart');
+                
+                // Random properties for natural look
+                let size = Math.random() * 25 + 10;
+                let leftPos = Math.random() * 100;
+                let animDuration = Math.random() * 5 + 5;
+                let animDelay = Math.random() * 5;
 
-  /* ── LOADING BAR: exactly 12 seconds ── */
-  var fillBar     = document.getElementById('fillBar');
-  var percText    = document.getElementById('percText');
-  var dynamicText = document.getElementById('dynamicText');
-  var barContainer= document.getElementById('barContainer');
-  var continueBtn = document.getElementById('continueBtn');
+                heart.style.left = leftPos + 'vw';
+                heart.style.fontSize = size + 'px';
+                heart.style.animationDuration = animDuration + 's';
+                heart.style.animationDelay = animDelay + 's';
+                
+                container.appendChild(heart);
+            }
+        }
 
-  var TOTAL_MS    = 12000;
-  var INTERVAL_MS = TOTAL_MS / 100;   /* 120ms per tick → 100 ticks = 12s */
-  var current     = 0;
+        // 2. Media File Size Validation (10 MB Limit)
+        function checkFileSize(input) {
+            const fileNameDisplay = document.getElementById('file-name');
+            const maxSizeInMB = 10;
+            const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
 
-  var messages = [
-    { at: 0,  text: "Please wait, preparing something special... 🥺💕" },
-    { at: 15, text: "Gathering our precious memories... 📸🥰" },
-    { at: 30, text: "Adding a little bit of magic... ✨🧚‍♀️" },
-    { at: 45, text: "Wrapping it with all my love... 🎁❤️" },
-    { at: 60, text: "Loading smiles and sweet moments... 😊💌" },
-    { at: 75, text: "Just a few more seconds, my love... ⏳💖" },
-    { at: 90, text: "Almost ready to make you smile... 🙈🌹" }
-  ];
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                
+                // Check if file is a video and exceeds 10MB
+                if (file.type.startsWith('video/') && file.size > maxSizeInBytes) {
+                    alert('Bhai, video ka size 10MB se zyada hai! Please compress it or choose another one.');
+                    input.value = ''; // Clear the input
+                    fileNameDisplay.textContent = '';
+                } else {
+                    // Display selected file name
+                    fileNameDisplay.textContent = "Selected: " + file.name;
+                }
+            }
+        }
 
-  function setMessage(text) {
-    dynamicText.classList.add('fade');
-    setTimeout(function () {
-      dynamicText.textContent = text;
-      dynamicText.classList.remove('fade');
-    }, 380);
-  }
-
-  var timer = setInterval(function () {
-    current++;
-    fillBar.style.width  = current + '%';
-    percText.textContent = current + '%';
-
-    /* Find matching message */
-    for (var i = 0; i < messages.length; i++) {
-      if (messages[i].at === current) {
-        setMessage(messages[i].text);
-        break;
-      }
-    }
-
-    if (current >= 100) {
-      clearInterval(timer);
-      setTimeout(function () {
-        /* Hide bar */
-        barContainer.style.transition = 'opacity 0.4s';
-        barContainer.style.opacity    = '0';
-        setTimeout(function () {
-          barContainer.style.display = 'none';
-        }, 420);
-
-        /* Final message */
-        dynamicText.classList.add('fade');
-        setTimeout(function () {
-          dynamicText.textContent = 'All memories are ready! ✨';
-          dynamicText.classList.remove('fade');
-          dynamicText.classList.add('completed');
-        }, 400);
-
-        /* Show button */
-        continueBtn.style.display = 'inline-block';
-      }, 700);
-    }
-  }, INTERVAL_MS);
-
-  /* ── CANVAS HEART ENGINE ── */
-  var canvas = document.getElementById('bg-canvas');
-  var ctx    = canvas.getContext('2d');
-  var W, H;
-
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resize, { passive: true });
-  /* Also handle orientation change on mobile */
-  window.addEventListener('orientationchange', function () {
-    setTimeout(resize, 120);
-  }, { passive: true });
-  resize();
-
-  /* Heart path in local coords (centred at 0,0) */
-  function heartPath(size) {
-    var s = size / 50;
-    ctx.save();
-    ctx.scale(s, s);
-    ctx.beginPath();
-    ctx.moveTo(0, 15);
-    ctx.bezierCurveTo(0, 15, -20, -5, -20, -15);
-    ctx.bezierCurveTo(-20, -25, -7.5, -30, 0, -15);
-    ctx.bezierCurveTo(7.5, -30, 20, -25, 20, -15);
-    ctx.bezierCurveTo(20, -5, 0, 15, 0, 15);
-    ctx.closePath();
-    ctx.restore();
-  }
-
-  function drawHeart(x, y, size, opacity, color) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.globalAlpha = Math.max(0, Math.min(1, opacity));
-    ctx.fillStyle   = color;
-    ctx.shadowBlur  = 8;
-    ctx.shadowColor = color;
-    heartPath(size);
-    ctx.fill();
-    ctx.restore();
-  }
-
-  /* Heart particle */
-  var COLORS = [
-    'rgba(255,26,102,',
-    'rgba(255,128,166,',
-    'rgba(255,179,198,',
-    'rgba(255,215,0,'   /* occasional gold spark */
-  ];
-
-  function Heart() { this.reset(true); }
-  Heart.prototype.reset = function (init) {
-    this.x     = Math.random() * W;
-    this.y     = init ? Math.random() * H : H + 60;
-    this.size  = Math.random() * 14 + 4;
-    this.vy    = Math.random() * 1.4 + 0.45;
-    this.wobA  = Math.random() * Math.PI * 2;
-    this.wobS  = Math.random() * 0.022 + 0.008;
-    this.wobD  = Math.random() * 2.2 + 0.5;
-    this.pA    = Math.random() * Math.PI * 2;
-    this.ps    = Math.random() * 0.03  + 0.008;
-    this.baseO = Math.random() * 0.3   + 0.15;
-    var ci     = Math.floor(Math.random() * COLORS.length);
-    this.color = COLORS[ci] + (this.baseO + 0.1).toFixed(2) + ')';
-  };
-  Heart.prototype.update = function () {
-    this.y    -= this.vy;
-    this.wobA += this.wobS;
-    this.x    += Math.sin(this.wobA) * this.wobD;
-    this.pA   += this.ps;
-    this.op    = this.baseO + Math.sin(this.pA) * 0.08;
-    if (this.y < -65) this.reset(false);
-  };
-  Heart.prototype.draw = function () {
-    drawHeart(this.x, this.y, this.size, this.op, this.color);
-  };
-
-  /* Bokeh glow blobs in background */
-  function Blob() {
-    this.x  = Math.random() * W;
-    this.y  = Math.random() * H;
-    this.r  = Math.random() * 160 + 60;
-    this.a  = 0;
-    this.ta = Math.random() * 0.06 + 0.02;
-    this.s  = Math.random() * 0.004 + 0.001;
-    this.go = true;
-    this.dx = (Math.random() - 0.5) * 0.3;
-    this.dy = (Math.random() - 0.5) * 0.2;
-    this.c  = Math.random() < 0.6
-      ? 'rgba(230,0,76,'
-      : 'rgba(255,128,166,';
-  }
-  Blob.prototype.update = function () {
-    this.a += this.go ? this.s : -this.s;
-    if (this.a >= this.ta) this.go = false;
-    if (this.a <= 0)       { this.a = 0; this.go = true; this.x = Math.random() * W; this.y = Math.random() * H; }
-    this.x += this.dx; this.y += this.dy;
-    if (this.x < -200 || this.x > W + 200) this.dx *= -1;
-    if (this.y < -200 || this.y > H + 200) this.dy *= -1;
-  };
-  Blob.prototype.draw = function () {
-    var g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
-    g.addColorStop(0,  this.c + this.a.toFixed(3) + ')');
-    g.addColorStop(0.6,this.c + (this.a * 0.4).toFixed(3) + ')');
-    g.addColorStop(1,  'transparent');
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fillStyle = g;
-    ctx.fill();
-  };
-
-  /* Instantiate particles */
-  var isMobile = window.innerWidth < 768;
-  var COUNT    = isMobile ? 55 : 110;
-  var BLOBCNT  = isMobile ? 4  : 8;
-
-  var hearts = [];
-  var blobs  = [];
-  for (var i = 0; i < COUNT;   i++) hearts.push(new Heart());
-  for (var j = 0; j < BLOBCNT; j++) blobs.push(new Blob());
-
-  /* Render loop */
-  (function loop() {
-    ctx.clearRect(0, 0, W, H);
-    blobs.forEach(function (b)  { b.update(); b.draw(); });
-    hearts.forEach(function (h) { h.update(); h.draw(); });
-    requestAnimationFrame(loop);
-  })();
-
-  console.log('Yaadon Ka Lifafa — loading screen v2.0 ♥ by Pritam Vishwakarma');
-})();
-</script>
-
+        // Run animations when page loads
+        window.onload = createHearts;
+    </script>
 </body>
 </html>
