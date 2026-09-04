@@ -99,4 +99,4 @@ Replace placeholders like Panda2.jpg, catty.jpg, or penguin2.jpg with your own p
 The HTML templates in the customization/ folder will automatically map your beautiful memories[cite: 1].
 
 
-OWNERSHIP HOLD BY:S.P. Vishwakarma
+OWNERSHIP HOLD BY: ```S.P. Vishwakarma```
