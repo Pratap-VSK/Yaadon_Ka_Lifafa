@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Rose Day - Yaadon Ka Lifafa</title>
+    <style>
+        /* ==========================================================================
+           1. CORE VARIABLES & SETUP
+           ========================================================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --bg-dark: #0a0205;
+            --bg-glow: #24050f;
+            --rose-red: #ff1a4a;
+            --rose-light: #ff6685;
+            --text-main: #ffe6eb;
+            --glass-bg: rgba(255, 26, 74, 0.05);
+            --glass-border: rgba(255, 26, 74, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, var(--bg-glow) 0%, var(--bg-dark) 100%);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ==========================================================================
+           2. CANVAS BACKGROUND (FALLING PETALS)
+           ========================================================================== */
+        #petal-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           3. MAIN CONTAINER & GLASSMORPHISM
+           ========================================================================== */
+        .rose-container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 550px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 26, 74, 0.1);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        /* Neon Glow behind the card */
+        .rose-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            background: var(--rose-red);
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        /* ==========================================================================
+           4. TYPOGRAPHY
+           ========================================================================== */
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--rose-light);
+            text-shadow: 0 0 15px rgba(255, 26, 74, 0.6), 0 0 30px rgba(255, 26, 74, 0.4);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #ffb3c1;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        /* ==========================================================================
+           5. INTERACTIVE BUTTON
+           ========================================================================== */
+        .accept-btn {
+            background: linear-gradient(135deg, #cc0033, #ff1a4a);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 26, 74, 0.5), inset 0 0 10px rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .accept-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 26, 74, 0.8), inset 0 0 15px rgba(255,255,255,0.4);
+        }
+
+        /* ==========================================================================
+           6. HIDDEN MESSAGE SECTION (REVEALS ON CLICK)
+           ========================================================================== */
+        .hidden-content {
+            max-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+        }
+
+        /* When the card is opened */
+        .rose-container.opened .hidden-content {
+            max-height: 800px;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            margin-top: 20px;
+        }
+
+        .rose-container.opened .accept-btn {
+            display: none;
+        }
+
+        /* Glowing Rose Centerpiece */
+        .glowing-rose {
+            font-size: 5rem;
+            animation: floatHeart 3s ease-in-out infinite, pulseGlow 2s infinite;
+            margin: 20px 0;
+            display: inline-block;
+            filter: drop-shadow(0 0 20px rgba(255, 26, 74, 0.8));
+        }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(255, 26, 74, 0.6)); }
+            50% { filter: drop-shadow(0 0 35px rgba(255, 26, 74, 1)); }
+        }
+
+        .love-letter {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid var(--rose-red);
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #ffe6eb;
+            text-align: left;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        /* Photo Upload/Display Area */
+        .memory-frame {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed var(--rose-light);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 26, 74, 0.05);
+            position: relative;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .memory-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0.8;
+            transition: 0.5s;
+        }
+        
+        .memory-frame img:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .memory-text {
+            color: var(--rose-light);
+            font-weight: 600;
+            z-index: 0;
+        }
+
+        /* ==========================================================================
+           7. NAVIGATION BUTTON (PROCEED TO NEXT DAY)
+           ========================================================================== */
+        .next-day-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 30px;
+            background: transparent;
+            color: var(--rose-light);
+            border: 1px solid var(--rose-light);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .next-day-btn:hover {
+            background: var(--rose-light);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px var(--rose-light);
+        }
+
+        /* ==========================================================================
+           8. RESPONSIVE DESIGN
+           ========================================================================== */
+        @media (max-width: 480px) {
+            .title { font-size: 2.8rem; }
+            .rose-container { padding: 30px 20px; width: 95%; }
+            .love-letter { font-size: 0.85rem; padding: 15px; }
+            .glowing-rose { font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas for falling Rose Petals -->
+    <canvas id="petal-canvas"></canvas>
+
+    <div class="rose-container" id="main-card">
+        <h1 class="title">Happy Rose Day</h1>
+        <p class="subtitle">A digital bloom for an infinite bond...</p>
+        
+        <!-- Interactive Trigger -->
+        <button class="accept-btn" id="reveal-btn">
+            Accept My Rose 🌹
+        </button>
+
+        <!-- Hidden Romantic Content -->
+        <div class="hidden-content">
+            
+            <div class="glowing-rose">🌹</div>
+            
+            <div class="love-letter">
+                "Phool toh murjha jaate hain, par mera yeh digital rose aur humara bond, dono ek infinite loop mein chalenge. Bina kisi error, aur bina kisi bug ke. You make my world beautiful just by being in it. Happy Rose Day!"
+            </div>
+
+            <!-- Optional: Display a photo of them here -->
+            <div class="memory-frame">
+                <span class="memory-text">Our Beautiful Memory ✨</span>
+                <!-- Add Image URL here. Example: <img src="couple.jpg" alt="Us"> -->
+                <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600&auto=format&fit=crop" alt="Rose Aesthetic">
+            </div>
+
+            <a href="feb8_propose.html" class="next-day-btn">Unlock Feb 8 &rarr;</a>
+        </div>
+    </div>
+
+    <!-- JavaScript for Animations and Interactions -->
+    <script>
+        // =====================================================================
+        // 1. REVEAL LOGIC (CARD EXPANSION)
+        // =====================================================================
+        const revealBtn = document.getElementById('reveal-btn');
+        const mainCard = document.getElementById('main-card');
+
+        revealBtn.addEventListener('click', () => {
+            mainCard.classList.add('opened');
+            // Trigger an extra burst of petals when clicked
+            for(let i = 0; i < 20; i++) {
+                petalsArray.push(new Petal(true)); 
+            }
+        });
+
+        // =====================================================================
+        // 2. CANVAS ADVANCED ANIMATION (FALLING ROSE PETALS)
+        // =====================================================================
+        const canvas = document.getElementById('petal-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let petalsArray = [];
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Petal {
+            constructor(isBurst = false) {
+                this.x = isBurst ? (width / 2) + (Math.random() * 200 - 100) : Math.random() * width;
+                this.y = isBurst ? (height / 2) : (Math.random() * height - height);
+                this.size = Math.random() * 15 + 10;
+                
+                // Falling speed and wind sway
+                this.speedY = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                
+                this.angle = Math.random() * 360;
+                this.spin = (Math.random() - 0.5) * 0.1;
+                
+                // Deep reds and pinks for petals
+                const colors = ['#ff1a4a', '#cc0033', '#ff4d73', '#800020'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                
+                this.opacity = Math.random() * 0.5 + 0.5;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.globalAlpha = this.opacity;
+
+                // Drawing a curve that looks like a falling petal
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.moveTo(0, 0);
+                ctx.quadraticCurveTo(this.size / 2, -this.size, this.size, 0);
+                ctx.quadraticCurveTo(this.size / 2, this.size / 2, 0, 0);
+                ctx.fill();
+                
+                ctx.restore();
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.angle += this.spin;
+
+                // Simulate slight wind swaying
+                this.x += Math.sin(this.angle) * 0.5;
+
+                // Reset petal to top when it falls out of screen
+                if (this.y > height + this.size) {
+                    this.y = -this.size;
+                    this.x = Math.random() * width;
+                }
+                
+                // Wrap around horizontally
+                if (this.x > width + this.size) this.x = -this.size;
+                if (this.x < -this.size) this.x = width + this.size;
+            }
+        }
+
+        // Initialize background petals
+        function initPetals() {
+            petalsArray = [];
+            let numberOfPetals = Math.floor((width * height) / 15000);
+            if (numberOfPetals > 60) numberOfPetals = 60; // Max cap for performance
+
+            for (let i = 0; i < numberOfPetals; i++) {
+                petalsArray.push(new Petal());
+            }
+        }
+
+        // Animation Loop
+        function animatePetals() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < petalsArray.length; i++) {
+                petalsArray[i].update();
+                petalsArray[i].draw();
+            }
+            requestAnimationFrame(animatePetals);
+        }
+
+        initPetals();
+        animatePetals();
+    </script>
+</body>
+</html>

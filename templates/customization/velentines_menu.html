@@ -2,662 +2,746 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yaadon Ka Lifafa - Special Moments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Yaadon Ka Lifafa</title>
     <style>
         /* ==========================================================================
-           1. CSS VARIABLES & RESET
+           1. CORE VARIABLES & SETUP
            ========================================================================== */
         :root {
-            --bg-base: #f4ebd9;
-            --text-main: #333333;
-            --header-bg: #146c82;
-            --header-text: #a8e5a3;
-            --subtitle-bg-1: #4a2511;
-            --subtitle-bg-2: #8b5742;
-            --divider-line: #3b5998;
-            --btn-text-color: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.4);
-            --reflection-gradient: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 100%);
+            --bg-base: #0f070c;
+            --bg-gradient-top: #1a0814;
+            --bg-gradient-bottom: #050204;
+            --text-main: #f0e6ea;
+            
+            --header-bg-dark: #0a3540;
+            --header-text: #b5ffd4;
+            --header-border: #00ffff;
+            --subtitle-gradient-1: #3a1505;
+            --subtitle-gradient-2: #6b3318;
+            --text-quote: #e0d5d9;
+            
+            --desktop-max-width: 1100px;
+            --btn-border-radius: 50px;
         }
 
-        * {
+        /* ==========================================================================
+           2. RESET & BASE STYLES
+           ========================================================================== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
         }
 
         body {
             background-color: var(--bg-base);
-            background-image: linear-gradient(180deg, #f4ebd9 0%, #e8d5b5 100%);
+            background-image: radial-gradient(circle at top, var(--bg-gradient-top) 0%, var(--bg-gradient-bottom) 100%);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
             overflow-x: hidden;
             position: relative;
-            padding-bottom: 50px;
         }
 
         /* ==========================================================================
-           2. CANVAS BACKGROUND ANIMATION
+           3. FULLSCREEN BACKGROUND CANVAS
            ========================================================================== */
-        #bg-canvas {
+        #interactive-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
             pointer-events: none;
         }
 
         /* ==========================================================================
-           3. MAIN CONTAINER & LAYOUT
+           4. TRANSPARENT LAYOUT WRAPPER
            ========================================================================== */
-        .main-container {
+        .page-wrapper {
             position: relative;
             z-index: 10;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
+            width: 100%;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 20px;
+            background: transparent;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: var(--desktop-max-width);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: transparent !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0;
         }
 
         /* ==========================================================================
-           4. LOGO UPLOAD SECTION
+           5. STATIC LOGO SECTION (TOP LEFT CORNER)
            ========================================================================== */
-        .logo-container {
+        .brand-section {
             position: absolute;
             top: 20px;
             left: 20px;
-            width: 80px;
-            height: 80px;
+            z-index: 50;
+        }
+
+        .logo-box {
+            position: relative;
+            width: 95px;
+            height: 95px;
             border-radius: 50%;
-            background: #ffffff;
-            box-shadow: 0 4px 8px var(--shadow-color);
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #ff4d94;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            cursor: pointer;
-            z-index: 20;
-            transition: transform 0.3s ease;
-            border: 2px solid #ffb6c1;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 25px rgba(255, 77, 148, 0.4);
         }
 
-        .logo-container:hover {
-            transform: scale(1.1);
+        .logo-box:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 35px rgba(255, 77, 148, 0.7);
         }
 
-        .logo-container img {
+        .logo-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none;
-        }
-
-        .logo-placeholder {
-            font-size: 10px;
-            text-align: center;
-            color: #888;
-            padding: 5px;
-        }
-
-        #logo-upload {
-            display: none;
+            display: block;
         }
 
         /* ==========================================================================
-           5. HEADER STYLES
+           6. HEADER & TEXT
            ========================================================================== */
-        .header-box {
-            background-color: var(--header-bg);
-            border: 2px solid #0b4a5c;
-            border-radius: 10px;
-            padding: 15px 50px;
-            margin-top: 30px;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.5), 0 5px 15px rgba(0,0,0,0.3);
+        .title-board {
+            background: linear-gradient(145deg, var(--header-bg-dark), #052029);
+            border: 2px solid #005a73;
+            border-radius: 15px;
+            padding: 20px 60px;
+            margin-top: 60px; /* Margin to avoid overlap with logo */
+            box-shadow: 
+                inset 0 0 20px rgba(0,0,0,0.8), 
+                0 10px 20px rgba(0,0,0,0.5),
+                0 0 15px rgba(0, 255, 255, 0.2);
             text-align: center;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        .header-title {
-            color: var(--header-text);
-            font-size: 2.2rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-            font-weight: bold;
-        }
-
-        .subtitle-box {
-            background: linear-gradient(to bottom, var(--subtitle-bg-1), var(--subtitle-bg-2));
-            color: #ffb6c1;
-            padding: 8px 30px;
-            margin-top: 15px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 5px;
-            border: 1px solid #331505;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            width: 90%;
+            max-width: 700px;
             position: relative;
+            overflow: hidden;
         }
 
-        /* Subtitle Reflection */
-        .subtitle-box::after {
+        .title-board::before {
             content: '';
             position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            background: inherit;
-            transform: scaleY(-0.5);
-            opacity: 0.3;
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 4s infinite;
         }
 
-        .quote-text {
-            margin-top: 40px;
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            20%, 100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .main-title {
+            color: var(--header-text);
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(181, 255, 212, 0.5), 2px 2px 4px #000;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+        }
+
+        .subtitle-ribbon {
+            background: linear-gradient(to right, var(--subtitle-gradient-1), var(--subtitle-gradient-2), var(--subtitle-gradient-1));
+            background-size: 200% auto;
+            color: #ffd1dc;
+            padding: 10px 40px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            border: 1px solid #4a1f0a;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+            text-shadow: 1px 1px 3px #000;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .romantic-quote {
+            margin-top: 35px;
             width: 100%;
             text-align: center;
-            font-size: 0.95rem;
-            color: var(--text-main);
-            padding: 10px 0;
-            border-top: 1.5px solid var(--divider-line);
-            border-bottom: 1.5px solid var(--divider-line);
-            background: rgba(255, 255, 255, 0.3);
-            font-weight: 500;
+            font-size: 1.05rem;
+            color: var(--text-quote);
+            padding: 15px 20px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-style: italic;
+            letter-spacing: 0.5px;
         }
 
         /* ==========================================================================
-           6. BUTTON LAYOUT & BASE STYLES
+           7. DATE NIGHT INDICATOR
            ========================================================================== */
-        .date-night-btn {
-            background: linear-gradient(to bottom, #1e8235, #0f521e);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 5px;
-            border: 1px solid #0a3813;
-            margin-top: 20px;
+        .info-tag {
+            background: linear-gradient(135deg, #0e451b, #07260e);
+            color: #88ffaa;
+            padding: 10px 25px;
+            border-radius: 6px;
+            border: 1px solid #146126;
+            margin-top: 30px;
             align-self: flex-start;
             margin-left: 10%;
-            font-size: 0.9rem;
-            box-shadow: inset 0 2px 5px rgba(255,255,255,0.3), 0 4px 6px rgba(0,0,0,0.4);
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 0 10px rgba(14, 69, 27, 0.5), inset 0 2px 5px rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .date-night-btn:hover {
-            transform: scale(1.05);
+        .info-tag span.icon {
+            font-size: 1.2rem;
         }
 
-        .buttons-wrapper {
+        /* ==========================================================================
+           8. BUTTON LAYOUT (TRANSPARENT BACKDROP)
+           ========================================================================== */
+        .timeline-wrapper {
             display: flex;
             flex-direction: column;
             width: 100%;
-            max-width: 600px;
-            margin-top: 30px;
-            gap: 25px; /* Space for reflections */
+            max-width: 850px;
+            margin-top: 40px;
+            gap: 35px;
+            position: relative;
+            background: transparent;
         }
 
-        .day-btn-container {
+        .day-item {
             width: 100%;
             display: flex;
-        }
-
-        /* Alternating staggered layout */
-        .day-btn-container:nth-child(odd) {
-            justify-content: flex-start;
-            padding-right: 15%;
-        }
-
-        .day-btn-container:nth-child(even) {
-            justify-content: flex-end;
-            padding-left: 15%;
-        }
-
-        .day-btn {
             position: relative;
-            width: 85%;
-            padding: 15px 30px;
-            border-radius: 50px;
+            background: transparent;
+        }
+
+        .day-item:nth-child(odd) { justify-content: flex-start; padding-right: 15%; }
+        .day-item:nth-child(even) { justify-content: flex-end; padding-left: 15%; }
+
+        /* ==========================================================================
+           9. GLOWING BUTTONS & ZOOM
+           ========================================================================== */
+        .action-btn {
+            position: relative;
+            width: 90%;
+            padding: 18px 35px;
+            border-radius: var(--btn-border-radius);
             display: flex;
             justify-content: space-between;
             align-items: center;
             text-decoration: none;
-            color: var(--btn-text-color);
-            font-weight: bold;
-            font-size: 1.1rem;
+            font-weight: 800;
+            font-size: 1.2rem;
             cursor: pointer;
-            border: 2px solid rgba(0,0,0,0.6);
-            box-shadow: inset 0 5px 10px rgba(255,255,255,0.2), 
-                        inset 0 -5px 15px rgba(0,0,0,0.5), 
-                        0 8px 10px rgba(0,0,0,0.4);
+            border: 2px solid rgba(255,255,255,0.1);
+            overflow: hidden;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            /* Reflection effect mimicking the image */
-            -webkit-box-reflect: below 2px linear-gradient(transparent 40%, rgba(255,255,255,0.4));
+            box-shadow: 
+                inset 0 5px 15px rgba(255,255,255,0.05), 
+                inset 0 -5px 20px rgba(0,0,0,0.8), 
+                0 10px 20px rgba(0,0,0,0.6);
+            -webkit-box-reflect: below 5px linear-gradient(transparent 50%, rgba(255,255,255,0.2));
         }
 
-        .day-btn:hover {
-            transform: scale(1.07) translateY(-5px);
-            box-shadow: inset 0 5px 10px rgba(255,255,255,0.3), 
-                        inset 0 -5px 15px rgba(0,0,0,0.6), 
-                        0 15px 20px rgba(0,0,0,0.5);
+        .btn-text {
+            z-index: 2;
+            letter-spacing: 1px;
+        }
+
+        .btn-arrow {
+            z-index: 2;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.08) translateY(-5px);
             z-index: 100;
         }
-
-        .arrow {
-            font-size: 1.2rem;
-            font-weight: 900;
-        }
-
-        /* ==========================================================================
-           7. INDIVIDUAL TEXTURES (CSS GENERATED)
-           ========================================================================== */
         
-        /* 1. Rose Day (Brown Leather/Stone) */
-        .btn-rose {
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%),
-                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px),
-                linear-gradient(to right, #6b4129, #8c5a3d, #522d19);
-            color: #ffe600;
-            text-shadow: 1px 1px 2px #000;
+        .action-btn:hover .btn-arrow {
+            transform: translateX(10px);
         }
-        .btn-rose .arrow { color: #00ff00; }
 
-        /* 2. Propose Day (Grey Granite) */
-        .btn-propose {
-            background: 
-                radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 2px) 0 0 / 10px 10px,
-                radial-gradient(circle, rgba(0,0,0,0.5) 1px, transparent 2px) 5px 5px / 15px 15px,
-                linear-gradient(to right, #a0a5ad, #d1d5da, #8a9096);
-            color: #000000;
+        .action-btn .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-anim 0.6s linear;
+            background-color: rgba(255, 255, 255, 0.3);
+            z-index: 1;
+            pointer-events: none;
         }
-        .btn-propose .arrow { color: #000000; }
 
-        /* 3. Chocolate Day (Deep Purple Velvet) */
-        .btn-chocolate {
-            background: 
-                radial-gradient(ellipse at top left, rgba(255,255,255,0.2) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom right, rgba(0,0,0,0.6) 0%, transparent 50%),
-                linear-gradient(135deg, #4a0080, #7b1fa2, #38006b);
-            color: #00ff00;
-            border-color: #2c004d;
+        @keyframes ripple-anim {
+            to { transform: scale(4); opacity: 0; }
         }
-        .btn-chocolate .arrow { color: #00ff00; }
-
-        /* 4. Teddy Day (Pink Fabric/Paper) */
-        .btn-teddy {
-            background: 
-                radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, transparent 70%),
-                linear-gradient(to right, #f4aebf, #ffd1dc, #e898aa);
-            color: #b30047;
-            text-shadow: 0px 1px 1px rgba(255,255,255,0.8);
-        }
-        .btn-teddy .arrow { color: #000000; }
-
-        /* 5. Promise Day (Cork/Sand Texture) */
-        .btn-promise {
-            background: 
-                radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px) 0 0 / 4px 4px,
-                radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px) 2px 2px / 4px 4px,
-                linear-gradient(to right, #c28851, #e3a76f, #b37339);
-            color: #000000;
-        }
-        .btn-promise .arrow { color: #000000; }
-
-        /* 6. Hug Day (Water Bubbles/Ice) */
-        .btn-hug {
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.6) 2px, transparent 5px),
-                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.4) 3px, transparent 6px),
-                linear-gradient(to right, #87ceeb, #b0e0e6, #5f9ea0);
-            color: #000000;
-        }
-        .btn-hug .arrow { color: #000000; }
-
-        /* 7. Kiss Day (White Marble) */
-        .btn-kiss {
-            background: 
-                linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.05) 75%),
-                linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.05) 75%),
-                linear-gradient(to right, #ffffff, #f0f0f0, #e0e0e0);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-            color: #001a33;
-        }
-        .btn-kiss .arrow { color: #000000; }
-
-        /* 8. Valentine's Day (Dark Green Emerald) */
-        .btn-valentine {
-            background: 
-                linear-gradient(115deg, transparent 75%, rgba(255,255,255,0.1) 75%) 0 0 / 20px 20px,
-                linear-gradient(245deg, transparent 75%, rgba(255,255,255,0.1) 75%) 0 0 / 20px 20px,
-                linear-gradient(to right, #1a4d2e, #2e7a4b, #11331e);
-            color: #ffffff;
-        }
-        .btn-valentine .arrow { color: #ffffff; }
 
         /* ==========================================================================
-           8. FOOTER
+           10. THEMES & GLOW COLORS
            ========================================================================== */
-        .footer-content {
-            margin-top: 60px;
+        .theme-rose {
+            background: linear-gradient(135deg, #3a0d14, #1a0508);
+            color: #ff6680;
+            border-color: #5c1420;
+        }
+        .theme-rose:hover {
+            box-shadow: 0 0 25px #ff1a40, inset 0 0 15px #ff1a40, 0 15px 20px rgba(0,0,0,0.8);
+            color: #ffffff;
+            text-shadow: 0 0 10px #ff1a40;
+        }
+
+        .theme-propose {
+            background: linear-gradient(135deg, #1c2331, #0a0d12);
+            color: #80b3ff;
+            border-color: #2b364d;
+        }
+        .theme-propose:hover {
+            box-shadow: 0 0 25px #3385ff, inset 0 0 15px #3385ff, 0 15px 20px rgba(0,0,0,0.8);
+            color: #ffffff;
+            text-shadow: 0 0 10px #3385ff;
+        }
+
+        .theme-chocolate {
+            background: linear-gradient(135deg, #2a0845, #0f031a);
+            color: #d480ff;
+            border-color: #450c70;
+        }
+        .theme-chocolate:hover {
+            box-shadow: 0 0 25px #a633ff, inset 0 0 15px #a633ff, 0 15px 20px rgba(0,0,0,0.8);
+            color: #ffffff;
+            text-shadow: 0 0 10px #a633ff;
+        }
+
+        .theme-teddy {
+            background: linear-gradient(135deg, #40152a, #1a0811);
+            color: #ff99cc;
+            border-color: #662244;
+        }
+        .theme-teddy:hover {
+            box-shadow: 0 0 25px #ff4da6, inset 0 0 15px #ff4da6, 0 15px 20px rgba(0,0,0,0.8);
+            color: #ffffff;
+            text-shadow: 0 0 10px #ff4da6;
+        }
+
+        .theme-promise {
+            background: linear-gradient(135deg, #4d3319, #1a1108);
+            color: #ffcc99;
+            border-color: #80552a;
+        }
+        .theme-promise:hover {
+            box-shadow: 0 0 25px #ffaa00, inset 0 0 15px #ffaa00, 0 15px 20px rgba(0,0,0,0.8);
+            color: #ffffff;
+            text-shadow: 0 0 10px #ffaa00;
+        }
+
+        .theme-hug {
+            background: linear-gradient(135deg, #0a3333, #031414);
+            color: #80ffff;
+            border-color: #115959;
+        }
+        .theme-hug:hover {
+            box-shadow: 0 0 25px #00ffff, inset 0 0 15px #00ffff, 0 15px 20px rgba(0,0,0,0.8);
+            color: #ffffff;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        .theme-kiss {
+            background: linear-gradient(135deg, #333333, #141414);
+            color: #e6e6e6;
+            border-color: #595959;
+        }
+        .theme-kiss:hover {
+            box-shadow: 0 0 25px #ffffff, inset 0 0 15px #ffffff, 0 15px 20px rgba(0,0,0,0.8);
+            color: #ffffff;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+        }
+
+        .theme-valentine {
+            background: linear-gradient(135deg, #0f3d26, #05140d);
+            color: #66ffb3;
+            border-color: #1a6640;
+        }
+        .theme-valentine:hover {
+            box-shadow: 0 0 30px #00ff80, inset 0 0 20px #00ff80, 0 15px 20px rgba(0,0,0,0.8);
+            color: #ffffff;
+            text-shadow: 0 0 10px #00ff80;
+        }
+
+        /* ==========================================================================
+           11. FOOTER
+           ========================================================================== */
+        .footer-wrap {
+            margin-top: 80px;
             text-align: center;
-            color: #888;
-            font-size: 0.85rem;
+            color: #666;
+            font-size: 0.9rem;
             position: relative;
             z-index: 10;
+            padding: 20px;
+            width: 100%;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: transparent;
         }
 
-        .footer-hearts {
-            color: #ff4d4d;
-            font-weight: bold;
-            margin-bottom: 5px;
-            letter-spacing: 2px;
+        .footer-brand {
+            color: #ff3366;
+            font-weight: 900;
+            margin-bottom: 8px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px rgba(255, 51, 102, 0.4);
+            font-size: 1.1rem;
         }
 
         /* ==========================================================================
-           9. MEDIA QUERIES (RESPONSIVE DESIGN)
+           12. RESPONSIVE QUERIES
            ========================================================================== */
-        
-        /* Tablet Screens */
-        @media (max-width: 768px) {
-            .header-title {
-                font-size: 1.8rem;
-            }
-            .header-box {
-                width: 90%;
-                padding: 12px 20px;
-            }
-            .day-btn {
-                width: 95%;
-                font-size: 1rem;
-                padding: 12px 20px;
-            }
-            .logo-container {
-                width: 60px;
-                height: 60px;
-                top: 10px;
-                left: 10px;
-            }
-            .date-night-btn {
-                margin-left: 5%;
-            }
+        @media (max-width: 992px) {
+            .main-title { font-size: 2.2rem; }
+            .title-board { padding: 15px 40px; }
+            .action-btn { font-size: 1.1rem; padding: 15px 25px; }
         }
 
-        /* Mobile Screens */
-        @media (max-width: 480px) {
-            .header-box {
-                width: 95%;
-                margin-top: 80px; /* Make room for logo */
-            }
-            .header-title {
-                font-size: 1.4rem;
-                letter-spacing: 1px;
-            }
-            .subtitle-box {
-                font-size: 0.9rem;
-                padding: 8px 15px;
-            }
-            .quote-text {
-                font-size: 0.8rem;
-                padding: 10px 5px;
-            }
+        @media (max-width: 768px) {
+            html { font-size: 14px; }
+            .page-wrapper { padding: 10px; }
             
-            /* Remove extreme staggering on mobile to fit text */
-            .day-btn-container:nth-child(odd) { padding-right: 5%; }
-            .day-btn-container:nth-child(even) { padding-left: 5%; }
+            .brand-section { top: 15px; left: 15px; }
+            .logo-box { width: 70px; height: 70px; } /* Resize logo for mobile */
             
-            .day-btn {
-                width: 100%;
-                font-size: 0.9rem;
-            }
+            /* Margin adjustment so title doesn't hide behind logo */
+            .title-board { width: 100%; padding: 15px 20px; margin-top: 100px; }
+            .main-title { font-size: 1.8rem; letter-spacing: 2px; }
+            .subtitle-ribbon { font-size: 1rem; padding: 8px 20px; }
             
-            .logo-container {
-                position: relative;
-                top: 0;
-                left: 0;
-                margin-bottom: 10px;
-            }
+            .info-tag { margin-left: 0; align-self: center; width: 90%; justify-content: center; text-align: center; }
             
-            .main-container {
-                padding-top: 30px;
-            }
+            .timeline-wrapper { gap: 40px; margin-top: 30px; }
+            
+            .day-item:nth-child(odd) { padding-right: 0; justify-content: center; }
+            .day-item:nth-child(even) { padding-left: 0; justify-content: center; }
+            
+            .action-btn { width: 95%; max-width: 400px; padding: 14px 25px; border-radius: 40px; }
+        }
+
+        @media (max-width: 400px) {
+            .main-title { font-size: 1.5rem; }
+            .action-btn { font-size: 1rem; padding: 12px 20px; }
+            .btn-arrow { font-size: 1.2rem; }
+            .title-board { margin-top: 90px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Canvas for floating background animation -->
-    <canvas id="bg-canvas"></canvas>
+    <!-- Interactive Canvas Covering Complete Screen -->
+    <canvas id="interactive-canvas"></canvas>
 
-    <div class="main-container">
+    <div class="page-wrapper">
         
-        <!-- Logo Upload Section -->
-        <label class="logo-container" for="logo-upload">
-            <span class="logo-placeholder">Upload<br>Logo</span>
-            <img id="logo-preview" src="#" alt="Logo">
-            <input type="file" id="logo-upload" accept="image/*">
-        </label>
-
-        <!-- Header Titles -->
-        <div class="header-box">
-            <h1 class="header-title">Yaadon Ka Lifafa</h1>
-        </div>
-        <div class="subtitle-box">
-            Make Your Valentine's Day Special
+        <!-- Logo Section Floating on Top Left -->
+        <div class="brand-section">
+            <div class="logo-box">
+                <!-- Replace 'your-logo-path.png' with your actual logo image path or URL -->
+                <img src="your-logo-path.png" alt="Brand Logo" onerror="this.src='https://via.placeholder.com/150/ff4d94/ffffff?text=Logo'">
+            </div>
         </div>
 
-        <div class="quote-text">
-            May All Your Dreams come into Real, Which Is You Expected to your Partner. A design only to express yourself
-        </div>
-
-        <!-- Date Night Button -->
-        <div class="date-night-btn">
-            Choose it: Based on your Date night. 📅
-        </div>
-
-        <!-- Staggered Buttons List -->
-        <div class="buttons-wrapper">
+        <div class="content-container">
+            <!-- Header -->
+            <div class="title-board">
+                <h1 class="main-title">Yaadon Ka Lifafa</h1>
+            </div>
             
-            <div class="day-btn-container">
-                <a class="day-btn btn-rose">
-                    <span>Fab. 7 ROSE DAY</span>
-                    <span class="arrow">&rarr;</span>
-                </a>
+            <div class="subtitle-ribbon">
+                Make Your Valentine's Day Special
             </div>
 
-            <div class="day-btn-container">
-                <a class="day-btn btn-propose">
-                    <span>Feb 8 Propose Day</span>
-                    <span class="arrow">&rarr;</span>
-                </a>
+            <div class="romantic-quote">
+                "May All Your Dreams come into Real, Which Is You Expected to your Partner. A design only to express yourself."
             </div>
 
-            <div class="day-btn-container">
-                <a class="day-btn btn-chocolate">
-                    <span>Feb 9 — Chocolate Day</span>
-                    <span class="arrow">&rarr;</span>
-                </a>
+            <!-- Date Indicator -->
+            <div class="info-tag">
+                <span class="icon">📅</span> Choose it: Based on your Date night.
             </div>
 
-            <div class="day-btn-container">
-                <a class="day-btn btn-teddy">
-                    <span>Feb 10 Teddy Day</span>
-                    <span class="arrow">&rarr;</span>
-                </a>
+            <!-- Glowing Action Buttons (Navigates to Next Page) -->
+            <div class="timeline-wrapper">
+                
+                <div class="day-item">
+                    <a href="next_page.html" class="action-btn theme-rose">
+                        <span class="btn-text">Feb 7 — ROSE DAY</span>
+                        <span class="btn-arrow">&rarr;</span>
+                    </a>
+                </div>
+
+                <div class="day-item">
+                    <a href="next_page.html" class="action-btn theme-propose">
+                        <span class="btn-text">Feb 8 — PROPOSE DAY</span>
+                        <span class="btn-arrow">&rarr;</span>
+                    </a>
+                </div>
+
+                <div class="day-item">
+                    <a href="next_page.html" class="action-btn theme-chocolate">
+                        <span class="btn-text">Feb 9 — CHOCOLATE DAY</span>
+                        <span class="btn-arrow">&rarr;</span>
+                    </a>
+                </div>
+
+                <div class="day-item">
+                    <a href="next_page.html" class="action-btn theme-teddy">
+                        <span class="btn-text">Feb 10 — TEDDY DAY</span>
+                        <span class="btn-arrow">&rarr;</span>
+                    </a>
+                </div>
+
+                <div class="day-item">
+                    <a href="next_page.html" class="action-btn theme-promise">
+                        <span class="btn-text">Feb 11 — PROMISE DAY</span>
+                        <span class="btn-arrow">&rarr;</span>
+                    </a>
+                </div>
+
+                <div class="day-item">
+                    <a href="next_page.html" class="action-btn theme-hug">
+                        <span class="btn-text">Feb 12 — HUG DAY</span>
+                        <span class="btn-arrow">&rarr;</span>
+                    </a>
+                </div>
+
+                <div class="day-item">
+                    <a href="next_page.html" class="action-btn theme-kiss">
+                        <span class="btn-text">Feb 13 — KISS DAY</span>
+                        <span class="btn-arrow">&rarr;</span>
+                    </a>
+                </div>
+
+                <div class="day-item">
+                    <a href="next_page.html" class="action-btn theme-valentine">
+                        <span class="btn-text">Feb 14 — VALENTINE'S DAY</span>
+                        <span class="btn-arrow">&rarr;</span>
+                    </a>
+                </div>
+
             </div>
 
-            <div class="day-btn-container">
-                <a class="day-btn btn-promise">
-                    <span>Feb 11 Promise Day</span>
-                    <span class="arrow">&rarr;</span>
-                </a>
-            </div>
-
-            <div class="day-btn-container">
-                <a class="day-btn btn-hug">
-                    <span>Feb 12 Hug Day</span>
-                    <span class="arrow">&rarr;</span>
-                </a>
-            </div>
-
-            <div class="day-btn-container">
-                <a class="day-btn btn-kiss">
-                    <span>Feb 13 Kiss Day</span>
-                    <span class="arrow">&rarr;</span>
-                </a>
-            </div>
-
-            <div class="day-btn-container">
-                <a class="day-btn btn-valentine">
-                    <span>Feb 14 Valentine's Day</span>
-                    <span class="arrow">&rarr;</span>
-                </a>
+            <!-- Footer -->
+            <div class="footer-wrap">
+                <div class="footer-brand">💖 YAADON KA LIFAFA 💖</div>
+                <div>&copy; All rights reserved by Pritam Vishwakarma & his team 🤞</div>
             </div>
 
         </div>
-
-        <!-- Footer -->
-        <div class="footer-content">
-            <div class="footer-hearts">💖 YAADON KA LIFAFA 💖</div>
-            <div>@All rights reserved by Pritam Vishwakarma & his team 🤞</div>
-        </div>
-
     </div>
 
-    <!-- JavaScript logic -->
+    <!-- Background Animation & Ripple Script -->
     <script>
-        // =====================================================================
-        // 1. Image Upload Logic for Logo
-        // =====================================================================
-        const logoUpload = document.getElementById('logo-upload');
-        const logoPreview = document.getElementById('logo-preview');
-        const logoPlaceholder = document.querySelector('.logo-placeholder');
-
-        logoUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    logoPreview.src = e.target.result;
-                    logoPreview.style.display = 'block';
-                    logoPlaceholder.style.display = 'none';
+        // Material Ripple Feedback
+        const buttons = document.querySelectorAll('.action-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                let existingRipple = this.querySelector('.ripple');
+                if (existingRipple) {
+                    existingRipple.remove();
                 }
-                reader.readAsDataURL(file);
-            }
+
+                let circle = document.createElement('span');
+                circle.classList.add('ripple');
+                this.appendChild(circle);
+
+                let rect = this.getBoundingClientRect();
+                let x = e.clientX - rect.left;
+                let y = e.clientY - rect.top;
+
+                circle.style.left = x + 'px';
+                circle.style.top = y + 'px';
+
+                let size = Math.max(rect.width, rect.height);
+                circle.style.width = circle.style.height = size + 'px';
+                circle.style.marginLeft = -(size / 2) + 'px';
+                circle.style.marginTop = -(size / 2) + 'px';
+            });
         });
 
-        // =====================================================================
-        // 2. Loving Background Canvas Animation (Hearts and Sparkles)
-        // =====================================================================
-        const canvas = document.getElementById('bg-canvas');
+        // Dynamic Fullscreen Canvas
+        const canvas = document.getElementById('interactive-canvas');
         const ctx = canvas.getContext('2d');
         
         let width, height;
-        let particles = [];
-        const particleCount = 40; // Number of floating items
+        let particlesArray = [];
+        
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 120
+        };
+
+        window.addEventListener('mousemove', function(event) {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+        
+        window.addEventListener('mouseout', function() {
+            mouse.x = undefined;
+            mouse.y = undefined;
+        });
 
         function resizeCanvas() {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
+            initParticles();
         }
 
         window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
 
-        // Particle Class to manage individual floating hearts/circles
         class Particle {
-            constructor() {
-                this.reset();
-                this.y = Math.random() * height; // Distribute initially across screen
+            constructor(x, y) {
+                this.x = x || Math.random() * width;
+                this.y = y || height + (Math.random() * 200);
+                this.size = Math.random() * 4 + 1.5;
+                this.density = (Math.random() * 20) + 1;
+                this.speed = Math.random() * 1.5 + 0.6;
+                
+                const colors = [
+                    'rgba(255, 77, 148, 0.7)', 
+                    'rgba(0, 255, 255, 0.5)', 
+                    'rgba(255, 255, 255, 0.4)',
+                    'rgba(255, 102, 178, 0.6)'
+                ];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                
+                this.isHeart = Math.random() > 0.65;
+                this.angle = Math.random() * 360;
+                this.spin = (Math.random() - 0.5) * 0.08;
             }
 
-            reset() {
-                this.x = Math.random() * width;
-                this.y = height + 50; // Start below screen
-                this.size = Math.random() * 15 + 5;
-                this.speed = Math.random() * 1.5 + 0.5;
-                this.opacity = Math.random() * 0.5 + 0.1;
-                this.type = Math.random() > 0.5 ? 'heart' : 'circle';
-                this.color = Math.random() > 0.5 ? '#ff4d4d' : '#ffffff';
-                this.sway = Math.random() * 2 - 1; // Horizontal drift
-                this.swayAngle = Math.random() * Math.PI * 2;
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+
+                if (this.isHeart) {
+                    let size = this.size * 2.2;
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    const topCurveHeight = size * 0.3;
+                    ctx.moveTo(0, topCurveHeight);
+                    ctx.bezierCurveTo(0, 0, -size / 2, 0, -size / 2, topCurveHeight);
+                    ctx.bezierCurveTo(-size / 2, (size + topCurveHeight) / 2, 0, (size + topCurveHeight) / 2, 0, size);
+                    ctx.bezierCurveTo(0, (size + topCurveHeight) / 2, size / 2, (size + topCurveHeight) / 2, size / 2, topCurveHeight);
+                    ctx.bezierCurveTo(size / 2, 0, 0, 0, 0, topCurveHeight);
+                    ctx.closePath();
+                    ctx.fill();
+                } else {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.shadowBlur = 12;
+                    ctx.shadowColor = this.color;
+                }
+                
+                ctx.restore();
             }
 
             update() {
                 this.y -= this.speed;
-                this.swayAngle += 0.02;
-                this.x += Math.sin(this.swayAngle) * this.sway;
-                
-                // Fade out at top
-                if (this.y < height * 0.2) {
-                    this.opacity -= 0.005;
+                this.angle += this.spin;
+
+                if (mouse.x != null && mouse.y != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < mouse.radius) {
+                        const forceDirectionX = dx / distance;
+                        const forceDirectionY = dy / distance;
+                        const maxDistance = mouse.radius;
+                        const force = (maxDistance - distance) / maxDistance;
+                        const directionX = forceDirectionX * force * this.density;
+                        const directionY = forceDirectionY * force * this.density;
+                        
+                        this.x -= directionX;
+                        this.y -= directionY;
+                    }
                 }
 
-                // Reset when out of bounds or invisible
-                if (this.y < -50 || this.opacity <= 0) {
-                    this.reset();
-                }
-            }
-
-            drawHeart(ctx, x, y, size) {
-                ctx.save();
-                ctx.beginPath();
-                const topCurveHeight = size * 0.3;
-                ctx.moveTo(x, y + topCurveHeight);
-                ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
-                ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 2, x, y + size);
-                ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 2, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
-                ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
-                ctx.closePath();
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.opacity;
-                ctx.fill();
-                ctx.restore();
-            }
-
-            draw() {
-                if (this.type === 'heart') {
-                    this.drawHeart(ctx, this.x, this.y, this.size);
-                } else {
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color;
-                    ctx.globalAlpha = this.opacity * 0.5; // Circles are fainter
-                    ctx.fill();
-                    ctx.restore();
+                if (this.y < -50) {
+                    this.y = height + 50;
+                    this.x = Math.random() * width;
                 }
             }
         }
 
-        // Initialize particles
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.width * canvas.height) / 10000;
+            if (numberOfParticles > 160) numberOfParticles = 160;
+
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
         }
 
-        // Animation Loop
-        function animate() {
+        function animateCanvas() {
             ctx.clearRect(0, 0, width, height);
             
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            
-            requestAnimationFrame(animate);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateCanvas);
         }
 
-        // Start animation
-        animate();
+        resizeCanvas();
+        animateCanvas();
     </script>
 </body>
 </html>
