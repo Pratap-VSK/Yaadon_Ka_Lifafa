@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Feb 9 - Chocolate Day | Yaadon Ka Lifafa</title>
+    <!-- Premium Fonts for Chocolate Theme -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & COLOR PALETTE (CHOCOLATE & CARAMEL)
+           ========================================================================== */
+        :root {
+            --choc-dark: #291206;
+            --choc-mid: #3d1c08;
+            --choc-milk: #5c2c10;
+            --caramel: #d98a3c;
+            --caramel-light: #f5b971;
+            --cream: #fff0d4;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.6);
+            --box-lid: #4a200b;
+            --box-base: #361505;
+            --ribbon: #a82e2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            /* Deep rich chocolate radial background */
+            background: radial-gradient(circle at top center, var(--choc-mid) 0%, var(--choc-dark) 100%);
+            color: var(--cream);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        /* ==========================================================================
+           2. MAIN BACKGROUND CANVAS (GOLD DUST & COCOA)
+           ========================================================================== */
+        #ambient-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           3. TOP DRIPPING CHOCOLATE DECORATION
+           ========================================================================== */
+        .drip-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 60px;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .drip {
+            width: 40px;
+            background: var(--choc-milk);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5), inset -2px -2px 5px rgba(0,0,0,0.3);
+            animation: dripAnim 3s infinite alternate ease-in-out;
+        }
+
+        /* Varied heights and animation delays for organic look */
+        .drip:nth-child(1) { height: 40px; animation-delay: 0.2s; }
+        .drip:nth-child(2) { height: 60px; animation-delay: 1.5s; width: 50px; }
+        .drip:nth-child(3) { height: 30px; animation-delay: 0.8s; }
+        .drip:nth-child(4) { height: 75px; animation-delay: 2.1s; width: 60px; }
+        .drip:nth-child(5) { height: 45px; animation-delay: 1.1s; }
+        .drip:nth-child(6) { height: 80px; animation-delay: 0.5s; width: 55px; }
+        .drip:nth-child(7) { height: 35px; animation-delay: 2.4s; }
+        .drip:nth-child(8) { height: 65px; animation-delay: 1.8s; }
+        .drip:nth-child(9) { height: 50px; animation-delay: 0.9s; width: 45px; }
+        .drip:nth-child(10){ height: 30px; animation-delay: 2.7s; }
+        .drip:nth-child(11){ height: 70px; animation-delay: 0.3s; width: 65px; }
+        .drip:nth-child(12){ height: 40px; animation-delay: 1.6s; }
+
+        @keyframes dripAnim {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(1.15); }
+        }
+
+        /* ==========================================================================
+           4. HEADER & HEADLINE
+           ========================================================================== */
+        .header-section {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 80px 20px 20px 20px; /* Space for drips */
+        }
+
+        .date-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.5rem;
+            color: var(--caramel-light);
+            text-shadow: 0 0 15px var(--caramel), 3px 3px 5px rgba(0, 0, 0, 0.9);
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+
+        .date-subtitle {
+            font-family: 'Lora', serif;
+            font-size: 1.2rem;
+            color: var(--cream);
+            font-weight: 400;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        /* ==========================================================================
+           5. INTERACTIVE 3D CHOCOLATE BOX (REPLACES ENVELOPE)
+           ========================================================================== */
+        .box-wrapper {
+            position: relative;
+            z-index: 20;
+            width: 100%;
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            perspective: 1200px; /* Crucial for 3D lid effect */
+        }
+
+        .gift-box {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        /* The base container of the box */
+        .box-base {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 180px;
+            background: linear-gradient(135deg, var(--box-base), #1a0801);
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.6);
+            border: 2px solid #5c2c10;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 20px;
+            z-index: 2;
+        }
+
+        /* Inside shadow of the base */
+        .box-base::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            border-radius: 10px;
+        }
+
+        /* The Golden Letter inside the box */
+        .golden-letter {
+            position: absolute;
+            bottom: 10px;
+            width: 260px;
+            height: 150px;
+            background: linear-gradient(135deg, #fceabb, #f8b500);
+            border-radius: 5px;
+            z-index: 1; /* Hidden behind front wall, but will slide up */
+            padding: 20px;
+            text-align: center;
+            color: #4a200b;
+            box-shadow: 0 0 15px rgba(248, 181, 0, 0.5);
+            border: 2px solid #fff;
+            transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .letter-heading {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: #291206;
+        }
+
+        .letter-text {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* The Lid of the box */
+        .box-lid {
+            position: absolute;
+            top: -10px; left: -10px;
+            width: 320px; height: 200px;
+            background: linear-gradient(135deg, var(--box-lid), #2e1002);
+            border-radius: 12px;
+            z-index: 5;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6), inset 0 2px 5px rgba(255,255,255,0.2);
+            transform-origin: top; /* Hinge at the top */
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease 0.5s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #733512;
+        }
+
+        /* Ribbon on Lid */
+        .ribbon-v {
+            position: absolute;
+            width: 40px; height: 100%;
+            background: linear-gradient(to right, #801a1a, var(--ribbon), #801a1a);
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .ribbon-h {
+            position: absolute;
+            width: 100%; height: 40px;
+            background: linear-gradient(to bottom, #801a1a, var(--ribbon), #801a1a);
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .bow {
+            position: absolute;
+            width: 80px; height: 80px;
+            background: radial-gradient(circle, #ff4d4d, var(--ribbon));
+            border-radius: 50%;
+            z-index: 6;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6), inset 0 0 10px rgba(0,0,0,0.5);
+            display: flex; justify-content: center; align-items: center;
+            color: gold; font-size: 2rem;
+        }
+
+        /* OPEN ANIMATION CLASSES */
+        .box-wrapper.is-open .box-lid {
+            transform: rotateX(110deg); /* Flip open */
+            opacity: 0; /* Fade out lid slowly */
+        }
+        .box-wrapper.is-open .golden-letter {
+            transform: translateY(-160px); /* Pop out of box */
+            z-index: 10;
+        }
+
+        .instruction {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            color: var(--caramel-light);
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            animation: pulseText 2s infinite;
+        }
+        @keyframes pulseText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        /* ==========================================================================
+           6. HIDDEN CONTENT AREA (REVEALS SLIDES, FRAME & CLIMAX)
+           ========================================================================== */
+        #hidden-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 1.5s ease-in-out, opacity 1.5s ease-in-out;
+            position: relative;
+            z-index: 20;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        #hidden-content.revealed {
+            max-height: 5500px;
+            opacity: 1;
+            padding: 60px 20px 100px 20px; 
+        }
+
+        .content-divider {
+            width: 70%;
+            max-width: 500px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--caramel), transparent);
+            margin: 40px auto;
+            border-radius: 50%;
+        }
+
+        /* ==========================================================================
+           7. SLIDESHOW (CHOCOLATE FRAMED MULTIPLE IMAGES)
+           ========================================================================== */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            max-width: 750px;
+            height: 420px;
+            margin: 20px auto 60px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            /* Layered chocolate border effect */
+            border: 8px solid var(--choc-milk);
+            outline: 3px solid var(--gold);
+            outline-offset: -11px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.9), 0 0 30px var(--gold-glow);
+            background: var(--choc-dark);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .slide.active { opacity: 1; z-index: 2; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        .slide-overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            padding: 40px 20px 20px 20px;
+            background: linear-gradient(to top, rgba(26, 10, 2, 0.95), transparent);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .slide-caption { font-family: 'Lora', serif; font-size: 1.3rem; letter-spacing: 1px; font-style: italic; }
+
+        .prev-btn, .next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(41, 18, 6, 0.7);
+            color: var(--caramel-light);
+            border: 1px solid var(--caramel);
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .prev-btn:hover, .next-btn:hover { background: var(--caramel); color: #fff; box-shadow: 0 0 15px var(--caramel); }
+        .prev-btn { left: 15px; } .next-btn { right: 15px; }
+
+        .dots-container {
+            position: absolute;
+            bottom: -35px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 12px;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--choc-milk); cursor: pointer; transition: 0.3s; border: 1px solid var(--caramel); }
+        .dot.active { background: var(--caramel-light); box-shadow: 0 0 10px var(--caramel-light); }
+
+        /* ==========================================================================
+           8. PREMIUM CHOCOLATE UPLOAD FRAME
+           ========================================================================== */
+        .upload-section { width: 100%; max-width: 600px; margin: 40px auto; text-align: center; }
+        .upload-title { font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--caramel-light); margin-bottom: 25px; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
+
+        .choc-frame {
+            position: relative;
+            width: 100%; max-width: 420px; height: 480px; margin: 0 auto;
+            /* Mimicking a luxurious chocolate bar/frame */
+            border: 15px solid var(--choc-milk);
+            border-radius: 15px;
+            background: var(--choc-dark);
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+            box-shadow: 
+                0 25px 40px rgba(0,0,0,0.8), 
+                inset 0 0 20px rgba(0,0,0,0.9),
+                0 0 0 2px var(--gold),
+                inset 0 0 0 3px var(--gold);
+            cursor: pointer; transition: all 0.4s ease;
+        }
+
+        .choc-frame:hover { transform: translateY(-5px); box-shadow: 0 30px 50px rgba(0,0,0,0.9), 0 0 40px var(--caramel); }
+        
+        .frame-image {
+            width: 100%; height: 100%; object-fit: cover; position: absolute;
+            top: 0; left: 0; opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+            z-index: 2;
+        }
+        
+        .choc-frame:hover .frame-image.loaded { transform: scale(1.12); }
+        
+        .upload-placeholder { display: flex; flex-direction: column; align-items: center; color: var(--caramel-light); z-index: 1; padding: 20px; text-align: center; }
+        .upload-placeholder i { font-size: 3.5rem; margin-bottom: 15px; color: var(--gold); }
+        .upload-placeholder span { font-size: 1.1rem; font-family: 'Lora', serif; }
+        #custom-file-input { display: none; }
+
+        /* ==========================================================================
+           9. CHOCOLATE CLIMAX TEXT
+           ========================================================================== */
+        .climax-container {
+            text-align: center;
+            margin: 70px auto 50px auto;
+            padding: 40px;
+            background: radial-gradient(circle, rgba(217, 138, 60, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: breatheChoc 3s ease-in-out infinite alternate;
+        }
+
+        .climax-icon {
+            font-size: 4.5rem;
+            color: var(--caramel-light);
+            text-shadow: 0 0 20px var(--caramel), 0 0 40px var(--choc-milk);
+            margin-bottom: 20px;
+            animation: floatIcon 3s infinite ease-in-out;
+        }
+
+        .climax-text-main {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--cream);
+            text-shadow: 0 0 15px rgba(255, 240, 212, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .climax-text-sub {
+            font-family: 'Lora', serif;
+            font-size: 1.4rem;
+            color: var(--caramel-light);
+            font-style: italic;
+        }
+
+        @keyframes breatheChoc { 0% { transform: scale(0.95); opacity: 0.9; } 100% { transform: scale(1.05); opacity: 1; } }
+        @keyframes floatIcon { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
+
+        /* ==========================================================================
+           10. THE MEGA EXPLORE BUTTON (CARAMEL GLOW)
+           ========================================================================== */
+        .mega-explore-btn {
+            display: inline-block;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            padding: 20px 45px;
+            background: linear-gradient(45deg, var(--choc-milk), var(--caramel), var(--choc-milk));
+            background-size: 200% auto;
+            color: #ffffff;
+            border: 2px solid var(--cream);
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--caramel), inset 0 0 10px rgba(255, 255, 255, 0.4);
+            transition: all 0.5s ease;
+            animation: caramelShift 3s linear infinite, pulseCaramel 2s infinite;
+            z-index: 30;
+            position: relative;
+        }
+
+        .mega-explore-btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 30px var(--choc-dark), 0 0 40px var(--caramel-light);
+            color: var(--choc-dark);
+            border-color: var(--choc-dark);
+        }
+
+        @keyframes caramelShift { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+        @keyframes pulseCaramel { 0%, 100% { box-shadow: 0 0 20px var(--caramel); } 50% { box-shadow: 0 0 40px var(--caramel-light); } }
+
+        /* ==========================================================================
+           11. POPUP MODAL & CHOCOLATE QUOTES
+           ========================================================================== */
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(18, 5, 0, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.6s ease;
+        }
+
+        .popup-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .popup-box {
+            background: var(--choc-dark);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 50px 30px;
+            max-width: 600px; width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(212, 175, 55, 0.2);
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; z-index: 9002;
+        }
+
+        .popup-overlay.active .popup-box { transform: translateY(0) scale(1); }
+
+        .quote-text {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            color: var(--cream);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(255, 240, 212, 0.4);
+        }
+
+        .quote-author {
+            font-family: 'Poppins', sans-serif;
+            color: var(--caramel-light);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .close-popup-btn {
+            margin-top: 40px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 12px 35px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .close-popup-btn:hover { background: var(--gold); color: var(--choc-dark); box-shadow: 0 0 20px var(--gold); }
+
+        /* ==========================================================================
+           12. FALLING CHOCOLATE DROPS CANVAS (Z-INDEX ABOVE POPUP OVERLAY)
+           ========================================================================== */
+        #drop-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 9001; 
+            pointer-events: none;
+            display: none; 
+        }
+
+        /* ==========================================================================
+           13. RESPONSIVE QUERIES
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .date-title { font-size: 3.5rem; }
+            .box-wrapper { height: 300px; transform: scale(0.85); }
+            .slideshow-container { height: 320px; border-width: 5px; }
+            .choc-frame { height: 380px; border-width: 10px; }
+            .mega-explore-btn { font-size: 1.1rem; padding: 15px 30px; width: 95%; }
+            .climax-text-main { font-size: 3rem; }
+            .quote-text { font-size: 1.5rem; }
+            .drip-container { height: 40px; }
+            .header-section { padding-top: 60px; }
+        }
+
+        @media (max-width: 480px) {
+            .date-title { font-size: 2.8rem; }
+            .box-wrapper { transform: scale(0.75); margin-top: 10px; }
+            .slideshow-container { height: 260px; }
+            .choc-frame { height: 320px; }
+            .climax-text-main { font-size: 2.4rem; }
+            .climax-text-sub { font-size: 1.1rem; }
+            .quote-text { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Ambient Background Canvas (Gold Dust & Cocoa Beans) -->
+    <canvas id="ambient-canvas"></canvas>
+
+    <!-- 2. Dripping Chocolate Top Decoration -->
+    <div class="drip-container">
+        <div class="drip"></div><div class="drip"></div><div class="drip"></div>
+        <div class="drip"></div><div class="drip"></div><div class="drip"></div>
+        <div class="drip"></div><div class="drip"></div><div class="drip"></div>
+        <div class="drip"></div><div class="drip"></div><div class="drip"></div>
+    </div>
+
+    <!-- 3. Headline -->
+    <header class="header-section">
+        <h1 class="date-title">Happy Chocolate Day</h1>
+        <div class="date-subtitle">February 9th</div>
+    </header>
+
+    <!-- 4. Interactive Premium Chocolate Box (Trigger) -->
+    <div class="box-wrapper" id="choc-box-btn" onclick="revealContent()">
+        <div class="gift-box">
+            <!-- Box Base -->
+            <div class="box-base"></div>
+            
+            <!-- Letter popping out from inside -->
+            <div class="golden-letter">
+                <div class="letter-heading">For You...</div>
+                <div class="letter-text">Open to uncover the sweetest memories we share.</div>
+            </div>
+
+            <!-- Box Lid with Ribbon & Bow -->
+            <div class="box-lid">
+                <div class="ribbon-v"></div>
+                <div class="ribbon-h"></div>
+                <div class="bow"><i class="fa-solid fa-gift"></i></div>
+            </div>
+        </div>
+        <div class="instruction">Tap to Open The Box</div>
+    </div>
+
+    <!-- 5. Hidden Content Area -->
+    <section id="hidden-content">
+        
+        <div class="content-divider"></div>
+        <h2 class="upload-title" style="margin-top: 10px;">A Taste of Our Magic</h2>
+        
+        <!-- Framed Slideshow -->
+        <div class="slideshow-container">
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1548814421-4f115bc56eb5?q=80&w=800&auto=format&fit=crop" alt="Memory 1">
+                <div class="slide-overlay"><div class="slide-caption">You make everything sweeter...</div></div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?q=80&w=800&auto=format&fit=crop" alt="Memory 2">
+                <div class="slide-overlay"><div class="slide-caption">Our bond is richer than dark chocolate.</div></div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1604514628550-37477afdf4e3?q=80&w=800&auto=format&fit=crop" alt="Memory 3">
+                <div class="slide-overlay"><div class="slide-caption">Every moment with you is a treat.</div></div>
+            </div>
+            
+            <!-- Controls -->
+            <button class="prev-btn" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="next-btn" onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="dots-container">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+            </div>
+        </div>
+
+        <div class="content-divider"></div>
+
+        <!-- Premium Chocolate Image Upload Frame -->
+        <div class="upload-section">
+            <h2 class="upload-title">Frame Our Sweetest Memory</h2>
+            <label for="custom-file-input">
+                <div class="choc-frame">
+                    <div class="upload-placeholder" id="placeholder-ui">
+                        <i class="fa-solid fa-images"></i>
+                        <span>Tap to Upload Photo<br><small>(Hover to zoom after upload)</small></span>
+                    </div>
+                    <img id="frame-preview" class="frame-image" src="" alt="Your Sweet Memory">
+                </div>
+            </label>
+            <input type="file" id="custom-file-input" accept="image/*" onchange="previewImage(event)">
+        </div>
+
+        <!-- 6. CHOCOLATE CLIMAX SECTION -->
+        <div class="climax-container">
+            <div class="climax-icon"><i class="fa-solid fa-mug-hot"></i></div>
+            <div class="climax-text-main">Sweeter Than Chocolate</div>
+            <div class="climax-text-sub">My life was bitter until you poured your love into it.</div>
+        </div>
+
+        <!-- 7. THE MEGA EXPLORE BUTTON -->
+        <button class="mega-explore-btn" onclick="openChocPopup()">
+            Will You Unwrap This Journey With Me? <i class="fa-solid fa-cookie-bite" style="margin-left:8px;"></i>
+        </button>
+
+    </section>
+
+    <!-- 8. POPUP MODAL & FALLING CHOCOLATE CANVAS -->
+    <div class="popup-overlay" id="choc-popup">
+        <!-- Separate Canvas specifically for falling chocolates inside the popup -->
+        <canvas id="drop-canvas"></canvas>
+        
+        <div class="popup-box">
+            <div class="quote-text">
+                "Life is like a box of chocolates,<br>
+                but out of all the flavors in the world,<br>
+                you are my absolute favorite."
+            </div>
+            <div class="quote-author">— Happy Chocolate Day —</div>
+            <button class="close-popup-btn" onclick="closeChocPopup()">You're So Sweet! 🍫</button>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC
+         ========================================================================== -->
+    <script>
+        // --- 1. Box Reveal Logic ---
+        let hasOpened = false;
+        function revealContent() {
+            if(hasOpened) return;
+            hasOpened = true;
+            
+            const boxWrapper = document.getElementById('choc-box-btn');
+            const hiddenContent = document.getElementById('hidden-content');
+            const instruction = document.querySelector('.instruction');
+            
+            // Trigger CSS 3D Box Open Animation
+            boxWrapper.classList.add('is-open');
+            instruction.style.display = 'none';
+
+            // Wait for letter animation, then reveal hidden section
+            setTimeout(() => {
+                hiddenContent.classList.add('revealed');
+                // Auto scroll smoothly to the new content
+                setTimeout(() => {
+                    hiddenContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 500); 
+            }, 1200); 
+        }
+
+        // --- 2. Slideshow Logic ---
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval;
+
+        function showSlide(index) {
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+        }
+
+        function changeSlide(step) { slideIndex += step; showSlide(slideIndex); resetInterval(); }
+        function currentSlide(index) { slideIndex = index; showSlide(slideIndex); resetInterval(); }
+        function autoSlide() { slideIndex++; showSlide(slideIndex); }
+        function resetInterval() { clearInterval(slideInterval); slideInterval = setInterval(autoSlide, 4500); }
+        showSlide(slideIndex);
+        slideInterval = setInterval(autoSlide, 4500);
+
+        // --- 3. Image Upload Logic ---
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('frame-preview');
+            const placeholder = document.getElementById('placeholder-ui');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    placeholder.style.display = 'none';
+                    preview.style.opacity = '1';
+                    preview.classList.add('loaded'); // Activates hover zoom CSS
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // --- 4. Main Ambient Canvas (Gold Dust & Cocoa) ---
+        const mainCanvas = document.getElementById('ambient-canvas');
+        const mCtx = mainCanvas.getContext('2d');
+        let mWidth, mHeight;
+        let ambientParticles = [];
+
+        function resizeAmbientCanvas() {
+            mWidth = mainCanvas.width = window.innerWidth;
+            mHeight = mainCanvas.height = window.innerHeight;
+            initAmbientParticles();
+        }
+        window.addEventListener('resize', resizeAmbientCanvas);
+
+        class AmbientParticle {
+            constructor() { this.reset(); this.y = Math.random() * mHeight; }
+            reset() {
+                this.x = Math.random() * mWidth; 
+                this.y = mHeight + 50;
+                this.size = Math.random() * 5 + 1; 
+                this.speed = Math.random() * 1 + 0.3;
+                this.angle = Math.random() * Math.PI * 2; 
+                this.spin = (Math.random() - 0.5) * 0.02;
+                
+                // 80% Gold Dust, 20% Cocoa Beans (Ovals)
+                this.isCocoa = Math.random() > 0.8;
+                this.opacity = Math.random() * 0.4 + 0.1; 
+                this.sway = Math.random() * 1.5 - 0.75; 
+            }
+            draw() {
+                mCtx.save(); mCtx.translate(this.x, this.y); mCtx.rotate(this.angle); mCtx.globalAlpha = this.opacity;
+                if (this.isCocoa) {
+                    // Draw Cocoa Bean (Oval shape)
+                    mCtx.beginPath();
+                    mCtx.ellipse(0, 0, this.size * 1.5, this.size, 0, 0, Math.PI * 2);
+                    mCtx.fillStyle = "#4a200b"; // Dark choc
+                    mCtx.fill();
+                    // Bean center line
+                    mCtx.beginPath();
+                    mCtx.moveTo(-this.size, 0); mCtx.lineTo(this.size, 0);
+                    mCtx.strokeStyle = "#291206"; mCtx.lineWidth = 1; mCtx.stroke();
+                } else {
+                    // Golden Dust
+                    mCtx.beginPath(); mCtx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    mCtx.fillStyle = "#d4af37"; mCtx.shadowBlur = 8; mCtx.shadowColor = "#f5b971"; mCtx.fill();
+                }
+                mCtx.restore();
+            }
+            update() {
+                this.y -= this.speed; 
+                this.angle += this.spin; 
+                this.x += Math.sin(this.angle) * this.sway;
+                if (this.y < mHeight * 0.2) this.opacity -= 0.003;
+                if (this.y < -50 || this.opacity <= 0) this.reset();
+            }
+        }
+        
+        function initAmbientParticles() {
+            ambientParticles = [];
+            let amount = Math.floor((mWidth * mHeight) / 10000);
+            if (amount > 120) amount = 120;
+            for (let i = 0; i < amount; i++) ambientParticles.push(new AmbientParticle());
+        }
+        
+        function animateAmbientCanvas() {
+            mCtx.clearRect(0, 0, mWidth, mHeight);
+            ambientParticles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateAmbientCanvas);
+        }
+        resizeAmbientCanvas();
+        animateAmbientCanvas();
+
+        // --- 5. POPUP & FALLING CHOCOLATE DROPS LOGIC ---
+        const popupOverlay = document.getElementById('choc-popup');
+        const dropCanvas = document.getElementById('drop-canvas');
+        const dCtx = dropCanvas.getContext('2d');
+        let dWidth, dHeight;
+        let dropsArray = [];
+        let dropAnimationId;
+
+        function openChocPopup() {
+            popupOverlay.classList.add('active');
+            dropCanvas.style.display = 'block';
+            resizeDropCanvas();
+            startChocDrop();
+        }
+
+        function closeChocPopup() {
+            popupOverlay.classList.remove('active');
+            setTimeout(() => {
+                dropCanvas.style.display = 'none';
+                cancelAnimationFrame(dropAnimationId);
+            }, 600); 
+        }
+
+        function resizeDropCanvas() {
+            dWidth = dropCanvas.width = window.innerWidth;
+            dHeight = dropCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeDropCanvas);
+
+        class ChocDrop {
+            constructor() {
+                this.x = Math.random() * dWidth;
+                this.y = Math.random() * dHeight - dHeight; // Start high up
+                this.size = Math.random() * 12 + 8;
+                this.speedY = Math.random() * 4 + 2; 
+                this.speedX = Math.random() * 2 - 1; 
+                this.angle = Math.random() * 360;
+                this.spin = (Math.random() - 0.5) * 0.1;
+                
+                // Colors: Milk Choc, Dark Choc, Caramel, Cream
+                const colors = ['#5c2c10', '#361505', '#d98a3c', '#fff0d4'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.opacity = Math.random() * 0.5 + 0.5;
+                
+                // Shape type
+                this.isHeart = Math.random() > 0.7;
+            }
+
+            draw() {
+                dCtx.save();
+                dCtx.translate(this.x, this.y);
+                dCtx.rotate(this.angle);
+                dCtx.globalAlpha = this.opacity;
+                
+                if(this.isHeart) {
+                    // Draw Chocolate Heart
+                    let s = this.size;
+                    dCtx.fillStyle = this.color;
+                    dCtx.beginPath();
+                    const topCurveHeight = s * 0.3;
+                    dCtx.moveTo(0, topCurveHeight);
+                    dCtx.bezierCurveTo(0, 0, -s / 2, 0, -s / 2, topCurveHeight);
+                    dCtx.bezierCurveTo(-s / 2, (s + topCurveHeight) / 2, 0, (s + topCurveHeight) / 2, 0, s);
+                    dCtx.bezierCurveTo(0, (s + topCurveHeight) / 2, s / 2, (s + topCurveHeight) / 2, s / 2, topCurveHeight);
+                    dCtx.bezierCurveTo(s / 2, 0, 0, 0, 0, topCurveHeight);
+                    dCtx.closePath();
+                    dCtx.fill();
+                } else {
+                    // Draw Truffle (Circle with shine)
+                    dCtx.beginPath();
+                    dCtx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    dCtx.fillStyle = this.color;
+                    dCtx.fill();
+                    // Shine
+                    dCtx.beginPath();
+                    dCtx.arc(-this.size/3, -this.size/3, this.size/4, 0, Math.PI * 2);
+                    dCtx.fillStyle = "rgba(255,255,255,0.3)";
+                    dCtx.fill();
+                }
+                dCtx.restore();
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.angle += this.spin;
+                
+                // Wind effect
+                this.x += Math.sin(this.angle) * 1; 
+
+                // Loop back to top
+                if (this.y > dHeight + this.size) {
+                    this.y = -this.size;
+                    this.x = Math.random() * dWidth;
+                }
+            }
+        }
+
+        function startChocDrop() {
+            dropsArray = [];
+            let pAmount = Math.floor((dWidth * dHeight) / 12000);
+            if (pAmount > 70) pAmount = 70;
+
+            for (let i = 0; i < pAmount; i++) {
+                dropsArray.push(new ChocDrop());
+            }
+            animateDrops();
+        }
+
+        function animateDrops() {
+            dCtx.clearRect(0, 0, dWidth, dHeight);
+            dropsArray.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            dropAnimationId = requestAnimationFrame(animateDrops);
+        }
+
+    </script>
+</body>
+</html>

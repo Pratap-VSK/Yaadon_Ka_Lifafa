@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Feb 8 - Propose Day | Yaadon Ka Lifafa</title>
+    <!-- Importing Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --bg-deep: #0a0e17;
+            --bg-mid: #151b29;
+            --gold-light: #ffd700;
+            --gold-dark: #b8860b;
+            --text-primary: #ffffff;
+            --text-secondary: #dcdcdc;
+            --envelope-body: #f4e8d3;
+            --envelope-flap: #e8d7ba;
+            --envelope-inside: #d1c0a5;
+            --letter-bg: #fffcf5;
+            --seal-color: #8b0000;
+            --transition-speed: 0.8s;
+            --frame-border: rgba(255, 215, 0, 0.6);
+            --heart-red: #ff1a4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: radial-gradient(circle at center, var(--bg-mid) 0%, var(--bg-deep) 100%);
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        /* ==========================================================================
+           2. MAIN BACKGROUND CANVAS (RINGS & DIAMONDS)
+           ========================================================================== */
+        #propose-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           3. HANGING LIGHTS SHOW
+           ========================================================================== */
+        .lights-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 150px;
+            display: flex;
+            justify-content: space-around;
+            top: 0;
+            overflow: visible;
+        }
+
+        .light-wire {
+            position: relative;
+            width: 2px;
+            background: #333;
+            transform-origin: top center;
+            animation: swing ease-in-out infinite alternate;
+        }
+
+        .bulb {
+            position: absolute;
+            bottom: -20px;
+            left: -9px;
+            width: 20px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 
+                0 0 15px 5px rgba(255, 215, 0, 0.8),
+                inset 0 0 5px rgba(255, 255, 255, 0.8);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .bulb::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 4px;
+            width: 12px;
+            height: 8px;
+            background: #222;
+            border-radius: 3px;
+        }
+
+        .light-wire:nth-child(1) { height: 80px; animation-duration: 3.1s; animation-delay: 0.1s; }
+        .light-wire:nth-child(2) { height: 130px; animation-duration: 3.4s; animation-delay: 0.4s; }
+        .light-wire:nth-child(3) { height: 60px; animation-duration: 2.8s; animation-delay: 0.2s; }
+        .light-wire:nth-child(4) { height: 110px; animation-duration: 3.6s; animation-delay: 0.7s; }
+        .light-wire:nth-child(5) { height: 90px; animation-duration: 3.2s; animation-delay: 0.5s; }
+        .light-wire:nth-child(6) { height: 140px; animation-duration: 3.8s; animation-delay: 0.9s; }
+        .light-wire:nth-child(7) { height: 70px; animation-duration: 2.9s; animation-delay: 0.3s; }
+        .light-wire:nth-child(8) { height: 120px; animation-duration: 3.5s; animation-delay: 0.6s; }
+        .light-wire:nth-child(9) { height: 85px; animation-duration: 3.3s; animation-delay: 0.8s; }
+        .light-wire:nth-child(10) { height: 150px; animation-duration: 4.0s; animation-delay: 1.0s; }
+        .light-wire:nth-child(11) { height: 65px; animation-duration: 2.7s; animation-delay: 0.2s; }
+        .light-wire:nth-child(12) { height: 100px; animation-duration: 3.1s; animation-delay: 0.5s; }
+
+        @keyframes swing {
+            0% { transform: rotate(10deg); }
+            100% { transform: rotate(-10deg); }
+        }
+
+        @keyframes glow {
+            0% { 
+                box-shadow: 0 0 10px 2px rgba(255, 215, 0, 0.4), inset 0 0 5px rgba(255, 255, 255, 0.5); 
+                background: rgba(255, 255, 255, 0.2);
+            }
+            100% { 
+                box-shadow: 0 0 25px 10px rgba(255, 215, 0, 0.9), inset 0 0 10px rgba(255, 255, 255, 1); 
+                background: rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        /* ==========================================================================
+           4. HEADER & HEADLINE
+           ========================================================================== */
+        .header-section {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+        }
+
+        .date-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: var(--gold-light);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 5px 10px rgba(0, 0, 0, 0.8);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .date-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* ==========================================================================
+           5. INTERACTIVE ENVELOPE (PURE CSS + JS TRIGGER)
+           ========================================================================== */
+        .envelope-wrapper {
+            position: relative;
+            z-index: 20;
+            width: 100%;
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+            perspective: 1000px;
+        }
+
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: var(--envelope-body);
+            border-radius: 5px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .envelope:hover { transform: translateY(-10px); }
+
+        .envelope::before, .envelope::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            z-index: 4;
+        }
+
+        .envelope::before {
+            border-top: 110px solid transparent;
+            border-bottom: 110px solid transparent;
+            border-left: 160px solid var(--envelope-inside);
+            top: 0; left: 0;
+        }
+
+        .envelope::after {
+            border-top: 110px solid transparent;
+            border-bottom: 110px solid transparent;
+            border-right: 160px solid var(--envelope-inside);
+            top: 0; right: 0;
+        }
+
+        .envelope-bottom {
+            position: absolute;
+            bottom: 0; left: 0; width: 0; height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-bottom: 130px solid var(--envelope-body);
+            z-index: 5;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0; left: 0; width: 0; height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 130px solid var(--envelope-flap);
+            z-index: 6;
+            transform-origin: top;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+        }
+
+        .wax-seal {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--seal-color);
+            border-radius: 50%;
+            z-index: 7;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 5px 10px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffcccc;
+            font-size: 1.2rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .letter {
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            background: var(--letter-bg);
+            border-radius: 5px;
+            z-index: 3;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .letter-content {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            border: 1px solid #e0ceab;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .letter-title {
+            color: #8b0000;
+            margin-bottom: 10px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+        }
+
+        /* Envelope Animation Classes */
+        .envelope-wrapper.is-open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.is-open .wax-seal { opacity: 0; }
+        .envelope-wrapper.is-open .letter { transform: translateY(-120px); z-index: 10; }
+
+        .instruction {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            animation: pulseText 2s infinite;
+        }
+
+        @keyframes pulseText { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        /* ==========================================================================
+           6. HIDDEN CONTENT AREA (REVEALS SLIDES, FRAME & PROPOSE CLIMAX)
+           ========================================================================== */
+        #hidden-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 1.5s ease-in-out, opacity 1.5s ease-in-out;
+            position: relative;
+            z-index: 20;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        #hidden-content.revealed {
+            max-height: 5000px;
+            opacity: 1;
+            padding: 60px 20px 100px 20px; /* Extra padding at bottom */
+        }
+
+        .content-divider {
+            width: 80%;
+            max-width: 600px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+            margin: 40px auto;
+        }
+
+        /* ==========================================================================
+           7. SLIDESHOW (MULTIPLE IMAGES)
+           ========================================================================== */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            height: 400px;
+            margin: 20px auto 60px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px rgba(255, 215, 0, 0.2);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide.active { opacity: 1; z-index: 2; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; }
+
+        .slide-overlay {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            padding: 30px 20px 20px 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+            text-align: center;
+        }
+
+        .slide-caption { font-family: 'Playfair Display', serif; font-size: 1.2rem; letter-spacing: 1px; }
+
+        .prev-btn, .next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: 1px solid var(--gold-light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .prev-btn:hover, .next-btn:hover { background: var(--gold-light); color: black; box-shadow: 0 0 15px var(--gold-light); }
+        .prev-btn { left: 15px; } .next-btn { right: 15px; }
+
+        .dots-container {
+            position: absolute;
+            bottom: -30px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 10px;
+        }
+
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.3); cursor: pointer; transition: background 0.3s; }
+        .dot.active { background: var(--gold-light); box-shadow: 0 0 10px var(--gold-light); }
+
+        /* ==========================================================================
+           8. UPLOAD FRAME
+           ========================================================================== */
+        .upload-section { width: 100%; max-width: 600px; margin: 40px auto; text-align: center; }
+        .upload-title { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--text-primary); margin-bottom: 20px; }
+
+        .premium-frame {
+            position: relative;
+            width: 100%; max-width: 400px; height: 450px; margin: 0 auto;
+            border: 8px solid transparent;
+            border-image: repeating-linear-gradient(45deg, var(--gold-dark), var(--gold-dark) 10px, var(--gold-light) 10px, var(--gold-light) 20px) 10;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 30px rgba(0,0,0,0.8);
+            cursor: pointer; transition: box-shadow 0.4s ease;
+        }
+
+        .premium-frame:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px var(--gold-dark); }
+        
+        .frame-image {
+            width: 100%; height: 100%; object-fit: cover; position: absolute;
+            top: 0; left: 0; opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
+            z-index: 2;
+        }
+        
+        .premium-frame:hover .frame-image.loaded { transform: scale(1.15); }
+        
+        .upload-placeholder { display: flex; flex-direction: column; align-items: center; color: rgba(255, 215, 0, 0.7); z-index: 1; padding: 20px; text-align: center; }
+        .upload-placeholder i { font-size: 3rem; margin-bottom: 15px; }
+        .upload-placeholder span { font-size: 1.1rem; font-family: 'Playfair Display', serif; }
+        #custom-file-input { display: none; }
+
+        /* ==========================================================================
+           9. PROPOSE CLIMAX TEXT & RING (JUST BELOW IMAGE FRAME)
+           ========================================================================== */
+        .propose-climax {
+            text-align: center;
+            margin: 60px auto 40px auto;
+            padding: 30px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: breathe 3s ease-in-out infinite alternate;
+        }
+
+        .propose-ring-icon {
+            font-size: 4rem;
+            color: var(--gold-light);
+            text-shadow: 0 0 20px var(--gold-light), 0 0 40px var(--gold-dark);
+            margin-bottom: 20px;
+            animation: floatRing 3s infinite ease-in-out;
+        }
+
+        .propose-text-main {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .propose-text-sub {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #e0ceab;
+            font-style: italic;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        @keyframes floatRing {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+
+        /* ==========================================================================
+           10. THE MEGA EXPLORE BUTTON (BOTTOM)
+           ========================================================================== */
+        .mega-explore-btn {
+            display: inline-block;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            padding: 20px 40px;
+            background: linear-gradient(45deg, #b30000, #ff1a4a, #b30000);
+            background-size: 200% auto;
+            color: #ffffff;
+            border: 2px solid #ff4d79;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 26, 74, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: all 0.5s ease;
+            animation: gradientShift 3s linear infinite, pulseGlow 2s infinite;
+            z-index: 30;
+            position: relative;
+        }
+
+        .mega-explore-btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 26, 74, 0.8), 0 0 40px rgba(255, 26, 74, 0.6);
+            border-color: #ffffff;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 26, 74, 0.6); }
+            50% { box-shadow: 0 0 40px rgba(255, 26, 74, 1); }
+        }
+
+        /* ==========================================================================
+           11. POPUP MODAL & QUOTES
+           ========================================================================== */
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 26, 74, 0.3);
+            border-radius: 20px;
+            padding: 50px 30px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(255, 26, 74, 0.1);
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 9002;
+        }
+
+        .popup-overlay.active .popup-box {
+            transform: translateY(0) scale(1);
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #ffe6eb;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(255, 26, 74, 0.4);
+        }
+
+        .quote-author {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--gold-light);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .close-popup-btn {
+            margin-top: 40px;
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            padding: 10px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .close-popup-btn:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        /* ==========================================================================
+           12. FALLING ROSE PETALS CANVAS (Z-INDEX ABOVE POPUP OVERLAY)
+           ========================================================================== */
+        #petal-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 9001; /* Behind popup box, but above overlay */
+            pointer-events: none;
+            display: none; /* Shown only when popup is active */
+        }
+
+        /* ==========================================================================
+           13. RESPONSIVE QUERIES
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .date-title { font-size: 3rem; }
+            .envelope-wrapper { height: 300px; transform: scale(0.9); }
+            .slideshow-container { height: 300px; }
+            .premium-frame { height: 350px; }
+            .light-wire { display: none; }
+            .light-wire:nth-child(even) { display: block; }
+            .mega-explore-btn { font-size: 1.1rem; padding: 15px 30px; width: 90%; }
+            .propose-text-main { font-size: 2.8rem; }
+            .quote-text { font-size: 1.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .date-title { font-size: 2.5rem; }
+            .envelope-wrapper { transform: scale(0.75); margin-top: 20px; }
+            .slideshow-container { height: 250px; }
+            .premium-frame { height: 300px; border-width: 6px; }
+            .propose-text-main { font-size: 2.2rem; }
+            .quote-text { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Background Animation Canvas (Rings and Stars) -->
+    <canvas id="propose-canvas"></canvas>
+
+    <!-- 2. Hanging Lights -->
+    <div class="lights-container">
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+        <div class="light-wire"><div class="bulb"></div></div>
+    </div>
+
+    <!-- 3. Headline -->
+    <header class="header-section">
+        <h1 class="date-title">Happy Propose Day</h1>
+        <div class="date-subtitle">February 8th</div>
+    </header>
+
+    <!-- 4. Interactive Custom Envelope -->
+    <div class="envelope-wrapper" id="envelope-btn" onclick="revealContent()">
+        <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-bottom"></div>
+            <div class="wax-seal">
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            <div class="letter">
+                <div class="letter-content">
+                    <div class="letter-title">To My Forever,</div>
+                    <p>Some questions change your life. Tap to see mine...</p>
+                </div>
+            </div>
+        </div>
+        <div class="instruction">Tap to Open Envelope</div>
+    </div>
+
+    <!-- 5. Hidden Content Area -->
+    <section id="hidden-content">
+        
+        <div class="content-divider"></div>
+        <h2 class="upload-title" style="margin-top: 20px;">Moments Leading to 'Yes'</h2>
+        
+        <!-- Slideshow -->
+        <div class="slideshow-container">
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop" alt="Memory 1">
+                <div class="slide-overlay"><div class="slide-caption">The first time our eyes met...</div></div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=800&auto=format&fit=crop" alt="Memory 2">
+                <div class="slide-overlay"><div class="slide-caption">Every journey with you is magic.</div></div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?q=80&w=800&auto=format&fit=crop" alt="Memory 3">
+                <div class="slide-overlay"><div class="slide-caption">Will you hold my hand forever?</div></div>
+            </div>
+            <button class="prev-btn" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="next-btn" onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="dots-container">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+            </div>
+        </div>
+
+        <div class="content-divider"></div>
+
+        <!-- Custom Upload Frame -->
+        <div class="upload-section">
+            <h2 class="upload-title">Frame Our Best Moment</h2>
+            <label for="custom-file-input">
+                <div class="premium-frame">
+                    <div class="upload-placeholder" id="placeholder-ui">
+                        <i class="fa-solid fa-camera-retro"></i>
+                        <span>Tap to Upload Image<br><small>(Hover to zoom after upload)</small></span>
+                    </div>
+                    <img id="frame-preview" class="frame-image" src="" alt="Your Memory">
+                </div>
+            </label>
+            <input type="file" id="custom-file-input" accept="image/*" onchange="previewImage(event)">
+        </div>
+
+        <!-- 6. NEW PROPOSAL CLIMAX SECTION -->
+        <div class="propose-climax">
+            <div class="propose-ring-icon"><i class="fa-solid fa-ring"></i></div>
+            <div class="propose-text-main">My Heart Belongs to You</div>
+            <div class="propose-text-sub">Will you wear this invisible ring of my love forever?</div>
+        </div>
+
+        <!-- 7. THE MEGA EXPLORE BUTTON (Replaces Next button) -->
+        <button class="mega-explore-btn" onclick="openProposalPopup()">
+            Will You Explore This World With Me? <i class="fa-solid fa-heart" style="margin-left:8px;"></i>
+        </button>
+
+    </section>
+
+    <!-- 8. POPUP MODAL & PETAL CANVAS -->
+    <div class="popup-overlay" id="proposal-popup">
+        <!-- Separate Canvas specifically for Petals inside the popup -->
+        <canvas id="petal-canvas"></canvas>
+        
+        <div class="popup-box">
+            <div class="quote-text">
+                "In your eyes, I found my home.<br>
+                In your heart, I found my love.<br>
+                With every breath I take,<br>
+                I want to be yours."
+            </div>
+            <div class="quote-author">— Yours Forever —</div>
+            <button class="close-popup-btn" onclick="closeProposalPopup()">Yes, I Will! ❤️</button>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC
+         ========================================================================== -->
+    <script>
+        // --- 1. Envelope Reveal Logic ---
+        let hasOpened = false;
+        function revealContent() {
+            if(hasOpened) return;
+            hasOpened = true;
+            
+            const envelopeWrapper = document.getElementById('envelope-btn');
+            const hiddenContent = document.getElementById('hidden-content');
+            const instruction = document.querySelector('.instruction');
+            
+            envelopeWrapper.classList.add('is-open');
+            instruction.style.display = 'none';
+
+            setTimeout(() => {
+                hiddenContent.classList.add('revealed');
+                setTimeout(() => {
+                    hiddenContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 500); 
+            }, 1200); 
+        }
+
+        // --- 2. Slideshow Logic ---
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval;
+
+        function showSlide(index) {
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+        }
+
+        function changeSlide(step) { slideIndex += step; showSlide(slideIndex); resetInterval(); }
+        function currentSlide(index) { slideIndex = index; showSlide(slideIndex); resetInterval(); }
+        function autoSlide() { slideIndex++; showSlide(slideIndex); }
+        function resetInterval() { clearInterval(slideInterval); slideInterval = setInterval(autoSlide, 4000); }
+        showSlide(slideIndex);
+        slideInterval = setInterval(autoSlide, 4000);
+
+        // --- 3. Image Upload Logic ---
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('frame-preview');
+            const placeholder = document.getElementById('placeholder-ui');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    placeholder.style.display = 'none';
+                    preview.style.opacity = '1';
+                    preview.classList.add('loaded');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // --- 4. Main Canvas (Rings/Diamonds) ---
+        const mainCanvas = document.getElementById('propose-canvas');
+        const mainCtx = mainCanvas.getContext('2d');
+        let mWidth, mHeight;
+        let mainParticles = [];
+
+        function resizeMainCanvas() {
+            mWidth = mainCanvas.width = window.innerWidth;
+            mHeight = mainCanvas.height = window.innerHeight;
+            initMainParticles();
+        }
+        window.addEventListener('resize', resizeMainCanvas);
+
+        class MainParticle {
+            constructor() { this.reset(); this.y = Math.random() * mHeight; }
+            reset() {
+                this.x = Math.random() * mWidth; this.y = mHeight + 50;
+                this.size = Math.random() * 8 + 3; this.speed = Math.random() * 1.5 + 0.5;
+                this.angle = Math.random() * Math.PI * 2; this.spin = (Math.random() - 0.5) * 0.05;
+                const typeRand = Math.random();
+                if (typeRand < 0.6) this.type = 0; else if (typeRand < 0.85) this.type = 1; else this.type = 2;
+                this.opacity = Math.random() * 0.5 + 0.1; this.sway = Math.random() * 2 - 1; 
+            }
+            draw() {
+                mainCtx.save(); mainCtx.translate(this.x, this.y); mainCtx.rotate(this.angle); mainCtx.globalAlpha = this.opacity;
+                if (this.type === 0) {
+                    mainCtx.beginPath(); mainCtx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+                    mainCtx.fillStyle = "#ffffff"; mainCtx.shadowBlur = 10; mainCtx.shadowColor = "#ffffff"; mainCtx.fill();
+                } else if (this.type === 1) {
+                    mainCtx.beginPath(); mainCtx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    mainCtx.strokeStyle = "#ffd700"; mainCtx.lineWidth = 2; mainCtx.stroke();
+                    mainCtx.beginPath(); mainCtx.moveTo(0, -this.size - 2); mainCtx.lineTo(-3, -this.size);
+                    mainCtx.lineTo(0, -this.size + 3); mainCtx.lineTo(3, -this.size);
+                    mainCtx.fillStyle = "#e0ffff"; mainCtx.fill(); mainCtx.shadowBlur = 5; mainCtx.shadowColor = "#e0ffff";
+                } else {
+                    let s = this.size * 1.5; mainCtx.beginPath(); mainCtx.moveTo(0, -s); mainCtx.lineTo(s/2, 0);
+                    mainCtx.lineTo(0, s); mainCtx.lineTo(-s/2, 0); mainCtx.closePath();
+                    mainCtx.fillStyle = "rgba(224, 255, 255, 0.8)"; mainCtx.shadowBlur = 8; mainCtx.shadowColor = "#ffffff"; mainCtx.fill();
+                }
+                mainCtx.restore();
+            }
+            update() {
+                this.y -= this.speed; this.angle += this.spin; this.x += Math.sin(this.angle) * this.sway;
+                if (this.y < mHeight * 0.2) this.opacity -= 0.005;
+                if (this.y < -50 || this.opacity <= 0) this.reset();
+            }
+        }
+        function initMainParticles() {
+            mainParticles = [];
+            let amount = Math.floor((mWidth * mHeight) / 12000);
+            if (amount > 100) amount = 100;
+            for (let i = 0; i < amount; i++) mainParticles.push(new MainParticle());
+        }
+        function animateMainCanvas() {
+            mainCtx.clearRect(0, 0, mWidth, mHeight);
+            mainParticles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateMainCanvas);
+        }
+        resizeMainCanvas();
+        animateMainCanvas();
+
+        // --- 5. POPUP & FALLING PETALS LOGIC ---
+        const popupOverlay = document.getElementById('proposal-popup');
+        const petalCanvas = document.getElementById('petal-canvas');
+        const pCtx = petalCanvas.getContext('2d');
+        let pWidth, pHeight;
+        let petalsArray = [];
+        let petalAnimationId;
+
+        function openProposalPopup() {
+            popupOverlay.classList.add('active');
+            petalCanvas.style.display = 'block';
+            resizePetalCanvas(); // Ensure canvas is ready
+            startPetalDrop();
+        }
+
+        function closeProposalPopup() {
+            popupOverlay.classList.remove('active');
+            setTimeout(() => {
+                petalCanvas.style.display = 'none';
+                cancelAnimationFrame(petalAnimationId);
+            }, 600); // Wait for fade out
+        }
+
+        function resizePetalCanvas() {
+            pWidth = petalCanvas.width = window.innerWidth;
+            pHeight = petalCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizePetalCanvas);
+
+        class RosePetal {
+            constructor(dropNow = false) {
+                // If dropNow is true, start from top, else distribute randomly for initial burst
+                this.x = Math.random() * pWidth;
+                this.y = dropNow ? -50 : (Math.random() * pHeight - pHeight);
+                this.size = Math.random() * 15 + 10;
+                this.speedY = Math.random() * 3 + 2; // Faster drop
+                this.speedX = Math.random() * 3 - 1.5; // Wind effect
+                this.angle = Math.random() * 360;
+                this.spin = (Math.random() - 0.5) * 0.2;
+                
+                const colors = ['#ff1a4a', '#cc0033', '#ff4d73', '#8b0000'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.opacity = Math.random() * 0.4 + 0.6;
+            }
+
+            draw() {
+                pCtx.save();
+                pCtx.translate(this.x, this.y);
+                pCtx.rotate(this.angle);
+                pCtx.globalAlpha = this.opacity;
+                pCtx.beginPath();
+                pCtx.fillStyle = this.color;
+                pCtx.moveTo(0, 0);
+                pCtx.quadraticCurveTo(this.size / 2, -this.size, this.size, 0);
+                pCtx.quadraticCurveTo(this.size / 2, this.size / 2, 0, 0);
+                pCtx.fill();
+                pCtx.restore();
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.angle += this.spin;
+                this.x += Math.sin(this.angle) * 1.5; // Swaying
+
+                // Loop back to top
+                if (this.y > pHeight + this.size) {
+                    this.y = -this.size;
+                    this.x = Math.random() * pWidth;
+                }
+            }
+        }
+
+        function startPetalDrop() {
+            petalsArray = [];
+            let pAmount = Math.floor((pWidth * pHeight) / 10000);
+            if (pAmount > 80) pAmount = 80;
+
+            for (let i = 0; i < pAmount; i++) {
+                petalsArray.push(new RosePetal());
+            }
+            animatePetals();
+        }
+
+        function animatePetals() {
+            pCtx.clearRect(0, 0, pWidth, pHeight);
+            petalsArray.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            petalAnimationId = requestAnimationFrame(animatePetals);
+        }
+
+    </script>
+</body>
+</html>
