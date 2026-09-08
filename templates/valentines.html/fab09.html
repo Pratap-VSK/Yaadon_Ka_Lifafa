@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Feb 9 - Chocolate Day | My Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Lilita+One&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ==========================================================================
+           1. CORE VARIABLES & GLOBAL RESET
+           ========================================================================== */
+        :root {
+            --bg-dark: #1a0b05;
+            --bg-choco: #3d1c04;
+            --bg-light-choco: #5c2b09;
+            --text-gold: #ffd700;
+            --text-light: #f5deb3;
+            --accent-red: #d11a2a;
+            --btn-gradient: linear-gradient(135deg, #8b4513, #5c2b09);
+            --btn-hover: linear-gradient(135deg, #a0522d, #8b4513);
+            --transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            background: radial-gradient(circle at center, var(--bg-light-choco) 0%, var(--bg-dark) 100%);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+        
+        /* ==========================================================================
+           2. HERO SECTION (ANIME GIRL & CHOCOLATE ANIMATION)
+           ========================================================================== */
+        #hero-section {
+            position: relative; width: 100vw; height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 10; transition: opacity 1s ease, transform 1s ease;
+        }
+        .hero-title { font-family: 'Dancing Script', cursive; font-size: 4rem; color: var(--text-gold); text-shadow: 0 5px 15px rgba(0,0,0,0.8); margin-bottom: 20px; z-index: 12; text-align: center; }
+        #anime-canvas { width: 100%; max-width: 600px; height: 450px; z-index: 11; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); }
+        .action-btn {
+            padding: 15px 40px; font-size: 1.2rem; font-weight: 600; color: #fff; background: var(--btn-gradient);
+            border: 2px solid var(--text-gold); border-radius: 50px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: var(--transition); z-index: 12; margin-top: 30px; letter-spacing: 1px; text-transform: uppercase;
+        }
+        .action-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4); background: var(--btn-hover); }
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        /* ==========================================================================
+           3. MAIN CONTENT SECTION
+           ========================================================================== */
+        #main-content {
+            display: none; opacity: 0; width: 100%; min-height: 100vh; flex-direction: column;
+            align-items: center; padding: 40px 20px; z-index: 20; position: relative;
+        }
+        #main-content.visible { display: flex; animation: fadeInSlideUp 1.2s forwards; }
+        @keyframes fadeInSlideUp { 0% { opacity: 0; transform: translateY(50px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* ==========================================================================
+           NEW: REALISTIC HANGING CHOCOLATE WRAPPERS BANNER
+           ========================================================================== */
+        .choco-banner {
+            position: relative; width: 100%; max-width: 1000px; display: flex; justify-content: space-around; 
+            align-items: flex-start; padding-top: 60px; margin-bottom: 80px; z-index: 15;
+        }
+        /* The main horizontal string */
+        .hanging-string-main {
+            position: absolute; top: 20px; left: 5%; right: 5%; height: 3px;
+            background: #d4a373; border-bottom: 1px solid #faedcd;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.6); z-index: 0;
+            border-radius: 50%; /* Slight curve to look like it's hanging */
+        }
+        
+        .choco-item { position: relative; display: flex; flex-direction: column; align-items: center; z-index: 2; }
+        
+        /* The vertical drop string and knot */
+        .choco-item::before {
+            content: ''; position: absolute; top: -45px; left: 50%; transform: translateX(-50%);
+            width: 2px; height: 45px; background: #d4a373; z-index: -1;
+            box-shadow: 2px 0 3px rgba(0,0,0,0.5);
+        }
+        .choco-item::after {
+            content: ''; position: absolute; top: -5px; left: 50%; transform: translateX(-50%);
+            width: 10px; height: 10px; background: #b07d4b; border-radius: 50%;
+            box-shadow: inset -2px -2px 4px rgba(0,0,0,0.5), 2px 2px 5px rgba(0,0,0,0.6);
+            z-index: 5;
+        }
+
+        .choco-wrapper {
+            position: relative; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.7), inset 0 5px 10px rgba(255,255,255,0.2);
+            transform: rotate(var(--rot)); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+        }
+        .choco-wrapper:hover { transform: scale(1.15) rotate(0deg); z-index: 10; box-shadow: 0 25px 35px rgba(0,0,0,0.9); }
+        
+        /* Zigzag Edges for Rectangular Wrappers */
+        .zigzag-edges::before, .zigzag-edges::after {
+            content: ''; position: absolute; width: 10px; height: 100%; background: inherit; z-index: 1;
+            background-image: linear-gradient(45deg, rgba(0,0,0,0.2) 25%, transparent 25%), linear-gradient(-45deg, rgba(0,0,0,0.2) 25%, transparent 25%);
+            background-size: 10px 10px;
+        }
+        .zigzag-edges::before { left: -6px; } .zigzag-edges::after { right: -6px; }
+
+        /* KitKat: Red, white oval */
+        .kitkat { width: 140px; height: 50px; background: #e32636; color: #fff; --rot: -5deg; border-radius: 3px; font-family: 'Lilita One', cursive; font-size: 1.2rem; }
+        .kitkat span { background: #fff; color: #e32636; padding: 2px 12px; border-radius: 15px; box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border: 2px solid #b30000; }
+        
+        /* Dairy Milk: Purple, Metallic, Gold Text */
+        .dairymilk { width: 150px; height: 55px; background: linear-gradient(135deg, #4A0E4E 0%, #81208a 50%, #3a0a3d 100%); color: #ffd700; --rot: 7deg; font-family: 'Dancing Script', cursive; font-size: 1.6rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); border-radius: 2px; }
+        .dairymilk::before, .dairymilk::after { filter: brightness(0.8); }
+
+        /* Dark Fantasy: Premium dark brown, gold details */
+        .darkfantasy { width: 145px; height: 50px; background: linear-gradient(to right, #1a0b02, #4a2105, #1a0b02); color: #d4af37; --rot: -4deg; font-family: 'Playfair Display', serif; font-style: italic; border-top: 2px solid #d4af37; border-bottom: 2px solid #d4af37; letter-spacing: 1px; }
+
+        /* Toblerone: Triangular Prism 3D Illusion */
+        .toblerone {
+            width: 160px; height: 45px; --rot: 5deg; font-family: 'Arial', sans-serif; font-weight: 900; font-size: 1rem; color: #cc0000; letter-spacing: 3px; text-transform: uppercase;
+            /* 3D Triangle effect using gradients */
+            background: linear-gradient(to bottom, #ffea8c 0%, #ffcc00 40%, #cca300 100%);
+            border-left: 10px solid #cc0000; border-right: 10px solid #cc0000;
+            clip-path: polygon(0 20%, 100% 20%, 95% 100%, 5% 100%);
+            padding-top: 10px;
+        }
+
+        /* Ferrero Rocher: Round gold foil in a pleated cup */
+        .ferrero-container { position: relative; --rot: -6deg; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .ferrero-foil {
+            width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at 30% 30%, #fff4cc 0%, #d4af37 40%, #8b6508 100%);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5);
+            font-family: 'Playfair Display', serif; font-size: 0.7rem; color: #fff; text-shadow: 1px 1px 2px #000; text-align: center; line-height: 1; z-index: 2;
+        }
+        .ferrero-foil::before { /* Crumpled foil texture overlay */
+            content: ''; position: absolute; width: 100%; height: 100%; border-radius: 50%;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px);
+            z-index: 1; pointer-events: none;
+        }
+        .ferrero-cup {
+            position: absolute; bottom: -10px; width: 80px; height: 40px; background: #3e2723; z-index: 1;
+            border-radius: 5px 5px 40px 40px;
+            /* Paper pleats texture */
+            background-image: repeating-linear-gradient(to right, transparent, transparent 4px, rgba(0,0,0,0.5) 4px, rgba(0,0,0,0.5) 8px);
+            box-shadow: 0 10px 10px rgba(0,0,0,0.7);
+        }
+
+        /* ==========================================================================
+           NEW: ZIG-ZAG IMAGE UPLOADS & 4 UNIQUE ANIMATED HEARTS
+           ========================================================================== */
+        .zigzag-section { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 80px; margin-bottom: 80px; }
+        .zigzag-row { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 20px; }
+        .zigzag-row.reverse { flex-direction: row-reverse; }
+
+        /* Upload Frame */
+        .upload-frame-wrapper {
+            position: relative; width: 260px; height: 260px; background: rgba(255, 255, 255, 0.05);
+            border: 4px dashed var(--text-gold); border-radius: 15px; display: flex; justify-content: center;
+            align-items: center; overflow: hidden; cursor: pointer; box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+            transition: all 0.3s ease; z-index: 10;
+        }
+        .upload-frame-wrapper:hover { border-style: solid; box-shadow: 0 15px 30px rgba(255, 215, 0, 0.4); transform: scale(1.05); }
+        .upload-placeholder { text-align: center; color: var(--text-light); pointer-events: none; font-size: 1.1rem; }
+        .upload-placeholder i { font-size: 3rem; margin-bottom: 10px; color: var(--text-gold); }
+        .custom-file-input { display: none; }
+        .uploaded-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: 0.5s; z-index: 5; }
+        .uploaded-img.show { opacity: 1; }
+
+        /* Base Heart Body */
+        .heart-char { position: relative; width: 140px; height: 140px; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.5)); z-index: 5; }
+        .h-body { position: absolute; width: 80px; height: 80px; background: #ff3366; transform: rotate(-45deg); top: 30px; left: 30px; box-shadow: inset 10px 10px 20px rgba(255,255,255,0.4), inset -10px -10px 20px rgba(0,0,0,0.3); }
+        .h-body::before, .h-body::after { content: ''; position: absolute; width: 80px; height: 80px; background: inherit; border-radius: 50%; box-shadow: inherit; }
+        .h-body::before { top: -40px; left: 0; } .h-body::after { top: 0; left: 40px; }
+        
+        /* Base Limbs & Face */
+        .h-arm { position: absolute; width: 35px; height: 8px; background: #ff3366; border-radius: 4px; z-index: -1; transform-origin: left center; }
+        .h-leg { position: absolute; width: 8px; height: 35px; background: #ff3366; border-radius: 4px; bottom: -15px; z-index: -1; }
+        .h-face { position: absolute; width: 70px; height: 70px; top: 40px; left: 35px; z-index: 2; }
+        .h-eye { position: absolute; width: 12px; height: 12px; background: #000; border-radius: 50%; top: 15px; }
+        .h-eye::after { content:''; position:absolute; width:4px; height:4px; background:#fff; border-radius:50%; top:2px; left:2px; }
+        .h-blush { position: absolute; width: 18px; height: 8px; background: rgba(255,0,0,0.5); border-radius: 50%; top: 28px; filter: blur(2px); }
+
+        /* --- HEART 1: DANCING (Hand in air, hand on waist) --- */
+        .dance-heart { animation: danceBounce 0.6s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
+        .dance-heart .h-mouth { position: absolute; width: 24px; height: 16px; background: #4a0000; border-radius: 0 0 20px 20px; bottom: 15px; left: 23px; }
+        .dance-heart .h-eye.left { left: 10px; } .dance-heart .h-eye.right { right: 10px; }
+        .dance-heart .h-blush.left { left: 0; } .dance-heart .h-blush.right { right: 0; }
+        .dance-heart .h-arm.left { top: 60px; left: 0px; transform: rotate(-135deg); width: 45px; } /* Hand in air */
+        .dance-heart .h-arm.right { top: 70px; right: 5px; transform: rotate(45deg); width: 25px; transform-origin: right center;} /* On waist */
+        .dance-heart .h-leg.left { left: 45px; transform: rotate(25deg); }
+        .dance-heart .h-leg.right { right: 45px; transform: rotate(-15deg); }
+
+        /* --- HEART 2: SHY PEEK (Hands covering face, smile, one eye peeking) --- */
+        .shy-peek-heart .h-body { background: #ff99cc; }
+        .shy-peek-heart .h-arm { background: #ff99cc; }
+        .shy-peek-heart .h-leg { background: #ff99cc; }
+        .shy-peek-heart { animation: shySway 2s infinite alternate ease-in-out; }
+        .shy-peek-heart .h-arm.left { top: 65px; left: 20px; transform: rotate(-60deg); z-index: 5; width: 40px; } /* Covering left side */
+        .shy-peek-heart .h-arm.right { top: 65px; right: 15px; transform: rotate(200deg); z-index: 5; width: 40px; } /* Covering right side partly */
+        .shy-peek-heart .h-eye.left { display: none; } /* Hidden behind hand */
+        .shy-peek-heart .h-eye.right { right: 10px; top: 15px; } /* Peeking */
+        .shy-peek-heart .h-mouth { position: absolute; bottom: 20px; left: 25px; width: 15px; height: 6px; border-bottom: 3px solid #000; border-radius: 50%; }
+        .shy-peek-heart .h-blush.right { right: 5px; } .shy-peek-heart .h-blush.left { display: none; }
+        .shy-peek-heart .h-leg.left { left: 45px; transform: rotate(10deg); }
+        .shy-peek-heart .h-leg.right { right: 45px; transform: rotate(-10deg); }
+
+        /* --- HEART 3: BLOWING KISS (Hand to mouth, winking, floating heart) --- */
+        .kiss-heart { animation: floatHover 2s infinite alternate ease-in-out; }
+        .kiss-heart .h-mouth { position: absolute; bottom: 20px; left: 15px; width: 10px; height: 10px; background: #000; border-radius: 50%; }
+        .kiss-heart .h-eye.left { left: 10px; height: 4px; border-radius: 0; background: transparent; border-bottom: 3px solid #000; top: 20px; } /* Winking */
+        .kiss-heart .h-eye.left::after { display: none; }
+        .kiss-heart .h-eye.right { right: 10px; }
+        .kiss-heart .h-blush.left { left: 0; } .kiss-heart .h-blush.right { right: 0; }
+        .kiss-heart .h-arm.left { top: 75px; left: 5px; transform: rotate(-110deg); z-index: 5; } /* Hand near mouth */
+        .kiss-heart .h-arm.right { top: 65px; right: 0; transform: rotate(20deg); }
+        .kiss-heart .h-leg.left { left: 45px; } .kiss-heart .h-leg.right { right: 45px; }
+        .mini-kiss { position: absolute; left: 0px; top: 40px; font-size: 1.5rem; color: #ff0000; animation: blowKiss 1.5s infinite; z-index: 10; opacity: 0; }
+
+        /* --- HEART 4: PRESENTING (Both hands gesturing towards image) --- */
+        .present-heart .h-body { background: #ff4d4d; }
+        .present-heart .h-arm { background: #ff4d4d; }
+        .present-heart .h-leg { background: #ff4d4d; }
+        .present-heart { animation: bowSlightly 2s infinite alternate; }
+        .present-heart .h-eye.left { left: 10px; } .present-heart .h-eye.right { right: 10px; }
+        .present-heart .h-mouth { position: absolute; width: 20px; height: 10px; border-bottom: 3px solid #000; border-radius: 50%; bottom: 20px; left: 25px; }
+        .present-heart .h-blush.left { left: 0; } .present-heart .h-blush.right { right: 0; }
+        /* Since this is on the left side of Row 4 (reverse row), arms gesture RIGHT */
+        .present-heart .h-arm.left { top: 65px; left: 10px; transform: rotate(10deg); width: 45px; z-index: 5; }
+        .present-heart .h-arm.right { top: 65px; right: -25px; transform: rotate(15deg); width: 45px; z-index: 5; transform-origin: left center;}
+        .present-heart .h-leg.left { left: 45px; } .present-heart .h-leg.right { right: 45px; }
+
+        @keyframes danceBounce { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-25px) scale(1.05); } }
+        @keyframes shySway { 0% { transform: rotate(-8deg) translateX(-10px); } 100% { transform: rotate(8deg) translateX(10px); } }
+        @keyframes floatHover { 0% { transform: translateY(-5px); } 100% { transform: translateY(10px); } }
+        @keyframes blowKiss { 0% { transform: translate(0, 0) scale(0.5); opacity: 1; } 100% { transform: translate(-30px, -40px) scale(1.5); opacity: 0; } }
+        @keyframes bowSlightly { 0% { transform: rotate(0deg); } 100% { transform: rotate(10deg); } } /* Bowing towards image */
+
+        /* ==========================================================================
+           6. EXISTING SLIDESHOW, FIGHT SCENE, LOVE LETTER
+           ========================================================================== */
+        .slider-container { width: 100%; max-width: 800px; height: 450px; position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 20px rgba(255, 215, 0, 0.2); border: 4px solid var(--bg-choco); margin-bottom: 60px; background: #000; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease; display: flex; justify-content: center; align-items: center; }
+        .slide.active { opacity: 1; z-index: 2; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+        .slide-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #fff; text-align: center; font-family: 'Dancing Script', cursive; font-size: 2rem; }
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(61, 28, 4, 0.7); color: var(--text-gold); border: 1px solid var(--text-gold); width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 10; transition: var(--transition); display: flex; justify-content: center; align-items: center; }
+        .nav-btn:hover { background: var(--text-gold); color: var(--bg-dark); box-shadow: 0 0 20px var(--text-gold); }
+        .prev-btn { left: 20px; } .next-btn { right: 20px; }
+
+        .hearts-fight-section { width: 100%; max-width: 900px; display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
+        .section-title { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--text-gold); margin-bottom: 20px; text-align: center; text-shadow: 0 5px 10px rgba(0,0,0,0.8); }
+        #fight-canvas { width: 100%; max-width: 800px; height: 450px; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%); border-radius: 20px; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8)); margin-bottom: 20px; }
+        
+        .love-letter-section { width: 100%; max-width: 800px; margin: 20px auto 60px auto; padding: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; border: 1px solid var(--text-gold); box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 30px rgba(255,215,0,0.1); backdrop-filter: blur(10px); text-align: center; }
+        .letter-text { font-family: 'Dancing Script', cursive; font-size: 2rem; color: #fff; line-height: 1.8; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .signature { margin-top: 30px; font-size: 2.2rem; color: var(--text-gold); text-align: right; font-family: 'Dancing Script', cursive; }
+
+        .mega-btn { padding: 20px 50px; font-size: 1.5rem; border-radius: 50px; background: linear-gradient(45deg, #d11a2a, #ff4d4d, #d11a2a); background-size: 200%; color: #fff; border: 2px solid #fff; cursor: pointer; box-shadow: 0 10px 30px rgba(209, 26, 42, 0.6); transition: all 0.4s ease; animation: bgShift 3s infinite linear; font-family: 'Dancing Script', cursive; letter-spacing: 2px; }
+        .mega-btn:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 20px 40px rgba(209, 26, 42, 0.9), 0 0 30px rgba(255,255,255,0.5); }
+        @keyframes bgShift { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+
+        /* ==========================================================================
+           7. POPUP MODAL (HUGGING & SHARING CHOCOLATE)
+           ========================================================================== */
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.9); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.6s ease; backdrop-filter: blur(10px); }
+        .popup-overlay.active { opacity: 1; pointer-events: auto; }
+        .popup-content { background: var(--bg-choco); border: 2px solid var(--text-gold); border-radius: 20px; padding: 40px; width: 95%; max-width: 800px; text-align: center; box-shadow: 0 0 50px rgba(255, 215, 0, 0.3); transform: scale(0.8); transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+        .popup-overlay.active .popup-content { transform: scale(1); }
+        .close-popup { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: var(--text-gold); cursor: pointer; transition: 0.3s; }
+        .close-popup:hover { color: #fff; transform: rotate(90deg); }
+        #share-canvas { width: 100%; height: 400px; margin-top: 20px; }
+        .popup-text { font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--text-gold); margin-top: 20px; text-shadow: 0 5px 10px rgba(0,0,0,0.8); }
+
+        @media(max-width: 900px) {
+            .choco-banner { flex-wrap: wrap; gap: 40px; }
+        }
+        @media(max-width: 768px) { 
+            .hero-title { font-size: 2.5rem; } #anime-canvas { height: 350px; } 
+            .zigzag-row, .zigzag-row.reverse { flex-direction: column; gap: 40px; margin-bottom: 60px; }
+            .upload-frame-wrapper { width: 100%; max-width: 300px; }
+            .slider-container { height: 300px; } #fight-canvas, #share-canvas { height: 300px; } 
+            .love-letter-section { padding: 25px; } .letter-text { font-size: 1.5rem; } 
+            .mega-btn { font-size: 1.2rem; padding: 15px 30px; } 
+            .hanging-string-main { top: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Particles -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- 1. Hero Section -->
+    <section id="hero-section">
+        <h1 class="hero-title">A Sweet Treat For You...</h1>
+        <!-- Procedurally Drawn Anime Character Canvas -->
+        <canvas id="anime-canvas"></canvas>
+        <button class="action-btn" id="eat-btn">Feed Her Chocolate <i class="fa-solid fa-cookie-bite"></i></button>
+    </section>
+
+    <!-- 2. Main Content (Revealed after eating) -->
+    <section id="main-content">
+        
+        <!-- NEW: HANGING REALISTIC CHOCOLATE BANNER -->
+        <div class="choco-banner">
+            <div class="hanging-string-main"></div>
+            
+            <div class="choco-item">
+                <div class="choco-wrapper kitkat zigzag-edges"><span>KitKat</span></div>
+            </div>
+            
+            <div class="choco-item" style="margin-top: 15px;">
+                <div class="choco-wrapper dairymilk zigzag-edges">Dairy Milk</div>
+            </div>
+            
+            <div class="choco-item" style="margin-top: -10px;">
+                <div class="choco-wrapper darkfantasy zigzag-edges">Dark Fantasy</div>
+            </div>
+            
+            <div class="choco-item" style="margin-top: 20px;">
+                <div class="choco-wrapper toblerone">Toblerone</div>
+            </div>
+            
+            <div class="choco-item" style="margin-top: -5px;">
+                <div class="choco-wrapper ferrero-container">
+                    <div class="ferrero-foil">Ferrero<br>Rocher</div>
+                    <div class="ferrero-cup"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW: ZIG-ZAG IMAGE UPLOADS WITH 4 UNIQUE ANIMATED HEARTS -->
+        <div class="zigzag-section">
+            
+            <!-- Row 1: Image Left, Dancing Heart Right (Hand in air, hand on waist) -->
+            <div class="zigzag-row">
+                <label class="upload-frame-wrapper">
+                    <div class="upload-placeholder"><i class="fa-solid fa-camera"></i><br>Upload Memory</div>
+                    <img id="preview-img-1" class="uploaded-img" src="" alt="Memory">
+                    <input type="file" class="custom-file-input" accept="image/*" onchange="previewUpload(event, 'preview-img-1')">
+                </label>
+                
+                <div class="heart-char dance-heart">
+                    <div class="h-arm left"></div><div class="h-arm right"></div>
+                    <div class="h-leg left"></div><div class="h-leg right"></div>
+                    <div class="h-body"></div>
+                    <div class="h-face">
+                        <div class="h-eye left"></div><div class="h-eye right"></div>
+                        <div class="h-blush left"></div><div class="h-blush right"></div>
+                        <div class="h-mouth"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Heart Left, Image Right (Shy Heart covering face, one eye peeking) -->
+            <div class="zigzag-row reverse">
+                <label class="upload-frame-wrapper">
+                    <div class="upload-placeholder"><i class="fa-solid fa-camera"></i><br>Upload Memory</div>
+                    <img id="preview-img-2" class="uploaded-img" src="" alt="Memory">
+                    <input type="file" class="custom-file-input" accept="image/*" onchange="previewUpload(event, 'preview-img-2')">
+                </label>
+
+                <div class="heart-char shy-peek-heart">
+                    <div class="h-arm left"></div><div class="h-arm right"></div>
+                    <div class="h-leg left"></div><div class="h-leg right"></div>
+                    <div class="h-body"></div>
+                    <div class="h-face">
+                        <div class="h-eye left"></div><div class="h-eye right"></div>
+                        <div class="h-blush left"></div><div class="h-blush right"></div>
+                        <div class="h-mouth"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Image Left, Kissing Heart Right (Blowing a kiss) -->
+            <div class="zigzag-row">
+                <label class="upload-frame-wrapper">
+                    <div class="upload-placeholder"><i class="fa-solid fa-camera"></i><br>Upload Memory</div>
+                    <img id="preview-img-3" class="uploaded-img" src="" alt="Memory">
+                    <input type="file" class="custom-file-input" accept="image/*" onchange="previewUpload(event, 'preview-img-3')">
+                </label>
+                
+                <div class="heart-char kiss-heart">
+                    <div class="mini-kiss"><i class="fa-solid fa-heart"></i></div>
+                    <div class="h-arm left"></div><div class="h-arm right"></div>
+                    <div class="h-leg left"></div><div class="h-leg right"></div>
+                    <div class="h-body"></div>
+                    <div class="h-face">
+                        <div class="h-eye left"></div><div class="h-eye right"></div>
+                        <div class="h-blush left"></div><div class="h-blush right"></div>
+                        <div class="h-mouth"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 4: Heart Left, Image Right (Presenting Heart gesturing to image) -->
+            <div class="zigzag-row reverse">
+                <label class="upload-frame-wrapper">
+                    <div class="upload-placeholder"><i class="fa-solid fa-camera"></i><br>Upload Memory</div>
+                    <img id="preview-img-4" class="uploaded-img" src="" alt="Memory">
+                    <input type="file" class="custom-file-input" accept="image/*" onchange="previewUpload(event, 'preview-img-4')">
+                </label>
+
+                <div class="heart-char present-heart">
+                    <div class="h-arm left"></div><div class="h-arm right"></div>
+                    <div class="h-leg left"></div><div class="h-leg right"></div>
+                    <div class="h-body"></div>
+                    <div class="h-face">
+                        <div class="h-eye left"></div><div class="h-eye right"></div>
+                        <div class="h-blush left"></div><div class="h-blush right"></div>
+                        <div class="h-mouth"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Slideshow -->
+        <div class="slider-container">
+            <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1511381939415-e440c9c21a48?q=80&w=1000&auto=format&fit=crop" alt="Memory">
+                <div class="slide-overlay">Life is sweeter with you...</div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1548812608-8df01804104c?q=80&w=1000&auto=format&fit=crop" alt="Memory">
+                <div class="slide-overlay">Just like rich dark chocolate.</div>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1548691811-1a3eb64f51e1?q=80&w=1000&auto=format&fit=crop" alt="Memory">
+                <div class="slide-overlay">I want to share every piece with you.</div>
+            </div>
+            <button class="nav-btn prev-btn" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="nav-btn next-btn" onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+        <!-- 3D Puffy Hearts Fighting Section -->
+        <div class="hearts-fight-section">
+            <h2 class="section-title">When there's only one piece left...</h2>
+            <!-- Procedurally Drawn 3D Fighting Hearts -->
+            <canvas id="fight-canvas"></canvas>
+        </div>
+
+        <!-- Love Letter Section -->
+        <div class="love-letter-section">
+            <h2 class="section-title">My Heart's Confession</h2>
+            <p class="letter-text">
+                My Dearest Love,<br><br>
+                Every chocolate I taste reminds me of your sweetness, but honestly, none can ever compare to the magic you bring into my life. Like a perfectly blended cocoa, you make every dull moment rich and full of life. No matter how much we fight for the last piece, I will always give up my chocolate, and my heart, just to see you smile.<br><br>
+                You are my forever flavor.
+            </p>
+            <div class="signature">Forever Yours, <br><i class="fa-solid fa-heart" style="color:var(--accent-red);"></i></div>
+        </div>
+
+        <button class="mega-btn" onclick="openPopup()">Happy Chocolate Day My Love <i class="fa-solid fa-heart"></i></button>
+    </section>
+
+    <!-- 3. Popup Modal (Hugging & Sharing) -->
+    <div class="popup-overlay" id="choco-popup">
+        <div class="popup-content">
+            <i class="fa-solid fa-times close-popup" onclick="closePopup()"></i>
+            <h2 class="section-title" style="margin-bottom:0;">We Always Share!</h2>
+            <!-- Procedurally Drawn Hugging/Sharing Hearts -->
+            <canvas id="share-canvas"></canvas>
+            <div class="popup-text">I love you more than chocolate!</div>
+        </div>
+    </div>
+
+    <script>
+        // ====================================================================================================
+        // GLOBAL CANVAS SETUP & UTILITIES
+        // ====================================================================================================
+        function setupCanvas(id) {
+            const canvas = document.getElementById(id);
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            return { canvas, ctx, width: rect.width, height: rect.height };
+        }
+
+        // ====================================================================================================
+        // ZIG-ZAG IMAGE UPLOAD PREVIEW LOGIC
+        // ====================================================================================================
+        function previewUpload(event, imgId) {
+            const input = event.target;
+            const preview = document.getElementById(imgId);
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.add('show');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // ====================================================================================================
+        // SCENE 1: ENHANCED REALISTIC ANIME FEMALE EATING CHOCOLATE
+        // ====================================================================================================
+        let animeScene, animeReq;
+        let eatProgress = 0; 
+        let isEating = false;
+        let hasEaten = false;
+
+        function initAnimeCanvas() {
+            animeScene = setupCanvas('anime-canvas');
+            drawAnimeScene();
+        }
+
+        function drawAnimeScene() {
+            const { ctx, width, height } = animeScene;
+            ctx.clearRect(0, 0, width, height);
+            const centerX = width / 2;
+            const centerY = height / 2;
+
+            // --- Enhanced Skin Tones & Colors ---
+            const skinBase = "#ffe0bd"; const skinShadow = "#e6b999"; const skinDeep = "#d49a7a";
+            const hairDark = "#2a1b1b"; const hairLight = "#4a2c2c"; const eyeColor = "#4b2e2e";
+            const lipColor = "#d13b4b"; const dressColor = "#730000";
+
+            // 1. Draw Back Hair
+            ctx.beginPath(); ctx.fillStyle = hairDark;
+            ctx.moveTo(centerX - 90, centerY + 100);
+            ctx.bezierCurveTo(centerX - 140, centerY + 50, centerX - 100, centerY - 140, centerX, centerY - 160);
+            ctx.bezierCurveTo(centerX + 100, centerY - 140, centerX + 140, centerY + 50, centerX + 90, centerY + 100);
+            ctx.fill();
+
+            // 2. Draw Neck, Collarbones & Cleavage
+            ctx.beginPath();
+            const neckGrad = ctx.createLinearGradient(centerX, centerY + 50, centerX, centerY + 140);
+            neckGrad.addColorStop(0, skinDeep); neckGrad.addColorStop(1, skinBase);
+            ctx.fillStyle = neckGrad;
+            ctx.moveTo(centerX - 22, centerY + 50); ctx.lineTo(centerX - 28, centerY + 100);
+            ctx.bezierCurveTo(centerX - 90, centerY + 110, centerX - 130, centerY + 150, centerX - 140, centerY + 220);
+            ctx.lineTo(centerX + 140, centerY + 220);
+            ctx.bezierCurveTo(centerX + 130, centerY + 150, centerX + 90, centerY + 110, centerX + 28, centerY + 100);
+            ctx.lineTo(centerX + 22, centerY + 50);
+            ctx.fill();
+            
+            ctx.beginPath(); ctx.strokeStyle = skinShadow; ctx.lineWidth = 2.5; ctx.lineCap = "round";
+            ctx.moveTo(centerX - 60, centerY + 120); ctx.quadraticCurveTo(centerX - 30, centerY + 135, centerX - 5, centerY + 130);
+            ctx.moveTo(centerX + 60, centerY + 120); ctx.quadraticCurveTo(centerX + 30, centerY + 135, centerX + 5, centerY + 130);
+            ctx.stroke();
+
+            ctx.beginPath(); ctx.strokeStyle = skinDeep; ctx.lineWidth = 2;
+            ctx.moveTo(centerX, centerY + 150); ctx.quadraticCurveTo(centerX, centerY + 170, centerX, centerY + 190); ctx.stroke();
+
+            // 3. Elegant Sweetheart Dress
+            ctx.beginPath(); ctx.fillStyle = dressColor;
+            ctx.moveTo(centerX - 140, centerY + 220);
+            ctx.bezierCurveTo(centerX - 100, centerY + 160, centerX - 50, centerY + 185, centerX, centerY + 195);
+            ctx.bezierCurveTo(centerX + 50, centerY + 185, centerX + 100, centerY + 160, centerX + 140, centerY + 220);
+            ctx.fill();
+
+            // 4. Draw Head
+            ctx.beginPath();
+            const faceGrad = ctx.createRadialGradient(centerX, centerY - 20, 10, centerX, centerY, 80);
+            faceGrad.addColorStop(0, skinBase); faceGrad.addColorStop(1, skinShadow);
+            ctx.fillStyle = faceGrad;
+            ctx.moveTo(centerX - 60, centerY - 50);
+            ctx.bezierCurveTo(centerX - 65, centerY + 10, centerX - 45, centerY + 65, centerX, centerY + 80); 
+            ctx.bezierCurveTo(centerX + 45, centerY + 65, centerX + 65, centerY + 10, centerX + 60, centerY - 50);
+            ctx.bezierCurveTo(centerX + 50, centerY - 110, centerX - 50, centerY - 110, centerX - 60, centerY - 50);
+            ctx.fill();
+
+            // 5. Sexy/Elegant Eyes
+            const drawEye = (x, y) => {
+                ctx.beginPath(); ctx.fillStyle = "#fff";
+                ctx.ellipse(x, y, 19, 11, 0, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath();
+                const irisGrad = ctx.createRadialGradient(x, y+2, 2, x, y, 12);
+                irisGrad.addColorStop(0, "#8b4513"); irisGrad.addColorStop(1, eyeColor);
+                ctx.fillStyle = irisGrad; ctx.arc(x, y, 11, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.fillStyle = "#000"; ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.fillStyle = "#fff"; ctx.arc(x - 4, y - 4, 3.5, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.fillStyle = "rgba(255,255,255,0.7)"; ctx.arc(x + 4, y + 4, 1.5, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.strokeStyle = "#000"; ctx.lineWidth = 4; ctx.lineCap = "round";
+                ctx.moveTo(x - 22, y - 2); 
+                ctx.bezierCurveTo(x - 10, y - 18, x + 15, y - 16, x + 24, y + 2); 
+                ctx.stroke();
+                ctx.beginPath(); ctx.strokeStyle = "#333"; ctx.lineWidth = 1.5;
+                ctx.moveTo(x - 15, y + 8); ctx.quadraticCurveTo(x, y + 12, x + 15, y + 8); ctx.stroke();
+            };
+            let eyeY = centerY - 10;
+            if (eatProgress > 0.4 && eatProgress < 0.9 && !hasEaten) eyeY += 5; 
+            drawEye(centerX - 32, eyeY);
+            drawEye(centerX + 32, eyeY);
+
+            // Blush
+            ctx.beginPath(); ctx.fillStyle = "rgba(255, 105, 180, 0.4)";
+            ctx.ellipse(centerX - 38, centerY + 18, 16, 9, -0.2, 0, Math.PI * 2); ctx.fill();
+            ctx.ellipse(centerX + 38, centerY + 18, 16, 9, 0.2, 0, Math.PI * 2); ctx.fill();
+
+            // Nose
+            ctx.beginPath(); ctx.strokeStyle = skinShadow; ctx.lineWidth = 1.5;
+            ctx.moveTo(centerX, centerY + 25); ctx.lineTo(centerX + 3, centerY + 30); ctx.stroke();
+
+            // 6. Plump Lips
+            ctx.beginPath();
+            if (eatProgress > 0.3 && eatProgress < 0.7 && !hasEaten) {
+                ctx.fillStyle = "#4a0000";
+                ctx.ellipse(centerX, centerY + 52, 11, 14, 0, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.fillStyle = "#ff6b6b";
+                ctx.ellipse(centerX, centerY + 60, 7, 5, 0, 0, Math.PI * 2); ctx.fill();
+            } else if (hasEaten) {
+                ctx.fillStyle = lipColor;
+                ctx.moveTo(centerX - 18, centerY + 45);
+                ctx.quadraticCurveTo(centerX, centerY + 58, centerX + 18, centerY + 45);
+                ctx.quadraticCurveTo(centerX, centerY + 52, centerX - 18, centerY + 45); ctx.fill();
+            } else {
+                ctx.fillStyle = lipColor;
+                ctx.moveTo(centerX - 15, centerY + 48);
+                ctx.quadraticCurveTo(centerX, centerY + 44, centerX + 15, centerY + 48); 
+                ctx.quadraticCurveTo(centerX, centerY + 55, centerX - 15, centerY + 48); 
+                ctx.fill();
+                ctx.beginPath(); ctx.fillStyle = "rgba(255,255,255,0.6)";
+                ctx.ellipse(centerX, centerY + 51, 4, 1.5, 0, 0, Math.PI*2); ctx.fill();
+            }
+
+            // 7. Flowing Front Hair Bangs
+            ctx.beginPath(); ctx.fillStyle = hairLight;
+            ctx.moveTo(centerX, centerY - 140);
+            ctx.bezierCurveTo(centerX - 60, centerY - 130, -10 + centerX - 80, centerY - 50, centerX - 75, centerY - 5);
+            ctx.lineTo(centerX - 45, centerY - 45);
+            ctx.bezierCurveTo(centerX - 20, centerY - 25, centerX, centerY - 45, centerX, centerY - 45);
+            ctx.bezierCurveTo(centerX + 20, centerY - 25, centerX + 45, centerY - 45, centerX + 75, centerY - 5);
+            ctx.bezierCurveTo(10 + centerX + 80, centerY - 50, centerX + 60, centerY - 130, centerX, centerY - 140);
+            ctx.fill();
+
+            // 8. Arm & Hand Holding Chocolate
+            let handX = centerX + 70 - (eatProgress * 70);
+            let handY = centerY + 160 - (eatProgress * 110);
+            if (hasEaten) { handX = centerX + 90; handY = centerY + 170; }
+
+            ctx.beginPath(); ctx.strokeStyle = skinBase; ctx.lineWidth = 18; ctx.lineCap = "round";
+            ctx.moveTo(centerX + 110, centerY + 180); 
+            ctx.lineTo(handX, handY); ctx.stroke();
+
+            let chocoWidth = 40, chocoHeight = 65;
+            if (eatProgress > 0.5 && !hasEaten) chocoHeight = 65 - ((eatProgress - 0.5) * 2 * 35); 
+            if (!hasEaten || eatProgress < 1) {
+                ctx.save();
+                ctx.translate(handX - 15, handY - 45);
+                ctx.rotate(-0.15); 
+                ctx.fillStyle = "#3d1c04";
+                ctx.fillRect(0, 65 - chocoHeight, chocoWidth, chocoHeight);
+                ctx.strokeStyle = "#1a0b02"; ctx.lineWidth = 2;
+                if(chocoHeight > 22) { ctx.beginPath(); ctx.moveTo(0, 65 - chocoHeight + 22); ctx.lineTo(chocoWidth, 65 - chocoHeight + 22); ctx.stroke(); }
+                if(chocoHeight > 44) { ctx.beginPath(); ctx.moveTo(0, 65 - chocoHeight + 44); ctx.lineTo(chocoWidth, 65 - chocoHeight + 44); ctx.stroke(); }
+                ctx.beginPath(); ctx.moveTo(chocoWidth/2, 65 - chocoHeight); ctx.lineTo(chocoWidth/2, 65); ctx.stroke();
+                ctx.fillStyle = "rgba(255,255,255,0.1)"; ctx.fillRect(2, 65 - chocoHeight + 2, chocoWidth/2 - 2, chocoHeight - 4);
+                ctx.restore();
+            }
+
+            ctx.beginPath(); ctx.fillStyle = skinBase; ctx.arc(handX, handY, 13, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.strokeStyle = skinShadow; ctx.lineWidth = 2;
+            ctx.moveTo(handX - 6, handY - 12); ctx.lineTo(handX - 11, handY + 6);
+            ctx.moveTo(handX + 1, handY - 14); ctx.lineTo(handX - 3, handY + 6);
+            ctx.moveTo(handX + 7, handY - 12); ctx.lineTo(handX + 5, handY + 6);
+            ctx.stroke();
+
+            if (isEating) animeReq = requestAnimationFrame(animateEating);
+        }
+
+        function animateEating() {
+            eatProgress += 0.015;
+            if (eatProgress >= 1) {
+                isEating = false; hasEaten = true; drawAnimeScene(); transitionToMain();
+            } else {
+                drawAnimeScene();
+            }
+        }
+
+        document.getElementById('eat-btn').addEventListener('click', function() {
+            this.disabled = true; this.innerHTML = 'So Delicious! <i class="fa-solid fa-heart"></i>';
+            isEating = true; eatProgress = 0; animateEating();
+        });
+
+        function transitionToMain() {
+            setTimeout(() => {
+                document.getElementById('hero-section').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('hero-section').style.display = 'none';
+                    document.getElementById('main-content').classList.add('visible');
+                    initFightCanvas();
+                }, 1000);
+            }, 1000);
+        }
+
+        // ====================================================================================================
+        // SLIDESHOW LOGIC
+        // ====================================================================================================
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            if(index >= slides.length) currentSlide = 0;
+            if(index < 0) currentSlide = slides.length - 1;
+            slides[currentSlide].classList.add('active');
+        }
+        function changeSlide(dir) { currentSlide += dir; showSlide(currentSlide); }
+
+        // ====================================================================================================
+        // SCENE 2: 3D PUFFY HEARTS FIGHTING
+        // ====================================================================================================
+        let fightScene;
+        function initFightCanvas() { fightScene = setupCanvas('fight-canvas'); drawFightScene(); }
+
+        function draw3DHeartCharacter(ctx, x, y, scale, colorPrimary, colorShadow, isMale, faceState) {
+            ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
+            const skinBase = "#f0c297"; const skinShadow = "#d99d6c";
+            ctx.lineWidth = 12; ctx.lineCap = "round"; ctx.lineJoin = "round";
+            
+            ctx.strokeStyle = skinShadow;
+            if (isMale) {
+                ctx.beginPath(); ctx.moveTo(-20, 60); ctx.lineTo(-40, 110); ctx.lineTo(-50, 110); ctx.stroke(); 
+                ctx.beginPath(); ctx.moveTo(20, 60); ctx.lineTo(10, 110); ctx.lineTo(20, 110); ctx.stroke(); 
+            } else {
+                ctx.beginPath(); ctx.moveTo(-20, 60); ctx.lineTo(-10, 110); ctx.lineTo(-20, 110); ctx.stroke(); 
+                ctx.beginPath(); ctx.moveTo(20, 60); ctx.lineTo(40, 110); ctx.lineTo(50, 110); ctx.stroke(); 
+            }
+            
+            ctx.beginPath(); ctx.moveTo(0, 20); ctx.bezierCurveTo(0, -20, -50, -40, -60, 0); ctx.bezierCurveTo(-70, 40, -20, 60, 0, 80);
+            ctx.bezierCurveTo(20, 60, 70, 40, 60, 0); ctx.bezierCurveTo(50, -40, 0, -20, 0, 20);
+            const grad = ctx.createRadialGradient(-20, -10, 5, 0, 20, 70);
+            grad.addColorStop(0, "#fff"); grad.addColorStop(0.2, colorPrimary); grad.addColorStop(1, colorShadow);
+            ctx.fillStyle = grad; ctx.fill();
+            ctx.shadowColor = "rgba(0,0,0,0.5)"; ctx.shadowBlur = 10; ctx.shadowOffsetX = 5; ctx.shadowOffsetY = 5; ctx.stroke(); ctx.shadowColor = "transparent"; 
+
+            if (faceState === "fight") {
+                ctx.lineWidth = 3; ctx.strokeStyle = "#333";
+                if (isMale) {
+                    ctx.beginPath(); ctx.moveTo(-30, 10); ctx.lineTo(-15, 20); ctx.stroke(); 
+                    ctx.beginPath(); ctx.moveTo(10, 20); ctx.lineTo(25, 10); ctx.stroke(); 
+                    ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(-20, 25, 5, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(15, 25, 5, 0, Math.PI*2); ctx.fill();
+                    ctx.fillStyle = "#000"; ctx.beginPath(); ctx.arc(-18, 25, 2, 0, Math.PI*2); ctx.fill(); 
+                    ctx.beginPath(); ctx.arc(17, 25, 2, 0, Math.PI*2); ctx.fill();
+                    ctx.fillStyle = "#fff"; ctx.fillRect(-10, 40, 20, 8); ctx.strokeRect(-10, 40, 20, 8);
+                    ctx.beginPath(); ctx.moveTo(-10, 44); ctx.lineTo(10, 44); ctx.stroke();
+                } else {
+                    ctx.beginPath(); ctx.moveTo(-25, 10); ctx.lineTo(-10, 20); ctx.stroke(); 
+                    ctx.beginPath(); ctx.moveTo(15, 20); ctx.lineTo(30, 10); ctx.stroke(); 
+                    ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(-15, 25, 5, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(20, 25, 5, 0, Math.PI*2); ctx.fill();
+                    ctx.fillStyle = "#000"; ctx.beginPath(); ctx.arc(-17, 25, 2, 0, Math.PI*2); ctx.fill(); 
+                    ctx.beginPath(); ctx.arc(18, 25, 2, 0, Math.PI*2); ctx.fill();
+                    ctx.fillStyle = "#4a0000"; ctx.beginPath(); ctx.arc(2, 45, 8, 0, Math.PI*2); ctx.fill();
+                }
+            } else if (faceState === "happy") {
+                ctx.lineWidth = 3; ctx.strokeStyle = "#333";
+                ctx.beginPath(); ctx.arc(-20, 25, 6, Math.PI, 0); ctx.stroke();
+                ctx.beginPath(); ctx.arc(20, 25, 6, Math.PI, 0); ctx.stroke();
+                ctx.beginPath(); ctx.arc(0, 35, 7, 0, Math.PI); ctx.stroke();
+                ctx.fillStyle = "#ff6b6b"; ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        function drawFightScene() {
+            const { ctx, width, height } = fightScene;
+            ctx.clearRect(0, 0, width, height);
+            const centerX = width / 2; const centerY = height / 2;
+
+            draw3DHeartCharacter(ctx, centerX - 120, centerY - 20, 1.2, "#b30000", "#4a0000", true, "fight");
+            draw3DHeartCharacter(ctx, centerX + 120, centerY - 20, 1.1, "#ff69b4", "#c71585", false, "fight");
+
+            const chocoX = centerX; const chocoY = centerY + 10;
+            ctx.save(); ctx.translate(chocoX, chocoY); ctx.rotate(0.2); 
+            ctx.fillStyle = "#3d1c04"; ctx.fillRect(-20, -30, 40, 60);
+            ctx.strokeStyle = "#1a0b02"; ctx.lineWidth = 2; ctx.strokeRect(-20, -30, 40, 60);
+            ctx.beginPath(); ctx.moveTo(-20, 0); ctx.lineTo(20, 0); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, -30); ctx.lineTo(0, 30); ctx.stroke(); ctx.restore();
+
+            const skinBase = "#f0c297"; ctx.lineWidth = 14; ctx.lineCap = "round"; ctx.strokeStyle = skinBase;
+            ctx.beginPath(); ctx.moveTo(centerX - 90, centerY + 20); ctx.quadraticCurveTo(centerX - 40, centerY + 50, chocoX - 10, chocoY + 10); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(centerX + 90, centerY + 20); ctx.quadraticCurveTo(centerX + 40, centerY + 50, chocoX + 10, chocoY + 10); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(centerX - 150, centerY + 20); ctx.lineTo(centerX - 180, centerY + 40); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(centerX + 150, centerY + 10); ctx.bezierCurveTo(centerX + 100, centerY - 80, centerX - 50, centerY - 100, centerX - 120, centerY - 60); ctx.stroke();
+            ctx.fillStyle = skinBase; ctx.beginPath(); ctx.arc(centerX - 125, centerY - 60, 10, 0, Math.PI*2); ctx.fill();
+            
+            ctx.beginPath(); ctx.arc(chocoX - 10, chocoY + 10, 9, 0, Math.PI*2); ctx.fill(); 
+            ctx.beginPath(); ctx.arc(chocoX + 10, chocoY + 10, 8, 0, Math.PI*2); ctx.fill(); 
+
+            ctx.strokeStyle = "#fff"; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(chocoX - 40, chocoY - 20); ctx.lineTo(chocoX - 60, chocoY - 30); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(chocoX + 40, chocoY - 20); ctx.lineTo(chocoX + 60, chocoY - 30); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(chocoX - 30, chocoY + 40); ctx.lineTo(chocoX - 50, chocoY + 50); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(chocoX + 30, chocoY + 40); ctx.lineTo(chocoX + 50, chocoY + 50); ctx.stroke();
+        }
+
+        // ====================================================================================================
+        // SCENE 3: POPUP - HEARTS HUGGING AND EATING CHOCOLATE
+        // ====================================================================================================
+        let shareScene, shareReq;
+        let shareFrame = 0;
+
+        function initShareCanvas() {
+            shareScene = setupCanvas('share-canvas');
+            animateShareScene();
+        }
+
+        function animateShareScene() {
+            const { ctx, width, height } = shareScene;
+            ctx.clearRect(0, 0, width, height);
+            
+            const centerX = width / 2;
+            const centerY = height / 2 + 20;
+            shareFrame += 0.05;
+            const bobbing = Math.sin(shareFrame) * 8;
+
+            const mX = centerX - 45; 
+            const fX = centerX + 45; 
+
+            draw3DHeartCharacter(ctx, mX, centerY - 20 + bobbing, 1.1, "#b30000", "#4a0000", true, "happy");
+            draw3DHeartCharacter(ctx, fX, centerY - 20 - bobbing, 1.0, "#ff69b4", "#c71585", false, "happy");
+
+            const skinBase = "#f0c297";
+            ctx.lineWidth = 14; ctx.lineCap = "round"; ctx.strokeStyle = skinBase;
+
+            ctx.beginPath(); ctx.moveTo(mX - 40, centerY + 10 + bobbing); 
+            ctx.bezierCurveTo(mX - 80, centerY + 80, fX + 50, centerY + 100, fX + 45, centerY + 20 - bobbing); ctx.stroke();
+            
+            ctx.beginPath(); ctx.moveTo(fX + 40, centerY + 10 - bobbing);
+            ctx.bezierCurveTo(fX + 80, centerY + 80, mX - 50, centerY + 100, mX - 45, centerY + 20 + bobbing); ctx.stroke();
+
+            const chocoX = centerX;
+            const chocoY = centerY - 10;
+            ctx.save();
+            ctx.translate(chocoX, chocoY + (bobbing * 0.5));
+            ctx.fillStyle = "#3d1c04";
+            ctx.beginPath(); ctx.moveTo(-15, -25); ctx.lineTo(15, -25); ctx.lineTo(15, 0);
+            ctx.arc(10, 0, 5, 0, Math.PI, true); ctx.arc(0, 0, 5, 0, Math.PI, true); ctx.arc(-10, 0, 5, 0, Math.PI, true);
+            ctx.lineTo(-15, 0); ctx.fill();
+            ctx.restore();
+
+            ctx.beginPath(); ctx.moveTo(mX + 15, centerY + 30 + bobbing); 
+            ctx.quadraticCurveTo(mX + 35, centerY + 50, chocoX - 10, chocoY + 10 + bobbing * 0.5); ctx.stroke();
+            
+            ctx.beginPath(); ctx.moveTo(fX - 15, centerY + 30 - bobbing); 
+            ctx.quadraticCurveTo(fX - 35, centerY + 50, chocoX + 10, chocoY + 10 + bobbing * 0.5); ctx.stroke();
+
+            ctx.fillStyle = "#ff0000";
+            for(let i=0; i<3; i++) {
+                let yOff = (shareFrame * 20 + i * 30) % 100;
+                let alpha = 1 - (yOff / 100);
+                ctx.globalAlpha = alpha;
+                ctx.beginPath();
+                let hx = centerX + Math.sin(shareFrame + i) * 30;
+                let hy = centerY - 60 - yOff;
+                ctx.arc(hx-5, hy, 5, Math.PI, 0); ctx.arc(hx+5, hy, 5, Math.PI, 0);
+                ctx.lineTo(hx, hy+8); ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+
+            shareReq = requestAnimationFrame(animateShareScene);
+        }
+
+        function openPopup() { document.getElementById('choco-popup').classList.add('active'); initShareCanvas(); }
+        function closePopup() { document.getElementById('choco-popup').classList.remove('active'); cancelAnimationFrame(shareReq); }
+
+        // ====================================================================================================
+        // BACKGROUND PARTICLES INITIALIZATION 
+        // ====================================================================================================
+        function initBgParticles() {
+            const { canvas, ctx, width, height } = setupCanvas('bg-canvas');
+            let particles = [];
+            for(let i=0; i<50; i++) {
+                particles.push({
+                    x: Math.random() * width, y: Math.random() * height, size: Math.random() * 5 + 2, 
+                    speedY: Math.random() * 1 + 0.5, spin: Math.random() * 0.1 - 0.05, 
+                    angle: Math.random() * Math.PI*2, isChoco: Math.random() > 0.5
+                });
+            }
+            function animateBg() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.y += p.speedY; p.angle += p.spin;
+                    if(p.y > height + 20) { p.y = -20; p.x = Math.random() * width; }
+                    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.angle);
+                    if(p.isChoco) {
+                        ctx.fillStyle = "rgba(92, 43, 9, 0.6)"; ctx.fillRect(-p.size, -p.size*1.5, p.size*2, p.size*3);
+                    } else {
+                        ctx.fillStyle = "rgba(255, 215, 0, 0.5)"; ctx.beginPath(); ctx.arc(0, 0, p.size, 0, Math.PI*2); ctx.fill();
+                    }
+                    ctx.restore();
+                });
+                requestAnimationFrame(animateBg);
+            }
+            animateBg();
+        }
+
+        // Initialize Everything on Load
+        window.onload = () => {
+            initBgParticles();
+            initAnimeCanvas();
+            window.addEventListener('resize', () => {
+                if(!hasEaten) { initAnimeCanvas(); }
+                if(document.getElementById('main-content').classList.contains('visible')) { initFightCanvas(); }
+                if(document.getElementById('choco-popup').classList.contains('active')) { initShareCanvas(); }
+            });
+        };
+    </script>
+</body>
+</html>
