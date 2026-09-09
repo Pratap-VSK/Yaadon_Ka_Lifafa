@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Yaadon Ka Lifafa 🐾</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
+
+<style>
+:root{
+  --cream:#fff8f0; --pink:#ffd6e0; --pink-deep:#ff9fb2; --lavender:#e6d6fb;
+  --mint:#cdf3e2; --choco:#7a5230; --gold:#e8b86d; --ink:#5c3d2e;
+}
+*{box-sizing:border-box;user-select:none;-webkit-user-select:none;}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#2a1a20;color:var(--ink);font-family:'Quicksand',sans-serif;}
+.display{font-family:'Baloo 2',cursive;}
+.hand{font-family:'Caveat',cursive;}
+textarea,input{font-family:'Quicksand',sans-serif;}
+
+#webgl-container{position:fixed;inset:0;z-index:0;touch-action:none;}
+#scene-overlay{position:fixed;inset:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse at center, transparent 40%, rgba(50,25,30,.35) 100%);}
+#cursor-paw{position:fixed;top:0;left:0;font-size:20px;transform:translate(-50%,-50%);pointer-events:none;z-index:9998;transition:transform .15s ease;}
+#cursor-paw.hovering{transform:translate(-50%,-50%) scale(1.6) rotate(15deg);}
+.paw-trail{position:fixed;pointer-events:none;font-size:14px;z-index:9997;animation:pawFade 1.1s ease-out forwards;}
+@keyframes pawFade{0%{opacity:.9;transform:translateY(0) scale(1) rotate(var(--r));}100%{opacity:0;transform:translateY(-26px) scale(.5) rotate(var(--r));}}
+
+.glass-panel{background:rgba(255,248,240,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:2px solid rgba(255,159,178,0.5);box-shadow:0 18px 45px rgba(122,82,48,.25), inset 0 0 20px rgba(255,214,224,.5);}
+
+.btn-cute{background:linear-gradient(135deg,#ffc1d1 0%, #ffe0b2 50%, #ffb5a7 100%);background-size:200% 200%;animation:cuteShift 5s ease infinite;border:none;color:var(--ink);transition:all .3s cubic-bezier(.175,.885,.32,1.275);box-shadow:0 8px 0 rgba(122,82,48,.18), 0 14px 26px rgba(122,82,48,.25);cursor:pointer;}
+.btn-cute:hover{transform:translateY(-3px) scale(1.04);}
+.btn-cute:active{transform:translateY(1px) scale(.98);box-shadow:0 4px 0 rgba(122,82,48,.18);}
+.btn-cute:disabled{opacity:.6;cursor:default;transform:none;}
+@keyframes cuteShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.btn-outline{background:#fff;border:2px solid var(--pink);color:var(--ink);cursor:pointer;transition:all .25s ease;}
+.btn-outline:hover{border-color:var(--pink-deep);}
+
+.pulse-ring{box-shadow:0 0 0 0 rgba(255,159,178,.6);animation:pulseGlow 2s infinite;}
+@keyframes pulseGlow{0%{box-shadow:0 0 0 0 rgba(255,159,178,.6);}70%{box-shadow:0 0 0 16px rgba(255,159,178,0);}100%{box-shadow:0 0 0 0 rgba(255,159,178,0);}}
+.custom-scrollbar::-webkit-scrollbar{width:6px;}
+.custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,159,178,.5);border-radius:3px;}
+
+/* ---------- full-screen flow overlays ---------- */
+.flow-screen{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px;background:linear-gradient(160deg,#ffd6e0,#e6d6fb 60%,#cdf3e2);overflow-y:auto;}
+.flow-screen.open{display:flex;}
+.flow-card{max-width:460px;width:100%;padding:30px 28px;border-radius:28px;margin:auto;}
+.field-label{display:block;font-size:11px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+.field-input,.field-textarea{width:100%;padding:10px 13px;border-radius:12px;border:2px solid var(--pink);font-size:13px;margin-bottom:14px;background:#fff;color:var(--ink);}
+.field-input:focus,.field-textarea:focus{outline:none;border-color:var(--pink-deep);}
+.slot{border:2px dashed rgba(255,159,178,.6);border-radius:16px;padding:10px;margin-bottom:12px;background:rgba(255,255,255,.5);}
+.slot-preview{width:100%;height:90px;border-radius:10px;object-fit:cover;margin-top:8px;display:none;background:#fff;}
+#code-output{width:100%;min-height:90px;border-radius:14px;border:2px solid var(--gold);padding:12px;font-family:monospace;font-size:11px;color:var(--ink);background:#fffaf0;resize:none;word-break:break-all;}
+
+/* journey rail */
+#journey-rail{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:25;width:4px;height:200px;border-radius:4px;background:rgba(255,255,255,.25);pointer-events:none;}
+#journey-rail-fill{position:absolute;bottom:0;left:0;width:100%;border-radius:4px;background:linear-gradient(180deg,var(--pink-deep),var(--gold));height:0%;transition:height .3s ease;}
+#journey-rail-dot{position:absolute;left:50%;width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 10px var(--pink-deep);transform:translate(-50%,50%);bottom:0%;transition:bottom .3s ease;}
+#scroll-hint{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:25;font-size:11px;color:#fff;display:flex;align-items:center;gap:8px;pointer-events:none;transition:opacity .6s ease;background:rgba(0,0,0,.25);padding:7px 16px;border-radius:20px;}
+
+#mascot{position:fixed;bottom:14px;left:14px;z-index:30;display:flex;align-items:flex-end;gap:8px;pointer-events:none;}
+#mascot-bubble{background:#fff;color:var(--ink);font-family:'Baloo 2',cursive;font-size:13px;padding:8px 14px;border-radius:16px;border:2px solid var(--pink-deep);max-width:190px;box-shadow:0 6px 14px rgba(0,0,0,.15);position:relative;margin-bottom:6px;}
+#mascot-bubble:after{content:'';position:absolute;left:34px;bottom:-9px;border-width:9px 7px 0;border-style:solid;border-color:#fff transparent;}
+#mascot-cat{width:58px;height:58px;animation:catBob 2.4s ease-in-out infinite;}
+@keyframes catBob{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-6px) rotate(2deg);}}
+
+#memory-focus-panel{position:fixed;left:50%;bottom:104px;transform:translate(-50%,20px);z-index:26;opacity:0;pointer-events:none;transition:all .45s cubic-bezier(.16,1,.3,1);}
+#memory-focus-panel.show{opacity:1;transform:translate(-50%,0);pointer-events:auto;}
+
+@media (max-width:640px){ #mascot-cat{width:44px;height:44px;} #mascot-bubble{font-size:11px;max-width:150px;} }
+</style>
+</head>
+<body>
+
+<div id="webgl-container"></div>
+<div id="scene-overlay"></div>
+<div id="cursor-paw">🐾</div>
+
+<!-- ============ WELCOME / ENTRY SCREEN ============ -->
+<div id="welcome-screen" class="flow-screen open">
+  <div class="glass-panel flow-card" style="text-align:center;">
+    <div style="width:64px;height:64px;margin:0 auto 14px;border-radius:20px;background:linear-gradient(135deg,var(--pink),var(--gold));display:flex;align-items:center;justify-content:center;font-size:30px;">🐱</div>
+    <h1 class="display" style="font-size:26px;color:var(--pink-deep);margin:0 0 6px;">Yaadon Ka Lifafa</h1>
+    <p style="font-size:12px;color:var(--ink);opacity:.8;margin-bottom:24px;">A little 3D envelope of memories, made just for someone special.</p>
+
+    <button class="btn-cute display" style="width:100%;padding:14px;border-radius:18px;font-size:14px;margin-bottom:10px;" onclick="showCaptureScreen()">💌 Create A Lifafa For Someone</button>
+    <button class="btn-outline display" style="width:100%;padding:12px;border-radius:16px;font-size:13px;margin-bottom:10px;" onclick="toggleCodeInput()">🔑 I Have A Code</button>
+    <button class="display" style="width:100%;padding:10px;border-radius:16px;font-size:12px;background:none;border:none;color:var(--ink);opacity:.7;cursor:pointer;" onclick="loadSampleExperience()">👀 Just Show Me A Sample</button>
+
+    <div id="code-input-wrap" style="display:none;margin-top:14px;text-align:left;">
+      <label class="field-label">Paste your code below</label>
+      <textarea id="code-input-field" class="field-textarea" rows="3" placeholder="Paste the code your someone sent you..." style="font-family:monospace;font-size:11px;"></textarea>
+      <p id="code-input-error" style="color:#c0392b;font-size:11px;margin:-8px 0 10px;display:none;">That code doesn't look right — please check and try again.</p>
+      <button class="btn-cute display" style="width:100%;padding:12px;border-radius:14px;font-size:13px;" onclick="openFromPastedCode()">Open This Lifafa</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MEMORY CAPTURE SCREEN ============ -->
+<div id="capture-screen" class="flow-screen">
+  <div class="glass-panel flow-card custom-scrollbar" style="max-height:90vh;overflow-y:auto;">
+    <h2 class="display" style="font-size:20px;color:var(--pink-deep);margin-bottom:2px;">Let's Capture Your Memories 🐾</h2>
+    <p style="font-size:11px;color:var(--ink);opacity:.75;margin-bottom:16px;">Fill this in once — a personal code will be generated for you to send.</p>
+
+    <label class="field-label">Their name (who is this for?)</label>
+    <input type="text" id="cap-partner-name" class="field-input" placeholder="e.g. Ananya">
+
+    <label class="field-label">Your name (signing the letter)</label>
+    <input type="text" id="cap-sender-name" class="field-input" placeholder="e.g. Rohan">
+
+    <label class="field-label">Your letter / message</label>
+    <textarea id="cap-letter" rows="4" class="field-textarea" placeholder="Write what you want them to read inside the envelope..."></textarea>
+
+    <p class="field-label" style="margin-top:6px;">Add up to 4 memories (photo + caption)</p>
+    <div id="capture-slots"></div>
+
+    <button class="btn-cute display" id="generate-code-btn" style="width:100%;padding:14px;border-radius:16px;font-size:13px;margin-top:8px;" onclick="handleGenerateCode()">✨ Generate My Code</button>
+    <button class="display" style="width:100%;padding:8px;background:none;border:none;color:var(--ink);opacity:.7;font-size:12px;margin-top:6px;cursor:pointer;" onclick="backToWelcome()">← Back</button>
+  </div>
+</div>
+
+<!-- ============ CODE RESULT SCREEN ============ -->
+<div id="code-result-screen" class="flow-screen">
+  <div class="glass-panel flow-card" style="text-align:center;">
+    <div style="width:64px;height:64px;margin:0 auto 14px;border-radius:50%;background:linear-gradient(135deg,var(--pink-deep),var(--gold));display:flex;align-items:center;justify-content:center;font-size:30px;">🔑</div>
+    <h2 class="display" style="font-size:20px;color:var(--pink-deep);margin-bottom:6px;">Your Personal Code Is Ready!</h2>
+    <p style="font-size:11px;color:var(--ink);opacity:.8;margin-bottom:14px;">Send this to your someone. When they paste it in, it will open exactly what you made — just for them.</p>
+    <textarea id="code-output" readonly></textarea>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;">
+      <button class="btn-outline display" style="padding:11px;border-radius:14px;font-size:12px;" onclick="copyCode()">📋 Copy Code</button>
+      <button class="btn-outline display" style="padding:11px;border-radius:14px;font-size:12px;" onclick="copyShareLink()">🔗 Copy Link</button>
+    </div>
+    <p id="copy-confirm" style="font-size:11px;color:#3a7d44;margin:10px 0 0;display:none;">Copied! ✅</p>
+    <button class="btn-cute display" style="width:100%;padding:13px;border-radius:16px;font-size:13px;margin-top:16px;" onclick="previewMyOwnLifafa()">👀 Preview My Lifafa</button>
+    <p style="font-size:10px;color:var(--ink);opacity:.6;margin-top:10px;line-height:1.5;">Note: everything is packed directly into this code — there's no server involved. Whoever opens it needs this same page (or the link) plus the code.</p>
+  </div>
+</div>
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:16px 20px;pointer-events:none;">
+  <div style="pointer-events:auto;display:flex;align-items:center;gap:10px;">
+    <div class="pulse-ring" style="width:50px;height:50px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 6px 16px rgba(0,0,0,.2);">🐱</div>
+    <div>
+      <h1 class="display" style="margin:0;font-size:22px;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.3);">Yaadon Ka Lifafa</h1>
+      <p style="margin:0;font-size:10px;letter-spacing:.14em;color:var(--pink);text-transform:uppercase;">A Cute Little Propose Day</p>
+    </div>
+  </div>
+  <div style="pointer-events:auto;display:flex;gap:8px;">
+    <button onclick="toggleAudio()" id="audio-toggle" class="glass-panel" style="width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink);">
+      <i id="audio-icon" class="fa-solid fa-music"></i>
+    </button>
+  </div>
+</header>
+
+<div id="journey-rail"><div id="journey-rail-fill"></div><div id="journey-rail-dot"></div></div>
+<div id="scroll-hint">🐾 Drag to look around · Scroll to wander forward</div>
+
+<div id="mascot">
+  <img id="mascot-cat" alt="cute cat mascot" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='60' rx='34' ry='30' fill='%23ffcf99'/%3E%3Cpolygon points='20,38 30,10 42,34' fill='%23ffcf99'/%3E%3Cpolygon points='80,38 70,10 58,34' fill='%23ffcf99'/%3E%3Cpolygon points='24,34 30,18 38,32' fill='%23ff9fb2'/%3E%3Cpolygon points='76,34 70,18 62,32' fill='%23ff9fb2'/%3E%3Ccircle cx='38' cy='58' r='5' fill='%232a1a20'/%3E%3Ccircle cx='62' cy='58' r='5' fill='%232a1a20'/%3E%3Cellipse cx='50' cy='70' rx='4' ry='3' fill='%23ff9fb2'/%3E%3Cpath d='M46 72 Q50 76 54 72' stroke='%232a1a20' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3Cline x1='6' y1='64' x2='26' y2='62' stroke='%232a1a20' stroke-width='1.5'/%3E%3Cline x1='6' y1='70' x2='26' y2='70' stroke='%232a1a20' stroke-width='1.5'/%3E%3Cline x1='74' y1='62' x2='94' y2='64' stroke='%232a1a20' stroke-width='1.5'/%3E%3Cline x1='74' y1='70' x2='94' y2='70' stroke='%232a1a20' stroke-width='1.5'/%3E%3C/svg%3E">
+  <div id="mascot-bubble">Psst... tap the golden paw seal! 🐾</div>
+</div>
+
+<main style="position:fixed;inset:0;z-index:20;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:16px 20px;">
+
+  <div style="text-align:center;margin-top:76px;pointer-events:auto;">
+    <span class="glass-panel display" style="padding:10px 24px;border-radius:30px;font-size:12px;letter-spacing:.05em;color:var(--pink-deep);display:inline-flex;align-items:center;gap:8px;">
+      🐈 <span id="stage-text">Chapter 1 · A Sealed Little Lifafa</span>
+    </span>
+  </div>
+
+  <div id="stage-1-card" class="glass-panel" style="display:none;align-self:center;margin:auto;max-width:420px;width:100%;padding:28px 26px;border-radius:28px;text-align:center;pointer-events:auto;">
+    <div style="width:64px;height:64px;margin:0 auto 14px;border-radius:20px;background:linear-gradient(135deg,var(--pink),var(--gold));display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 8px 20px rgba(122,82,48,.25);">🐾</div>
+    <h2 class="display" style="margin:0 0 4px;font-size:22px;color:var(--ink);">A Sealed Lifafa For</h2>
+    <p id="partner-display-name" class="hand" style="font-size:34px;color:var(--pink-deep);margin:0 0 10px;">Someone Special</p>
+    <p id="teaser-text" style="font-size:13px;color:var(--ink);opacity:.85;margin-bottom:20px;line-height:1.5;">
+      Poke the golden paw-seal on the envelope, or press the button — a whole little galaxy of memories is waiting inside.
+    </p>
+    <button onclick="openLifafaEnvelope()" class="btn-cute display" style="width:100%;padding:14px;border-radius:20px;font-size:14px;">🐾 Break The Paw Seal</button>
+  </div>
+
+  <div id="stage-2-card" class="glass-panel" style="display:none;align-self:center;margin:auto;max-width:480px;width:100%;padding:24px 26px;border-radius:28px;pointer-events:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:10px;border-bottom:2px dashed rgba(255,159,178,.4);">
+      <span class="display" style="font-size:12px;color:var(--pink-deep);display:flex;align-items:center;gap:6px;">🐈‍⬛ Memory Galaxy</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span id="slide-counter" class="display" style="font-size:11px;background:#fff;padding:4px 10px;border-radius:12px;color:var(--ink);">1 / 6</span>
+        <button onclick="toggleAutoFlash()" id="btn-autoflash" class="display" style="font-size:11px;padding:5px 12px;border-radius:14px;background:var(--mint);border:none;color:var(--ink);cursor:pointer;">▶ Auto Play</button>
+      </div>
+    </div>
+    <div style="text-align:center;margin:12px 0;">
+      <h3 id="memory-caption-display" class="hand" style="font-size:22px;color:var(--pink-deep);min-height:48px;display:flex;align-items:center;justify-content:center;">"..."</h3>
+      <p style="font-size:10px;color:var(--ink);opacity:.6;">tap any floating polaroid to zoom in 🐾</p>
+    </div>
+    <div style="display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:14px;">
+      <button onclick="slidePrevMemory()" class="btn-outline" style="width:38px;height:38px;border-radius:50%;">‹</button>
+      <div id="slide-dots-container" style="display:flex;gap:6px;"></div>
+      <button onclick="slideNextMemory()" class="btn-outline" style="width:38px;height:38px;border-radius:50%;">›</button>
+    </div>
+    <button onclick="transitionToProposeClimax()" class="btn-cute display" style="width:100%;padding:12px;border-radius:16px;font-size:12px;">Fly To The Question →</button>
+  </div>
+
+  <div id="stage-3-card" class="glass-panel" style="display:none;align-self:center;margin:auto;max-width:440px;width:100%;padding:30px 28px;border-radius:28px;text-align:center;pointer-events:auto;">
+    <div style="width:74px;height:74px;margin:0 auto 12px;border-radius:50%;background:linear-gradient(135deg,var(--pink-deep),var(--gold));display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 10px 24px rgba(122,82,48,.3);">💍</div>
+    <h2 class="display" style="font-size:30px;color:var(--pink-deep);margin:0 0 8px;">Will You Be Mine Forever?</h2>
+    <p id="final-vow-quote" style="font-size:13px;color:var(--ink);opacity:.85;margin-bottom:20px;line-height:1.5;">"..."</p>
+    <div id="proposal-buttons-container" style="position:relative;min-height:90px;display:flex;flex-direction:column;gap:12px;">
+      <button onclick="acceptProposal()" class="display" style="padding:15px;border-radius:18px;background:linear-gradient(135deg,#8ee6b0,#5fd39a);border:none;color:#1a3d2b;font-size:14px;font-weight:700;box-shadow:0 8px 20px rgba(60,150,100,.3);cursor:pointer;">🐾 YES, FOREVER!</button>
+      <button id="btn-no" onmouseover="dodgeNoButton()" onclick="dodgeNoButton()" class="display" style="padding:13px;border-radius:18px;background:#fff;border:2px solid #ddd;color:#999;font-size:12px;cursor:pointer;">Let me think about it 😏</button>
+    </div>
+  </div>
+
+  <div style="text-align:center;pointer-events:auto;">
+    <p style="font-size:9px;letter-spacing:.1em;color:rgba(255,255,255,.7);">Yaadon Ka Lifafa 🐾 A Living 3D Little Universe</p>
+  </div>
+</main>
+
+<div id="memory-focus-panel" class="glass-panel" style="padding:16px 24px;border-radius:20px;max-width:340px;text-align:center;">
+  <p id="memory-focus-caption" class="hand" style="font-size:18px;color:var(--pink-deep);margin-bottom:10px;">"..."</p>
+  <button onclick="exitMemoryFocus()" class="btn-outline display" style="padding:8px 18px;border-radius:14px;font-size:11px;">🐾 Back to the Galaxy</button>
+</div>
+
+<div id="celebration-modal" style="position:fixed;inset:0;z-index:150;background:rgba(30,15,20,.75);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:16px;">
+  <div class="glass-panel" style="max-width:460px;width:100%;padding:34px 30px;border-radius:30px;text-align:center;">
+    <div style="width:88px;height:88px;margin:0 auto 20px;border-radius:50%;background:linear-gradient(135deg,var(--pink-deep),var(--gold));display:flex;align-items:center;justify-content:center;font-size:42px;">🐾💍</div>
+    <h2 class="display" style="font-size:32px;color:var(--pink-deep);margin-bottom:6px;">She Said Yes!</h2>
+    <p class="hand" style="font-size:18px;color:var(--ink);margin-bottom:18px;">"Our forever chapter has officially begun."</p>
+    <div style="padding:14px;border-radius:16px;background:#fff;font-size:12px;color:var(--ink);margin-bottom:22px;">"May this little envelope of memories forever hold this warmth and love."</div>
+    <button onclick="restartExperience()" class="btn-outline display" style="padding:12px 26px;border-radius:18px;font-size:12px;">↻ Replay Experience</button>
+  </div>
+</div>
+
+<script>
+/* ============================== PERSONALIZATION PAYLOAD ============================== */
+let partnerName = "Someone Special";
+let senderName = "";
+let letterText = "Before the stars, before this little galaxy folds around you — there was just this letter, and the quiet hope that you'd open it.";
+let customCaption = document.getElementById('teaser-text').innerText;
+
+const DEFAULT_SAMPLE_MEMORIES = [
+  { caption: "Our First Cuddle Under The Stars", url: "https://cataas.com/cat/cute?width=520&height=650&mem=1" },
+  { caption: "Sunset Nap Together", url: "https://cataas.com/cat?width=520&height=650&mem=2" },
+  { caption: "Coffee, Laughs & Company", url: "https://cataas.com/cat/kitten?width=520&height=650&mem=3" },
+  { caption: "Stargazing Promises", url: "https://cataas.com/cat?width=520&height=650&mem=4" },
+  { caption: "Forever & Always", url: "https://cataas.com/cat/cute?width=520&height=650&mem=5" },
+  { caption: "Little Moments, Big Love", url: "https://cataas.com/cat?width=520&height=650&mem=6" }
+];
+let memoryList = [];
+
+/* ============================== CODE ENCODE / DECODE ============================== */
+function buildPayload(memories) {
+  return { p: partnerName, s: senderName, l: letterText, m: memories.map(m => ({ c: m.caption, i: m.url })) };
+}
+function generateCodeFromPayload(payload) {
+  const json = JSON.stringify(payload);
+  return LZString.compressToEncodedURIComponent(json);
+}
+function decodePayloadFromCode(code) {
+  try {
+    const json = LZString.decompressFromEncodedURIComponent(code.trim());
+    if (!json) return null;
+    const payload = JSON.parse(json);
+    if (!payload || !Array.isArray(payload.m)) return null;
+    return payload;
+  } catch (e) { return null; }
+}
+function applyPayload(payload) {
+  partnerName = payload.p || "Someone Special";
+  senderName = payload.s || "";
+  letterText = payload.l || letterText;
+  memoryList = (payload.m || []).map(m => ({ caption: m.c || "A Sweet Memory", url: m.i }));
+  if (!memoryList.length) memoryList = DEFAULT_SAMPLE_MEMORIES.slice();
+}
+
+/* ============================== FLOW SCREENS ============================== */
+function hideAllFlowScreens() {
+  document.querySelectorAll('.flow-screen').forEach(el => el.classList.remove('open'));
+}
+function showWelcomeScreen() { hideAllFlowScreens(); document.getElementById('welcome-screen').classList.add('open'); }
+function backToWelcome() { showWelcomeScreen(); }
+function toggleCodeInput() {
+  const wrap = document.getElementById('code-input-wrap');
+  wrap.style.display = wrap.style.display === 'none' ? 'block' : 'none';
+}
+function openFromPastedCode() {
+  const raw = document.getElementById('code-input-field').value;
+  const payload = decodePayloadFromCode(raw);
+  const errEl = document.getElementById('code-input-error');
+  if (!payload) { errEl.style.display = 'block'; return; }
+  errEl.style.display = 'none';
+  applyPayload(payload);
+  hideAllFlowScreens();
+  beginExperience();
+}
+function loadSampleExperience() {
+  partnerName = "Someone Special"; senderName = "";
+  letterText = "Before the stars, before this little galaxy folds around you — there was just this letter, and the quiet hope that you'd open it.";
+  memoryList = DEFAULT_SAMPLE_MEMORIES.slice();
+  hideAllFlowScreens();
+  beginExperience();
+}
+
+/* ---- Memory capture screen ---- */
+const captureSlotState = [null, null, null, null];
+function renderCaptureSlots() {
+  const wrap = document.getElementById('capture-slots');
+  wrap.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const div = document.createElement('div');
+    div.className = 'slot';
+    div.innerHTML = `
+      <label class="field-label">Memory ${i + 1} ${i === 0 ? '' : '(optional)'}</label>
+      <input type="file" accept="image/*" data-slot="${i}" class="cap-photo-input" style="font-size:11px;width:100%;">
+      <input type="text" data-slot="${i}" class="cap-caption-input field-input" placeholder="Caption for this memory" style="margin:8px 0 0;">
+      <img class="slot-preview" data-slot="${i}">
+    `;
+    wrap.appendChild(div);
+  }
+  wrap.querySelectorAll('.cap-photo-input').forEach(inp => {
+    inp.addEventListener('change', (e) => {
+      const idx = +e.target.dataset.slot;
+      const file = e.target.files[0];
+      if (!file) return;
+      downscaleImageFile(file, 480, 0.55).then(dataUrl => {
+        captureSlotState[idx] = captureSlotState[idx] || {};
+        captureSlotState[idx].img = dataUrl;
+        const prev = wrap.querySelector(`.slot-preview[data-slot="${idx}"]`);
+        prev.src = dataUrl; prev.style.display = 'block';
+      });
+    });
+  });
+  wrap.querySelectorAll('.cap-caption-input').forEach(inp => {
+    inp.addEventListener('input', (e) => {
+      const idx = +e.target.dataset.slot;
+      captureSlotState[idx] = captureSlotState[idx] || {};
+      captureSlotState[idx].caption = e.target.value;
+    });
+  });
+}
+function downscaleImageFile(file, maxWidth, quality) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const scale = Math.min(1, maxWidth / img.width);
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width * scale; canvas.height = img.height * scale;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function showCaptureScreen() {
+  hideAllFlowScreens();
+  renderCaptureSlots();
+  document.getElementById('capture-screen').classList.add('open');
+}
+
+let lastGeneratedPayload = null, lastGeneratedCode = null;
+function handleGenerateCode() {
+  const btn = document.getElementById('generate-code-btn');
+  btn.disabled = true; btn.innerText = 'Preparing your code... ⏳';
+
+  const p = document.getElementById('cap-partner-name').value.trim() || "Someone Special";
+  const s = document.getElementById('cap-sender-name').value.trim();
+  const l = document.getElementById('cap-letter').value.trim() || letterText;
+
+  const memories = captureSlotState
+    .filter(slot => slot && slot.img)
+    .map(slot => ({ caption: slot.caption || "A Sweet Memory", url: slot.img }));
+
+  partnerName = p; senderName = s; letterText = l;
+  const payload = buildPayload(memories.length ? memories : DEFAULT_SAMPLE_MEMORIES);
+  const code = generateCodeFromPayload(payload);
+
+  lastGeneratedPayload = payload; lastGeneratedCode = code;
+  document.getElementById('code-output').value = code;
+
+  btn.disabled = false; btn.innerText = '✨ Generate My Code';
+  hideAllFlowScreens();
+  document.getElementById('code-result-screen').classList.add('open');
+}
+function copyCode() {
+  navigator.clipboard.writeText(lastGeneratedCode || '');
+  const c = document.getElementById('copy-confirm'); c.style.display = 'block';
+  setTimeout(() => c.style.display = 'none', 1800);
+}
+function copyShareLink() {
+  const link = `${location.origin}${location.pathname}#code=${lastGeneratedCode || ''}`;
+  navigator.clipboard.writeText(link);
+  const c = document.getElementById('copy-confirm'); c.style.display = 'block';
+  setTimeout(() => c.style.display = 'none', 1800);
+}
+function previewMyOwnLifafa() {
+  if (!lastGeneratedPayload) return;
+  applyPayload(lastGeneratedPayload);
+  hideAllFlowScreens();
+  beginExperience();
+}
+
+/* ============================== BEGIN 3D EXPERIENCE ============================== */
+let worldReady = false;
+function beginExperience() {
+  document.getElementById('partner-display-name').innerText = partnerName;
+  document.getElementById('teaser-text').innerText = customCaption;
+  document.getElementById('stage-1-card').style.display = 'block';
+  if (!worldReady) { worldReady = true; init3DWorld(); }
+  else { rebuildMemoryGalaxy(); refreshLetterTexture(); }
+}
+
+/* ============================== MASCOT HINTS ============================== */
+const mascotHints = {
+  1: "Psst... tap the golden paw seal! 🐾",
+  2: "Tap a polaroid to peek closer~",
+  3: "This is the big moment... good luck! 💕"
+};
+function setMascotHint(stage){ document.getElementById('mascot-bubble').innerText = mascotHints[stage] || "🐾"; }
+
+/* ============================== AUDIO ============================== */
+let audioCtx, isAudioPlaying = false;
+function initAudioSynth() { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
+function playRomanticChime() {
+  if (!audioCtx) initAudioSynth();
+  if (!audioCtx) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const freqs = [261.63, 329.63, 392.00, 493.88, 523.25, 659.25, 783.99];
+  freqs.forEach((freq, idx) => {
+    const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+    osc.type = 'sine'; osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.12);
+    g.gain.setValueAtTime(0, audioCtx.currentTime + idx * 0.12);
+    g.gain.linearRampToValueAtTime(0.07, audioCtx.currentTime + idx * 0.12 + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + idx * 0.12 + 1.5);
+    osc.connect(g); g.connect(audioCtx.destination);
+    osc.start(audioCtx.currentTime + idx * 0.12); osc.stop(audioCtx.currentTime + idx * 0.12 + 1.6);
+  });
+}
+function playSoftTick(freq) {
+  if (!audioCtx) initAudioSynth(); if (!audioCtx) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+  osc.type = 'triangle'; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  g.gain.setValueAtTime(0.05, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.35);
+  osc.connect(g); g.connect(audioCtx.destination);
+  osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+}
+function toggleAudio() {
+  const icon = document.getElementById('audio-icon');
+  if (!isAudioPlaying) {
+    isAudioPlaying = true; icon.className = "fa-solid fa-volume-high";
+    playRomanticChime();
+    setInterval(() => { if (isAudioPlaying) playRomanticChime(); }, 8000);
+  } else { isAudioPlaying = false; icon.className = "fa-solid fa-music"; }
+}
+
+/* ============================== CURSOR: paw trail ============================== */
+const cursorPaw = document.getElementById('cursor-paw');
+function updateCustomCursor(x, y) { cursorPaw.style.left = x + 'px'; cursorPaw.style.top = y + 'px'; }
+function spawnPawTrail(x, y) {
+  if (Math.random() > 0.28) return;
+  const p = document.createElement('div');
+  p.className = 'paw-trail'; p.textContent = '🐾';
+  p.style.left = x + 'px'; p.style.top = y + 'px';
+  p.style.setProperty('--r', (Math.random() * 40 - 20) + 'deg');
+  document.body.appendChild(p);
+  setTimeout(() => p.remove(), 1100);
+}
+
+/* ============================== THREE.JS WORLD ============================== */
+let scene, camera, renderer, raycaster;
+let envelopeGroup, waxSealMesh, letterPaperMesh, flapMesh, envelopeInteractive = [];
+let ringGroup, ringLidMesh, diamondRingMesh, ringSubGroup;
+let starPoints, starUniforms;
+let catOrbGroup = [];
+let memoryGroup, memoryFrames = [];
+let pawParticles = [];
+let glowSpriteTexture;
+let cubeCamera, cubeRenderTarget;
+let currentStage = 1;
+
+const mouseNDC = new THREE.Vector2(0, 0);
+let isDragging = false, dragLastX = 0, dragLastY = 0;
+let dragYaw = 0, dragPitch = 0, dragYawTarget = 0, dragPitchTarget = 0;
+let hasScrolled = false;
+let activeMemoryIndex = 0;
+let isAutoFlashing = false, autoFlashInterval = null;
+let inMemoryFocus = false, focusFrame = null;
+
+const pathPoints = [
+  new THREE.Vector3(0, 0, 16), new THREE.Vector3(2.5, 1.2, 6), new THREE.Vector3(-3, 1.6, -10),
+  new THREE.Vector3(-1, 2.4, -26), new THREE.Vector3(3, 0.6, -40), new THREE.Vector3(-2, -0.8, -56),
+  new THREE.Vector3(1.5, 0.4, -68), new THREE.Vector3(0, -0.3, -80)
+];
+const lookPoints = [
+  new THREE.Vector3(0, 0.2, 0), new THREE.Vector3(0, 0.2, 0), new THREE.Vector3(0, 0.4, -20),
+  new THREE.Vector3(0, 0.4, -40), new THREE.Vector3(0, 0, -40), new THREE.Vector3(0, -0.2, -60),
+  new THREE.Vector3(0, -0.3, -78), new THREE.Vector3(0, -0.5, -90)
+];
+const journeyCurve = new THREE.CatmullRomCurve3(pathPoints);
+const lookCurve = new THREE.CatmullRomCurve3(lookPoints);
+const MEMORY_CENTER = new THREE.Vector3(0, 0.3, -40);
+const MEMORY_RADIUS = 7.2;
+const RING_CENTER = new THREE.Vector3(0, -1, -80);
+let scrollT = 0, scrollTargetT = 0, unlockedMaxT = 0.16;
+
+function makeGlowTexture() {
+  const size = 128, canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const grad = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+  grad.addColorStop(0, 'rgba(255,255,255,1)');
+  grad.addColorStop(0.35, 'rgba(255,214,224,0.6)');
+  grad.addColorStop(1, 'rgba(255,159,178,0)');
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, size, size);
+  return new THREE.CanvasTexture(canvas);
+}
+function addGlow(parent, color, scale, position) {
+  const mat = new THREE.SpriteMaterial({ map: glowSpriteTexture, color, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
+  const sprite = new THREE.Sprite(mat);
+  sprite.scale.set(scale, scale, 1);
+  if (position) sprite.position.copy(position);
+  parent.add(sprite);
+  return sprite;
+}
+
+function createStarfield() {
+  const count = 2000;
+  const positions = new Float32Array(count * 3), colors = new Float32Array(count * 3), sizes = new Float32Array(count);
+  for (let i = 0; i < count; i++) {
+    positions[i*3] = (Math.random() - 0.5) * 90;
+    positions[i*3 + 1] = (Math.random() - 0.5) * 60;
+    positions[i*3 + 2] = (Math.random() - 0.5) * 130 - 30;
+    const warm = Math.random() > 0.4;
+    colors[i*3] = 1.0; colors[i*3+1] = warm ? 0.82 : 0.72; colors[i*3+2] = warm ? 0.7 : 0.9;
+    sizes[i] = Math.random() * 1.6 + 0.6;
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  geo.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+  starUniforms = { uTime: { value: 0 }, uMouse: { value: new THREE.Vector3(0,0,0) } };
+  const mat = new THREE.ShaderMaterial({
+    uniforms: starUniforms, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `uniform float uTime; uniform vec3 uMouse; attribute float aSize; varying vec3 vColor;
+      void main(){ vColor=color; vec3 pos=position; float d=distance(pos,uMouse);
+        float repel=smoothstep(9.0,0.0,d)*2.2; vec3 dir=normalize(pos-uMouse+vec3(0.0001));
+        pos+=dir*repel; pos.y+=sin(uTime*0.4+position.x*0.15)*0.25;
+        vec4 mv=modelViewMatrix*vec4(pos,1.0); gl_PointSize=(aSize+repel*3.5)*(260.0/-mv.z);
+        gl_Position=projectionMatrix*mv; }`,
+    fragmentShader: `varying vec3 vColor; void main(){ float d=length(gl_PointCoord-vec2(0.5));
+        if(d>0.5) discard; float a=smoothstep(0.5,0.0,d); gl_FragColor=vec4(vColor,a*0.9); }`
+  });
+  starPoints = new THREE.Points(geo, mat);
+  scene.add(starPoints);
+}
+
+function createPawField() {
+  const shape = new THREE.Shape();
+  shape.absarc(0, 0, 0.16, 0, Math.PI * 2, false);
+  const pad = (x, y, r) => { const s = new THREE.Shape(); s.absarc(x, y, r, 0, Math.PI * 2, false); return s; };
+  const pawShapes = [shape, pad(-0.2, 0.28, 0.08), pad(0.05, 0.34, 0.09), pad(0.28, 0.26, 0.08), pad(0.34, 0.02, 0.075)];
+  const geo = new THREE.ExtrudeGeometry(pawShapes, { depth: 0.02, bevelEnabled: false });
+  const mat = new THREE.MeshStandardMaterial({ color: 0xffb5a7, roughness: 0.5, metalness: 0.05, side: THREE.DoubleSide });
+  for (let i = 0; i < 55; i++) {
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.scale.setScalar(0.6 + Math.random() * 0.7);
+    mesh.position.set((Math.random() - 0.5) * 34, (Math.random() - 0.5) * 30, Math.random() * -110 + 15);
+    mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+    mesh.userData = { speedY: -0.008 - Math.random() * 0.016, speedRot: (Math.random() - 0.5) * 0.02 };
+    pawParticles.push(mesh);
+    scene.add(mesh);
+  }
+}
+
+function makeCatFaceTexture(){
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#ffcf99'; ctx.beginPath(); ctx.arc(64,64,60,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#2a1a20';
+  ctx.beginPath(); ctx.arc(46,60,6,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(82,60,6,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#ff9fb2'; ctx.beginPath(); ctx.arc(64,76,5,0,Math.PI*2); ctx.fill();
+  return new THREE.CanvasTexture(c);
+}
+function createCatOrbs() {
+  const faceTex = makeCatFaceTexture();
+  for (let i = 0; i < 14; i++) {
+    const group = new THREE.Group();
+    const bodyMat = new THREE.MeshStandardMaterial({ map: faceTex, emissive: 0xffb5a7, emissiveIntensity: 0.35, transparent: true, opacity: 0.92 });
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.34, 16, 16), bodyMat);
+    group.add(head);
+    const earMat = new THREE.MeshStandardMaterial({ color: 0xffcf99 });
+    [[-0.22, 0.3, 0.9], [0.22, 0.3, -0.9]].forEach(([x,y,rot]) => {
+      const ear = new THREE.Mesh(new THREE.ConeGeometry(0.11, 0.18, 8), earMat);
+      ear.position.set(x, y, 0); ear.rotation.z = rot * 0.5;
+      group.add(ear);
+    });
+    const light = new THREE.PointLight(0xffb5a7, 0.9, 7);
+    group.add(light);
+    addGlow(group, 0xffe0c2, 1.9);
+    group.position.set((Math.random() - 0.5) * 32, (Math.random() - 0.5) * 22 - 3, Math.random() * -110 + 10);
+    group.userData = { speedY: 0.006 + Math.random() * 0.008 };
+    catOrbGroup.push(group);
+    scene.add(group);
+  }
+}
+
+function makePawStampTexture(){
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#e8b86d'; ctx.beginPath(); ctx.arc(64,64,62,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#c9863f';
+  ctx.beginPath(); ctx.arc(64,74,22,0,Math.PI*2); ctx.fill();
+  [[36,42,12],[54,26,11],[74,26,11],[92,42,12]].forEach(([x,y,r])=>{ ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill(); });
+  return new THREE.CanvasTexture(c);
+}
+
+/* ---- physical letter texture (renders the real captured letter) ---- */
+let letterTexture;
+function buildLetterTexture() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 768; canvas.height = 512;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#fffaf0'; ctx.fillRect(0, 0, 768, 512);
+  ctx.strokeStyle = 'rgba(255,159,178,0.4)'; ctx.lineWidth = 3;
+  ctx.strokeRect(18, 18, 732, 476);
+  ctx.fillStyle = '#7a5230';
+  ctx.font = '30px Georgia, serif';
+  ctx.textAlign = 'left';
+  const words = (`Dear ${partnerName}, ` + letterText).split(' ');
+  let line = '', y = 80, x = 48, maxWidth = 670, lineH = 40;
+  for (const w of words) {
+    const test = line + w + ' ';
+    if (ctx.measureText(test).width > maxWidth) { ctx.fillText(line, x, y); line = w + ' '; y += lineH; if (y > 420) break; }
+    else line = test;
+  }
+  ctx.fillText(line, x, y);
+  if (senderName) {
+    ctx.font = 'italic 26px Georgia, serif';
+    ctx.fillText('— ' + senderName, x, Math.min(y + 60, 470));
+  }
+  return new THREE.CanvasTexture(canvas);
+}
+function refreshLetterTexture() {
+  if (!letterPaperMesh) return;
+  letterTexture = buildLetterTexture();
+  letterPaperMesh.material.map = letterTexture;
+  letterPaperMesh.material.needsUpdate = true;
+}
+
+function create3DLifafaEnvelope() {
+  envelopeGroup = new THREE.Group();
+  const bodyMat = new THREE.MeshStandardMaterial({ color: 0xfff0e5, metalness: 0.1, roughness: 0.6 });
+  const backMesh = new THREE.Mesh(new THREE.BoxGeometry(4.2, 2.8, 0.1), bodyMat);
+  envelopeGroup.add(backMesh); envelopeInteractive.push(backMesh);
+
+  const flapShape = new THREE.Shape();
+  flapShape.moveTo(-2.1, 1.4); flapShape.lineTo(2.1, 1.4); flapShape.lineTo(0, 0); flapShape.closePath();
+  flapMesh = new THREE.Mesh(new THREE.ExtrudeGeometry(flapShape, { depth: 0.05, bevelEnabled: false }), new THREE.MeshStandardMaterial({ color: 0xffe0d0, roughness: 0.6 }));
+  flapMesh.position.z = 0.06;
+  envelopeGroup.add(flapMesh); envelopeInteractive.push(flapMesh);
+
+  const earMat = new THREE.MeshStandardMaterial({ color: 0xff9fb2 });
+  [[-1.7, 1.35, -0.25], [1.7, 1.35, 0.25]].forEach(([x,y,rz]) => {
+    const ear = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.4, 6), earMat);
+    ear.position.set(x, y, 0.06); ear.rotation.z = rz;
+    envelopeGroup.add(ear);
+  });
+
+  const stampTex = makePawStampTexture();
+  waxSealMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.1, 24), new THREE.MeshStandardMaterial({ map: stampTex, emissive: 0xe8b86d, emissiveIntensity: 0.3, roughness: 0.4 }));
+  waxSealMesh.rotation.x = Math.PI / 2;
+  waxSealMesh.position.set(0, 0.55, 0.15);
+  envelopeGroup.add(waxSealMesh);
+  addGlow(waxSealMesh, 0xffcf99, 1.7);
+  envelopeInteractive.push(waxSealMesh);
+
+  letterTexture = buildLetterTexture();
+  const paperMat = new THREE.MeshStandardMaterial({ map: letterTexture, roughness: 0.85 });
+  letterPaperMesh = new THREE.Mesh(new THREE.BoxGeometry(3.8, 2.4, 0.02), paperMat);
+  letterPaperMesh.position.set(0, 0, 0.02);
+  envelopeGroup.add(letterPaperMesh);
+
+  envelopeGroup.position.set(0, 0, 0);
+  scene.add(envelopeGroup);
+}
+
+function create3DDiamondRingBox() {
+  ringGroup = new THREE.Group();
+  const velvetMat = new THREE.MeshStandardMaterial({ color: 0xe6b8ce, roughness: 0.85 });
+  const boxMesh = new THREE.Mesh(new THREE.BoxGeometry(2, 1.2, 2), velvetMat);
+  boxMesh.position.y = -0.6; ringGroup.add(boxMesh); envelopeInteractive.push(boxMesh);
+
+  ringLidMesh = new THREE.Mesh(new THREE.BoxGeometry(2, 0.8, 2), velvetMat);
+  ringLidMesh.position.set(0, 0.4, -0.8); ringGroup.add(ringLidMesh); envelopeInteractive.push(ringLidMesh);
+
+  const goldRingMat = new THREE.MeshStandardMaterial({ color: 0xe8b86d, metalness: 0.9, roughness: 0.1 });
+  const ringBand = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.08, 20, 40), goldRingMat);
+  ringBand.rotation.x = Math.PI / 2;
+
+  cubeRenderTarget = new THREE.WebGLCubeRenderTarget(256, { format: THREE.RGBFormat, generateMipmaps: true, minFilter: THREE.LinearMipmapLinearFilter });
+  cubeCamera = new THREE.CubeCamera(0.1, 60, cubeRenderTarget);
+  scene.add(cubeCamera);
+
+  const diamondMat = new THREE.MeshPhysicalMaterial({
+    color: 0xfff0f5, metalness: 0.05, roughness: 0.02, transmission: 0.85, ior: 2.2, thickness: 0.6,
+    emissive: 0xffc9d6, emissiveIntensity: 0.2, envMap: cubeRenderTarget.texture, envMapIntensity: 1.6, clearcoat: 1
+  });
+  diamondRingMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(0.38, 1), diamondMat);
+  diamondRingMesh.position.y = 0.55;
+  addGlow(diamondRingMesh, 0xffffff, 1.4);
+
+  ringSubGroup = new THREE.Group();
+  ringSubGroup.add(ringBand); ringSubGroup.add(diamondRingMesh);
+  ringSubGroup.position.set(0, 0.1, 0);
+  ringGroup.add(ringSubGroup);
+  ringGroup.scale.setScalar(0.001);
+  ringGroup.position.copy(RING_CENTER);
+  scene.add(ringGroup);
+}
+
+function buildPolaroidTexture(imgOrNull, mem) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 480; canvas.height = 600;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#fffdf8'; ctx.fillRect(0, 0, 480, 600);
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,0.15)'; ctx.shadowBlur = 14;
+  const px = 22, py = 22, pw = 436, ph = 470;
+  if (imgOrNull) { ctx.drawImage(imgOrNull, px, py, pw, ph); }
+  else {
+    const grad = ctx.createLinearGradient(px, py, px + pw, py + ph);
+    grad.addColorStop(0, '#ffd6e0'); grad.addColorStop(1, '#e6d6fb');
+    ctx.fillStyle = grad; ctx.fillRect(px, py, pw, ph);
+    ctx.font = '90px sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#fff';
+    ctx.fillText('🐾', px + pw/2, py + ph/2 + 30);
+  }
+  ctx.restore();
+  ctx.strokeStyle = 'rgba(255,159,178,0.7)'; ctx.lineWidth = 4;
+  ctx.strokeRect(px, py, pw, ph);
+  ctx.fillStyle = '#7a5230';
+  ctx.font = 'italic 40px Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(mem.caption.length > 26 ? mem.caption.slice(0,24) + '…' : mem.caption, 240, 560);
+  return new THREE.CanvasTexture(canvas);
+}
+
+function addMemoryFrame(mem, idx, total) {
+  const angle = (idx / total) * Math.PI * 2;
+  const group = new THREE.Group();
+  const placeholderTex = buildPolaroidTexture(null, mem);
+  const frameMesh = new THREE.Mesh(new THREE.BoxGeometry(2.3, 2.9, 0.08), new THREE.MeshPhysicalMaterial({ map: placeholderTex, roughness: 0.35, metalness: 0, clearcoat: 0.6 }));
+  group.add(frameMesh);
+  envelopeInteractive.push(frameMesh);
+
+  group.position.set(MEMORY_CENTER.x + Math.sin(angle) * MEMORY_RADIUS, MEMORY_CENTER.y, MEMORY_CENTER.z + Math.cos(angle) * MEMORY_RADIUS);
+  group.lookAt(MEMORY_CENTER);
+  group.userData = { baseY: group.position.y, phase: Math.random() * Math.PI * 2, mesh: frameMesh, idx };
+  memoryGroup.add(group);
+  memoryFrames.push(group);
+
+  if (mem.url) {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => { frameMesh.material.map = buildPolaroidTexture(img, mem); frameMesh.material.needsUpdate = true; };
+    img.onerror = () => {};
+    img.src = mem.url;
+  }
+}
+function createFloating3DMemories() {
+  memoryGroup = new THREE.Group();
+  scene.add(memoryGroup);
+  memoryList.forEach((mem, idx) => addMemoryFrame(mem, idx, memoryList.length));
+  renderSlideDots();
+  jumpToMemorySlideQuiet(0);
+}
+function rebuildMemoryGalaxy() {
+  if (!memoryGroup) return;
+  memoryFrames.forEach(f => memoryGroup.remove(f));
+  memoryFrames = [];
+  memoryList.forEach((mem, idx) => addMemoryFrame(mem, idx, memoryList.length));
+  renderSlideDots();
+  jumpToMemorySlideQuiet(0);
+}
+function jumpToMemorySlideQuiet(idx) {
+  activeMemoryIndex = idx;
+  document.getElementById('slide-counter').innerText = `${idx + 1} / ${memoryList.length}`;
+  document.getElementById('memory-caption-display').innerText = `"${memoryList[idx].caption}"`;
+}
+
+function init3DWorld() {
+  const container = document.getElementById('webgl-container');
+  scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x3a2028, 0.02);
+  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.copy(pathPoints[0]);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.2;
+  container.appendChild(renderer.domElement);
+
+  raycaster = new THREE.Raycaster();
+  glowSpriteTexture = makeGlowTexture();
+
+  scene.add(new THREE.AmbientLight(0xfff0e5, 0.95));
+  const goldLight = new THREE.PointLight(0xe8b86d, 3, 60); goldLight.position.set(6, 10, 10); scene.add(goldLight);
+  const pinkLight = new THREE.PointLight(0xff9fb2, 2.6, 60); pinkLight.position.set(-6, -8, -10); scene.add(pinkLight);
+  const farLight = new THREE.PointLight(0xe6d6fb, 2.2, 60); farLight.position.set(0, 6, -75); scene.add(farLight);
+
+  createStarfield();
+  createPawField();
+  createCatOrbs();
+  create3DLifafaEnvelope();
+  create3DDiamondRingBox();
+  createFloating3DMemories();
+
+  attachInteraction();
+  window.addEventListener('resize', onWindowResize);
+  animate3D();
+}
+
+function attachInteraction() {
+  const dom = renderer.domElement;
+  window.addEventListener('pointermove', (e) => {
+    updateCustomCursor(e.clientX, e.clientY);
+    spawnPawTrail(e.clientX, e.clientY);
+    mouseNDC.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mouseNDC.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    if (isDragging) {
+      const dx = e.clientX - dragLastX, dy = e.clientY - dragLastY;
+      dragYawTarget -= dx * 0.0028;
+      dragPitchTarget = THREE.MathUtils.clamp(dragPitchTarget - dy * 0.0022, -0.5, 0.5);
+      dragLastX = e.clientX; dragLastY = e.clientY;
+    }
+    handleHover();
+  });
+  dom.addEventListener('pointerdown', (e) => { isDragging = true; dragLastX = e.clientX; dragLastY = e.clientY; cursorPaw.classList.add('hovering'); });
+  window.addEventListener('pointerup', (e) => {
+    const moved = Math.abs(e.clientX - dragLastX) + Math.abs(e.clientY - dragLastY);
+    isDragging = false;
+    if (moved < 4) handleClick(e);
+  });
+  window.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (!hasScrolled) { hasScrolled = true; document.getElementById('scroll-hint').style.opacity = '0'; }
+    scrollTargetT = THREE.MathUtils.clamp(scrollTargetT + e.deltaY * 0.00032, 0, unlockedMaxT);
+  }, { passive: false });
+  let touchStartY = null;
+  dom.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; }, { passive: true });
+  dom.addEventListener('touchmove', (e) => {
+    if (touchStartY === null) return;
+    const dy = touchStartY - e.touches[0].clientY;
+    scrollTargetT = THREE.MathUtils.clamp(scrollTargetT + dy * 0.0012, 0, unlockedMaxT);
+    touchStartY = e.touches[0].clientY;
+    if (!hasScrolled) { hasScrolled = true; document.getElementById('scroll-hint').style.opacity = '0'; }
+  }, { passive: true });
+}
+function handleHover() {
+  raycaster.setFromCamera(mouseNDC, camera);
+  const hits = raycaster.intersectObjects(envelopeInteractive, false);
+  cursorPaw.classList.toggle('hovering', hits.length > 0);
+}
+function handleClick(e) {
+  raycaster.setFromCamera(mouseNDC, camera);
+  const hits = raycaster.intersectObjects(envelopeInteractive, false);
+  if (!hits.length) return;
+  const obj = hits[0].object;
+  if (currentStage === 1 && envelopeGroup.children.includes(obj)) { openLifafaEnvelope(); return; }
+  const frame = memoryFrames.find(f => f.userData.mesh === obj);
+  if (frame && currentStage >= 2) { flyToMemory(frame.userData.idx); return; }
+  if (currentStage === 3 && obj === ringLidMesh) {
+    playSoftTick(523);
+    gsap.to(ringLidMesh.rotation, { x: ringLidMesh.rotation.x === 0 ? -Math.PI / 1.8 : 0, duration: 0.8, ease: "power2.out" });
+  }
+}
+
+function advanceJourney(targetT, newUnlockedMax) {
+  unlockedMaxT = Math.max(unlockedMaxT, newUnlockedMax);
+  gsap.to({ v: scrollTargetT }, { v: targetT, duration: 2.2, ease: "power2.inOut", onUpdate: function () { scrollTargetT = this.targets()[0].v; } });
+}
+function openLifafaEnvelope() {
+  playRomanticChime();
+  gsap.to(waxSealMesh.position, { z: 2, duration: 1, ease: "power2.in" });
+  gsap.to(waxSealMesh.scale, { x: 0.01, y: 0.01, z: 0.01, duration: 1 });
+  gsap.to(letterPaperMesh.position, { y: 2.2, duration: 1.2, delay: 0.3, ease: "power2.out" });
+  gsap.to(flapMesh.rotation, { x: -Math.PI * 0.9, duration: 1, delay: 0.15, ease: "power2.out" });
+  setTimeout(() => {
+    currentStage = 2;
+    document.getElementById('stage-1-card').style.display = 'none';
+    document.getElementById('stage-2-card').style.display = 'block';
+    document.getElementById('stage-text').innerText = "Chapter 2 · Drifting Through The Memory Galaxy";
+    setMascotHint(2);
+    advanceJourney(0.42, 0.6);
+  }, 1400);
+}
+function transitionToProposeClimax() {
+  playRomanticChime();
+  document.getElementById('final-vow-quote').innerText = `"${letterText.slice(0, 160)}"`;
+  setTimeout(() => {
+    currentStage = 3;
+    document.getElementById('stage-2-card').style.display = 'none';
+    document.getElementById('stage-3-card').style.display = 'block';
+    document.getElementById('stage-text').innerText = "Chapter 3 · The Big Question";
+    setMascotHint(3);
+    gsap.to(ringGroup.scale, { x: 1, y: 1, z: 1, duration: 1.4, ease: "back.out(1.4)" });
+    gsap.to(ringLidMesh.rotation, { x: -Math.PI / 1.8, duration: 1.5, delay: 0.8, ease: "power2.out" });
+    advanceJourney(1.0, 1.0);
+  }, 600);
+}
+function dodgeNoButton() {
+  const btnNo = document.getElementById('btn-no');
+  const container = document.getElementById('proposal-buttons-container');
+  const rect = container.getBoundingClientRect();
+  const randomX = (Math.random() - 0.5) * (rect.width * 0.7);
+  const randomY = (Math.random() - 0.5) * (rect.height * 0.5);
+  btnNo.style.position = 'absolute';
+  btnNo.style.left = `${50 + randomX / 2}%`;
+  btnNo.style.top = `${65 + randomY / 2}%`;
+  btnNo.style.transform = 'translate(-50%, -50%)';
+}
+
+function flyToMemory(idx) {
+  const frame = memoryFrames[idx]; if (!frame) return;
+  inMemoryFocus = true; focusFrame = frame; activeMemoryIndex = idx;
+  playSoftTick(659);
+  const dirToCenter = new THREE.Vector3().subVectors(MEMORY_CENTER, frame.position).normalize();
+  const targetPos = frame.position.clone().add(dirToCenter.multiplyScalar(-3.4));
+  targetPos.y += 0.3;
+  gsap.to(camera.position, { x: targetPos.x, y: targetPos.y, z: targetPos.z, duration: 1.1, ease: "power2.inOut" });
+  document.getElementById('memory-caption-display').innerText = `"${memoryList[idx].caption}"`;
+  document.getElementById('slide-counter').innerText = `${idx + 1} / ${memoryList.length}`;
+  document.getElementById('memory-focus-caption').innerText = `"${memoryList[idx].caption}"`;
+  document.getElementById('memory-focus-panel').classList.add('show');
+  renderSlideDots();
+}
+function exitMemoryFocus() { inMemoryFocus = false; focusFrame = null; document.getElementById('memory-focus-panel').classList.remove('show'); }
+function renderSlideDots() {
+  const dotsContainer = document.getElementById('slide-dots-container');
+  if (!dotsContainer) return;
+  dotsContainer.innerHTML = '';
+  memoryList.forEach((_, idx) => {
+    const dot = document.createElement('button');
+    dot.style.cssText = `width:10px;height:10px;border-radius:50%;border:2px solid var(--pink-deep);background:${idx === activeMemoryIndex ? '#ff9fb2' : '#fff'};cursor:pointer;`;
+    dot.onclick = () => jumpToMemorySlide(idx);
+    dotsContainer.appendChild(dot);
+  });
+}
+function jumpToMemorySlide(index) {
+  if (index < 0) index = memoryList.length - 1;
+  if (index >= memoryList.length) index = 0;
+  activeMemoryIndex = index;
+  playRomanticChime();
+  renderSlideDots();
+  document.getElementById('slide-counter').innerText = `${activeMemoryIndex + 1} / ${memoryList.length}`;
+  document.getElementById('memory-caption-display').innerText = `"${memoryList[activeMemoryIndex].caption}"`;
+  if (inMemoryFocus) flyToMemory(activeMemoryIndex);
+}
+function slideNextMemory() { jumpToMemorySlide(activeMemoryIndex + 1); }
+function slidePrevMemory() { jumpToMemorySlide(activeMemoryIndex - 1); }
+function toggleAutoFlash() {
+  const btn = document.getElementById('btn-autoflash');
+  if (isAutoFlashing) { clearInterval(autoFlashInterval); isAutoFlashing = false; btn.innerText = '▶ Auto Play'; }
+  else { isAutoFlashing = true; btn.innerText = '⏸ Pause'; slideNextMemory(); autoFlashInterval = setInterval(() => slideNextMemory(), 3500); }
+}
+
+function acceptProposal() {
+  playRomanticChime();
+  confetti({ particleCount: 220, spread: 140, origin: { y: 0.6 }, colors: ['#ffb5a7', '#ffd6e0', '#e8b86d', '#ffffff', '#e6d6fb'] });
+  setTimeout(() => { document.getElementById('celebration-modal').style.display = 'flex'; }, 600);
+}
+function restartExperience() {
+  document.getElementById('celebration-modal').style.display = 'none';
+  currentStage = 1;
+  exitMemoryFocus();
+  gsap.to(letterPaperMesh.position, { y: 0, duration: 1 });
+  gsap.to(waxSealMesh.position, { z: 0.15, duration: 1 });
+  gsap.to(waxSealMesh.scale, { x: 1, y: 1, z: 1, duration: 1 });
+  gsap.to(flapMesh.rotation, { x: 0, duration: 1 });
+  gsap.to(ringGroup.scale, { x: 0.001, y: 0.001, z: 0.001, duration: 1 });
+  gsap.to(ringLidMesh.rotation, { x: 0, duration: 1 });
+  unlockedMaxT = 0.16; scrollTargetT = 0; scrollT = 0;
+  document.getElementById('stage-3-card').style.display = 'none';
+  document.getElementById('stage-1-card').style.display = 'block';
+  document.getElementById('stage-text').innerText = "Chapter 1 · A Sealed Little Lifafa";
+  setMascotHint(1);
+}
+
+const tmpLookA = new THREE.Vector3(), tmpLookB = new THREE.Vector3();
+function animate3D() {
+  requestAnimationFrame(animate3D);
+  const t = performance.now() * 0.001;
+  if (starUniforms) {
+    starUniforms.uTime.value = t;
+    raycaster.setFromCamera(mouseNDC, camera);
+    starUniforms.uMouse.value.copy(raycaster.ray.at(18, new THREE.Vector3()));
+  }
+  pawParticles.forEach((p) => {
+    p.position.y += p.userData.speedY;
+    p.rotation.x += p.userData.speedRot; p.rotation.y += p.userData.speedRot;
+    if (p.position.y < -18) { p.position.y = 18; p.position.x = (Math.random() - 0.5) * 34; }
+  });
+  catOrbGroup.forEach((orb) => {
+    orb.position.y += orb.userData.speedY;
+    orb.rotation.y += 0.003;
+    if (orb.position.y > 16) { orb.position.y = -16; orb.position.x = (Math.random() - 0.5) * 32; }
+  });
+  if (currentStage === 1) { envelopeGroup.rotation.y += 0.006; envelopeGroup.rotation.x = Math.sin(t * 0.5) * 0.1; }
+  memoryFrames.forEach((f) => { f.position.y = f.userData.baseY + Math.sin(t * 0.8 + f.userData.phase) * 0.18; });
+  if (currentStage === 2 && !inMemoryFocus && memoryGroup) memoryGroup.rotation.y += 0.0009;
+  if (diamondRingMesh) diamondRingMesh.rotation.y += 0.02;
+  if (ringSubGroup) ringSubGroup.rotation.y += 0.003;
+  if (cubeCamera && diamondRingMesh && Math.floor(t * 12) % 3 === 0) {
+    diamondRingMesh.visible = false;
+    const worldPos = new THREE.Vector3();
+    diamondRingMesh.getWorldPosition(worldPos);
+    cubeCamera.position.copy(worldPos);
+    cubeCamera.update(renderer, scene);
+    diamondRingMesh.visible = true;
+  }
+  scrollT += (scrollTargetT - scrollT) * 0.07;
+  const journeyPos = journeyCurve.getPoint(THREE.MathUtils.clamp(scrollT, 0, 1));
+  const lookAtPos = lookCurve.getPoint(THREE.MathUtils.clamp(scrollT, 0, 1));
+  dragYaw += (dragYawTarget - dragYaw) * 0.08;
+  dragPitch += (dragPitchTarget - dragPitch) * 0.08;
+  if (!inMemoryFocus) {
+    camera.position.lerp(journeyPos, 1);
+    tmpLookA.copy(lookAtPos);
+    tmpLookA.x += dragYaw * 6 + mouseNDC.x * 1.4;
+    tmpLookA.y += -dragPitch * 4 - mouseNDC.y * 1.0;
+    camera.lookAt(tmpLookA);
+  } else if (focusFrame) { tmpLookB.copy(focusFrame.position); camera.lookAt(tmpLookB); }
+  const pct = Math.round(THREE.MathUtils.clamp(scrollT, 0, 1) * 100);
+  document.getElementById('journey-rail-fill').style.height = pct + '%';
+  document.getElementById('journey-rail-dot').style.bottom = pct + '%';
+  renderer.render(scene, camera);
+}
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+/* ============================== ENTRY POINT ============================== */
+window.onload = function () {
+  const hash = location.hash || '';
+  if (hash.indexOf('#code=') === 0) {
+    const code = decodeURIComponent(hash.slice(6));
+    const payload = decodePayloadFromCode(code);
+    if (payload) { applyPayload(payload); hideAllFlowScreens(); beginExperience(); return; }
+  }
+  showWelcomeScreen();
+};
+</script>
+</body>
+</html>
