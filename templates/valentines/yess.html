@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wanna be My Valentine??</title>
+    <meta name="description" content="There is a surprise." />
+    <meta name="keywords" content="Valentine, Love, Surprise" />
+    <meta name="author" content="Prashant" />
+    <meta name="robots" content="index, follow" />
+    <meta name="revisit-after" content="3 days" />
+    <meta name="language" content="English" />
+    <meta name="web_author" content="Prashant" />
+    <meta name="rating" content="general" />
+    <meta name="og:title" content="There is a Surprise" />
+    <meta name="og:description" content="There is a surprise." />
+    <meta name="og:image" content="https://i.ibb.co/k6xD4nM/New-Project.jpg" />
+    <meta name="og:url" content="https://prashant-valentine.netlify.app/" />
+    <meta name="og:site_name" content="There is a Surprise" />
+    <meta name="og:locale" content="en_US" />
+    <meta name="og:type" content="website" />
+    <meta name="og:author" content="Prashant" />
+  </head>
+  <style>
+    body {
+      background-color: #f8c8dc;
+      font-family: "Roboto", sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: left;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      justify-content: start;
+      align-items: center;
+      overflow: hidden !important;
+    }
+    html {
+      overflow: hidden;
+    }
+    @import url("https://fonts.googleapis.com/css2?family=Love+Light&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Lovers+Quarrel&display=swap");
+    * {
+      box-sizing: border-box;
+    }
+    .headerText {
+      font-weight: 700;
+      font-size: 40px;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-family: "Lovers Quarrel";
+    }
+    .image {
+      object-fit: cover;
+      mix-blend-mode: multiply;
+      height: 400px;
+      width: 400px;
+    }
+    
+    .flex {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 10px;
+    }
+    .button {
+      background-color: #ff4f99;
+      border: none;
+      color: rgb(0, 0, 0);
+      text-align: center;
+      padding: 20px 30px;
+      border-radius: 20px;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .button:hover {
+      background-color: #ff71ac;
+      color: white;
+      transition: ease-in-out 0.3s;
+    }
+    
+    .absImage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+    .image1 {
+      height: 40px;
+      width: 40px;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+      position: absolute;
+      animation: slideUp 1s ease-in-out;
+    }
+    
+    @keyframes slideUp {
+      0% {
+        transform: translateY(100%);
+      }
+      100% {
+        transform: translateY(0%);
+      }
+    }
+    .model {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      z-index: 1;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .yesModel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .model-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 20px;
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .modelText {
+      font-weight: 700;
+      font-size: 30px;
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-family: "Lovers Quarrel", cursive;
+    }
+    
+    .modelImg {
+      max-height: 300px;
+      width: 100%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+    
+    .f-aps {
+      position: absolute;
+      bottom: 0;
+      animation: slideUp 1s ease-in-out;
+      right: 0;
+      padding: 20px;
+    }
+    .f-aps img {
+      height: 40px;
+      width: 40px;
+      object-fit: cover;
+    }
+  </style>
+  <body>
+    <h1 class="headerText" id="wedate">Will You Be My Valentine, Babe? 🥺</h1>
+    <img class="image" src="https://github.com/NikhilMarko03/resources/blob/main/happy1.gif?raw=true" alt="heyy" id="mainImg" />
+    
+    <div class="flex" id="btns">
+      <button
+        class="button"
+        id="btn-yes-main"
+        onmouseenter="happy()"
+        onmouseleave="normal()"
+        onclick="yes()"
+      >
+        Yes 🥰
+      </button>
+      <button
+        class="button"
+        id="btn-no-main"
+        onmouseenter="angry()"
+        onmouseleave="normal()"
+        onclick="no()"
+      >
+        No 😭
+      </button>
+    </div>
+
+    <div class="absImages" id="absImg">
+      <img class="image1" src="https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true" alt="heart" />
+      <img class="image1" src="https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true" alt="heart" />
+      <img class="image1" src="https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true" alt="heart" />
+      <img class="image1" src="https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true" alt="heart" />
+      <img class="image1" src="https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true" alt="heart" />
+      <img class="image1" src="https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true" alt="heart" />
+      <img class="image1" src="https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true" alt="heart" />
+      <img class="image1" src="https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true" alt="heart" />
+      <img class="image1" src="https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true" alt="heart" />
+      <img class="image1" src="https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true" alt="heart" />
+    </div>
+
+    <div class="model" id="model2">
+      <div class="model-content">
+        <p class="modelText" id="modelText2">I Love you 😘😘</p>
+        <img
+          class="modelImg"
+          id="modelImg2"
+          src="https://media.giphy.com/media/0cdbJBHZXG2hm132X2/giphy.gif"
+          alt="Happy Hug"
+        />
+        <button
+          class="button"
+          id="btn-love-you-too"
+          onmouseenter="happy()"
+          onmouseleave="normal()"
+          onclick="ly2()"
+        >
+          Love You Too 🥰
+        </button>
+      </div>
+    </div>
+
+    <div id="model" class="model">
+      <div class="model-content">
+        <p class="modelText" id="modelText">Please</p>
+        <img
+          class="modelImg"
+          id="modelImg"
+          src="https://media.giphy.com/media/L95W4wv8nnb9K/giphy.gif"
+          alt="Sad Cat"
+        />
+        <div class="flex">
+          <button
+            class="button"
+            id="btn-yes-modal"
+            onmouseenter="happy()"
+            onmouseleave="normal()"
+            onclick="yes()"
+          >
+            Yes 🥰
+          </button>
+          <button
+            class="button"
+            id="btn-no-modal"
+            onmouseenter="angry()"
+            onmouseleave="normal()"
+            onclick="no()"
+          >
+            No 😭
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var images = document.querySelectorAll(".image1");
+
+        function setRandomPosition(element) {
+          element.style.top = Math.floor(Math.random() * window.innerHeight) + "px";
+          element.style.left = Math.floor(Math.random() * window.innerWidth) + "px";
+        }
+
+        images.forEach(function (image, index) {
+          setRandomPosition(image);
+          // Added delay so hearts float up one by one instead of all together
+          image.style.animationDelay = (index * 0.2) + "s";
+        });
+      });
+
+      function angry() {
+        var images = document.querySelectorAll(".image1");
+        var absImg = document.getElementById("absImg");
+        var mainImg = document.getElementById("mainImg");
+        mainImg.src = "https://github.com/NikhilMarko03/resources/blob/main/sad1.gif?raw=true";
+
+        absImg.style.display = "flex";
+
+        images.forEach(function (image) {
+          image.src = "https://github.com/NikhilMarko03/resources/blob/main/sad1.gif?raw=true";
+        });
+      }
+
+      function happy() {
+        var images = document.querySelectorAll(".image1");
+        var absImg = document.getElementById("absImg");
+        absImg.style.display = "flex";
+        var mainImg = document.getElementById("mainImg");
+        mainImg.src = "https://github.com/NikhilMarko03/resources/blob/main/happy3.gif?raw=true";
+
+        images.forEach(function (image) {
+          image.src = "https://github.com/NikhilMarko03/resources/blob/main/heart.gif?raw=true";
+        });
+      }
+
+      function normal() {
+        var absImg = document.getElementById("absImg");
+        absImg.style.display = "none";
+        var mainImg = document.getElementById("mainImg");
+        mainImg.src = "https://github.com/NikhilMarko03/resources/blob/main/happy1.gif?raw=true";
+      }
+
+      const sadCat = [
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjY4MW1ieTRsZ2Z5d2phYTBmbG9vb2x4ZmxreTZydWVpcm9vNDgxNSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/a6TvNMFAJqfTOAGjz4/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjY4MW1ieTRsZ2Z5d2phYTBmbG9vb2x4ZmxreTZydWVpcm9vNDgxNSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/W4RizlO6qZWQRYw9mb/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjY4MW1ieTRsZ2Z5d2phYTBmbG9vb2x4ZmxreTZydWVpcm9vNDgxNSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/XZGyIAeizeBhCnkNmS/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjY4MW1ieTRsZ2Z5d2phYTBmbG9vb2x4ZmxreTZydWVpcm9vNDgxNSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/WqwQTTAqIML1r3TwRP/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjY4MW1ieTRsZ2Z5d2phYTBmbG9vb2x4ZmxreTZydWVpcm9vNDgxNSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/bg3NTbcdwyn7EkT1eW/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXR5bnlkYzNkbWkzaXR4eHY1dGhnb2R6emFzY21xN2Y2MG9keHowOSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Df0JB6yixeNqg/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2F4bGJtbGFqdjh0ajFrNjdxcnJtZG41YzNjeTd1dDJ6MXNnbDd1dyZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/3OJsQMCv3bKps5292P/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3VqdW9vbDBwNzR0bjg2ZTR2aWdoeDYxcjdmYnA5ZXpwZW82MW1rYiZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/nhr2X01QukgDVlpOAP/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWlqcWRjMTRvYmc1MnQ5djl6bmZqaGxiNTRmZzczYm83NmtvbmczbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/aCzTklXxTjF3NlzXlN/giphy.gif",
+        "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTN5M3BwZXgzdWh2MnR2bjdkNnFyOHZsbmNyY3d3dDIxN2p4OG1paSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/YZOsKxJfmvzG0/giphy.gif",
+      ];
+
+      const blackmail = [
+        "Please 🥺",
+        "I'm begging you 😭",
+        "I'm crying",
+        "I'm sad 💔",
+        "HUHUHUHU",
+        "Please Say Yes 🙏",
+        "I'm gonna cry",
+        "Don't break my heart 💔",
+        "I can't live without you 😭"
+      ];
+
+      // Variables to store the last shown image and text
+      let lastSadIndex = -1;
+      let lastTextIndex = -1;
+
+      function no() {
+        let model = document.getElementById("model");
+        model.style.display = "none"; 
+        setTimeout(() => {
+          model.style.display = "flex";
+          const modelImage = document.getElementById("modelImg");
+          const modelText = document.getElementById("modelText");
+          
+          let newSadIndex;
+          let newTextIndex;
+
+          // Logic to ensure the new image is not the same as the last one
+          do {
+            newSadIndex = Math.floor(Math.random() * sadCat.length);
+          } while (newSadIndex === lastSadIndex);
+          lastSadIndex = newSadIndex; // Update last image tracker
+
+          // Logic to ensure the new text is not the same as the last one
+          do {
+            newTextIndex = Math.floor(Math.random() * blackmail.length);
+          } while (newTextIndex === lastTextIndex);
+          lastTextIndex = newTextIndex; // Update last text tracker
+
+          modelImage.src = sadCat[newSadIndex];
+          modelText.innerText = blackmail[newTextIndex];
+        }, 100);
+      }
+
+      function yes() {
+        let modelHappy = document.getElementById("model2");
+        let modelSad = document.getElementById("model");
+        
+        modelSad.style.display = "none";
+        
+        setTimeout(() => {
+            modelHappy.style.display = "flex";
+        }, 100);
+
+        const wedate = document.getElementById("wedate");
+        const btns = document.getElementById("btns");
+        
+        btns.style.display = "none";
+        wedate.innerText = "We are each other's valentine now. I love you cutie. ❤️😘";
+      }
+
+      function ly2() {
+        let modelHappy = document.getElementById("model2");
+        modelHappy.style.display = "none";
+      }
+    </script>
+  </body>
+</html>
