@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Reset & Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .page-wrapper {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 900px;
+            border: 1px solid #ccc;
+            padding: 20px 20px 60px 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        /* Header Section */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 50px;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background-color: #7b8a78;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .banner-container {
+            flex-grow: 1;
+            margin: 0 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-banner {
+            width: 100%;
+            background: linear-gradient(to bottom, #d53ab5, #881a7b);
+            padding: 15px 0;
+            text-align: center;
+            border: 1px solid #731367;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            /* Reflection effect mimicking the image */
+            -webkit-box-reflect: below 0px linear-gradient(transparent 40%, rgba(255,255,255,0.6));
+        }
+
+        .main-banner h1 {
+            color: #ff5de0;
+            font-size: 28px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+
+        .record-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 80px;
+        }
+
+        .record-section i {
+            font-size: 30px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .record-section p {
+            font-size: 10px;
+            line-height: 1.2;
+            color: #333;
+        }
+
+        /* Middle Grid Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 180px 1fr 180px;
+            gap: 20px;
+            margin-bottom: 40px;
+            align-items: stretch;
+        }
+
+        .grid-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .grid-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Specific Grid Items */
+        .center-images-top {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .center-images-top img {
+            height: 140px;
+            object-fit: cover;
+        }
+
+        .teddy-wrapper {
+            /* Teddy reflection */
+            -webkit-box-reflect: below 2px linear-gradient(transparent 60%, rgba(255,255,255,0.7));
+        }
+
+        .teddy-wrapper img, .right-cat-wrapper img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .green-box {
+            background-color: #a3d39c;
+            width: 100%;
+            height: 100%;
+            min-height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .green-box p {
+            color: #79ba6f;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Slider Section */
+        .slider-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 400px;
+            max-width: 100%;
+        }
+
+        .slider-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: transparent;
+            color: #005a8c;
+            font-size: 40px;
+            cursor: pointer;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+
+        .arrow-left {
+            left: -15px;
+        }
+
+        .arrow-right {
+            right: -15px;
+        }
+
+        .slider-caption {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #000;
+            line-height: 1.4;
+        }
+
+        /* Footer / Next Button */
+        .footer-action {
+            display: flex;
+            justify-content: center;
+        }
+
+        .next-btn {
+            background: linear-gradient(to bottom, #ff5de0, #00d2ff);
+            border: 2px solid #a80077;
+            border-radius: 30px;
+            padding: 12px 60px;
+            color: #ffebf9;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+        }
+
+        .next-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .main-banner h1 {
+                font-size: 20px;
+            }
+            .center-images-top img {
+                height: 100px;
+            }
+            .teddy-wrapper img, .right-cat-wrapper img, .green-box {
+                min-height: 150px;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header>
+            <div class="logo-container">
+                Logo
+            </div>
+            
+            <div class="banner-container">
+                <div class="main-banner">
+                    <h1>Happy Valentine Day dear 😘</h1>
+                </div>
+            </div>
+
+            <div class="record-section">
+                <i class="fa-solid fa-microphone-lines"></i>
+                <p>Record<br>Your<br>Massage<br>For loved<br>one</p>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="content-grid">
+            <!-- Row 1 -->
+            <div class="grid-item">
+                <img src="https://placehold.co/180x150/e8f4f8/333333?text=Cute+Cat+Left" alt="Cute Cat Drawing">
+            </div>
+            
+            <div class="grid-item center-images-top">
+                <img src="https://placehold.co/120x150/ffffff/333333?text=Chibi\nCouple" alt="Chibi Couple">
+                <img src="https://placehold.co/220x150/ffffff/333333?text=Anime\nCouple" alt="Anime Couple">
+            </div>
+            
+            <div class="grid-item">
+                <img src="https://placehold.co/180x150/e8f4f8/333333?text=Cute+Cat+Right" alt="Cute Cat Drawing">
+            </div>
+
+            <!-- Row 2 -->
+            <div class="grid-item teddy-wrapper">
+                <img src="https://placehold.co/180x220/ffffff/333333?text=Teddy\nBear" alt="Red Teddy Bear">
+            </div>
+            
+            <div class="grid-item">
+                <div class="green-box">
+                    <p>Custom Messages section</p>
+                </div>
+            </div>
+            
+            <div class="grid-item right-cat-wrapper">
+                <img src="https://placehold.co/180x220/ffffff/333333?text=Cat\nLicking+Paw" alt="Cat Licking Paw">
+            </div>
+        </main>
+
+        <!-- Slider Section -->
+        <section class="slider-section">
+            <div class="slider-container">
+                <div class="slider-arrow arrow-left">&lang;</div>
+                <img src="https://placehold.co/400x300/ffffff/333333?text=Cute+Cat+In+Hat" alt="Slider Cat">
+                <div class="slider-arrow arrow-right">&rang;</div>
+            </div>
+            <p class="slider-caption">
+                Image slider section (input from user)<br>
+                (This image only for my fav person)
+            </p>
+        </section>
+
+        <!-- Footer / Action Button -->
+        <footer class="footer-action">
+            <button class="next-btn">Go To Next Page</button>
+        </footer>
+    </div>
+
+</body>
+</html>
