@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Feb 13 - Happy Kiss Day | Yaadon Ka Lifafa</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;800&family=Playfair+Display:ital,wght@1,600;1,700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           1. CORE VARIABLES & FULL PAGE SCROLL SNAP ARCHITECTURE
+           ========================================================================== */
+        :root {
+            --win-frame: #4a2511;
+            --scat-bg-top: #0f0c29;
+            --scat-bg-mid: #302b63;
+            --scat-bg-bot: #24243e;
+            --love-bg-top: #2b0015;
+            --love-bg-bot: #000000;
+            --text-gold: #ffd700;
+            --accent-red: #ff1a4a;
+            --accent-pink: #ff6699;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body, html {
+            width: 100%; height: 100%; overflow: hidden; font-family: 'Poppins', sans-serif;
+            background: #000; scroll-behavior: smooth;
+        }
+
+        /* The Main Scroller - Hides all overflow and snaps perfectly */
+        .main-scroller {
+            width: 100%; height: 100vh; overflow-y: scroll; overflow-x: hidden;
+            scroll-snap-type: y mandatory; scroll-behavior: smooth;
+        }
+        /* Custom Scrollbar for better look (Webkit) */
+        .main-scroller::-webkit-scrollbar { width: 8px; }
+        .main-scroller::-webkit-scrollbar-track { background: #111; }
+        .main-scroller::-webkit-scrollbar-thumb { background: var(--accent-red); border-radius: 10px; }
+
+        .page-section {
+            width: 100vw; height: 100vh; scroll-snap-align: start; position: relative;
+            overflow: hidden; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+        }
+
+        /* ==========================================================================
+           2. PAGE 1: 3D WINDOW & GIF BACKGROUND
+           ========================================================================== */
+        #page1 { background: #000; perspective: 2000px; }
+
+        /* Full Screen Animated GIF Background */
+        .page1-gif-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+            /* Replace with your romantic floating hearts/sparkles GIF URL */
+            background-image: url('https://media.giphy.com/media/l41lO5G0rP5H8e8c8/giphy.gif'); 
+            background-size: cover; background-position: center; opacity: 0.5; mix-blend-mode: screen;
+        }
+
+        /* 3D Window Frame */
+        .window-frame {
+            position: relative; width: 90%; max-width: 1100px; height: 75vh;
+            border: 20px solid var(--win-frame); border-radius: 10px; z-index: 10;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(0,0,0,0.8);
+            background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(255,230,240,0.8) 100%);
+            display: flex; justify-content: center; align-items: center;
+            transform-style: preserve-3d;
+        }
+        /* Inner frame shadow */
+        .window-frame::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.6); pointer-events: none; z-index: 2;
+        }
+
+        /* Window Doors (Left & Right) */
+        .win-door {
+            position: absolute; top: 0; width: 50%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.1));
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 8px solid var(--win-frame); z-index: 50; 
+            transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+        }
+        .win-door.left { left: 0; transform-origin: left; }
+        .win-door.right { right: 0; transform-origin: right; }
+        
+        /* Glass reflections on doors */
+        .win-door::after {
+            content: ''; position: absolute; width: 150%; height: 100%; top: -50%; left: -50%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(45deg); pointer-events: none;
+        }
+        
+        .door-handle { width: 15px; height: 60px; background: linear-gradient(to bottom, #d4af37, #b8860b); border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
+        .win-door.left .door-handle { position: absolute; right: 20px; }
+        .win-door.right .door-handle { position: absolute; left: 20px; }
+
+        /* Open State classes controlled by JS */
+        .window-frame.open .win-door.left { transform: rotateY(-110deg); }
+        .window-frame.open .win-door.right { transform: rotateY(110deg); }
+
+        /* Content Inside Window */
+        .win-content {
+            display: flex; width: 100%; height: 100%; justify-content: space-between; align-items: center;
+            padding: 30px; position: relative; opacity: 0; transform: scale(0.9);
+            transition: opacity 1.5s ease 0.8s, transform 1.5s ease 0.8s; z-index: 1;
+        }
+        .window-frame.open .win-content { opacity: 1; transform: scale(1); }
+
+        /* Cute Animated Emoji Characters */
+        .cute-char { position: relative; display: flex; justify-content: center; align-items: center; font-size: 6rem; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4)); }
+        .char-left { animation: floatKissLeft 4s infinite alternate ease-in-out; }
+        .char-right { animation: floatKissRight 4s infinite alternate ease-in-out; animation-delay: 2s; }
+        .char-heart { position: absolute; font-size: 2rem; color: #ff1a4a; opacity: 0; animation: blowHeart 2.5s infinite; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3)); }
+        
+        /* Central Customizable Letter */
+        .letter-container {
+            width: 55%; height: 85%; background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(20px); border-radius: 20px; border: 3px dashed var(--accent-pink);
+            padding: 30px 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column; align-items: center; position: relative;
+        }
+        .letter-header { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: var(--accent-red); margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+        .editable-text {
+            width: 100%; flex-grow: 1; border: none; background: transparent;
+            font-family: 'Dancing Script', cursive; font-size: 2rem; color: #333;
+            line-height: 1.6; outline: none; resize: none; text-align: center; font-weight: bold;
+        }
+        .click-hint { position: absolute; z-index: 100; color: #fff; font-size: 2.5rem; font-family: 'Dancing Script', cursive; text-shadow: 0 5px 15px #000; animation: pulseHint 2s infinite; pointer-events: none; }
+
+        @keyframes floatKissLeft { 0% { transform: translateY(0) rotate(-10deg); } 100% { transform: translateY(-30px) rotate(10deg); } }
+        @keyframes floatKissRight { 0% { transform: translateY(0) rotate(10deg); } 100% { transform: translateY(-30px) rotate(-10deg); } }
+        @keyframes blowHeart { 0% { transform: translate(0, 0) scale(0.5); opacity: 1; } 100% { transform: translate(40px, -60px) scale(2); opacity: 0; } }
+        @keyframes pulseHint { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1); opacity: 1; } }
+
+        /* Scroll Down Indicator */
+        .scroll-down { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 2rem; color: #fff; animation: bounce 2s infinite; opacity: 0; transition: opacity 1s; z-index: 100;}
+        .window-frame.open ~ .scroll-down { opacity: 1; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); } 40% { transform: translateY(-20px) translateX(-50%); } 60% { transform: translateY(-10px) translateX(-50%); } }
+
+        /* ==========================================================================
+           3. PAGE 2: SWIMMING HEART FRAMES WITH ROSES BACKGROUND
+           ========================================================================== */
+        #page2 {
+            background: linear-gradient(135deg, var(--scat-bg-top), var(--scat-bg-mid), var(--scat-bg-bot));
+            position: relative;
+        }
+        /* Animated Background Particles for Page 2 */
+        .page2-particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 2px); background-size: 30px 30px; animation: slideBg 20s linear infinite; z-index: 1; pointer-events: none; }
+        @keyframes slideBg { 0% { background-position: 0 0; } 100% { background-position: 1000px 1000px; } }
+
+        .swim-title {
+            position: absolute; top: 40px; left: 50%; transform: translateX(-50%);
+            font-family: 'Great Vibes', cursive; font-size: 4rem; color: var(--text-gold);
+            z-index: 10; text-shadow: 0 5px 20px rgba(0,0,0,0.9); text-align: center; width: 100%;
+        }
+
+        /* SVG Heart Clip-Path Definitions */
+        .svg-defs { position: absolute; width: 0; height: 0; }
+
+        /* The Swimming Logic (Nested wrappers for independence of float vs hover) */
+        .swim-area { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+        
+        .track { position: absolute; pointer-events: auto; }
+        
+        /* Pause the entire track movement on hover so it doesn't run away from the mouse */
+        .track:hover { animation-play-state: paused !important; z-index: 9999 !important; }
+
+        .heart-scale-wrap {
+            width: 250px; height: 250px; position: relative;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+        .track:hover .heart-scale-wrap { transform: scale(1.6); }
+
+        /* The Frame with Roses (Outer Heart) */
+        .rose-frame {
+            position: absolute; width: 100%; height: 100%;
+            clip-path: url(#heartClip); -webkit-clip-path: url(#heartClip);
+            /* A highly dense, beautiful rose pattern background for the frame */
+            background: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600&auto=format&fit=crop') center/cover no-repeat;
+            display: flex; justify-content: center; align-items: center;
+        }
+        
+        /* Inner Photo (Slightly smaller, centered inside the rose frame) */
+        .inner-photo-container {
+            width: 75%; height: 75%; position: relative;
+            clip-path: url(#heartClip); -webkit-clip-path: url(#heartClip);
+            background: #ffecf2; display: flex; justify-content: center; align-items: center;
+            overflow: hidden; border: 2px solid #fff; 
+        }
+
+        .upload-label { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; color: #cc0033; font-weight: bold; }
+        .upload-label i { font-size: 2.5rem; margin-bottom: 5px; color: #ff6699; }
+        .upload-label input { display: none; }
+        .swim-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s; z-index: 5; }
+        .swim-img.loaded { opacity: 1; }
+
+        /* Unique Swimming Paths for 8 images */
+        .track-1 { animation: swim1 25s infinite linear alternate; top: 10%; left: 5%; }
+        .track-2 { animation: swim2 30s infinite linear alternate; top: 20%; right: 10%; }
+        .track-3 { animation: swim3 22s infinite linear alternate; top: 40%; left: 30%; }
+        .track-4 { animation: swim4 28s infinite linear alternate; top: 60%; right: 25%; }
+        .track-5 { animation: swim5 35s infinite linear alternate; top: 5%; left: 45%; }
+        .track-6 { animation: swim6 26s infinite linear alternate; top: 50%; left: 5%; }
+        .track-7 { animation: swim7 32s infinite linear alternate; top: 75%; right: 5%; }
+        .track-8 { animation: swim8 20s infinite linear alternate; top: 80%; left: 40%; }
+
+        /* The Keyframes making them "Float and Swim" randomly across the screen */
+        @keyframes swim1 { 0% { transform: translate(0, 0) rotate(-10deg); } 50% { transform: translate(30vw, 20vh) rotate(15deg); } 100% { transform: translate(10vw, 40vh) rotate(-5deg); } }
+        @keyframes swim2 { 0% { transform: translate(0, 0) rotate(15deg); } 50% { transform: translate(-40vw, 30vh) rotate(-10deg); } 100% { transform: translate(-20vw, 10vh) rotate(5deg); } }
+        @keyframes swim3 { 0% { transform: translate(0, 0) rotate(-5deg); } 50% { transform: translate(20vw, -30vh) rotate(20deg); } 100% { transform: translate(40vw, 10vh) rotate(-15deg); } }
+        @keyframes swim4 { 0% { transform: translate(0, 0) rotate(10deg); } 50% { transform: translate(-30vw, -20vh) rotate(-15deg); } 100% { transform: translate(-50vw, 30vh) rotate(10deg); } }
+        @keyframes swim5 { 0% { transform: translate(0, 0) rotate(0deg); } 50% { transform: translate(20vw, 50vh) rotate(25deg); } 100% { transform: translate(-10vw, 20vh) rotate(-10deg); } }
+        @keyframes swim6 { 0% { transform: translate(0, 0) rotate(-20deg); } 50% { transform: translate(50vw, -10vh) rotate(5deg); } 100% { transform: translate(20vw, -40vh) rotate(-15deg); } }
+        @keyframes swim7 { 0% { transform: translate(0, 0) rotate(25deg); } 50% { transform: translate(-40vw, -50vh) rotate(-5deg); } 100% { transform: translate(-10vw, -20vh) rotate(15deg); } }
+        @keyframes swim8 { 0% { transform: translate(0, 0) rotate(-15deg); } 50% { transform: translate(30vw, -60vh) rotate(10deg); } 100% { transform: translate(50vw, -10vh) rotate(-20deg); } }
+
+        /* ==========================================================================
+           4. PAGE 3: THE ROMANTIC CLIMAX
+           ========================================================================== */
+        #page3 {
+            background: linear-gradient(to bottom, var(--love-bg-top), var(--love-bg-bot));
+            display: flex; flex-direction: column; align-items: center; padding: 0 20px;
+        }
+        
+        #kiss-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+
+        .climax-content {
+            position: relative; z-index: 10; width: 100%; max-width: 900px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            opacity: 0; transform: translateY(50px); transition: all 1.5s ease;
+        }
+        #page3.is-visible .climax-content { opacity: 1; transform: translateY(0); }
+
+        .neon-title {
+            font-family: 'Great Vibes', cursive; font-size: 6rem; color: #fff;
+            text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055, 0 0 40px #ff0055, 0 0 80px #ff0055, 0 0 120px #ff0055;
+            margin-bottom: 40px; animation: neonPulse 1.5s infinite alternate; letter-spacing: 2px;
+        }
+
+        .romantic-para {
+            font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #ffe6eb;
+            line-height: 1.8; margin-bottom: 30px; text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+            background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px;
+            border-left: 4px solid var(--accent-red); border-right: 4px solid var(--accent-red);
+            backdrop-filter: blur(10px); box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .highlight-text { font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--text-gold); display: block; margin: 25px 0; text-shadow: 0 0 20px rgba(255,215,0,0.8); }
+
+        .kiss-btn {
+            margin-top: 40px; padding: 20px 80px; font-size: 2rem; font-family: 'Dancing Script', cursive;
+            color: #fff; background: linear-gradient(45deg, #cc0033, #ff1a4a, #cc0033);
+            background-size: 200%; border: 3px solid #ff99cc; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 15px 35px rgba(255, 26, 74, 0.8), inset 0 0 15px rgba(255,255,255,0.5);
+            transition: all 0.5s ease; animation: bgShift 3s infinite linear; position: relative; z-index: 20;
+        }
+        .kiss-btn:hover { transform: scale(1.1) translateY(-10px); box-shadow: 0 25px 60px rgba(255, 26, 74, 1), 0 0 40px rgba(255,255,255,0.6); }
+
+        /* ==========================================================================
+           5. GLOBAL ANIMATIONS & RESPONSIVE
+           ========================================================================== */
+        @keyframes neonPulse { 0% { text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055, 0 0 40px #ff0055; } 100% { text-shadow: 0 0 15px #ff0055, 0 0 30px #ff0055, 0 0 60px #ff0055, 0 0 100px #ff0055; } }
+        @keyframes bgShift { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+
+        @media (max-width: 900px) {
+            .window-frame { width: 95%; height: 70vh; border-width: 10px; }
+            .letter-container { width: 65%; padding: 20px; }
+            .editable-text { font-size: 1.4rem; }
+            .cute-char { font-size: 4rem; }
+            .heart-scale-wrap { width: 180px; height: 180px; }
+            .swim-title { font-size: 3rem; }
+            .neon-title { font-size: 4rem; }
+            .romantic-para { font-size: 1.2rem; padding: 20px; }
+        }
+        @media (max-width: 600px) {
+            .win-content { flex-direction: column; }
+            .cute-char { font-size: 3rem; margin: 10px 0; }
+            .letter-container { width: 90%; height: 60%; }
+            .heart-scale-wrap { width: 150px; height: 150px; }
+            .track-hover { transform: scale(1.5); }
+            .kiss-btn { font-size: 1.5rem; padding: 15px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <svg class="svg-defs">
+        <defs>
+            <clipPath id="heartClip" clipPathUnits="objectBoundingBox">
+                <path d="M0.5,0.95 C0.5,0.95 0.05,0.6 0.05,0.3 C0.05,0.1 0.25,0.05 0.35,0.15 C0.45,0.25 0.5,0.35 0.5,0.35 C0.5,0.35 0.55,0.25 0.65,0.15 C0.75,0.05 0.95,0.1 0.95,0.3 C0.95,0.6 0.5,0.95 0.5,0.95 Z" />
+            </clipPath>
+        </defs>
+    </svg>
+
+    <div class="main-scroller">
+        
+        <section class="page-section" id="page1">
+            <div class="page1-gif-bg"></div>
+            
+            <div class="click-hint" id="click-hint">Tap to Open Window ✨</div>
+            
+            <div class="window-frame" id="window-frame" onclick="openWindow()">
+                <div class="win-door left"><div class="door-handle"></div></div>
+                <div class="win-door right"><div class="door-handle"></div></div>
+                
+                <div class="win-content">
+                    <div class="cute-char char-left">
+                        🥺
+                        <i class="fa-solid fa-heart char-heart" style="top:-10px; right:-10px;"></i>
+                    </div>
+                    
+                    <div class="letter-container">
+                        <h2 class="letter-header">Happy Kiss Day</h2>
+                        <textarea class="editable-text" spellcheck="false" placeholder="Write your feelings here...">Type your special message here... The gentle breeze from this window carries my love directly to you. 💖</textarea>
+                    </div>
+                    
+                    <div class="cute-char char-right">
+                        😘
+                        <i class="fa-solid fa-heart char-heart" style="top:-10px; left:-10px; animation-delay:1s;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-down"><i class="fa-solid fa-chevron-down"></i></div>
+        </section>
+
+        <section class="page-section" id="page2">
+            <div class="page2-particles"></div>
+            <h2 class="swim-title">A Million Floating Memories...</h2>
+            
+            <div class="swim-area">
+                
+                <div class="track track-1">
+                    <div class="heart-scale-wrap">
+                        <div class="rose-frame">
+                            <div class="inner-photo-container">
+                                <label class="upload-label">
+                                    <i class="fa-solid fa-camera"></i> <span>Upload</span>
+                                    <input type="file" accept="image/*" onchange="previewImg(event, 'swim-img-1')">
+                                </label>
+                                <img id="swim-img-1" class="swim-img" src="" alt="Memory">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="track track-2">
+                    <div class="heart-scale-wrap">
+                        <div class="rose-frame">
+                            <div class="inner-photo-container">
+                                <label class="upload-label">
+                                    <i class="fa-solid fa-camera"></i> <span>Upload</span>
+                                    <input type="file" accept="image/*" onchange="previewImg(event, 'swim-img-2')">
+                                </label>
+                                <img id="swim-img-2" class="swim-img" src="" alt="Memory">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="track track-3">
+                    <div class="heart-scale-wrap">
+                        <div class="rose-frame">
+                            <div class="inner-photo-container">
+                                <label class="upload-label">
+                                    <i class="fa-solid fa-camera"></i> <span>Upload</span>
+                                    <input type="file" accept="image/*" onchange="previewImg(event, 'swim-img-3')">
+                                </label>
+                                <img id="swim-img-3" class="swim-img" src="" alt="Memory">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="track track-4">
+                    <div class="heart-scale-wrap">
+                        <div class="rose-frame">
+                            <div class="inner-photo-container">
+                                <label class="upload-label">
+                                    <i class="fa-solid fa-camera"></i> <span>Upload</span>
+                                    <input type="file" accept="image/*" onchange="previewImg(event, 'swim-img-4')">
+                                </label>
+                                <img id="swim-img-4" class="swim-img" src="" alt="Memory">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="track track-5">
+                    <div class="heart-scale-wrap">
+                        <div class="rose-frame">
+                            <div class="inner-photo-container">
+                                <label class="upload-label">
+                                    <i class="fa-solid fa-camera"></i> <span>Upload</span>
+                                    <input type="file" accept="image/*" onchange="previewImg(event, 'swim-img-5')">
+                                </label>
+                                <img id="swim-img-5" class="swim-img" src="" alt="Memory">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="track track-6">
+                    <div class="heart-scale-wrap">
+                        <div class="rose-frame">
+                            <div class="inner-photo-container">
+                                <label class="upload-label">
+                                    <i class="fa-solid fa-camera"></i> <span>Upload</span>
+                                    <input type="file" accept="image/*" onchange="previewImg(event, 'swim-img-6')">
+                                </label>
+                                <img id="swim-img-6" class="swim-img" src="" alt="Memory">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="track track-7">
+                    <div class="heart-scale-wrap">
+                        <div class="rose-frame">
+                            <div class="inner-photo-container">
+                                <label class="upload-label">
+                                    <i class="fa-solid fa-camera"></i> <span>Upload</span>
+                                    <input type="file" accept="image/*" onchange="previewImg(event, 'swim-img-7')">
+                                </label>
+                                <img id="swim-img-7" class="swim-img" src="" alt="Memory">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="track track-8">
+                    <div class="heart-scale-wrap">
+                        <div class="rose-frame">
+                            <div class="inner-photo-container">
+                                <label class="upload-label">
+                                    <i class="fa-solid fa-camera"></i> <span>Upload</span>
+                                    <input type="file" accept="image/*" onchange="previewImg(event, 'swim-img-8')">
+                                </label>
+                                <img id="swim-img-8" class="swim-img" src="" alt="Memory">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="scroll-down"><i class="fa-solid fa-chevron-down"></i></div>
+        </section>
+
+        <section class="page-section" id="page3">
+            <canvas id="kiss-canvas"></canvas>
+            
+            <div class="climax-content">
+                <h1 class="neon-title">Sealed With A Kiss</h1>
+                
+                <div class="romantic-para">
+                    Just like those floating pictures, my thoughts are constantly swimming with beautiful memories of you. When I close my eyes, your face is the only thing that calms my racing heart. 
+                    <span class="highlight-text">You are my entire universe.</span>
+                    A kiss isn't just a touch of lips; it is a deep connection where our souls whisper secrets that words can never express.
+                </div>
+                
+                <div class="romantic-para">
+                    Let's promise to keep this magical spark alive, to steal kisses under the stars, and to always find our way back into each other's arms. 
+                    Happy Kiss Day, my forever love.
+                </div>
+                
+                <button class="kiss-btn" onclick="burstKisses()">Send a Virtual Kiss 💋</button>
+            </div>
+        </section>
+
+    </div> <script>
+        // --- 1. WINDOW OPEN LOGIC ---
+        let isWindowOpen = false;
+        function openWindow() {
+            if(!isWindowOpen) {
+                document.getElementById('window-frame').classList.add('open');
+                document.getElementById('click-hint').style.display = 'none';
+                isWindowOpen = true;
+            }
+        }
+
+        // --- 2. IMAGE UPLOAD LOGIC ---
+        function previewImg(event, imgId) {
+            const input = event.target;
+            const preview = document.getElementById(imgId);
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.add('loaded');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // --- 3. INTERSECTION OBSERVER FOR PAGE 3 REVEAL ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.target.id === 'page3') {
+                    entry.target.classList.add('is-visible');
+                    if(!particlesActive) startCanvasEngine();
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(document.getElementById('page3'));
+
+        // --- 4. CANVAS PARTICLE ENGINE (Floating Kisses & Hearts on Page 3) ---
+        const canvas = document.getElementById('kiss-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        let particlesActive = false;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight; // Size to viewport
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(isBurst = false) { this.reset(isBurst); }
+            
+            reset(isBurst) {
+                this.x = isBurst ? width / 2 : Math.random() * width;
+                this.y = isBurst ? height - 100 : height + Math.random() * 200;
+                this.size = Math.random() * 25 + 15;
+                this.speedY = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 2;
+                
+                if(isBurst) {
+                    this.speedY = Math.random() * 8 + 4; // Explode upwards
+                    this.speedX = (Math.random() - 0.5) * 10;
+                }
+                
+                this.opacity = Math.random() * 0.5 + 0.5;
+                this.spin = (Math.random() - 0.5) * 0.1;
+                this.angle = Math.random() * Math.PI * 2;
+                this.text = Math.random() > 0.6 ? '💋' : '❤️';
+            }
+            
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.angle += this.spin;
+                this.x += Math.sin(this.y * 0.02) * 2; // Sway
+                
+                if(this.y < 150) this.opacity -= 0.02; // Fade near top
+
+                if (this.y < -50 || this.opacity <= 0) {
+                    this.reset(false); // Reset normally
+                }
+            }
+            
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.globalAlpha = this.opacity;
+                ctx.font = `${this.size}px Arial`;
+                ctx.shadowBlur = 10; ctx.shadowColor = (this.text === '💋') ? "#ff1a4a" : "#ff0055";
+                ctx.fillText(this.text, -this.size/2, this.size/2);
+                ctx.restore();
+            }
+        }
+
+        function startCanvasEngine() {
+            particlesActive = true;
+            for (let i = 0; i < 40; i++) particles.push(new Particle());
+            animate();
+        }
+
+        // Button Burst
+        window.burstKisses = function() {
+            for(let i=0; i<40; i++) particles.push(new Particle(true));
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            if(particlesActive) requestAnimationFrame(animate);
+        }
+    </script>
+</body>
+</html>
