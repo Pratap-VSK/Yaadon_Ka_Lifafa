@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EverUs❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Great+Vibes&family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Ambient Floating Orbs & Glow -->
+    <div class="ambient-glow" id="ambientGlow"></div>
+
+    <!-- Password Modal Overlay -->
+    <div class="password-overlay" id="passwordOverlay">
+        <canvas class="particle-canvas" id="lockCanvas"></canvas>
+        <div class="glass-card password-card tilt-card">
+            <div class="shimmer-overlay"></div>
+            <div class="password-lock-icon">🔐</div>
+            <h2 class="password-title">A Little Surprise</h2>
+            <p class="password-sub">Some websites are built for moments like these.<br>Enter the secret to open this one</p>
+            <form id="passwordForm" onsubmit="checkPasscode(event)">
+                <div class="password-input-wrap">
+                    <input type="password" id="passcodeInput" placeholder="Enter password..." autocomplete="off" autofocus>
+                    <span class="password-eye-btn" onclick="togglePassVisibility()" title="Show/Hide Password">👁️</span>
+                </div>
+                <button type="submit" class="btn-glow password-submit-btn">Open Our World❤️</button>
+            </form>
+            <p class="password-error hidden" id="passwordError">Hmm, that's not it.Try again❤️</p>
+            <p class="password-hint">hint: a promise of forever 💍</p>
+        </div>
+    </div>
+
+    <!-- Cursor Trail -->
+    <div class="cursor-trail" id="cursorTrail"></div>
+
+    <!-- Page Indicator Dots -->
+    <div class="page-indicator" id="pageIndicator"></div>
+
+    <!-- Music Toggle -->
+    <button class="music-toggle" id="musicToggle" title="Toggle Music">♫</button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="terabanjaunga.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ==================== PAGE 0: LOADING ==================== -->
+    <section class="page active" id="page0" data-page="0">
+        <canvas class="particle-canvas" id="loadingCanvas"></canvas>
+        <div class="page-content">
+            <p class="loading-text">A little love is on its way...</p>
+            <div class="heart-progress-bar">
+                <div class="heart-progress-fill" id="heartProgressFill"></div>
+                <div class="heart-progress-icon" id="heartProgressIcon">❤️</div>
+            </div>
+            <p class="loading-subtext" id="loadingSubtext">Preparing something special</p>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 1: OPENING ==================== -->
+    <section class="page" id="page1" data-page="1">
+        <canvas class="particle-canvas" id="starsCanvas1"></canvas>
+        <div class="parallax-layer parallax-slow"></div>
+        <div class="parallax-layer parallax-fast"></div>
+        <div class="page-content">
+            <p class="subtitle fade-subtitle" id="openingSubtitle">This was made just for You...</p>
+            <h1 class="main-title reveal-text" id="openingTitle">For You,<br>My Love❤️</h1>
+            <p class="description word-reveal" id="openingDesc">Some words feel too big for a single message... so here is a little universe built for them</p>
+            <button class="btn-glow fade-in-up" id="openSurpriseBtn" style="animation-delay:4s; opacity:0" onclick="openSurprise(this)">Open This For Me💌</button>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 2: LOVE LETTER ==================== -->
+    <section class="page" id="page2" data-page="2">
+        <canvas class="particle-canvas" id="heartsCanvas2"></canvas>
+        <div class="aurora-bg"></div>
+        <div class="page-content">
+            <h2 class="section-title">A little letter,<br>just for you</h2>
+            <p class="section-subtitle">For the one who makes every day feel like a story</p>
+            <div class="glass-card love-letter tilt-card" id="loveLetter">
+                <div class="shimmer-overlay"></div>
+                <div class="letter-content" id="letterContent"></div>
+            </div>
+            <button class="btn-glow" onclick="goToPage(3)" style="margin-top:2rem">Continue❤️</button>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 3: HEART TO LOVE TREE ==================== -->
+    <section class="page" id="page3" data-page="3">
+        <canvas class="particle-canvas" id="treeCanvas"></canvas>
+        <div class="page-content tree-page-content">
+            <div class="tree-text" id="treeText1">
+                <p class="tree-quote">Sometimes, one heart<br>isn't enough to hold all this love</p>
+            </div>
+            <div class="tree-text hidden" id="treeText2">
+                <p class="tree-quote">One heart became many...<br>and somehow,<br>they all became a little world of us❤️</p>
+                <p class="tree-sub">Our love keeps growing, Dear🌳❤️</p>
+            </div>
+            <div class="tree-text hidden" id="treeText3">
+                <p class="tree-quote">Still growing<br>Still choosing you<br>Always you☀️❤️</p>
+            </div>
+            <button class="btn-glow hidden" id="treeNextBtn" onclick="goToPage(4)" style="margin-top:1rem">Continue❤️</button>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 4: OUR LOVE STORY ==================== -->
+    <section class="page" id="page4" data-page="4">
+        <canvas class="particle-canvas" id="starsCanvas4"></canvas>
+        <div class="aurora-bg aurora-alt"></div>
+        <div class="page-content page-content-scroll">
+            <h2 class="section-title">How it all began</h2>
+            <p class="section-subtitle">The story that started with us<br>and is still being written</p>
+            <div class="timeline" style="margin-top:0.5rem">
+                <div class="timeline-line" id="timelineLine"></div>
+                <div class="timeline-item" data-anim>
+                    <div class="timeline-heart">✨</div>
+                    <div class="glass-card timeline-card tilt-card">
+                        <div class="shimmer-overlay"></div>
+                        <h3>THE BEGINNING</h3>
+                        <p class="timeline-date">The moment it all started</p>
+                        <p class="timeline-text">The moment I saw you,<br>every ordinary day<br>suddenly had a reason to be special</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-anim>
+                    <div class="timeline-heart">💫</div>
+                    <div class="glass-card timeline-card tilt-card">
+                        <div class="shimmer-overlay"></div>
+                        <h3>FALLING DEEPER</h3>
+                        <p class="timeline-date">When it started to feel real</p>
+                        <p class="timeline-text">I never planned to fall in love...<br>but with you,<br>I keep falling a little more every day</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-anim>
+                    <div class="timeline-heart">♾️</div>
+                    <div class="glass-card timeline-card tilt-card">
+                        <div class="shimmer-overlay"></div>
+                        <h3>US, ALWAYS</h3>
+                        <p class="timeline-date">And whatever comes next</p>
+                        <p class="timeline-text">Through every chapter, every season —<br>I'll keep choosing you<br>and it will always end with us</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-glow" onclick="goToPage(5)" style="margin-top:2rem">Continue❤️</button>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 5: 3D PHOTO MEMORIES SHOWCASE ==================== -->
+    <section class="page" id="page5" data-page="5">
+        <canvas class="particle-canvas" id="starsCanvas5"></canvas>
+        <div class="aurora-bg"></div>
+        <div class="page-content page-content-scroll">
+            <h2 class="section-title">Our Cherished Moments</h2>
+            <p class="section-subtitle">A glimpse of the memories we built together✨</p>
+
+            <!-- 3D Interactive Memory Deck -->
+            <div class="memory-showcase-3d" id="memoryDeck">
+                <div class="memory-nav-btn prev-btn" onclick="prevMemory()" title="Previous Moment">❮</div>
+
+                <div class="memory-card-stack" id="cardStack">
+                    <!-- Moment 1: Sunsets -->
+                    <div class="memory-slide active" data-slide="0">
+                        <div class="single-photo-card glass-card tilt-card">
+                            <div class="shimmer-overlay"></div>
+                            <div class="photo-frame-3d">
+                                <img src="us.jpg" alt="Golden Hours" class="photo-img">
+                                <div class="photo-glare"></div>
+                                <div class="photo-badge">Sunsets🌅</div>
+                            </div>
+                            <div class="shayari-container">
+                                <p class="shayari-tag">✨</p>
+                                <p class="shayari-quote">"Every golden hour is prettier when you're standing in it with me"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Moment 2: A Promise -->
+                    <div class="memory-slide" data-slide="1">
+                        <div class="single-photo-card glass-card tilt-card highlight-memory">
+                            <div class="shimmer-overlay"></div>
+                            <div class="photo-frame-3d">
+                                <img src="us1.jpg" alt="A Promise" class="photo-img">
+                                <div class="photo-glare"></div>
+                                <div class="photo-badge gold-badge">Our Promise💍</div>
+                            </div>
+                            <div class="shayari-container">
+                                <p class="shayari-tag gold-text">A Promise for Forever</p>
+                                <p class="shayari-quote">"The day two hearts choose one beautiful forever together"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Moment 3: Adventures Together -->
+                    <div class="memory-slide" data-slide="2">
+                        <div class="single-photo-card glass-card tilt-card">
+                            <div class="shimmer-overlay"></div>
+                            <div class="photo-frame-3d">
+                                <img src="us2.jpg" alt="Our Adventures" class="photo-img">
+                                <div class="photo-glare"></div>
+                                <div class="photo-badge">Adventures 🗺️</div>
+                            </div>
+                            <div class="shayari-container">
+                                <p class="shayari-tag">You & Me</p>
+                                <p class="shayari-quote">"Every journey becomes magical when I am walking right beside you"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Moment 4: Dancing / Forever -->
+                    <div class="memory-slide" data-slide="3">
+                        <div class="single-photo-card glass-card tilt-card">
+                            <div class="shimmer-overlay"></div>
+                            <div class="photo-frame-3d">
+                                <img src="us3.jpg" alt="Just Us" class="photo-img">
+                                <div class="photo-glare"></div>
+                                <div class="photo-badge">Timeless♾️</div>
+                            </div>
+                            <div class="shayari-container">
+                                <p class="shayari-tag">Timeless Moments</p>
+                                <p class="shayari-quote">"Classic vibes and a love that only grows deeper with time"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="memory-nav-btn next-btn" onclick="nextMemory()" title="Next Moment">❯</div>
+            </div>
+
+            <!-- Thumbnail Indicators -->
+            <div class="memory-thumbnails" id="memoryThumbs">
+                <div class="thumb-item active" onclick="jumpToMemory(0)">
+                    <img src="us.jpg" alt="Thumb 1">
+                </div>
+                <div class="thumb-item" onclick="jumpToMemory(1)">
+                    <img src="us1.jpg" alt="Thumb 2">
+                </div>
+                <div class="thumb-item" onclick="jumpToMemory(2)">
+                    <img src="us2.jpg" alt="Thumb 3">
+                </div>
+                <div class="thumb-item" onclick="jumpToMemory(3)">
+                    <img src="us3.jpg" alt="Thumb 4">
+                </div>
+            </div>
+
+            <button class="btn-glow" onclick="goToPage(6)" style="margin-top:2.2rem">Continue❤️</button>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 6: LOVE METER ==================== -->
+    <section class="page" id="page6" data-page="6">
+        <canvas class="particle-canvas" id="heartsCanvas6"></canvas>
+        <div class="page-content">
+            <h2 class="section-title">Let's calculate something...</h2>
+            <p class="section-subtitle">How much do I love you?</p>
+            <div class="love-meter-container" id="loveMeter">
+                <div class="love-meter-bar">
+                    <div class="love-meter-fill" id="loveMeterFill"></div>
+                    <span class="love-meter-text" id="loveMeterText">0%</span>
+                </div>
+                <button class="btn-glow" id="calcLoveBtn" onclick="calculateLove()">Calculate❤️</button>
+                <div class="love-meter-result hidden" id="loveMeterResult">
+                    <p class="glitch-text">ERROR 404:<br>Love limit not found❤️</p>
+                    <p class="love-final-text">Apparently, I love you more than the universe can measure</p>
+                </div>
+            </div>
+            <button class="btn-glow hidden" id="loveMeterNext" onclick="goToPage(7)" style="margin-top:2rem">Continue❤️</button>
+        </div>
+    </section>
+
+    <!-- ==================== PAGE 7: FINAL ==================== -->
+    <section class="page" id="page7" data-page="7">
+        <canvas class="particle-canvas" id="finalCanvas"></canvas>
+        <canvas class="fireworks-canvas" id="fireworksCanvas"></canvas>
+        <canvas class="constellation-canvas" id="constellationCanvas"></canvas>
+        <div class="page-content page-content-scroll">
+            <h1 class="main-title" id="finalTitle">For You,<br>Forever & Always❤️</h1>
+            <p class="description" id="finalDesc1">I love you<br>more than this little website<br>could ever explain</p>
+            <p class="description engagement-text" id="finalDesc2" style="margin-top:1.5rem">Here's to us, My Love<br>to every day, every memory, and everything still to come✨</p>
+            <button class="btn-glow" id="finalSurpriseBtn" onclick="finalSurprise()">One Last Surprise✨</button>
+            <div class="hidden" id="finalMessage">
+                <p class="final-text">Forever grateful<br>that you're my love, my life, my everything❤️</p>
+                <p class="description" style="margin-top:1.2rem">And like every good love story…<br>this one is only just beginning✨</p>
+                <p class="signature">— Forever Yours✨</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
